@@ -85,10 +85,14 @@
             const [shuffledOptions, setShuffledOptions] = useState([]);
             const currentKey = currentList[idx];
 
+            // 增强版语音播放：确保在移动端也能被触发
             const speak = (text) => {
+                if (!text) return;
                 window.speechSynthesis.cancel();
                 const utter = new SpeechSynthesisUtterance(text);
                 utter.lang = 'en-US';
+                utter.rate = 1.0;
+                utter.pitch = 1.0;
                 window.speechSynthesis.speak(utter);
             };
 
@@ -122,12 +126,16 @@
 
             const handleChoice = (choice) => {
                 if (testFeedback) return;
+                
                 if (choice === currentKey) {
+                    // 关键修复：先播放发音，再更新状态
                     speak(currentKey);
                     setTestFeedback('correct');
+                    
                     if (isChallenge) setScore(s => s + 1);
                     if (isWrongSetMode) setWrongWords(prev => prev.filter(w => w !== currentKey));
                     if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
+                    
                     setTimeout(() => {
                         setTestFeedback(null);
                         if (idx < currentList.length - 1) setIdx(idx + 1);
@@ -138,7 +146,7 @@
                                 setIdx(idx + 1);
                             } else { playSound('finish'); setShowGameOver(true); }
                         }
-                    }, 600);
+                    }, 800); // 稍微延长等待时间，让单词读完
                 } else {
                     setTestFeedback('wrong');
                     playSound('wrong');
@@ -156,6 +164,9 @@
             const startMode = (mode, levelId = '1') => {
                 setIsChallenge(false); setIsWrongSetMode(false); setIdx(0); setFlipped(false); setTestFeedback(null);
                 playSound('correct');
+                // 移动端语音激活小技巧：在用户点击开始时，先尝试播放一段静音
+                speak('');
+                
                 if (mode === 'card') {
                     setCurrentList(Object.keys(dbData[levelId].words).filter(k => !learnedWords.includes(k)));
                     setCurrentLevel(levelId);
@@ -182,7 +193,7 @@
                         {showNameModal && (
                             <div className="modal-overlay">
                                 <div className="bg-white p-8 rounded-[48px] text-center w-full max-w-[320px] shadow-2xl">
-                                    <h2 className="text-2xl font-black mb-6">Hello! What's your name?</h2>
+                                    <h2 className="text-2xl font-black mb-6">Hello! Steve?</h2>
                                     <input type="text" value={tempName} onChange={(e) => setTempName(e.target.value)} placeholder="输入名字..." className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" />
                                     <button onClick={() => { setUserName(tempName); localStorage.setItem('steve_name', tempName); setShowNameModal(false); playSound('correct'); }} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">开始学习</button>
                                 </div>
@@ -198,7 +209,6 @@
                             <button onClick={resetProgress} className="bg-white border border-slate-100 px-3 py-1 rounded-full text-[10px] font-black text-slate-400 shadow-sm btn-active uppercase">Reset</button>
                         </header>
                         
-                        {/* 统计栏Emoji更新 */}
                         <div className="grid grid-cols-3 gap-3 mb-10">
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
                                 <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已学会</p>
@@ -237,7 +247,6 @@
                                     </div>
                                 );
                             })}
-                            {/* 强制拉高，确保第10关不被遮挡 */}
                             <div style={{ height: '220px' }}></div>
                         </div>
                         

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Steve's English Master</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="vocabulary.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+        body { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; overflow: hidden; }
+        .card-inner { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; height: 420px; }
+        .flipped { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); border: 8px solid white; }
+        .card-front { background: white; }
+        .card-back { background: #6366F1; color: white; transform: rotateY(180deg); }
+        .reward-overlay { animation: fadeIn 0.4s ease-out forwards; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+        .celebration-content { animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { 0% { transform: scale(0.5) translateY(50px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+        .confetti { position: absolute; width: 12px; height: 12px; border-radius: 2px; animation: fall 3s infinite linear; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef } = React;
+
+        const App = () => {
+            const [view, setView] = useState('menu');
+            const [currentLevel, setCurrentLevel] = useState(() => localStorage.getItem('steve_level') || '1');
+            const [idx, setIdx] = useState(() => parseInt(localStorage.getItem('steve_idx')) || 0);
+            const [learnedWords, setLearnedWords] = useState(() => JSON.parse(localStorage.getItem('steve_learned') || '[]'));
+            const [wrongWords, setWrongWords] = useState(() => JSON.parse(localStorage.getItem('steve_wrong') || '[]'));
+            const [isChallenge, setIsChallenge] = useState(false);
+            const [challengeList, setChallengeList] = useState([]);
+            const [flipped, setFlipped] = useState(false);
+            const [showReward, setShowReward] = useState(false);
+            const [testFeedback, setTestFeedback] = useState(null);
+
+            const audioRef = useRef({
+                // 现在 mastered 使用和 correct 一样的音效
+                correct: new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'),
+                wrong: new Audio('https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3'),
+                reward: new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'),
+                challenge_win: new Audio('https://assets.mixkit.co/active_storage/sfx/1433/1433-preview.mp3')
+            });
+
+            const playSound = (type) => {
+                const sound = audioRef.current[type];
+                if (sound) { sound.currentTime = 0; sound.play().catch(() => {}); }
+            };
+
+            useEffect(() => {
+                localStorage.setItem('steve_level', currentLevel);
+                localStorage.setItem('steve_idx', idx);
+                localStorage.setItem('steve_learned', JSON.stringify(learnedWords));
+                localStorage.setItem('steve_wrong', JSON.stringify(wrongWords));
+            }, [currentLevel, idx, learnedWords, wrongWords]);
+
+            const currentWordsKeys = isChallenge ? challengeList : (DB[currentLevel] ? Object.keys(DB[currentLevel].words) : []);
+            const word = currentWordsKeys[idx] || "";
+            const info = useMemo(() => {
+                for (let lvl in DB) { if (DB[lvl].words[word]) return DB[lvl].words[word]; }
+                return ["❓", "未知", "Unknown", "No sentence", 0];
+            }, [word]);
+
+            const startChallenge = (list) => {
+                const shuffled = [...list].sort(() => 0.5 - Math.random()).slice(0, 20);
+                setChallengeList(shuffled);
+                setIsChallenge(true);
+                setIdx(0);
+                setView('test');
+            };
+
+            const speak = (text) => {
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.lang = 'en-US';
+                utter.rate = 0.8;
+                window.speechSynthesis.speak(utter);
+            };
+
+            const toggleMastered = (e) => {
+                e.stopPropagation();
+                if (!learnedWords.includes(word)) {
+                    // 修改点：这里改为播放 'correct' 音效
+                    playSound('correct');
+                    setLearnedWords(p => [...p, word]);
+                } else {
+                    setLearnedWords(p => p.filter(w => w !== word));
+                }
+            };
+
+            const handleChoice = (choice) => {
+                if (choice === word) {
+                    playSound('correct'); setTestFeedback('correct');
+                    if (!learnedWords.includes(word)) setLearnedWords(p => [...p, word]);
+                    setTimeout(() => {
+                        setTestFeedback(null);
+                        if (idx < currentWordsKeys.length - 1) setIdx(idx + 1);
+                        else { playSound(isChallenge ? 'challenge_win' : 'reward'); setShowReward(true); }
+                    }, 600);
+                } else {
+                    playSound('wrong'); setTestFeedback('wrong');
+                    if (!wrongWords.includes(word)) setWrongWords(p => [...p, word]);
+                    setTimeout(() => setTestFeedback(null), 600);
+                }
+            };
+
+            const testOptions = useMemo(() => {
+                if (view !== 'test' || !word) return [];
+                const others = FULL_LIST.filter(w => w !== word).sort(() => 0.5 - Math.random()).slice(0, 3);
+                return [word, ...others].sort(() => 0.5 - Math.random());
+            }, [view, idx, word]);
+
+            if (view === 'menu') {
+                return (
+                    <div className="max-w-md mx-auto p-6 h-screen flex flex-col">
+                        <div className="flex justify-between items-end mb-4">
+                            <h1 className="text-4xl font-black text-slate-800 tracking-tight">My first 1000 words</h1>
+                            <div className="text-right">
+                                <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Total Progress</span>
+                                <span className="text-2xl font-black text-indigo-600">{learnedWords.length}/1000</span>
+                            </div>
+                        </div>
+                        <div className="mb-6 bg-white p-4 rounded-3xl shadow-sm border border-slate-100">
+                            <div className="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="h-full bg-indigo-500 transition-all duration-1000" style={{width: `${(learnedWords.length/1000)*100}%`}}></div>
+                            </div>
+                        </div>
+                        <div className="flex-1 overflow-y-auto space-y-4 pr-1 pb-4">
+                            {Object.values(DB).map(lvl => {
+                                const lKeys = Object.keys(lvl.words);
+                                const lDone = lKeys.filter(w => learnedWords.includes(w)).length;
+                                return (
+                                    <div key={lvl.levelIndex} className="bg-white p-5 rounded-[32px] shadow-sm flex items-center border-b-4 border-slate-200">
+                                        <div className="text-3xl mr-4">{lvl.levelEmoji}</div>
+                                        <div className="flex-1">
+                                            <h3 className="font-black text-slate-700">{lvl.levelName.split(': ')[1]}</h3>
+                                            <div className="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+                                                <div className="h-full bg-green-400" style={{width: `${(lDone / lKeys.length) * 100}%`}}></div>
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2 ml-4">
+                                            <button onClick={()=>{setCurrentLevel(lvl.levelIndex); setIdx(0); setIsChallenge(false); setView('card');}} 
+                                                className="w-12 h-12 flex items-center justify-center bg-indigo-50 text-xl rounded-2xl active:scale-90 transition-transform shadow-sm">📖</button>
+                                            <button onClick={()=>{setCurrentLevel(lvl.levelIndex); setIdx(0); setIsChallenge(false); setView('test');}} 
+                                                className="w-12 h-12 flex items-center justify-center bg-orange-50 text-xl rounded-2xl active:scale-90 transition-transform shadow-sm">🕹️</button>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                        <div className="grid grid-cols-2 gap-3 mt-6 pt-4 border-t border-slate-200">
+                            <button onClick={() => startChallenge(FULL_LIST)} className="bg-slate-800 text-white p-4 rounded-[28px] shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2">
+                                <span className="text-xl">⚡</span>
+                                <span className="font-black text-sm uppercase">20词挑战</span>
+                            </button>
+                            <button onClick={() => wrongWords.length > 0 ? startChallenge(wrongWords) : alert('没有错题！')} 
+                                className={`p-4 rounded-[28px] shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 ${wrongWords.length > 0 ? 'bg-rose-500 text-white' : 'bg-slate-200 text-slate-400'}`}>
+                                <span className="text-xl">📕</span>
+                                <span className="font-black text-sm">错题集</span>
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="max-w-md mx-auto h-screen flex flex-col p-6 bg-slate-50 relative overflow-hidden">
+                    <header className="flex justify-between items-center mb-6">
+                        <button onClick={()=>setView('menu')} className="font-black text-slate-400 text-xs uppercase tracking-tighter">← BACK</button>
+                        <div className="text-center">
+                            <div className="text-[10px] font-black text-slate-300 uppercase leading-none">{isChallenge ? "Challenge" : `Level ${currentLevel}`}</div>
+                            <div className="text-xs font-black text-slate-800 font-mono tracking-widest">{idx + 1}/{currentWordsKeys.length}</div>
+                        </div>
+                        <span className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm font-black text-slate-200 text-[10px]">#{info[4]}</span>
+                    </header>
+
+                    <div className="flex-1 flex items-center justify-center relative">
+                        {view === 'card' ? (
+                            <div className={`card-inner w-full relative ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
+                                <div className="card-face card-front">
+                                    <div className="text-[120px] mb-4 drop-shadow-xl">{info[0]}</div>
+                                    <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">{word}</div>
+                                    <button onClick={(e)=>{e.stopPropagation(); speak(word);}} className="mt-8 p-5 bg-slate-100 text-2xl rounded-full active:scale-90 transition-transform">🔊</button>
+                                </div>
+                                <div className="card-face card-back p-8 text-center">
+                                    <div className="text-4xl font-black mb-1">{info[1]}</div>
+                                    <div className="text-indigo-200 font-bold mb-6 italic text-sm">{info[2]}</div>
+                                    <div className="bg-white/10 p-6 rounded-3xl mb-12 border border-white/20 w-full" onClick={(e)=>{e.stopPropagation(); speak(info[3]);}}>
+                                        <p className="text-lg leading-snug italic font-medium">"{info[3]}"</p>
+                                    </div>
+                                    <button onClick={toggleMastered} 
+                                        className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-300 transform active:scale-75 shadow-lg border-4 border-white
+                                        ${learnedWords.includes(word) ? 'bg-green-400 text-white scale-110' : 'bg-white/20 text-white/40'}`}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="w-full text-center">
+                                <div className="text-[140px] mb-12 drop-shadow-2xl animate-bounce">{info[0]}</div>
+                                <div className="grid grid-cols-2 gap-4 px-2">
+                                    {testOptions.map(opt => (
+                                        <button key={opt} onClick={()=>handleChoice(opt)} 
+                                            className={`p-6 rounded-[32px] font-black text-xl transition-all border-b-8 active:scale-95
+                                            ${testFeedback === 'correct' && opt === word ? 'bg-green-500 text-white border-green-700' : 
+                                              testFeedback === 'wrong' && opt !== word ? 'bg-red-100 text-red-300 border-red-200' : 'bg-white text-slate-700 border-slate-200 shadow-sm'}`}>
+                                            {opt}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="mt-8 flex justify-between gap-4">
+                        <button onClick={()=>{if(idx>0){setIdx(idx-1); setFlipped(false);}}} className="flex-1 p-5 bg-white rounded-3xl shadow-sm font-black text-slate-300 text-xs active:bg-slate-100 uppercase tracking-widest">Prev</button>
+                        <button onClick={()=>{if(idx < currentWordsKeys.length-1){setIdx(idx+1); setFlipped(false);}}} className="flex-1 p-5 bg-indigo-600 rounded-3xl shadow-xl font-black text-white text-xs active:scale-95 transition-transform uppercase tracking-widest">Next</button>
+                    </div>
+
+                    {showReward && (
+                        <div className="fixed inset-0 z-[200] reward-overlay flex items-center justify-center">
+                            {[...Array(20)].map((_, i) => (
+                                <div key={i} className="confetti" style={{ left: Math.random() * 100 + 'vw', animationDelay: Math.random() * 2 + 's', backgroundColor: ['#fff', '#FFD700', '#FF69B4', '#00FFFF'][Math.floor(Math.random()*4)] }}></div>
+                            ))}
+                            <div className="celebration-content text-center px-10">
+                                <div className="text-[120px] mb-6 drop-shadow-2xl">{isChallenge ? "🏆" : "🎉"}</div>
+                                <h2 className="text-5xl font-black text-white mb-8 tracking-tighter">{isChallenge ? "挑战达成!" : "关卡完成!"}</h2>
+                                <button onClick={()=>{setShowReward(false); setView('menu');}} className="bg-white text-indigo-600 px-20 py-5 rounded-full font-black text-2xl shadow-xl active:translate-y-1 transition-all">确定</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

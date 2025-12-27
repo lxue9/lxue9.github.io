@@ -11,7 +11,7 @@
     <script src="vocabulary.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-        body { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; overflow: hidden; }
+        body { font-family: 'Nunito', sans-serif; -webkit-tap-highlight-color: transparent; overflow: hidden; touch-action: pan-y; }
         .card-inner { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; height: 420px; }
         .flipped { transform: rotateY(180deg); }
         .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); border: 8px solid white; }
@@ -23,6 +23,9 @@
         @keyframes popIn { 0% { transform: scale(0.5) translateY(50px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
         .confetti { position: absolute; width: 12px; height: 12px; border-radius: 2px; animation: fall 3s infinite linear; }
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        
+        /* 防止滑动时触发系统返回手势或页面刷新 */
+        .swipe-area { touch-action: none; }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -43,8 +46,10 @@
             const [showReward, setShowReward] = useState(false);
             const [testFeedback, setTestFeedback] = useState(null);
 
+            // 用于记录滑动手势
+            const touchStart = useRef(null);
+
             const audioRef = useRef({
-                // 现在 mastered 使用和 correct 一样的音效
                 correct: new Audio('https://assets.mixkit.co/active_storage/sfx/2000/2000-preview.mp3'),
                 wrong: new Audio('https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3'),
                 reward: new Audio('https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3'),
@@ -70,6 +75,39 @@
                 return ["❓", "未知", "Unknown", "No sentence", 0];
             }, [word]);
 
+            const goNext = () => {
+                if (idx < currentWordsKeys.length - 1) {
+                    setIdx(idx + 1);
+                    setFlipped(false);
+                }
+            };
+
+            const goPrev = () => {
+                if (idx > 0) {
+                    setIdx(idx - 1);
+                    setFlipped(false);
+                }
+            };
+
+            // 滑动手势逻辑
+            const handleTouchStart = (e) => {
+                touchStart.current = e.targetTouches[0].clientX;
+            };
+
+            const handleTouchEnd = (e) => {
+                if (!touchStart.current) return;
+                const touchEnd = e.changedTouches[0].clientX;
+                const distance = touchStart.current - touchEnd;
+                const minSwipeDistance = 50; // 最小滑动像素阈值
+
+                if (distance > minSwipeDistance) {
+                    goNext(); // 向左划，去下一张
+                } else if (distance < -minSwipeDistance) {
+                    goPrev(); // 向右划，去上一张
+                }
+                touchStart.current = null;
+            };
+
             const startChallenge = (list) => {
                 const shuffled = [...list].sort(() => 0.5 - Math.random()).slice(0, 20);
                 setChallengeList(shuffled);
@@ -88,7 +126,6 @@
             const toggleMastered = (e) => {
                 e.stopPropagation();
                 if (!learnedWords.includes(word)) {
-                    // 修改点：这里改为播放 'correct' 音效
                     playSound('correct');
                     setLearnedWords(p => [...p, word]);
                 } else {
@@ -98,8 +135,9 @@
 
             const handleChoice = (choice) => {
                 if (choice === word) {
-                    playSound('correct'); setTestFeedback('correct');
-                    if (!learnedWords.includes(word)) setLearnedWords(p => [...p, word]);
+                    playSound('correct'); 
+                    setTestFeedback('correct');
+                    if (!learnedWords.includes(word)) setLearnedWords(prev => [...prev, word]);
                     setTimeout(() => {
                         setTestFeedback(null);
                         if (idx < currentWordsKeys.length - 1) setIdx(idx + 1);
@@ -122,7 +160,7 @@
                 return (
                     <div className="max-w-md mx-auto p-6 h-screen flex flex-col">
                         <div className="flex justify-between items-end mb-4">
-                            <h1 className="text-4xl font-black text-slate-800 tracking-tight">My first 1000 words</h1>
+                            <h1 className="text-4xl font-black text-slate-800 tracking-tight">Steve Play</h1>
                             <div className="text-right">
                                 <span className="block text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Total Progress</span>
                                 <span className="text-2xl font-black text-indigo-600">{learnedWords.length}/1000</span>
@@ -182,7 +220,12 @@
                         <span className="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm font-black text-slate-200 text-[10px]">#{info[4]}</span>
                     </header>
 
-                    <div className="flex-1 flex items-center justify-center relative">
+                    {/* 增加滑动监听区域 */}
+                    <div 
+                        className="flex-1 flex items-center justify-center relative swipe-area"
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
                         {view === 'card' ? (
                             <div className={`card-inner w-full relative ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                                 <div className="card-face card-front">
@@ -223,8 +266,8 @@
                     </div>
 
                     <div className="mt-8 flex justify-between gap-4">
-                        <button onClick={()=>{if(idx>0){setIdx(idx-1); setFlipped(false);}}} className="flex-1 p-5 bg-white rounded-3xl shadow-sm font-black text-slate-300 text-xs active:bg-slate-100 uppercase tracking-widest">Prev</button>
-                        <button onClick={()=>{if(idx < currentWordsKeys.length-1){setIdx(idx+1); setFlipped(false);}}} className="flex-1 p-5 bg-indigo-600 rounded-3xl shadow-xl font-black text-white text-xs active:scale-95 transition-transform uppercase tracking-widest">Next</button>
+                        <button onClick={goPrev} className="flex-1 p-5 bg-white rounded-3xl shadow-sm font-black text-slate-300 text-xs active:bg-slate-100 uppercase tracking-widest">Prev</button>
+                        <button onClick={goNext} className="flex-1 p-5 bg-indigo-600 rounded-3xl shadow-xl font-black text-white text-xs active:scale-95 transition-transform uppercase tracking-widest">Next</button>
                     </div>
 
                     {showReward && (

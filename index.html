@@ -19,12 +19,12 @@
             overflow-x: hidden; touch-action: pan-y;
         }
         
-        /* 浮动 Emoji 动画 */
+        /* 1. 浮動 Emoji 動畫 */
         @keyframes emoji-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
         .floating-emoji { display: inline-block; animation: emoji-jump 2s ease-in-out infinite; }
 
-        /* 黄金雨背景发光 */
-        .gold-glow { box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); border: 4px solid #FFD700; }
+        /* 2. 黃金雨特效背景 */
+        .gold-glow { box-shadow: 0 0 50px rgba(255, 215, 0, 0.4); border: 4px solid #FFD700 !important; }
 
         .floating-nav { 
             position: fixed; bottom: 24px; left: 20px; right: 20px; 
@@ -50,23 +50,19 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
 
-        // 全局撒花/黄金雨逻辑
+        // 全局噴泉/黃金雨函數
         window.fireSuccessConfetti = (isGoldRain = false) => {
             if (typeof confetti !== 'function') return;
-            
-            const duration = isGoldRain ? 10 * 1000 : 2.5 * 1000; 
+            const duration = isGoldRain ? 10 * 1000 : 2.5 * 1000;
             const animationEnd = Date.now() + duration;
             const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
-
             const randomInRange = (min, max) => Math.random() * (max - min) + min;
 
             const interval = setInterval(() => {
                 const timeLeft = animationEnd - Date.now();
                 if (timeLeft <= 0) return clearInterval(interval);
-
-                const particleCount = isGoldRain ? 100 : 40 * (timeLeft / duration);
-                const colors = isGoldRain ? ['#FFD700', '#FFFACD', '#FF8C00', '#EAB308'] : undefined; 
-
+                const particleCount = isGoldRain ? 100 : 50;
+                const colors = isGoldRain ? ['#FFD700', '#FFA500', '#FF8C00', '#FAE64D'] : undefined;
                 confetti({ ...defaults, particleCount, colors, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
                 confetti({ ...defaults, particleCount, colors, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
             }, 250);
@@ -86,6 +82,8 @@
             const [learnedWords, setLearnedWords] = useState(() => JSON.parse(localStorage.getItem('steve_learned') || '[]'));
             const [wrongWords, setWrongWords] = useState(() => JSON.parse(localStorage.getItem('steve_wrong') || '[]'));
             const [highScore, setHighScore] = useState(() => parseInt(localStorage.getItem('steve_highscore')) || 0);
+            
+            // 3. 打卡天數修復邏輯
             const [streak, setStreak] = useState(() => parseInt(localStorage.getItem('steve_streak')) || 0);
 
             const [isChallenge, setIsChallenge] = useState(false);
@@ -112,7 +110,20 @@
             const [shuffledOptions, setShuffledOptions] = useState([]);
             const currentKey = currentList[idx];
 
-            // 监听结束状态触发动画
+            // 4. 自動計算打卡天數
+            useEffect(() => {
+                const lastDate = localStorage.getItem('steve_last_date');
+                const today = new Date().toDateString();
+                
+                if (lastDate !== today) {
+                    const newStreak = streak + 1;
+                    setStreak(newStreak);
+                    localStorage.setItem('steve_streak', newStreak.toString());
+                    localStorage.setItem('steve_last_date', today);
+                }
+            }, []);
+
+            // 監聽生存模式結束觸發黃金雨
             useEffect(() => {
                 if (showGameOver) {
                     const isMaster = isChallenge && score >= 1000;
@@ -156,11 +167,10 @@
             const handlePrev = () => { if (idx > 0) { setFlipped(false); setIdx(prev => prev - 1); } };
 
             const resetProgress = () => {
-                if (confirm("确定要重置所有进度吗？")) {
-                    setLearnedWords([]); setWrongWords([]); setHighScore(0);
-                    localStorage.setItem('steve_learned', '[]'); 
-                    localStorage.setItem('steve_wrong', '[]'); 
-                    localStorage.setItem('steve_highscore', '0');
+                if (confirm("確定要重置所有進度嗎？打卡天數也將歸零。")) {
+                    setLearnedWords([]); setWrongWords([]); setHighScore(0); setStreak(0);
+                    localStorage.clear();
+                    window.location.reload();
                 }
             };
 
@@ -194,21 +204,16 @@
                                 const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
                                 setCurrentList(prev => [...prev, nextWord]);
                                 setIdx(idx + 1);
-                            } else { 
-                                playSound('finish'); 
-                                setShowGameOver(true); 
-                            }
+                            } else { playSound('finish'); setShowGameOver(true); }
                         }
                     }, 800);
                 } else {
-                    setTestFeedback('wrong');
-                    playSound('wrong');
+                    setTestFeedback('wrong'); playSound('wrong');
                     if (!wrongWords.includes(currentKey)) setWrongWords(prev => [...prev, currentKey]);
                     if (isChallenge) {
                         setTimeout(() => {
                             if (score > highScore) setHighScore(score);
-                            playSound('finish');
-                            setShowGameOver(true);
+                            playSound('finish'); setShowGameOver(true);
                         }, 600);
                     } else { setTimeout(() => setTestFeedback(null), 600); }
                 }
@@ -219,18 +224,16 @@
                 playSound('correct');
                 if (mode === 'card') {
                     setCurrentList(Object.keys(dbData[levelId].words).filter(k => !learnedWords.includes(k)));
-                    setCurrentLevel(levelId);
-                    setView('card');
+                    setCurrentLevel(levelId); setView('card');
                 } else if (mode === 'test') {
                     setCurrentList(Object.keys(dbData[levelId].words));
-                    setCurrentLevel(levelId);
-                    setView('test');
+                    setCurrentLevel(levelId); setView('test');
                 } else if (mode === 'survival') {
                     setIsChallenge(true); setScore(0);
                     setCurrentList([fullList[Math.floor(Math.random() * fullList.length)]]);
                     setView('test');
                 } else if (mode === 'wrong') {
-                    if (wrongWords.length === 0) return alert('目前没有错题！');
+                    if (wrongWords.length === 0) return alert('目前沒有錯題！');
                     setIsWrongSetMode(true);
                     setCurrentList([...wrongWords].sort(() => Math.random() - 0.5));
                     setView('test');
@@ -261,7 +264,7 @@
                         
                         <div className="grid grid-cols-3 gap-3 mb-10">
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
-                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已学会</p>
+                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已學會</p>
                                 <p className="text-xl font-black text-indigo-600">{learnedWords.length} 📖</p>
                             </div>
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
@@ -269,7 +272,7 @@
                                 <p className="text-xl font-black text-slate-700">{highScore} 🏆</p>
                             </div>
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
-                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">打卡天数</p>
+                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">打卡天數</p>
                                 <p className="text-xl font-black text-emerald-500">{streak} 🔥</p>
                             </div>
                         </div>
@@ -303,12 +306,12 @@
                         <nav className="floating-nav flex gap-3 max-w-md mx-auto">
                             <button onClick={() => startMode('survival')} className="flex-1 bg-indigo-50/80 text-indigo-700 h-[64px] rounded-[24px] btn-active flex items-center justify-center gap-2">
                                 <div className="w-8 h-8 bg-indigo-600 text-white rounded-xl flex items-center justify-center text-xs shadow-sm">⚡</div>
-                                <div className="text-left"><p className="text-[10px] font-black uppercase opacity-60 leading-none">全量挑战</p><p className="text-[13px] font-black leading-none mt-1">生存模式</p></div>
+                                <div className="text-left"><p className="text-[10px] font-black uppercase opacity-60 leading-none">全量挑戰</p><p className="text-[13px] font-black leading-none mt-1">生存模式</p></div>
                             </button>
                             <button onClick={() => startMode('wrong')} className="flex-1 bg-slate-50/80 text-slate-700 h-[64px] rounded-[24px] btn-active flex items-center justify-center gap-2 relative">
                                 {wrongWords.length > 0 && <span className="badge">{wrongWords.length}</span>}
                                 <div className="w-8 h-8 bg-slate-200 text-slate-600 rounded-xl flex items-center justify-center text-xs">📕</div>
-                                <div className="text-left"><p className="text-[10px] font-black uppercase opacity-60 leading-none">巩固练习</p><p className="text-[13px] font-black leading-none mt-1">我的错题</p></div>
+                                <div className="text-left"><p className="text-[10px] font-black uppercase opacity-60 leading-none">鞏固練習</p><p className="text-[13px] font-black leading-none mt-1">我的錯題</p></div>
                             </button>
                         </nav>
                     </div>
@@ -322,7 +325,7 @@
                     <header className="flex justify-between items-center mb-6">
                         <button onClick={() => setView('menu')} className="bg-slate-50 px-5 py-2.5 rounded-full font-black text-slate-400 text-[11px] uppercase border border-slate-100 btn-active">← 返回</button>
                         <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
-                            {isChallenge ? `得分: ${score}` : (isWrongSetMode ? `错题复习` : `等级 ${currentLevel}`)} • {idx + 1}/{currentList.length}
+                            {isChallenge ? `得分: ${score}` : (isWrongSetMode ? `錯題復習` : `等級 ${currentLevel}`)} • {idx + 1}/{currentList.length}
                         </div>
                         <div className="w-12"></div>
                     </header>
@@ -353,7 +356,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div className="swipe-hint"><span>← 滑动下个</span><span>回看上个 →</span></div>
+                                    <div className="swipe-hint"><span>← 滑動下個</span><span>回看上個 →</span></div>
                                 </div>
                             ) : (
                                 <div className="w-full px-4 text-center">
@@ -375,26 +378,26 @@
                     </div>
 
                     {showGameOver && (
-                        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-[200] p-6">
-                            <div className={`bg-white p-10 rounded-[56px] text-center w-full max-w-[380px] shadow-2xl transform transition-all scale-100 ${score >= 1000 ? 'gold-glow' : ''}`}>
-                                {score >= 1000 ? (
+                        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-[200] p-6 text-slate-800">
+                            <div className={`bg-white p-10 rounded-[56px] text-center w-full max-w-[380px] shadow-2xl transform transition-all ${score >= 1000 ? 'gold-glow' : ''}`}>
+                                {isChallenge && score >= 1000 ? (
                                     <>
                                         <div className="text-8xl mb-6 floating-emoji">👑</div>
-                                        <h2 className="text-2xl font-black mb-4 text-slate-800 tracking-tight leading-tight">
+                                        <h2 className="text-2xl font-black mb-4 tracking-tight leading-tight">
                                             Congratulations, <span className="text-yellow-500">{userName || 'Steve'}</span>!
                                         </h2>
-                                        <p className="text-slate-600 font-bold mb-8 leading-relaxed px-2">
-                                            祝贺你在 <span className="text-emerald-500 text-xl">{streak}</span> 天内完成了 <span className="text-indigo-600 text-xl">1000词</span> 大挑战！
+                                        <p className="text-slate-600 font-bold mb-8 leading-relaxed">
+                                            祝賀你在 <span className="text-emerald-500 text-xl">{streak}</span> 天內完成了 <span className="text-indigo-600 text-xl">1000詞</span> 大挑戰！
                                         </p>
                                     </>
                                 ) : (
                                     <>
                                         <div className="text-8xl mb-6">{score > highScore ? "🏆" : "🎉"}</div>
-                                        <h2 className="text-2xl font-black mb-2">{score > highScore ? "打破纪录!" : "太棒了!"}</h2>
+                                        <h2 className="text-2xl font-black mb-2">{score > highScore ? "打破紀錄!" : "太棒了!"}</h2>
                                         <p className="mb-8 font-black text-slate-400 text-lg uppercase tracking-widest">Score: {score}</p>
                                     </>
                                 )}
-                                <button onClick={() => { setShowGameOver(false); setView('menu'); }} className="w-full bg-slate-900 text-white py-5 rounded-[28px] font-black btn-active shadow-lg">回到首页</button>
+                                <button onClick={() => { setShowGameOver(false); setView('menu'); }} className="w-full bg-slate-900 text-white py-5 rounded-[28px] font-black btn-active shadow-lg">回到首頁</button>
                             </div>
                         </div>
                     )}

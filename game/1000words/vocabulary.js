@@ -39,671 +39,605 @@ const DB = {
         "It is red.",
         5
       ],
+"me": ["🙋‍♂️", "我", "m-e / 密", "Look at me.", 6],
+"us": ["👨‍👩‍👦", "我们", "u-s / 阿丝", "Wait for us.", 7],
+
       "we": [
         "👨‍👩‍👦",
         "我们",
         "w-e / 威",
         "We are family.",
-        6
+        8
       ],
+
       "they": [
         "👥",
         "他们",
         "th-ey / 贼",
         "They are friends.",
-        7
+        9
+      ],
+ "am": [
+        "🙋‍♂️",
+        "是",
+        "a-m / 爱慕",
+        "I am a boy.",
+        10
       ],
       "is": [
         "☝️",
         "是",
         "i-s / 一死",
         "It is a pen.",
-        8
+        11
       ],
-      "am": [
-        "🙋‍♂️",
-        "是",
-        "a-m / 爱慕",
-        "I am a boy.",
-        9
-      ],
+     
       "are": [
         "✌️",
         "是",
         "a-re / 啊",
         "You are kind.",
-        10
+        12
       ],
+
+"each": ["🍎", "每个", "e-ach / 意其", "Each child gets one.", 13],
+"both": ["👥", "两者都", "b-oth / 波丝", "Both are good.", 14],
+"else": ["➕", "其他", "e-lse / 艾欧丝", "What else do you want?",15],
+
       "yes": [
         "✅",
         "是/对",
         "y-es / 耶丝",
         "Yes, it is.",
-        11
+        16
       ],
       "no": [
         "❌",
         "不/不对",
         "n-o / 闹",
         "No, I am not.",
-        12
+        17
       ],
       "hello": [
         "👋",
         "你好",
         "hel-lo / 哈喽",
         "Hello, teacher.",
-        13
+        18
       ],
       "thanks": [
         "🙏",
         "谢谢",
         "th-anks / 散克斯",
         "Thanks a lot.",
-        14
+        19
       ],
       "please": [
         "🥺",
         "请",
         "pl-ease / 铺力丝",
         "Please help me.",
-        15
+        20
       ],
       "good": [
         "👍",
         "好的",
         "g-ood / 谷得",
         "Good job.",
-        16
+        21
       ],
       "bad": [
         "👎",
         "坏的",
         "b-ad / 拜得",
         "A bad day.",
-        17
+        22
       ],
       "big": [
         "🐘",
         "大的",
         "b-ig / 逼格",
         "A big elephant.",
-        18
+        23
       ],
       "small": [
         "🐭",
         "小的",
         "sm-all / 斯冒",
         "A small mouse.",
-        19
+        24
       ],
       "hot": [
         "🔥🥵",
         "热的",
         "h-ot / 浩特",
         "The water is hot.",
-        20
+        25
       ],
       "cold": [
         "❄️🥶",
         "冷的",
         "c-old / 扣得",
         "It is cold.",
-        21
+        26
       ],
-      "happy": [
-        "😊",
-        "开心的",
-        "hap-py / 黑皮",
-        "I am happy.",
-        22
-      ],
-      "sad": [
-        "😢",
-        "难过的",
-        "s-ad / 塞得",
-        "Don't be sad.",
-        23
-      ],
+      "begin": ["▶️", "开始", "be-gin / 必更", "Let us begin now.", 27],
+      "end": ["🔚", "结束", "e-nd / 恩得", "The game is end.", 28],
       "go": [
         "🚶‍♂️➡️",
         "去",
         "g-o / 够",
         "Go to school.",
-        24
+        29
       ],
       "come": [
         "🚶‍♂️⬅️",
         "来",
         "c-ome / 砍",
         "Come here.",
-        25
+        30
       ],
       "eat": [
         "🍎👄",
         "吃",
         "e-at / 意特",
         "Eat an apple.",
-        26
+        31
       ],
       "drink": [
         "🥤👄",
         "喝",
         "dr-ink / 拽英刻",
         "Drink some water.",
-        27
+        32
       ],
       "see": [
         "👁️",
         "看",
         "s-ee / 谁",
         "I see a bird.",
-        28
+        33
       ],
       "look": [
         "👀",
         "看/瞧",
         "l-ook / 鲁刻",
         "Look at me.",
-        29
+        34
       ],
-      "like": [
-        "❤️",
-        "喜欢",
-        "l-ike / 莱刻",
-        "I like cats.",
-        30
-      ],
-      "love": [
-        "💖",
-        "爱",
-        "l-ove / 拉夫",
-        "I love my mom.",
-        31
-      ],
+     "add": ["➕", "增加", "a-dd / 艾得", "Add some salt.", 35],
+      "try": ["🎯", "尝试", "t-ry / 揣", "Try a new food.", 36],
       "can": [
         "💪",
         "能/可以",
         "c-an / 看",
         "I can swim.",
-        32
+        37
       ],
       "do": [
         "🛠️",
         "做",
         "d-o / 肚",
         "Do your work.",
-        33
+        38
       ],
       "get": [
         "🎁🤲",
         "得到",
         "g-et / 盖特",
         "Get a gift.",
-        34
+        39
       ],
       "give": [
         "🎁🤝",
         "给",
         "g-ive / 给五",
         "Give me a pen.",
-        35
+        40
       ],
       "know": [
         "💡🧠",
         "知道",
         "kn-ow / 闹",
         "I know that.",
-        36
+        41
       ],
-      "help": [
-        "🤝",
-        "帮助",
-        "h-elp / 嘿欧普",
-        "Help me, please.",
-        37
-      ],
+      "keep": ["📦", "保持", "k-eep / keepers", "Keep the door closed.", 42],
       "play": [
         "🎮",
         "玩",
         "pl-ay / 喷累",
         "Play a game.",
-        38
+        43
       ],
       "run": [
         "🏃‍♂️",
         "跑",
         "r-un / 软",
         "Run fast.",
-        39
+        44
       ],
       "jump": [
         "🦘",
         "跳",
         "j-ump / 酱普",
         "Jump high.",
-        40
+        45
       ],
       "walk": [
         "🚶",
         "走",
         "w-alk / 窝刻",
         "Walk home.",
-        41
+        46
       ],
       "stop": [
         "🛑",
         "停止",
         "st-op / 斯道普",
         "Stop the car.",
-        42
+        47
       ],
       "open": [
         "📖🔓",
         "打开",
         "o-pen / 欧喷",
         "Open the door.",
-        43
+        48
       ],
       "close": [
         "📖🔒",
         "关闭",
         "cl-ose / 扣滋",
         "Close the book.",
-        44
+        49
       ],
       "sit": [
         "🪑🧘",
         "坐",
         "s-it / 谁特",
         "Sit down.",
-        45
+        50
       ],
       "stand": [
         "🧍",
         "站",
         "st-and / 斯丹得",
         "Stand up.",
-        46
+        51
       ],
       "read": [
         "📖",
         "读",
         "r-ead / 瑞得",
         "Read a story.",
-        47
+        52
       ],
       "write": [
         "✍️",
         "写",
         "wr-ite / 赖特",
         "Write my name.",
-        48
+        53
       ],
       "sing": [
         "🎤",
         "唱",
         "s-ing / 胜",
         "Sing a song.",
-        49
+        54
       ],
       "dance": [
         "💃",
         "跳舞",
         "d-ance / 丹丝",
         "I like to dance.",
-        50
+        55
       ],
       "sleep": [
         "😴💤",
         "睡觉",
         "sl-eep / 斯力普",
         "Time to sleep.",
-        51
+        56
       ],
       "wake": [
         "⏰👀",
         "醒来",
         "w-ake / 威刻",
         "Wake up early.",
-        52
+        57
       ],
       "one": [
         "1️⃣",
         "一",
         "one / 万",
         "One apple.",
-        53
+        58
       ],
       "two": [
         "2️⃣",
         "二",
         "t-wo / 吐",
         "Two eyes.",
-        54
+        59
       ],
       "three": [
         "3️⃣",
         "三",
         "thr-ee / 斯瑞",
         "Three birds.",
-        55
+        60
       ],
       "four": [
         "4️⃣",
         "四",
         "f-our / 佛",
         "Four legs.",
-        56
+        61
       ],
       "five": [
         "5️⃣",
         "五",
         "f-ive / 饭五",
         "Five fingers.",
-        57
+        62
       ],
       "six": [
         "6️⃣",
         "六",
         "s-ix / 希克斯",
         "Six pens.",
-        58
+        63
       ],
       "seven": [
         "7️⃣",
         "七",
         "sev-en / 塞闻",
         "Seven days.",
-        59
+        64
       ],
       "eight": [
         "8️⃣",
         "八",
         "e-ight / 诶特",
         "Eight balls.",
-        60
+        65
       ],
       "nine": [
         "9️⃣",
         "九",
         "n-ine / 拿音",
         "Nine books.",
-        61
+        66
       ],
       "ten": [
         "🔟",
         "十",
         "t-en / 腾",
         "Count to ten.",
-        62
+        67
       ],
       "red": [
         "🔴",
         "红色",
         "r-ed / 瑞得",
         "A red apple.",
-        63
+        68
       ],
       "blue": [
         "🔵",
         "蓝色",
         "bl-ue / 不路",
         "Blue sky.",
-        64
+        69
       ],
       "green": [
         "🟢",
         "绿色",
         "gr-een / 哥瑞恩",
         "Green grass.",
-        65
+        70
       ],
       "yellow": [
         "🟡",
         "黄色",
         "yel-low / 耶楼",
         "Yellow sun.",
-        66
+        71
       ],
       "black": [
         "⚫",
         "黑色",
         "bl-ack / 布莱刻",
         "Black cat.",
-        67
+        72
       ],
       "white": [
         "⚪",
         "白色",
         "wh-ite / 歪特",
         "White cloud.",
-        68
+        73
       ],
       "what": [
         "❓",
         "什么",
         "wh-at / 窝特",
         "What is it?",
-        69
+        74
       ],
       "who": [
         "👤❓",
         "谁",
         "wh-o / 呼",
         "Who are you?",
-        70
+        75
       ],
       "where": [
         "📍❓",
         "哪里",
         "wh-ere / 位儿",
         "Where is it?",
-        71
+        76
       ],
       "when": [
         "⏰❓",
         "什么时候",
         "wh-en / 闻",
         "When is it?",
-        72
+        77
       ],
       "how": [
         "🤔❓",
         "怎样",
         "h-ow / 耗",
         "How are you?",
-        73
+        78
       ],
+"any": ["❓", "任何", "a-ny / 艾泥", "Do you have any?", 79],
+"some": ["🍰", "一些", "s-ome / 萨姆", "I want some water.", 80],
       "this": [
         "👉📦",
         "这个",
         "th-is / 贼丝",
         "This is mine.",
-        74
+        81
       ],
       "that": [
         "👉...📦",
         "那个",
         "th-at / 贼特",
         "That is yours.",
-        75
+        82
       ],
       "here": [
         "📍👇",
         "这里",
         "h-ere / 嘿儿",
         "Stay here.",
-        76
+        83
       ],
       "there": [
         "📍👉",
         "那里",
         "th-ere / 贼儿",
         "Over there.",
-        77
+        84
       ],
       "now": [
         "⏰👇",
         "现在",
         "n-ow / 拿五",
         "Do it now.",
-        78
+        85
       ],
       "today": [
         "📅👇",
         "今天",
         "to-day / 图嘚",
         "Today is sunny.",
-        79
+        86
       ],
       "and": [
         "➕",
         "和",
         "a-nd / 安得",
         "You and me.",
-        80
+        87
       ],
       "but": [
         "🔄",
         "但是",
         "b-ut / 罢特",
         "Small but strong.",
-        81
+        88
       ],
       "with": [
         "🤝👫",
         "和...一起",
         "w-ith / 位丝",
         "Play with me.",
-        82
+        89
       ],
       "for": [
         "🎁➡️🫵",
         "给/为了",
         "f-or / 佛",
         "This is for you.",
-        83
+        90
       ],
       "from": [
         "📦⬅️📍",
         "来自",
         "fr-om / 佛囊",
         "From China.",
-        84
+        91
       ],
       "in": [
         "📥",
         "在...里面",
         "i-n / 硬",
         "In the box.",
-        85
+        92
       ],
       "on": [
         "🔛",
         "在...上面",
         "o-n / 昂",
         "On the desk.",
-        86
+        93
       ],
+
       "under": [
         "⬇️📦",
         "在...下面",
         "un-der / 安得",
         "Under the tree.",
-        87
+        94
       ],
       "up": [
         "⬆️",
         "向上",
         "u-p / 阿普",
         "Hands up.",
-        88
+        95
       ],
       "down": [
         "⬇️",
         "向下",
         "d-own / 荡",
         "Sit down.",
-        89
+        96
       ],
       "fast": [
         "⚡🏎️",
         "快的",
         "f-ast / 凡斯特",
         "Run fast.",
-        90
+        97
       ],
       "slow": [
         "🐢",
         "慢的",
         "sl-ow / 斯楼",
         "Slow turtle.",
-        91
+        98
       ],
       "new": [
         "✨🆕",
         "新的",
         "n-ew / 妞",
         "A new bag.",
-        92
+        99
       ],
       "old": [
         "👴📜",
         "旧的/老的",
         "o-ld / 欧得",
         "An old book.",
-        93
-      ],
-      "boy": [
-        "👦",
-        "男孩",
-        "b-oy / 波一",
-        "A brave boy.",
-        94
-      ],
-      "girl": [
-        "👧",
-        "女孩",
-        "g-irl / 哥儿",
-        "A pretty girl.",
-        95
-      ],
-      "man": [
-        "👨",
-        "男人",
-        "m-an / 慢",
-        "A strong man.",
-        96
-      ],
-      "woman": [
-        "👩",
-        "女人",
-        "wom-an / 窝门",
-        "A kind woman.",
-        97
-      ],
-      "name": [
-        "📛",
-        "名字",
-        "n-ame / 内姆",
-        "My name is Tom.",
-        98
-      ],
-      "friend": [
-        "🤝👫",
-        "朋友",
-        "fri-end / 佛瑞恩得",
-        "My best friend.",
-        99
-      ],
-      "sun": [
-        "☀️",
-        "太阳",
-        "s-un / 伞",
-        "The sun is hot.",
         100
-      ]
+      ]          
     }
   },
   "2": {
@@ -1194,13 +1128,7 @@ const DB = {
         "Smell the perfume.",
         169
       ],
-      "bag": [
-        "🎒",
-        "背包",
-        "b-ag / 拜格",
-        "School bag.",
-        170
-      ],
+      "mat": ["🚪", "垫子", "m-at / 埋特", "A welcome mat.", 170],
       "wallet": [
         "👛",
         "钱包",
@@ -1327,55 +1255,14 @@ const DB = {
         "Give me a tissue.",
         188
       ],
-      "paper": [
-        "📄",
-        "白纸",
-        "pa-per / 陪破",
-        "Write on paper.",
-        189
-      ],
-      "book": [
-        "📖",
-        "书本",
-        "b-ook / 布克",
-        "Read a book.",
-        190
-      ],
-      "pen": [
-        "🖊️",
-        "钢笔",
-        "p-en / 喷",
-        "Write with a pen.",
-        191
-      ],
-      "pencil": [
-        "✏️",
-        "铅笔",
-        "pen-cil / 喷搜",
-        "A yellow pencil.",
-        192
-      ],
-      "eraser": [
-        "🧼",
-        "橡皮擦",
-        "e-ra-ser / 以瑞泽",
-        "Use an eraser.",
-        193
-      ],
-      "ruler": [
-        "📏",
-        "直尺",
-        "ru-ler / 入勒",
-        "Long ruler.",
-        194
-      ],
-      "map": [
-        "🗺️",
-        "地图",
-        "m-ap / 麦普",
-        "Find the way.",
-        195
-      ],
+     "hook": ["🪝", "挂钩", "h-ook / 互刻", "Hang it on the hook.", 189],
+      "yard": ["🏡", "院子", "y-ard / 雅得", "Play in the yard.", 190],
+     "bell": ["🔔", "门铃", "b-ell / 贝尔", "Ring the door bell.", 191],
+"bin": ["🗑️", "垃圾桶", "b-in / 宾", "Put it in the bin.", 192],
+ 
+     "step": ["🪜", "台阶/步", "s-tep / 斯带普", "Watch your step.",193],
+    "tub": ["🛁", "浴缸", "t-ub / 踏步", "A hot tub.", 194],
+      "rug": ["🧺", "小地毯", "r-ug / 瑞格", "A soft rug.", 195],
       "toy": [
         "🧸",
         "玩偶",
@@ -1397,13 +1284,7 @@ const DB = {
         "Kick the ball.",
         198
       ],
-      "gift": [
-        "🎁",
-        "礼物",
-        "g-ift / 给福特",
-        "A big gift.",
-        199
-      ],
+      "dish": ["🍽️", "碟子", "d-ish / 滴嘘", "A clean dish.", 199],
       "box": [
         "📦",
         "纸箱",
@@ -2692,20 +2573,19 @@ const DB = {
         "The chef cooks.",
         381
       ],
-      "kitchen": [
-        "🍳",
-        "厨房",
-        "kitch-en / 旗琴",
-        "In the kitchen.",
+      "reservation": [
+        "📅📞",
+        "预约/订位",
+        "re-ser-va-tion / 瑞惹威顺",
+        "I have a reservation.",
         382
       ],
-      "table": [
-        "🍽️",
-        "餐桌",
-        "ta-ble / 抬剥",
-        "Clean the table.",
-        383
-      ],
+      "counter":
+ ["🍹🪑", 
+"吧台/柜台",
+ "coun-ter / 康特",
+ "Sit at the counter.",
+ 383],
       "napkin": [
         "🧻",
         "餐巾纸",
@@ -2804,20 +2684,13 @@ const DB = {
         "Bitter coffee.",
         397
       ],
-      "hot": [
-        "🥘",
-        "热的",
-        "h-ot / 浩特",
-        "Hot soup.",
-        398
-      ],
-      "cold": [
-        "🧊",
-        "冷的",
-        "c-old / 扣哦得",
-        "Cold milk.",
-        399
-      ],
+      "special": [
+	"⭐🍱", 
+	"特色菜", 
+	"spe-cial / 斯倍秀", 
+	"What's today's special?", 
+	398],
+      "dessert": ["🍰🍧", "甜点", "des-sert / 迪惹特", "I want some dessert.", 399],
       "fresh": [
         "🥗",
         "新鲜的",
@@ -2937,6 +2810,7 @@ const DB = {
         "My new scooter.",
         415
       ],
+
       "motorcycle": [
         "🏍️",
         "摩托车",
@@ -2944,6 +2818,7 @@ const DB = {
         "A loud motorcycle.",
         416
       ],
+
       "ambulance": [
         "🚑",
         "救护车",
@@ -2972,13 +2847,7 @@ const DB = {
         "The tractor is on the farm.",
         420
       ],
-      "school": [
-        "🏫",
-        "学校",
-        "sch-ool / 斯库哦",
-        "I go to school.",
-        421
-      ],
+     "lane": ["🛣️", "车道", "l-ane / 累恩", "Stay in your lane.", 421],
       "hospital": [
         "🏥",
         "医院",
@@ -3007,13 +2876,7 @@ const DB = {
         "Play in the park.",
         425
       ],
-      "library": [
-        "📚",
-        "图书馆",
-        "li-brar-y / 赖不瑞瑞",
-        "Quiet in the library.",
-        426
-      ],
+      "seat": ["💺", "座位", "s-eat / 谁特", "This is my seat.", 426],
       "shop": [
         "🛍️",
         "商店",
@@ -3049,13 +2912,7 @@ const DB = {
         "Watch a movie.",
         431
       ],
-      "gym": [
-        "🏋️",
-        "体育馆",
-        "g-ym / 极姆",
-        "Work out at the gym.",
-        432
-      ],
+      "fuel": ["⛽", "汽油/燃料", "fu-el / 夫欧", "The car needs fuel.", 432],
       "bridge": [
         "🌉",
         "桥",
@@ -3098,13 +2955,7 @@ const DB = {
         "At the train station.",
         438
       ],
-      "office": [
-        "🏢",
-        "办公室",
-        "of-fice / 嗷飞丝",
-        "Dad's office.",
-        439
-      ],
+     "building": ["🏢🏠", "建筑/大楼", "buil-ding / 必欧顶", "That is a tall building.", 439],
       "factory": [
         "🏭",
         "工厂",
@@ -3112,13 +2963,7 @@ const DB = {
         "A big factory.",
         440
       ],
-      "stadium": [
-        "🏟️",
-        "体育场",
-        "sta-di-um / 斯忒低姆",
-        "Football stadium.",
-        441
-      ],
+      "skyscraper": ["🏢🏨", "摩天大楼", "sky-scra-per / 斯盖斯奎泼", "Look at the skyscraper.",441],
       "farm": [
         "👨‍🌾",
         "农场",
@@ -3126,27 +2971,9 @@ const DB = {
         "Animals on the farm.",
         442
       ],
-      "beach": [
-        "🏖️",
-        "海滩",
-        "b-each / 必旗",
-        "Play on the beach.",
-        443
-      ],
-      "mountain": [
-        "🏔️",
-        "高山",
-        "moun-tain / 忙藤",
-        "Climb the mountain.",
-        444
-      ],
-      "river": [
-        "🌊",
-        "河流",
-        "riv-er / 瑞五儿",
-        "The river is long.",
-        445
-      ],
+      "platform": ["🚉", "站台", "plat-form / 铺莱特方", "Wait on platform one.", 443],
+      "passenger": ["👨‍👩‍👧‍👦", "乘客", "pas-sen-ger / 怕三惹", "All passengers are on board.", 444],
+     "signal": ["📶📡", "信号", "sig-nal / 希格喏", "No phone signal here.", 445],
       "street": [
         "🛣️",
         "街道",
@@ -3196,13 +3023,7 @@ const DB = {
         "Get gas for the car.",
         452
       ],
-      "map": [
-        "🗺️",
-        "地图",
-        "m-ap / 麦普",
-        "Look at the map.",
-        453
-      ],
+      "compass": ["🧭🗺️", "指南针", "com-pass / 康帕斯", "Use a compass to find north.", 453],
       "flag": [
         "🚩",
         "旗帜",
@@ -3224,13 +3045,7 @@ const DB = {
         "Buy a ticket.",
         456
       ],
-      "camera": [
-        "📷",
-        "照相机",
-        "cam-er-a / 盖美拉",
-        "Take a photo.",
-        457
-      ],
+      "passport": ["🎫🛂", "护照", "pass-port / 怕死跑特", "Show your passport, please.", 457],
       "phone": [
         "📱",
         "手机",
@@ -3273,27 +3088,9 @@ const DB = {
         "My school backpack.",
         463
       ],
-      "box": [
-        "📦",
-        "箱子",
-        "b-ox / 暴克斯",
-        "A heavy box.",
-        464
-      ],
-      "key": [
-        "🔑",
-        "钥匙",
-        "k-ey / 扣一",
-        "Car key.",
-        465
-      ],
-      "umbrella": [
-        "🌂",
-        "雨伞",
-        "um-brel-la / 安不瑞拉",
-        "It's raining.",
-        466
-      ],
+      "selfie": ["🤳📸", "自拍", "sel-fie / 赛欧非", "Take a selfie at the tower.", 464],
+      "suitcase": ["🧳👜", "行李箱", "suit-case / 苏特凯丝", "Pack your suitcase now.", 465],
+      "passcode": ["🚪🔐", "密码锁", "pass-code / 怕死扣得", "Enter the hotel passcode.", 466],
       "tent": [
         "⛺",
         "帐篷",
@@ -3301,48 +3098,13 @@ const DB = {
         "Sleep in a tent.",
         467
       ],
-      "fire": [
-        "🔥",
-        "火",
-        "f-ire / 法儿",
-        "Don't touch fire.",
-        468
-      ],
-      "sun": [
-        "☀️",
-        "太阳",
-        "s-un / 伞",
-        "The sun is hot.",
-        469
-      ],
-      "moon": [
-        "🌙",
-        "月亮",
-        "m-oon / 姥嗯",
-        "The moon is bright.",
-        470
-      ],
-      "go": [
-        "🏃",
-        "去",
-        "g-o / 够",
-        "Go to school.",
-        471
-      ],
-      "come": [
-        "🚶",
-        "来",
-        "c-ome / 砍",
-        "Come here.",
-        472
-      ],
-      "stop": [
-        "🛑",
-        "停止",
-        "st-op / 斯道普",
-        "Stop at the light.",
-        473
-      ],
+      "destination": ["📍🎯", "目的地", "des-ti-na-tion / 戴丝特内顺", "Welcome to your destination.", 468],
+      "raincoat": ["🧥🌧️", "雨衣", "rain-coat / 瑞恩扣特", "Wear a raincoat in London.", 469],
+	"helmet": ["🪖🚲", "头盔", "hel-met / 海儿美特", "Always wear a helmet.", 470],
+      
+      "depart": ["🛫🚩", "出发/离港", "de-part / 迪怕特", "The train will depart soon.", 471],
+      "arrive": ["🛬🏁", "到达", "ar-rive / 阿莱五", "When will you arrive?", 472],
+      "explore": ["🔍🗺️", "探索", "ex-plore / 一克斯跑儿", "Explore the old street.", 473],
       "wait": [
         "⏳",
         "等待",
@@ -3364,13 +3126,7 @@ const DB = {
         "Ride a bike.",
         476
       ],
-      "fly": [
-        "🦅",
-        "飞",
-        "fl-y / 佛莱",
-        "Birds can fly.",
-        477
-      ],
+      "hike": ["🚶‍♂️🎒", "徒步旅行", "hike / 亥刻", "Hike up the green mountain.", 477],
       "sail": [
         "⛵",
         "航行",
@@ -3378,34 +3134,10 @@ const DB = {
         "Sail a boat.",
         478
       ],
-      "walk": [
-        "🚶",
-        "走路",
-        "w-alk / 窝刻",
-        "Walk in the park.",
-        479
-      ],
-      "run": [
-        "🏃",
-        "跑步",
-        "r-un / 软",
-        "Run fast.",
-        480
-      ],
-      "jump": [
-        "🦘",
-        "跳",
-        "j-ump / 酱铺",
-        "Jump high.",
-        481
-      ],
-      "climb": [
-        "🧗",
-        "爬",
-        "cl-imb / 块姆",
-        "Climb the tree.",
-        482
-      ],
+     "shuttle": ["🚐🚌", "班车","shut-tle / 杀偷", "Take the airport shuttle.", 479],
+     "cable car": ["🏔️🚠", "缆车", "ca-ble car / 咳宝卡", "Ride the cable car to the top.",480],
+      "express": ["🚄🚀", "特快", "ex-press / 一克斯普瑞斯", "Take the express train.", 481],
+     "itinerary": ["🎟️🛣️", "行程/路线", "i-te-ne-ra-ry / 挨听内瑞", "Show me your travel itinerary.", 482],
       "visit": [
         "🤝",
         "拜访",
@@ -3441,20 +3173,8 @@ const DB = {
         "Pull the rope.",
         487
       ],
-      "open": [
-        "📖",
-        "打开",
-        "o-pen / 欧喷",
-        "Open the book.",
-        488
-      ],
-      "close": [
-        "📕",
-        "关闭",
-        "cl-ose / 扣滋",
-        "Close the window.",
-        489
-      ],
+      "check-in": ["🏨🔑", "办理入住", "check-in / 切克硬", "Check-in at the front desk.", 488],
+      "check-out": ["🏨💼", "退房", "check-out / 切克袄特", "Check-out before eleven.", 489],
       "buy": [
         "💰",
         "买",
@@ -3497,20 +3217,8 @@ const DB = {
         "The shop is near.",
         495
       ],
-      "fast": [
-        "⚡",
-        "快的",
-        "f-ast / 泛斯特",
-        "The train is fast.",
-        496
-      ],
-      "slow": [
-        "🐢",
-        "慢的",
-        "sl-ow / 斯楼",
-        "The bus is slow.",
-        497
-      ],
+      "tunnel": ["🚇", "隧道", "tun-nel / 唐喏", "The train goes through a tunnel.", 496],
+      "traffic": ["🚗🚕", "交通/车流量", "traf-fic / 抓飞刻", "The traffic is heavy.", 497],
       "left": [
         "⬅️",
         "左边",
@@ -4316,10 +4024,10 @@ const DB = {
         "Stars shine at night.",
         610
       ],
-      "today": [
+     "date": [
         "📆",
-        "今天",
-        "to-day / 特忒",
+        "日期/日子",
+        "d-ate / 嘚特",
         "What is the date today?",
         611
       ],
@@ -4512,20 +4220,8 @@ const DB = {
         "Let's play in the snowy woods.",
         638
       ],
-      "hot": [
-        "🔥",
-        "热的",
-        "h-ot / 浩特",
-        "The soup is too hot.",
-        639
-      ],
-      "cold": [
-        "🥶",
-        "冷的",
-        "c-old / 扣哦得",
-        "It's cold in the fridge.",
-        640
-      ],
+      "soft": ["☁️", "柔软的", "s-oft / 搜夫特", "Soft green grass.", 639],
+      "frost": ["❄️", "霜", "f-rost / 佛肉斯特", "Frost on the window.", 640],
       "warm": [
         "🧥",
         "温暖的",
@@ -4533,90 +4229,85 @@ const DB = {
         "A warm hug.",
         641
       ],
-      "cool": [
-        "🎐",
-        "凉爽的",
-        "c-ool / 裤哦",
-        "The wind feels cool.",
-        642
-      ],
-      "dry": [
+        "dry": [
         "🏜️",
         "干燥的",
         "dr-y / 拽",
         "The desert is very dry.",
-        643
+        642
       ],
       "wet": [
         "💦",
         "潮湿的",
         "w-et / 喂特",
         "Your clothes are wet.",
-        644
+        643
       ],
       "heat": [
         "♨️",
         "热气/热量",
         "h-eat / 希特",
         "Summer heat.",
-        645
+        644
       ],
       "tree": [
         "🌲",
         "树木",
         "tr-ee / 吹",
         "Birds live in the tree.",
-        646
+        645
       ],
       "flower": [
         "🌸",
         "花朵",
         "flow-er / 佛劳儿",
         "A beautiful flower.",
-        647
+        646
       ],
       "leaf": [
         "🍃",
         "叶子",
         "l-eaf / 离夫",
         "The leaf is green.",
-        648
+        647
       ],
       "grass": [
         "🌱",
         "草地",
         "gr-ass / 哥拉斯",
         "Don't walk on the grass.",
-        649
+        648
       ],
       "forest": [
         "🌳",
         "森林",
         "for-est / 佛瑞斯特",
         "Many trees in the forest.",
-        650
+        649
       ],
       "mountain": [
         "🏔️",
         "高山",
         "moun-tain / 忙藤",
         "Climb the high mountain.",
-        651
+        650
       ],
       "hill": [
         "⛰️",
         "小山",
         "h-ill / 嘿哦",
         "Run down the hill.",
-        652
+        651
       ],
       "valley": [
         "🏞️",
         "山谷",
         "val-ley / 哇离",
         "A green valley.",
-        653
+        652
       ],
+"stream": ["🏞️", "小溪/溪流", "s-tream / 斯垂姆", "The fish swims in the stream.", 653],
+
       "river": [
         "🌊",
         "河流",
@@ -4841,13 +4532,7 @@ const DB = {
         "Bright light.",
         685
       ],
-      "fresh": [
-        "🍃",
-        "新鲜",
-        "fr-esh / 佛瑞湿",
-        "Fresh air.",
-        686
-      ],
+     "steam": ["💨♨️", "蒸汽", "ste-am / 斯滴姆", "Hot steam from water.", 686],
       "clear": [
         "💎",
         "清晰/晴朗",
@@ -4890,20 +4575,8 @@ const DB = {
         "Low land.",
         692
       ],
-      "big": [
-        "🐘",
-        "大的",
-        "b-ig / 必格",
-        "A big tree.",
-        693
-      ],
-      "small": [
-        "🐜",
-        "小的",
-        "sm-all / 斯帽",
-        "A small bug.",
-        694
-      ],
+      "wide": ["↔️", "宽阔的", "w-ide / 歪得", "A wide river.", 693],
+      "thin": ["🦯", "细长的", "th-in / 寻", "A thin branch.", 694],
       "beautiful": [
         "🦋",
         "美丽的",
@@ -4967,105 +4640,59 @@ const DB = {
         "My class is big.",
         702
       ],
+"principal": ["👨‍💼🏫", "校长", "prin-ci-pal / 拼谁剖", "Meet the school principal.", 703],
       "teacher": [
         "👨‍🏫",
         "老师",
         "teach-er / 踢切",
         "The teacher is kind.",
-        703
+        704
       ],
       "student": [
         "🧑‍🎓",
         "学生",
         "stu-dent / 斯丢等特",
         "I am a student.",
-        704
+        705
       ],
+"staff": ["👥", "教职工", "s-taff / 斯大夫", "The staff are kind.", 706],
+"coach": ["👨‍🏫👟", "教练", "c-oach / 扣起", "Our coach is great.", 707],
+
+"name": ["🏷️", "名字", "n-ame / 内姆", "What is your name?", 708],
       "friend": [
         "🤝",
         "朋友",
         "fri-end / 夫瑞恩得",
         "Play with friends.",
-        705
+        709
       ],
-      "desk": [
+"classmate": ["🧑‍🤝‍🧑", "同班同学", "class-mate / 颗拉丝妹特", "He is my classmate.", 710],
+"club": ["🎷", "社团", "c-lub / 颗辣步", "The art club is fun.", 711],      
+"desk": [
         "📑",
         "课桌",
         "d-esk / 代死刻",
         "Sit at the desk.",
-        706
+        712
       ],
-      "chair": [
-        "🪑",
-        "椅子",
-        "ch-air / 切儿",
-        "Sit on the chair.",
-        707
-      ],
-      "board": [
+    "drawer": ["🗄️", "抽屉", "draw-er / 抓哦", "Put it in the drawer.", 713],
+        "board": [
         "📋",
         "黑板/布告栏",
         "b-oard / 波得",
         "Look at the board.",
-        708
+        714
       ],
-      "clock": [
-        "⏰",
-        "时钟",
-        "cl-ock / 阔克",
-        "Check the clock.",
-        709
-      ],
-      "window": [
-        "🖼️",
-        "窗户",
-        "win-dow / 温逗",
-        "Open the window.",
-        710
-      ],
-      "door": [
-        "🚪",
-        "门",
-        "d-oor / 多儿",
-        "Close the door.",
-        711
-      ],
-      "floor": [
-        "🧱",
-        "地面",
-        "fl-oor / 佛罗儿",
-        "Clean the floor.",
-        712
-      ],
-      "wall": [
-        "🧱",
-        "墙壁",
-        "w-all / 窝哦",
-        "Picture on the wall.",
-        713
-      ],
-      "light": [
+      
+       "light": [
         "💡",
         "电灯",
         "l-ight / 赖特",
         "Turn on the light.",
-        714
-      ],
-      "fan": [
-        "🌬️",
-        "风扇",
-        "f-an / 泛",
-        "The fan is cool.",
         715
       ],
-      "room": [
-        "🏘️",
-        "房间",
-        "r-oom / 入姆",
-        "In the room.",
-        716
-      ],
-      "playground": [
+"lab": ["🧪", "实验室", "l-ab / 莱步", "We study in the lab.", 716],
+            "playground": [
         "🎡",
         "操场",
         "play-ground / 铺勒乖奥得",
@@ -5093,47 +4720,36 @@ const DB = {
         "Play ball in the gym.",
         720
       ],
-      "toilet": [
-        "🚽",
-        "厕所",
-        "toi-let / 拖累特",
-        "Go to the toilet.",
-        721
-      ],
-      "garden": [
-        "🏡",
-        "花园",
-        "gar-den / 嘎等",
-        "Flowers in the garden.",
-        722
-      ],
-      "lesson": [
+                 "lesson": [
         "📖",
         "课程",
         "les-son / 勒森",
         "English lesson.",
-        723
+        721
       ],
       "homework": [
         "📝",
         "家庭作业",
         "home-work / 厚姆窝刻",
         "Do my homework.",
-        724
+        722
       ],
+"note": ["📒", "笔记", "n-ote / 诺特", "Take a short note.", 723],
       "test": [
         "💯",
         "测试",
         "t-est / 抬斯特",
         "I got 100 on the test.",
-        725
+        724
       ],
+"exam": ["✍️", "考试", "ex-am / 艾克赞姆", "I have a big exam.", 725],
+
       "book": [
         "📕",
         "书",
         "b-ook / 补刻",
         "Read a book.",
-        726
+        725
       ],
       "pen": [
         "🖊️",
@@ -5191,35 +4807,29 @@ const DB = {
         "Spin the globe.",
         734
       ],
+"kit": ["🧰", "成套装备/箱", "k-it / 刻特", "The art kit is new.", 735],
       "ink": [
         "💧",
         "墨水",
         "i-nk / 硬刻",
         "Blue ink.",
-        735
+        736
       ],
       "glue": [
         "🧪",
         "胶水",
         "gl-ue / 股路",
         "Stick it with glue.",
-        736
+        737
       ],
       "scissors": [
         "✂️",
         "剪刀",
         "scis-sors / 细惹丝",
         "Cut with scissors.",
-        737
-      ],
-      "brush": [
-        "🖌️",
-        "画笔",
-        "br-ush / 不瑞湿",
-        "Paint with a brush.",
         738
       ],
-      "crayon": [
+           "crayon": [
         "🖍️",
         "蜡笔",
         "cray-on / 亏昂",
@@ -5289,20 +4899,14 @@ const DB = {
         "White chalk.",
         748
       ],
-      "compass": [
-        "🧭",
-        "指南针/圆规",
-        "com-pass / 康啪丝",
-        "Use a compass.",
-        749
-      ],
-      "laptop": [
+            "laptop": [
         "💻",
         "电脑",
         "lap-top / 拿铺掏破",
         "Type on laptop.",
-        750
+        749
       ],
+"prize": ["🏆", "奖品", "p-rize / 普来兹", "Win a school prize.", 750],
       "math": [
         "➕",
         "数学",
@@ -5401,153 +5005,125 @@ const DB = {
         "A blue square.",
         764
       ],
-      "star": [
-        "⭐",
-        "五角星",
-        "st-ar / 斯答",
-        "Golden star.",
-        765
-      ],
+     "triangle": ["🔺", "三角形", "tri-an-gle / 揣昂勾", "Draw a red triangle.", 765],
+"oval": ["🥚", "椭圆形", "o-val / 欧沃", "An egg is oval.", 766],
+"rectangle": ["📋", "长方形", "rec-tan-gle / 瑞克贪勾", "The board is a rectangle.", 767],
       "page": [
         "📑",
         "页码",
         "p-age / 陪指",
         "Turn to page 10.",
-        766
+        768
       ],
       "story": [
         "📖",
         "故事",
         "sto-ry / 斯多瑞",
         "Tell a story.",
-        767
+        769
       ],
       "song": [
         "🎶",
         "歌曲",
         "s-ong / 诵",
         "Sing a song.",
-        768
+        770
       ],
       "picture": [
         "🖼️",
         "图片",
         "pic-ture / 披刻切",
         "Draw a picture.",
-        769
+        771
       ],
       "game": [
         "🎮",
         "游戏",
         "g-ame / 给姆",
         "Play a game.",
-        770
+        772
       ],
       "quiz": [
         "❓",
         "小测验",
         "qu-iz / 亏字",
         "Quick quiz.",
-        771
+        773
       ],
       "answer": [
         "✅",
         "回答",
         "an-swer / 安色",
         "Correct answer.",
-        772
+        774
       ],
       "question": [
         "❓",
         "问题",
         "ques-tion / 亏死陈",
         "Ask a question.",
-        773
+        775
       ],
       "rule": [
         "📏",
         "规则",
         "r-ule / 入欧",
         "Follow the rules.",
-        774
+        776
       ],
       "point": [
         "📍",
         "点/得分",
         "p-oint / 跑硬特",
         "Get a point.",
-        775
-      ],
-      "read": [
-        "📖",
-        "阅读",
-        "r-ead / 瑞得",
-        "Read loudly.",
-        776
-      ],
-      "write": [
-        "✍️",
-        "书写",
-        "wr-ite / 赖特",
-        "Write your name.",
         777
       ],
+      "idea": ["💡", "主意", "i-dea / 爱滴儿", "That is a good idea.", 778],
+     "mind": ["🧠", "头脑", "m-ind / 埋得", "Keep it in mind.", 779],
       "draw": [
         "🎨",
         "绘画",
         "dr-aw / 抓",
         "Draw a tree.",
-        778
+        780
       ],
       "listen": [
         "👂",
         "听",
         "lis-ten / 离森",
         "Listen to me.",
-        779
+        781
       ],
       "speak": [
         "🗣️",
         "说",
         "sp-eak / 斯必刻",
         "Speak up.",
-        780
+        782
       ],
-      "sing": [
-        "🎤",
-        "唱",
-        "s-ing / 胜",
-        "Sing together.",
-        781
-      ],
+      
       "learn": [
         "💡",
         "学习",
         "l-earn / 勒恩",
         "Learn every day.",
-        782
+        783
       ],
       "study": [
         "🧠",
         "研究/读书",
         "stud-y / 斯塔低",
         "Study hard.",
-        783
+        784
       ],
       "think": [
         "🤔",
         "思考",
         "th-ink / 幸刻",
         "Think about it.",
-        784
-      ],
-      "know": [
-        "💡",
-        "知道",
-        "kn-ow / 搂",
-        "I know that.",
         785
       ],
+   
       "spell": [
         "🔠",
         "拼写",
@@ -5576,13 +5152,7 @@ const DB = {
         "Tell me.",
         789
       ],
-      "show": [
-        "👉",
-        "展示",
-        "sh-ow / 秀",
-        "Show me your book.",
-        790
-      ],
+      "topic": ["💬", "话题", "t-opic / 掏披刻", "Today's topic is art.", 790],
       "color": [
         "🖍️",
         "涂色",
@@ -5611,34 +5181,10 @@ const DB = {
         "Clean the board.",
         794
       ],
-      "sit": [
-        "🪑",
-        "坐下",
-        "s-it / 谁特",
-        "Sit down.",
-        795
-      ],
-      "stand": [
-        "🧍",
-        "站立",
-        "st-and / 斯单得",
-        "Stand up.",
-        796
-      ],
-      "share": [
-        "🤝",
-        "分享",
-        "sh-are / 歇儿",
-        "Share toys.",
-        797
-      ],
-      "help": [
-        "🆘",
-        "帮助",
-        "h-elp / 嘿欧铺",
-        "Help each other.",
-        798
-      ],
+    "task": ["✅", "任务", "t-ask / 踏丝刻", "Finish the task now.", 795],
+      "form": ["📄", "表格", "f-orm / 佛姆", "Fill in the form.", 796],
+      "list": ["📋", "清单", "l-ist / 栗丝特", "Read the word list.", 797],
+"remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", 798],
       "understand": [
         "💡",
         "明白",
@@ -5793,13 +5339,7 @@ const DB = {
         "A pretty girl.",
         819
       ],
-      "friend": [
-        "🤝",
-        "朋友",
-        "fri-end / 夫瑞恩得",
-        "You are my friend.",
-        820
-      ],
+      "stranger": ["👤❓", "陌生人", "s-tran-ger / 斯揣引者", "Do not talk to a stranger.", 820],
       "neighbor": [
         "🏡",
         "邻居",
@@ -5954,14 +5494,8 @@ const DB = {
         "A gentle lamb.",
         842
       ],
-      "active": [
-        "🏃",
-        "活跃的",
-        "ac-tive / 挨克提五",
-        "Active kids.",
-        843
-      ],
-      "careful": [
+      "cheerful": ["☀️😊", "快乐的/兴高采烈的", "cheer-ful / 其儿夫欧", "She is a cheerful girl.", 843],
+     "careful":[
         "⚠️",
         "小心的",
         "care-ful / 给予佛",
@@ -5975,13 +5509,7 @@ const DB = {
         "Lucky day.",
         845
       ],
-      "cool": [
-        "🕶️",
-        "酷的",
-        "c-ool / 裤哦",
-        "You look cool.",
-        846
-      ],
+      "dream": ["☁️", "梦想", "d-ream / 捉一姆", "I have a big dream.", 846],
       "calm": [
         "🧘",
         "冷静的",
@@ -6178,13 +5706,7 @@ const DB = {
         "Too noisy.",
         874
       ],
-      "quiet": [
-        "🤫",
-        "安静的",
-        "qui-et / 块额特",
-        "Be quiet.",
-        875
-      ],
+     "fair": ["⚖️", "公平的", "f-air / 飞儿", "That is not fair.", 875],
       "serious": [
         "😐",
         "严肃的",
@@ -6241,13 +5763,7 @@ const DB = {
         "Nice to meet you.",
         883
       ],
-      "play": [
-        "⚽",
-        "玩耍",
-        "pl-ay / 铺勒",
-        "Play together.",
-        884
-      ],
+      "grow": ["🌱", "成长", "g-row / 勾肉", "Kids grow up fast.", 884],
       "help": [
         "🆘",
         "帮助",
@@ -6283,13 +5799,7 @@ const DB = {
         "A beautiful wedding.",
         889
       ],
-      "visit": [
-        "🏘️",
-        "拜访",
-        "vis-it / 微贼特",
-        "Visit grandma.",
-        890
-      ],
+      "birthday": ["🎂🎉", "生日", "birth-day / 波丝带", "Happy birthday to you!", 890],
       "trust": [
         "🛡️",
         "信任",
@@ -6913,13 +6423,7 @@ const DB = {
         "Cooking dinner.",
         978
       ],
-      "travel": [
-        "🧭",
-        "旅行/导向",
-        "trav-el / 传五哦",
-        "Travel tools.",
-        979
-      ],
+      "band": ["🎸", "乐队", "b-and / 搬得", "Join a school band.", 979],
       "singing": [
         "🎶",
         "唱歌",
@@ -6927,13 +6431,7 @@ const DB = {
         "I like singing.",
         980
       ],
-      "dance": [
-        "💃",
-        "跳舞",
-        "d-ance / 丹丝",
-        "I can dance.",
-        981
-      ],
+      "race": ["🏃‍♂️", "比赛/赛跑", "r-ace / 瑞丝", "Run a fast race.", 981],
       "yoga": [
         "🧘",
         "瑜伽",
@@ -6997,69 +6495,52 @@ const DB = {
         "Catch the ball.",
         990
       ],
-      "run": [
-        "👟",
-        "跑",
-        "r-un / 软",
-        "Running shoes.",
-        991
-      ],
-      "jump": [
-        "🦘",
-        "跳",
-        "j-ump / 酱铺",
-        "Kangaroos jump.",
-        992
-      ],
-      "climb": [
+     
+       "climb": [
         "🧗",
         "爬",
         "cl-imb / 亏赖姆",
         "Climb mountains.",
-        993
+        991
       ],
+
+"net": ["🥅", "网", "n-et / 奶特", "The ball hits the net.", 992],
+
+
       "relax": [
         "🛀",
         "放松",
         "re-lax / 瑞拉克丝",
         "Take a relax.",
-        994
+        993
       ],
       "fun": [
         "🎈",
         "有趣",
         "f-un / 泛",
         "Have fun.",
-        995
+        994
       ],
-      "cool": [
-        "😎",
-        "酷",
-        "c-ool / 裤哦",
-        "Look cool.",
-        996
-      ],
-      "active": [
-        "⚡",
-        "活跃",
-        "ac-tive / 挨克提五",
-        "Active boy.",
-        997
-      ],
-      "popular": [
+        "popular": [
         "🔥",
         "受欢迎",
         "pop-u-lar / 啪飘勒",
         "Popular game.",
-        998
+        995
       ],
       "champion": [
         "👑",
         "冠军",
         "cham-pi-on / 产片",
         "Be a champion.",
-        999
+        996
       ],
+
+
+"record": ["🏆", "记录", "re-cord / 瑞阔得", "Break a world record.", 997],
+"top": ["🔝", "顶部", "t-op / 掏普", "On top of the box.", 998],
+"next": ["🔜", "下一个", "n-ext / 奶克斯特", "Next time, please.", 999],
+
       "finish": [
         "🏁",
         "结束/终点",
@@ -7071,4 +6552,8 @@ const DB = {
   }
 };
 
-const FULL_LIST = ["I", "you", "he", "she", "it", "we", "they", "is", "am", "are", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "happy", "sad", "go", "come", "eat", "drink", "see", "look", "like", "love", "can", "do", "get", "give", "know", "help", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "boy", "girl", "man", "woman", "name", "friend", "sun", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "hall", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "bag", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "paper", "book", "pen", "pencil", "eraser", "ruler", "map", "toy", "doll", "ball", "gift", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "kitchen", "table", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "hot", "cold", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "school", "hospital", "bank", "hotel", "park", "library", "shop", "market", "zoo", "museum", "cinema", "gym", "bridge", "tower", "temple", "church", "airport", "station", "office", "factory", "stadium", "farm", "beach", "mountain", "river", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "map", "flag", "gate", "ticket", "camera", "phone", "radio", "money", "card", "baggage", "backpack", "box", "key", "umbrella", "tent", "fire", "sun", "moon", "go", "come", "stop", "wait", "drive", "ride", "fly", "sail", "walk", "run", "jump", "climb", "visit", "travel", "move", "push", "pull", "open", "close", "buy", "sell", "find", "lost", "far", "near", "fast", "slow", "left", "right", "city", "Body", "Chest", "Back", "Waist", "Hip", "Skin", "Bone", "Muscle", "Blood", "Heart", "Brain", "Stomach", "Shoulder", "Elbow", "Wrist", "Knee", "Ankle", "Heel", "Toe", "Thumb", "Nail", "Palm", "Tongue", "Tooth", "Chin", "Cheek", "Forehead", "Eyebrow", "Eyelash", "Neck", "Health", "Soap", "Brush", "Comb", "Bath", "Sleep", "Wake", "Drink", "Clean", "Dirty", "Strong", "Weak", "Sick", "Cold", "Cough", "Hurt", "Cut", "Doctor", "Nurse", "Pill", "Happy", "Sad", "Angry", "Scared", "Tired", "Hungry", "Thirsty", "Funny", "Brave", "Proud", "Kind", "Shy", "Lonely", "Bored", "Sleepy", "Surprised", "Excited", "Fine", "Great", "Cool", "Quiet", "Loud", "Fast", "Slow", "Hard", "Soft", "Big", "Small", "Hot", "Sweet", "Sour", "Yummy", "Safe", "Smart", "Busy", "Full", "Empty", "New", "Old", "True", "Breath", "Sniff", "Smile", "Laugh", "Cry", "Yawn", "Chew", "Taste", "Grow", "Touch", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "today", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "hot", "cold", "warm", "cool", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "fresh", "clear", "strong", "quiet", "loud", "high", "low", "big", "small", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "teacher", "student", "friend", "desk", "chair", "board", "clock", "window", "door", "floor", "wall", "light", "fan", "room", "playground", "library", "office", "gym", "toilet", "garden", "lesson", "homework", "test", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "ink", "glue", "scissors", "brush", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "compass", "laptop", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "star", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "read", "write", "draw", "listen", "speak", "sing", "learn", "study", "think", "know", "spell", "count", "ask", "tell", "show", "color", "cut", "paste", "clean", "sit", "stand", "share", "help", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "friend", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "active", "careful", "lucky", "cool", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "quiet", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "play", "help", "share", "gift", "party", "wedding", "visit", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "ticket", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "travel", "singing", "dance", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "run", "jump", "climb", "relax", "fun", "cool", "active", "popular", "champion", "finish"];
+
+const FULL_LIST = ["I", "you", "he", "she", "it", "me", "us", "we", "they", "am", "is", "are", "each", "both", "else", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "begin", "end", "go", "come", "eat", "drink", "see", "look", "add", "try", "can", "do", "get", "give", "know", "keep", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "any", "some", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "hall", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "mat", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "hook", "yard", "bell", "bin", "step", "tub", "rug", "toy", "doll", "ball", "dish", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "reservation", "counter", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "special", "dessert", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "lane", "hospital", "bank", "hotel", "park", "seat", "shop", "market", "zoo", "museum", "cinema", "fuel", "bridge", "tower", "temple", "church", "airport", "station", "building", "factory", "skyscraper", "farm", "platform", "passenger", "signal", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "compass", "flag", "gate", "ticket", "passport", "phone", "radio", "money", "card", "baggage", "backpack", "selfie", "suitcase", "passcode", "tent", "destination", "raincoat", "helmet", "depart", "arrive", "explore", "wait", "drive", "ride", "hike", "sail", "shuttle", "cable car", "express", "itinerary", "visit", "travel", "move", "push", "pull", "check-in", "check-out", "buy", "sell", "find", "lost", "far", "near", "tunnel", "traffic", "left", "right", "city", "Body", "Chest", "Back", "Waist", "Hip", "Skin", "Bone", "Muscle", "Blood", "Heart", "Brain", "Stomach", "Shoulder", "Elbow", "Wrist", "Knee", "Ankle", "Heel", "Toe", "Thumb", "Nail", "Palm", "Tongue", "Tooth", "Chin", "Cheek", "Forehead", "Eyebrow", "Eyelash", "Neck", "Health", "Soap", "Brush", "Comb", "Bath", "Sleep", "Wake", "Drink", "Clean", "Dirty", "Strong", "Weak", "Sick", "Cold", "Cough", "Hurt", "Cut", "Doctor", "Nurse", "Pill", "Happy", "Sad", "Angry", "Scared", "Tired", "Hungry", "Thirsty", "Funny", "Brave", "Proud", "Kind", "Shy", "Lonely", "Bored", "Sleepy", "Surprised", "Excited", "Fine", "Great", "Cool", "Quiet", "Loud", "Fast", "Slow", "Hard", "Soft", "Big", "Small", "Hot", "Sweet", "Sour", "Yummy", "Safe", "Smart", "Busy", "Full", "Empty", "New", "Old", "True", "Breath", "Sniff", "Smile", "Laugh", "Cry", "Yawn", "Chew", "Taste", "Grow", "Touch", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "date", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "soft", "frost", "warm", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "stream", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "steam", "clear", "strong", "quiet", "loud", "high", "low", "wide", "thin", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "principal", "teacher", "student", "staff", "coach", "name", "friend", "classmate", "club", "desk", "drawer", "board", "light", "lab", "playground", "library", "office", "gym", "lesson", "homework", "note", "test", "exam", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "kit", "ink", "glue", "scissors", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "laptop", "prize", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "triangle", "oval", "rectangle", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "idea", "remember", "mind", "draw", "listen", "speak", "learn", "study", "think", "spell", "count", "ask", "tell", "topic", "color", "cut", "paste", "clean", "task", "form", "list", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "stranger", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "cheerful", "careful", "lucky", "dream", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "fair", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "grow", "help", "share", "gift", "party", "wedding", "birthday", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "ticket", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "band", "singing", "race", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "climb", "net", "relax", "fun", "popular", "champion", "record", "top", "next", "finish"];
+
+
+

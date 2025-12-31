@@ -588,7 +588,7 @@ const DB = {
         "On the desk.",
         93
       ],
-"off": ["📴", "关掉/离开", "o-ff / 奥夫", "Turn off the light.", 87],
+
       "under": [
         "⬇️📦",
         "在...下面",
@@ -6554,4 +6554,5 @@ const DB = {
 
 
 const FULL_LIST = 
+
 

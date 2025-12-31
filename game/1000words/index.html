@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="vocabulary.js"></script>
+    <script src="https://www.stevesplayground.online/game/1000words/Dev/vocabulary.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
         body { 
@@ -362,7 +362,17 @@
                                 <div className="w-full flex flex-col items-center">
                                     <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                                         <div className="card-face bg-white border-slate-50">
-                                            <div className="text-[120px] mb-4 select-none cursor-pointer floating-emoji" onClick={(e) => { e.stopPropagation(); speak(currentKey); }}>{wordInfo[0]}</div>
+                                            {/* 动态计算字号：1个Emoji用120px，2个用80px，3个及以上用60px */}
+                                            <div 
+                                                className="mb-4 select-none cursor-pointer floating-emoji transition-all duration-300"
+                                                style={{ 
+                                                      fontSize: wordInfo[0].length > 4 ? '60px' : (wordInfo[0].length > 2 ? '80px' : '120px'),
+                                                     lineHeight: '1.2'
+                                                  }}
+                                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+                                                >
+                                                  {wordInfo[0]}
+                                                </div>
                                             <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">{currentKey}</div>
                                             <button onClick={(e) => { e.stopPropagation(); speak(currentKey); }} className="mt-8 w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100">🔊</button>
                                         </div>
@@ -387,7 +397,17 @@
                                 </div>
                             ) : (
                                 <div className="w-full px-4 text-center">
-                                    <div className="text-[120px] mb-16 select-none cursor-pointer floating-emoji" onClick={() => speak(currentKey)}>{wordInfo[0]}</div>
+                                    {/* 动态计算字号：1个Emoji用120px，2个用80px，3个及以上用60px */}
+                                            <div 
+                                                className="mb-4 select-none cursor-pointer floating-emoji transition-all duration-300"
+                                                style={{ 
+                                                      fontSize: wordInfo[0].length > 4 ? '60px' : (wordInfo[0].length > 2 ? '80px' : '120px'),
+                                                     lineHeight: '1.2'
+                                                  }}
+                                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+                                                >
+                                                  {wordInfo[0]}
+                                                </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         {shuffledOptions.map((opt, i) => (
                                             <button key={`${currentKey}-${opt}-${i}`} onClick={() => handleChoice(opt)}

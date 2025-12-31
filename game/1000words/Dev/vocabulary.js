@@ -5101,7 +5101,7 @@ const DB = {
         "Speak up.",
         782
       ],
-      "speech": ["🎤", "演讲", "s-peech / 斯必其", "Give a short speech.", 781],
+      
       "learn": [
         "💡",
         "学习",
@@ -6554,5 +6554,6 @@ const DB = {
 
 
 const FULL_LIST = 
+
 
 

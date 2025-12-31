@@ -5085,21 +5085,21 @@ const DB = {
         "绘画",
         "dr-aw / 抓",
         "Draw a tree.",
-        778
+        780
       ],
       "listen": [
         "👂",
         "听",
         "lis-ten / 离森",
         "Listen to me.",
-        779
+        781
       ],
       "speak": [
         "🗣️",
         "说",
         "sp-eak / 斯必刻",
         "Speak up.",
-        780
+        782
       ],
       "speech": ["🎤", "演讲", "s-peech / 斯必其", "Give a short speech.", 781],
       "learn": [
@@ -5107,23 +5107,23 @@ const DB = {
         "学习",
         "l-earn / 勒恩",
         "Learn every day.",
-        782
+        783
       ],
       "study": [
         "🧠",
         "研究/读书",
         "stud-y / 斯塔低",
         "Study hard.",
-        783
+        784
       ],
       "think": [
         "🤔",
         "思考",
         "th-ink / 幸刻",
         "Think about it.",
-        784
+        785
       ],
-     "repeat": ["🔁", "重复/跟读", "re-peat / 瑞屁特", "Repeat after the teacher.", 785],
+   
       "spell": [
         "🔠",
         "拼写",
@@ -5184,7 +5184,7 @@ const DB = {
     "task": ["✅", "任务", "t-ask / 踏丝刻", "Finish the task now.", 795],
       "form": ["📄", "表格", "f-orm / 佛姆", "Fill in the form.", 796],
       "list": ["📋", "清单", "l-ist / 栗丝特", "Read the word list.", 797],
-"remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", 778],
+"remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", 798],
       "understand": [
         "💡",
         "明白",
@@ -6554,3 +6554,4 @@ const DB = {
 
 
 const FULL_LIST = 
+

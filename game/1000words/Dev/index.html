@@ -120,31 +120,31 @@
 
 			// 自动识别并渲染 Emoji 或 图片
 			const renderMedia = (source, sizeClass = "text-[120px]") => {
-  if (!source) return null;
-  const isImage = source.includes('/') || source.includes('.');
+ 				 if (!source) return null;
+  				const isImage = source.includes('/') || source.includes('.');
 
-  if (isImage) {
-    return (
-      /* 为图片容器添加与 Emoji 相同的动画类 animate-float */
-      <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
-        <img 
-          src={source} 
-          className="max-w-full max-h-full object-contain pointer-events-none" 
-          style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
-        />
-      </div>
-    );
-  }
+ 				 if (isImage) {
+   					 return (
+    				  /* 为图片容器添加与 Emoji 相同的动画类 animate-float */
+     				 <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
+       					 <img 
+          					src={source} 
+					        className="max-w-full max-h-full object-contain pointer-events-none" 
+          					style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
+        				/>
+     				 </div>
+   					 );
+ 				 }
 
-  // Emoji 逻辑
-  const fontSize = source.length > 4 ? '60px' : (source.length > 2 ? '80px' : '120px');
-  return (
-    /* 统一使用 animate-float 代替原来的 floating-emoji */
-    <span className="animate-float transition-all duration-300" style={{ fontSize, lineHeight: '1' }}>
-      {source}
-    </span>
-  );
-};
+  			// Emoji 逻辑
+  			const fontSize = source.length > 4 ? '60px' : (source.length > 2 ? '80px' : '120px');
+ 			 return (
+    			/* 统一使用 animate-float 代替原来的 floating-emoji */
+    			<span className="animate-float transition-all duration-300" style={{ fontSize, lineHeight: '1' }}>
+      				{source}
+    			</span>
+ 				 );
+			};
 			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
             const fullList = useMemo(() => {

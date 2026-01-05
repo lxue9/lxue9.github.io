@@ -395,17 +395,16 @@
                                            
 											{/* 统一容器：高度固定在 130px 左右 */}
                                             <div 
-        className="h-32 mb-4 flex items-end justify-center select-none cursor-pointer"
-        onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
-    >
-        {renderMedia(wordInfo[0])}
-    </div>
+        										className="h-32 mb-4 flex items-end justify-center select-none cursor-pointer"
+       											 onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+    											>
+       											 {renderMedia(wordInfo[0])}
+    										</div>
 
-    <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">
-        {currentKey}
-    </div>
-</div>
-                                            <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">{currentKey}</div>
+  											  <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">
+        										{currentKey}
+   											 </div>
+
                                             <button onClick={(e) => { e.stopPropagation(); speak(currentKey); }} className="mt-8 w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100">🔊</button>
                                         </div>
                                         <div className="card-face card-back">
@@ -431,16 +430,13 @@
                                 <div className="w-full px-4 text-center">
                                     {/* 动态计算字号：1个Emoji用120px，2个用80px，3个及以上用60px */}
                                             <div 
-                                                className="mb-4 select-none cursor-pointer floating-emoji transition-all duration-300"
-                                                style={{ 
-                                                      fontSize: wordInfo[0].length > 4 ? '60px' : (wordInfo[0].length > 2 ? '80px' : '120px'),
-                                                     lineHeight: '1.2'
-                                                  }}
-                                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+        										className="h-32 mb-16 flex items-end justify-center select-none cursor-pointer"
+        										onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
                                                 >
                                                   {renderMedia(wordInfo[0])}
-                                                </div>
-                                    <div className="grid grid-cols-2 gap-4">
+                                            </div>
+                                   			<div className="grid grid-cols-2 gap-4">
+												
                                         {shuffledOptions.map((opt, i) => (
                                             <button key={`${currentKey}-${opt}-${i}`} onClick={() => handleChoice(opt)}
                                                 className={`p-6 rounded-[32px] font-black text-lg border-b-[6px] transition-all btn-active ${

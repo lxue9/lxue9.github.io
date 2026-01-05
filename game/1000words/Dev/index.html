@@ -107,6 +107,17 @@
                 finish: useRef(new Audio('https://www.stevesplayground.online/game/1000words/finish.mp3'))
             };
 
+			// 自动识别并渲染 Emoji 或 图片
+			const renderMedia = (source, sizeClass = "text-[120px]") => {
+    			if (!source) return null;
+    			const isImage = source.includes('/') || source.includes('.');
+    			return isImage ? (
+       				 <img src={source} className="w-full h-full object-contain pointer-events-none" />
+    			) : (
+       				 <span className={`${sizeClass} floating-emoji`}>{source}</span>
+   				 );
+			};
+
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
             const fullList = useMemo(() => {
                 if (!dbData) return [];
@@ -310,7 +321,11 @@
                                 const done = Object.keys(data.words).filter(w => learnedWords.includes(w)).length;
                                 return (
                                     <div key={id} className="bg-white p-5 rounded-[36px] border border-slate-50 flex items-center shadow-sm">
-                                        <div className="w-14 h-14 bg-indigo-50/50 rounded-2xl flex items-center justify-center text-3xl mr-4">{data.levelEmoji}</div>
+                                        
+										<div className="w-14 h-14 bg-indigo-50/50 rounded-2xl flex items-center justify-center text-3xl mr-4 overflow-hidden p-2">
+    										{renderMedia(data.levelEmoji, "text-3xl")}
+										</div>
+										
                                         <div className="flex-1">
                                             <h3 className="font-black text-slate-700 text-base">{data.levelName}</h3>
                                             <div className="flex items-center gap-3 mt-2">
@@ -371,7 +386,7 @@
                                                   }}
                                                 onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
                                                 >
-                                                  {wordInfo[0]}
+                                                  {renderMedia(wordInfo[0])}
                                                 </div>
                                             <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">{currentKey}</div>
                                             <button onClick={(e) => { e.stopPropagation(); speak(currentKey); }} className="mt-8 w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100">🔊</button>
@@ -406,7 +421,7 @@
                                                   }}
                                                 onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
                                                 >
-                                                  {wordInfo[0]}
+                                                  {renderMedia(wordInfo[0])}
                                                 </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         {shuffledOptions.map((opt, i) => (

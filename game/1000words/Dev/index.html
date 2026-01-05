@@ -28,8 +28,8 @@
         }
         
         /* 1. 浮動 Emoji 動畫 */
-        @keyframes emoji-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
-        .floating-emoji { display: inline-block; animation: emoji-jump 1s ease-in-out infinite; }
+        @keyframes emoji-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-50px); } }
+        .floating-emoji { display: inline-block; animation: emoji-jump 0.5s ease-in-out infinite; }
 
         /* 2. 黃金雨特效背景 */
         .gold-glow { box-shadow: 0 0 50px rgba(255, 215, 0, 0.4); border: 4px solid #FFD700 !important; }
@@ -137,7 +137,8 @@
  				 }
 
   			// Emoji 逻辑
-  			const fontSize = source.length > 4 ? '60px' : (source.length > 2 ? '80px' : '120px');
+			const emojiCount = Array.from(strSource).length;	
+  			const fontSize = emojiCount > 4 ? '60px' : (emojiCount > 2 ? '80px' : '120px');
  			 return (
     			/* 统一使用 animate-float 代替原来的 floating-emoji */
     			<span className="animate-float transition-all duration-300" style={{ fontSize, lineHeight: '1' }}>

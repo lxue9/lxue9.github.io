@@ -28,8 +28,8 @@
         }
         
         /* 1. 浮動 Emoji 動畫 */
-        @keyframes emoji-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .floating-emoji { display: inline-block; animation: emoji-jump 2s ease-in-out infinite; }
+        @keyframes emoji-jump { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-50px); } }
+        .floating-emoji { display: inline-block; animation: emoji-jump 0.5s ease-in-out infinite; }
 
         /* 2. 黃金雨特效背景 */
         .gold-glow { box-shadow: 0 0 50px rgba(255, 215, 0, 0.4); border: 4px solid #FFD700 !important; }
@@ -50,6 +50,17 @@
         .btn-active:active { transform: scale(0.95); opacity: 0.8; }
         .badge { position: absolute; top: -6px; right: -6px; background: #fb7185; color: white; font-size: 10px; font-weight: 900; padding: 2px 8px; border-radius: 10px; border: 2px solid white; }
         .swipe-hint { position: absolute; bottom: -40px; font-size: 12px; font-weight: 900; color: #cbd5e1; display: flex; gap: 20px; }
+
+		@keyframes slow-float {
+ 		 0%, 100% { transform: translateY(0); }
+  		50% { transform: translateY(-5px); } /* 向上漂浮 5px */
+		}
+
+		.animate-float {
+ 			 animation: slow-float 3s ease-in-out infinite;
+  			display: inline-flex; /* 确保动画应用在行内块上 */
+		}
+		
     </style>
 </head>
 <body>
@@ -107,6 +118,37 @@
                 finish: useRef(new Audio('https://www.stevesplayground.online/game/1000words/finish.mp3'))
             };
 
+			// 自动识别并渲染 Emoji 或 图片
+			const renderMedia = (source, sizeClass = "text-[120px]") => {
+ 				 if (!source) return null;
+				const strSource = String(source).trim();
+  				const isImage = strSource.includes('/') || strSource.includes('.');
+
+ 				 if (isImage) {
+   					 return (
+    				  /* 为图片容器添加与 Emoji 相同的动画类 animate-float */
+     				 <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
+       					 <img 
+          					src={strSource} 
+					        className="max-w-full max-h-full object-contain pointer-events-none" 
+          					style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
+        				/>
+     				 </div>
+   					 );
+ 				 }
+
+  			// Emoji 逻辑
+			
+			const emojiCount = Array.from(strSource).length;	
+  			const fontSize = emojiCount > 4 ? '60px' : (emojiCount > 2 ? '80px' : '120px');
+ 			 return (
+    			/* 统一使用 animate-float 代替原来的 floating-emoji */
+    			<span className="animate-float transition-all duration-300" style={{ fontSize, lineHeight: '1' }}>
+      				{strSource}
+    			</span>
+ 				 );
+			};
+			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
             const fullList = useMemo(() => {
                 if (!dbData) return [];
@@ -309,8 +351,8 @@
                                 const total = Object.keys(data.words).length;
                                 const done = Object.keys(data.words).filter(w => learnedWords.includes(w)).length;
                                 return (
-                                    <div key={id} className="bg-white p-5 rounded-[36px] border border-slate-50 flex items-center shadow-sm">
-                                        <div className="w-14 h-14 bg-indigo-50/50 rounded-2xl flex items-center justify-center text-3xl mr-4">{data.levelEmoji}</div>
+                                    <div key={id} className="bg-white p-5 rounded-[36px] border border-slate-50 flex items-center shadow-sm overflow-hidden">
+                                        <div className="w-14 h-14 shrink-0 bg-indigo-50/50 rounded-2xl flex items-center justify-center text-3xl mr-4 relative">{data.levelEmoji}</div>
                                         <div className="flex-1">
                                             <h3 className="font-black text-slate-700 text-base">{data.levelName}</h3>
                                             <div className="flex items-center gap-3 mt-2">
@@ -362,18 +404,19 @@
                                 <div className="w-full flex flex-col items-center">
                                     <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                                         <div className="card-face bg-white border-slate-50">
-                                            {/* 动态计算字号：1个Emoji用120px，2个用80px，3个及以上用60px */}
+                                           
+											{/* 统一容器：高度固定在 130px 左右 */}
                                             <div 
-                                                className="mb-4 select-none cursor-pointer floating-emoji transition-all duration-300"
-                                                style={{ 
-                                                      fontSize: wordInfo[0].length > 4 ? '60px' : (wordInfo[0].length > 2 ? '80px' : '120px'),
-                                                     lineHeight: '1.2'
-                                                  }}
-                                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
-                                                >
-                                                  {wordInfo[0]}
-                                                </div>
-                                            <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">{currentKey}</div>
+        										className="h-32 mb-4 flex items-end justify-center select-none cursor-pointer"
+       											 onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+    											>
+       											 {renderMedia(wordInfo[0])}
+    										</div>
+
+  											  <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">
+        										{currentKey}
+   											 </div>
+
                                             <button onClick={(e) => { e.stopPropagation(); speak(currentKey); }} className="mt-8 w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100">🔊</button>
                                         </div>
                                         <div className="card-face card-back">
@@ -399,16 +442,13 @@
                                 <div className="w-full px-4 text-center">
                                     {/* 动态计算字号：1个Emoji用120px，2个用80px，3个及以上用60px */}
                                             <div 
-                                                className="mb-4 select-none cursor-pointer floating-emoji transition-all duration-300"
-                                                style={{ 
-                                                      fontSize: wordInfo[0].length > 4 ? '60px' : (wordInfo[0].length > 2 ? '80px' : '120px'),
-                                                     lineHeight: '1.2'
-                                                  }}
-                                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+        										className="h-32 mb-16 flex items-end justify-center select-none cursor-pointer"
+        										onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
                                                 >
-                                                  {wordInfo[0]}
-                                                </div>
-                                    <div className="grid grid-cols-2 gap-4">
+                                                  {renderMedia(wordInfo[0])}
+                                            </div>
+                                   			<div className="grid grid-cols-2 gap-4">
+												
                                         {shuffledOptions.map((opt, i) => (
                                             <button key={`${currentKey}-${opt}-${i}`} onClick={() => handleChoice(opt)}
                                                 className={`p-6 rounded-[32px] font-black text-lg border-b-[6px] transition-all btn-active ${

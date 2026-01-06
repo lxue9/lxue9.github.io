@@ -13,7 +13,8 @@ Updates:
 9. 修复挑战模式多题后不再朗读正确选项  done   
 10.多emoji状态下溢出单词卡 done  
 11.替换82个重复单词 done  
-12.优化emoji - 更新webp 格式图片 done
+12.优化emoji - 更新webp 格式图片 done  
+13. 优化答对音效 done  
 
 Issues:  
 1. 缺少蔬菜水果基本单词

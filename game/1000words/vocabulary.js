@@ -3247,707 +3247,594 @@ const DB = {
     "levelEmoji": "💪",
     "levelName": "第6关: 我的身体",
     "words": {
-      "Body": [
-        "👤",
-        "身体",
-        "ˈbɑːdi",
-        "My body is strong.",
-        501
-      ],
-      "Chest": [
-        "https://www.stevesplayground.online/game/1000words/emoji/chest.webp",
-        "胸膛",
-        "tʃest",
-        "Take a deep breath in your chest.",
-        502
-      ],
-      "Back": [
-        "🐢",
-        "背部",
-        "bæk",
-        "I have a small backpack on my back.",
-        503
-      ],
-      "Waist": [
-        "https://www.stevesplayground.online/game/1000words/emoji/waist.webp",
-        "腰",
-        "weɪst",
-        "The belt is around my waist.",
-        504
-      ],
-      "Hip": [
-        "https://www.stevesplayground.online/game/1000words/emoji/hip.webp",
-        "臀部",
-        "hɪp",
-        "Put your hands on your hips.",
-        505
-      ],
-      "Skin": [
-        "https://www.stevesplayground.online/game/1000words/emoji/skin.webp",
-        "皮肤",
-        "skɪn",
-        "Sun is hot for my skin.",
-        506
-      ],
-      "Bone": [
-        "🦴",
-        "骨头",
-        "boʊn",
-        "Milk makes bones strong.",
-        507
-      ],
-      "Muscle": [
-        "💪",
-        "肌肉",
-        "ˈmʌsl",
-        "I have small muscles.",
-        508
-      ],
-      "Blood": [
-        "🩸",
-        "血液",
-        "blʌd",
-        "Blood is red.",
-        509
-      ],
-      "Heart": [
-        "❤️",
-        "心脏",
-        "hɑːrt",
-        "My heart beats fast.",
-        510
-      ],
-      "Brain": [
-        "🧠",
-        "大脑",
-        "breɪn",
-        "My brain can think.",
-        511
-      ],
-      "Stomach": [
-        "https://www.stevesplayground.online/game/1000words/emoji/stomach.webp",
-        "肚子/胃",
-        "ˈstʌmək",
-        "My stomach is full.",
-        512
-      ],
-      "Shoulder": [
-        "https://www.stevesplayground.online/game/1000words/emoji/shoulder.webp",
-        "肩膀",
-        "ˈʃoʊldər",
-        "A parrot sits on the pirate's shoulder.",
-        513
-      ],
-      "Elbow": [
-        "https://www.stevesplayground.online/game/1000words/emoji/elbow.webp",
-        "手肘",
-        "ˈelboʊ",
-        "Touch your elbow.",
-        514
-      ],
-      "Wrist": [
-        "https://www.stevesplayground.online/game/1000words/emoji/wrist.webp",
-        "手腕",
-        "rɪst",
-        "I wear a watch on my wrist.",
-        515
-      ],
-      "Knee": [
-        "🦵",
-        "膝盖",
-        "niː",
-        "I fell on my knee.",
-        516
-      ],
-      "Ankle": [
-        "⛸️",
-        "脚踝",
-        "ˈæŋkl",
-        "I can turn my ankle.",
-        517
-      ],
-      "Heel": [
-        "👠",
-        "脚后跟",
-        "hiːl",
-        "My heel hurts.",
-        518
-      ],
-      "Toe": [
-        "👣",
-        "脚趾",
-        "toʊ",
-        "I have ten toes.",
-        519
-      ],
-      "Thumb": [
-        "👍",
-        "大拇指",
-        "θʌm",
-        "Give a thumbs up.",
-        520
-      ],
-      "Nail": [
-        "💅",
-        "指甲",
-        "neɪl",
-        "Clean your nails.",
-        521
-      ],
-      "Palm": [
-        "🖐️",
-        "手掌",
-        "pɑːm",
-        "Put it in your palm.",
-        522
-      ],
-      "Tongue": [
-        "👅",
-        "舌头",
-        "tʌŋ",
-        "Show me your tongue.",
-        523
-      ],
-      "Tooth": [
-        "🦷",
-        "牙齿",
-        "tuːθ",
-        "I lost a tooth today.",
-        524
-      ],
-      "Chin": [
-        "🤔",
-        "下巴",
-        "tʃɪn",
-        "Touch your chin.",
-        525
-      ],
-      "Cheek": [
-        "😊",
-        "脸颊",
-        "tʃiːk",
-        "Kiss on the cheek.",
-        526
-      ],
-      "Forehead": [
-        "https://www.stevesplayground.online/game/1000words/emoji/forehead.webp",
-        "额头",
-        "ˈfɔːrhed",
-        "My forehead is hot.",
-        527
-      ],
+		"face": [
+    "🧒",
+    "脸",
+    "feɪs",
+    "Wash your face every morning.",501
+], 
+		"eye": [
+    "👁️",
+    "眼睛",
+    "aɪ",
+    "Close your eyes and sleep.",502
+],
       "Eyebrow": [
         "〰️",
         "眉毛",
         "ˈaɪbraʊ",
         "Wiggle your eyebrows.",
-        528
+        503
       ],
       "Eyelash": [
         "https://www.stevesplayground.online/game/1000words/emoji/eyelash.webp",
         "眼睫毛",
         "ˈaɪlæʃ",
         "Long eyelashes.",
-        529
+        504
       ],
+
+		"ear": [
+    "👂",
+    "耳朵",
+    "ɪr",
+    "I listen with my ears.",505
+],
+"nose": [
+    "👃",
+    "鼻子",
+    "noʊz",
+    "The dog has a big nose.",506
+],
+"mouth": [
+    "👄",
+    "嘴巴",
+    "maʊθ",
+    "Open your mouth and say Ah.",507
+],
+"lip": [
+    "💄",
+    "嘴唇",
+    "lɪp",
+    "My lips are very dry.",508
+],
+		 "Tongue": [
+        "👅",
+        "舌头",
+        "tʌŋ",
+        "Show me your tongue.",
+        509
+      ],
+		
+		"Tooth": [
+        "🦷",
+        "牙齿",
+        "tuːθ",
+        "I lost a tooth today.",
+        510
+      ],
+		"Forehead": [
+        "https://www.stevesplayground.online/game/1000words/emoji/forehead.webp",
+        "额头",
+        "ˈfɔːrhed",
+        "My forehead is hot.",
+        511
+      ],
+      "Chin": [
+        "🤔",
+        "下巴",
+        "tʃɪn",
+        "Touch your chin.",
+        512
+      ],
+      "Cheek": [
+        "😊",
+        "脸颊",
+        "tʃiːk",
+        "Kiss on the cheek.",
+        513
+      ],
+      
       "Neck": [
         "🦒🧣",
         "脖子",
         "nek",
         "Giraff has a long neck.",
-        530
+        514
       ],
-      "Health": [
+"hair": [
+    "💇",
+    "头发",
+    "her",
+    "She has long black hair.",515
+],	"curly": [
+    "👩‍🦱",
+    "卷曲的",
+    "ˈkɜːrli",
+    "She has curly hair.",516
+],
+"straight": [
+    "👩‍🦰",
+    "笔直的",
+    "streɪt",
+    "My hair is long and straight.",517
+],
+"long": [
+    "💇‍♀️",
+    "长的",
+    "lɔːŋ",
+    "She has very long hair.",518
+],
+"short": [
+    "💇‍♂️",
+    "短的",
+    "ʃɔːrt",
+    "My brother has short hair.",519
+],
+"bangs": [
+    "💇‍♀️",
+    "刘海",
+    "bæŋz",
+    "She has short bangs.",520
+],
+"braid": [
+    "👧",
+    "辫子",
+    "breɪd",
+    "She wears her hair in a braid.",521
+],
+"ponytail": [
+    "👱‍♀️",
+    "马尾辫",
+    "ˈpoʊniteɪl",
+    "Tie your hair in a ponytail.",522
+],
+"pigtails": [
+    "👧",
+    "双马尾",
+    "ˈpɪɡteɪlz",
+    "The little girl has cute pigtails.",523
+],
+"bun": [
+    "👱‍♀️",
+    "发髻/丸子头",
+    "bʌn",
+    "She put her hair up in a bun.",524
+],
+"bald": [
+    "👨‍🦲",
+    "秃头的",
+    "bɔːld",
+    "My grandpa is bald.",525
+],
+
+      "body": [
+        "👤",
+        "身体",
+        "ˈbɑːdi",
+        "My body is strong.",
+        526
+      ],
+"tall": [
+    "🦒",
+    "高的",
+    "tɔːl",
+    "My father is very tall.",527
+],
+"short": [
+    "📏",
+    "矮的",
+    "ʃɔːrt",
+    "I am short, but I can jump.",528
+],
+"thin": [
+    "🤸",
+    "瘦的",
+    "θɪn",
+    "The model is very thin.",529
+],
+"fat": [
+    "🍔",
+    "胖的",
+    "fæt",
+    "The cat is a little fat.",530
+],
+"chubby": [
+    "👶",
+    "圆嘟嘟的",
+    "ˈtʃʌbi",
+    "The baby has chubby cheeks.",531
+],
+		 "shoulder": [
+        "https://www.stevesplayground.online/game/1000words/emoji/shoulder.webp",
+        "肩膀",
+        "ˈʃoʊldər",
+        "A parrot sits on the pirate's shoulder.",
+        532
+      ],
+      "chest": [
+        "https://www.stevesplayground.online/game/1000words/emoji/chest.webp",
+        "胸膛",
+        "tʃest",
+        "Take a deep breath in your chest.",
+        533
+      ],
+		"belly": ["🤰", "肚子", "ˈbeli", "My belly is full.",534],
+      "back": [
+        "🐢",
+        "背部",
+        "bæk",
+        "I have a small backpack on my back.",
+        535
+      ],
+      "waist": [
+        "https://www.stevesplayground.online/game/1000words/emoji/waist.webp",
+        "腰",
+        "weɪst",
+        "The belt is around my waist.",
+        536
+      ],
+      "hip": [
+        "https://www.stevesplayground.online/game/1000words/emoji/hip.webp",
+        "臀部",
+        "hɪp",
+        "Put your hands on your hips.",
+        537
+      ],
+  "thumb": [
+        "👍",
+        "大拇指",
+        "θʌm",
+        "Give a thumbs up.",
+        538
+      ],
+      "nail": [
+        "💅",
+        "指甲",
+        "neɪl",
+        "Clean your nails.",
+        539
+      ],
+      "palm": [
+        "🖐️",
+        "手掌",
+        "pɑːm",
+        "Put it in your palm.",
+        540
+      ],
+		"finger": ["🖐️", "手指", "ˈfɪŋɡər", "I have ten fingers.",541],
+		"fist": ["✊", "拳头", "fɪst", "Hold your fist tight.",542],
+
+	"arm": ["💪", "手臂", "ɑːrm", "He has strong arms.",543],
+		
+		"elbow": [
+        "https://www.stevesplayground.online/game/1000words/emoji/elbow.webp",
+        "手肘",
+        "ˈelboʊ",
+        "Touch your elbow.",
+        544
+      ],
+      "wrist": [
+        "https://www.stevesplayground.online/game/1000words/emoji/wrist.webp",
+        "手腕",
+        "rɪst",
+        "I wear a watch on my wrist.",
+        545
+      ],
+		"thigh": ["🍗", "大腿", "θaɪ", "My thighs hurt after running.",546],
+		"leg": ["🦵", "腿", "leɡ", "My legs are long.",547],
+      "knee": [
+        "🦵",
+        "膝盖",
+        "niː",
+        "I fell on my knee.",
+        548
+      ],
+      "ankle": [
+        "⛸️",
+        "脚踝",
+        "ˈæŋkl",
+        "I can turn my ankle.",
+        549
+      ],
+		"foot": ["🦶", "脚", "fʊt", "Wash your left foot.",550],
+      "heel": [
+        "👠",
+        "脚后跟",
+        "hiːl",
+        "My heel hurts.",
+        551
+      ],
+      "toe": [
+        "👣",
+        "脚趾",
+        "toʊ",
+        "I have ten toes.",
+        552
+      ],
+		
+      "skin": [
+        "https://www.stevesplayground.online/game/1000words/emoji/skin.webp",
+        "皮肤",
+        "skɪn",
+        "Sun is hot for my skin.",
+        553
+      ],
+      "bone": [
+        "🦴",
+        "骨头",
+        "boʊn",
+        "Milk makes bones strong.",
+        554
+      ],
+		
+      "muscle": [
+        "💪",
+        "肌肉",
+        "ˈmʌsl",
+        "I have small muscles.",
+        555
+      ],
+      "blood": [
+        "🩸",
+        "血液",
+        "blʌd",
+        "Blood is red.",
+        556
+      ],
+		"brain": [
+        "🧠",
+        "大脑",
+        "breɪn",
+        "My brain can think.",
+        557
+      ],
+      "heart": [
+        "❤️",
+        "心脏",
+        "hɑːrt",
+        "My heart beats fast.",
+        558
+      ],		
+		
+      "stomach": [
+        "https://www.stevesplayground.online/game/1000words/emoji/stomach.webp",
+        "肚子/胃",
+        "ˈstʌmək",
+        "My stomach is full.",
+        559
+      ],
+     
+		"lung": ["img/lung.webp", "肺", "lʌŋ", "We breathe with our lungs.",560],
+"liver": ["🤎", "肝脏", "ˈlɪvər", "The liver cleans the blood.",561],
+		"kidney": ["img/kidney.webp", "肾脏", "ˈkɪdni", "We have two kidneys.",562],
+		"vein": ["🧪", "血管", "veɪn", "You can see blue veins on my hand.",563]
+		"navel": ["🔘", "肚脐", "ˈneɪvl", "Everyone has a navel.",564],
+      "health": [
         "🥗",
         "健康",
         "helθ",
         "Health is important.",
-        531
+        565
       ],
-      "Soap": [
-        "🧼",
-        "肥皂",
-        "soʊp",
-        "Wash with soap.",
-        532
-      ],
-      "Brush": [
-        "🪥",
-        "刷牙",
-        "brʌʃ",
-        "Brush your teeth.",
-        533
-      ],
-      "Comb": [
-        "🪮",
-        "梳头",
-        "koʊm",
-        "Comb your hair.",
-        534
-      ],
-      "Bath": [
-        "🛀",
-        "洗澡",
-        "bæθ",
-        "Take a hot bath.",
-        535
-      ],
-      "Sleep": [
-        "😴",
-        "睡觉",
-        "sliːp",
-        "Time to sleep.",
-        536
-      ],
-      "Wake": [
-        "⏰",
-        "醒来",
-        "weɪk",
-        "I wake up early.",
-        537
-      ],
-      "Drink": [
-        "🥤",
-        "喝水",
-        "drɪŋk",
-        "Drink more water.",
-        538
-      ],
-      "Clean": [
+    
+      "clean": [
         "✨",
         "干净",
         "kliːn",
         "My room is clean.",
-        539
+        566
       ],
-      "Dirty": [
+      "dirty": [
         "💩",
         "脏",
         "ˈdɜːrti",
         "My shoes are dirty.",
-        540
+        567
       ],
-      "Strong": [
-        "🏋️",
-        "强壮",
-        "strɔːŋ",
-        "He is a strong boy.",
-        541
-      ],
-      "Weak": [
+		"pretty": [
+    "🎀",
+    "漂亮的",
+    "ˈprɪti",
+    "The little girl is very pretty.",568
+],
+"handsome": [
+    "🤴",
+    "英俊的",
+    "ˈhænsəm",
+    "The prince is tall and handsome.",569
+],
+     
+      "weak": [
         "🥀",
         "虚弱",
         "wiːk",
         "I feel a bit weak.",
-        542
+        570
       ],
-      "Sick": [
+      "sick": [
         "🤒",
         "生病",
         "sɪk",
         "I stayed home sick.",
-        543
+        571
       ],
-      "Cold": [
-        "🤧",
-        "感冒/冷",
-        "koʊld",
-        "I have a bad cold.",
-        544
-      ],
-      "Cough": [
+     
+      "cough": [
         "😷",
         "咳嗽",
         "kɔːf",
         "Cover your cough.",
-        545
+        572
       ],
-      "Hurt": [
-        "🤕",
-        "疼/受伤",
-        "hɜːrt",
-        "My arm hurts.",
-        546
-      ],
-      "Cut": [
-        "🩹",
-        "伤口/切",
-        "kʌt",
-        "I have a small cut.",
-        547
-      ],
-      "Doctor": [
-        "👨‍⚕️",
-        "医生",
-        "ˈdɑːktər",
-        "The doctor is kind.",
-        548
-      ],
-      "Nurse": [
-        "👩‍⚕️",
-        "护士",
-        "nɜːrs",
-        "The nurse helps me.",
-        549
-      ],
-      "Pill": [
-        "💊",
-        "药丸",
-        "pɪl",
-        "Take the pill.",
-        550
-      ],
-      "Happy": [
-        "😀",
-        "开心",
-        "ˈhæpi",
-        "I am very happy.",
-        551
-      ],
-      "Sad": [
-        "😢",
-        "难过",
-        "sæd",
-        "Don't be sad.",
-        552
-      ],
-      "Angry": [
-        "💢",
-        "生气",
-        "ˈæŋɡri",
-        "He is very angry.",
-        553
-      ],
-      "Scared": [
-        "😨",
-        "害怕",
-        "skerd",
-        "I am scared of bats.",
-        554
-      ],
-      "Tired": [
-        "😫",
-        "累",
-        "ˈtaɪərd",
-        "I am tired today.",
-        555
-      ],
-      "Hungry": [
-        "😋",
-        "饿",
-        "ˈhʌŋɡri",
-        "I am so hungry.",
-        556
-      ],
-      "Thirsty": [
-        "🍹",
-        "渴",
-        "ˈθɜːrsti",
-        "I am thirsty.",
-        557
-      ],
-      "Funny": [
-        "🤡",
-        "滑稽",
-        "ˈfʌni",
-        "A funny clown.",
-        558
-      ],
-      "Brave": [
-        "🦁",
-        "勇敢",
-        "breɪv",
-        "A brave girl.",
-        559
-      ],
-      "Proud": [
-        "🎖️",
-        "自豪",
-        "praʊd",
-        "Dad is proud.",
-        560
-      ],
-      "Kind": [
-        "😇",
-        "善良",
-        "kaɪnd",
-        "Be kind to pets.",
-        561
-      ],
-      "Shy": [
-        "🙈",
-        "害羞",
-        "ʃaɪ",
-        "The boy is shy.",
-        562
-      ],
-      "Lonely": [
-        "🏚️",
-        "孤独",
-        "ˈloʊnli",
-        "I feel lonely.",
-        563
-      ],
-      "Bored": [
-        "😑",
-        "无聊",
-        "bɔːrd",
-        "I am so bored.",
-        564
-      ],
-      "Sleepy": [
+		"sneeze": ["🤧", "打喷嚏", "sniːz", "I sneeze when it's cold.",573],
+		"fever": ["🌡️", "发烧", "ˈfiːvər", "The baby has a fever.",574],
+		"dizzy": ["😵‍💫", "头晕", "ˈdɪzi", "I feel a bit dizzy.",575],
+		"shiver": ["🥶", "发抖", "ˈʃɪvər", "She shivered with cold.",576],
+		"sweat": [
+    "💦",
+    "流汗",
+    "swet",
+    "I sweat a lot in summer.",577
+],
+		"itchy": [
+    "🦟",
+    "发痒",
+    "ˈɪtʃi",
+    "My mosquito bite is itchy.",578
+],
+		"sleepy": [
         "🥱",
         "想睡",
         "ˈsliːpi",
         "I am sleepy.",
-        565
-      ],
-      "Surprised": [
-        "😲",
-        "惊讶",
-        "sərˈpraɪzd",
-        "A surprised face.",
-        566
-      ],
-      "Excited": [
-        "🤩",
-        "激动",
-        "ɪkˈsaɪtɪd",
-        "I am so excited!",
-        567
-      ],
-      "Fine": [
-        "🌈",
-        "还好",
-        "faɪn",
-        "I am doing fine.",
-        568
-      ],
-      "Great": [
-        "🌟",
-        "棒极了",
-        "ɡreɪt",
-        "You look great!",
-        569
-      ],
-      "Cool": [
-        "😎",
-        "酷",
-        "kuːl",
-        "He is very cool.",
-        570
-      ],
-      "Quiet": [
-        "🤫",
-        "安静",
-        "ˈkwaɪət",
-        "Be quiet now.",
-        571
-      ],
-      "Loud": [
-        "📢",
-        "吵闹",
-        "laʊd",
-        "Don't be so loud.",
-        572
-      ],
-      "Fast": [
-        "🏎️",
-        "快",
-        "fæst",
-        "Run very fast.",
-        573
-      ],
-      "Slow": [
-        "🐢",
-        "慢",
-        "sloʊ",
-        "Walk very slow.",
-        574
-      ],
-      "Hard": [
-        "🧱",
-        "硬",
-        "hɑːrd",
-        "The rock is hard.",
-        575
-      ],
-      "Soft": [
-        "☁️",
-        "软",
-        "sɔːft",
-        "The bed is soft.",
-        576
-      ],
-      "Big": [
-        "🐘",
-        "大",
-        "bɪɡ",
-        "An elephant is big.",
-        577
-      ],
-      "Small": [
-        "🐜",
-        "小",
-        "smɔːl",
-        "An ant is small.",
-        578
-      ],
-      "Hot": [
-        "🥵",
-        "热",
-        "hɑːt",
-        "The tea is hot.",
         579
       ],
-      "Sweet": [
-        "🍭",
-        "甜",
-        "swiːt",
-        "Candy is sweet.",
+      "hurt": [
+        "🤕",
+        "疼/受伤",
+        "hɜːrt",
+        "My arm hurts.",
         580
       ],
-      "Sour": [
-        "🍋",
-        "酸",
-        "ˈsaʊər",
-        "Lemon is sour.",
+      "cut": [
+        "🩹",
+        "伤口/切",
+        "kʌt",
+        "I have a small cut.",
         581
       ],
-      "Yummy": [
-        "🥘",
-        "好吃",
-        "ˈjʌmi",
-        "This is yummy.",
+      "doctor": [
+        "👨‍⚕️",
+        "医生",
+        "ˈdɑːktər",
+        "The doctor is kind.",
         582
       ],
-      "Safe": [
-        "🏠",
-        "安全",
-        "seɪf",
-        "I am safe at home.",
+      "nurse": [
+        "👩‍⚕️",
+        "护士",
+        "nɜːrs",
+        "The nurse helps me.",
         583
       ],
-      "Smart": [
-        "💡",
-        "聪明",
-        "smɑːrt",
-        "You are smart.",
+      "pill": [
+        "💊",
+        "药丸",
+        "pɪl",
+        "Take the pill.",
         584
       ],
-      "Busy": [
-        "🐝",
-        "忙碌",
-        "ˈbɪzi",
-        "Mom is very busy.",
-        585
-      ],
-      "Full": [
-        "🈵",
-        "满的",
-        "fʊl",
-        "The cup is full.",
-        586
-      ],
-      "Empty": [
-        "🫙",
-        "空的",
-        "ˈempti",
-        "The box is empty.",
-        587
-      ],
-      "New": [
-        "🆕",
-        "新的",
-        "nuː",
-        "I have new shoes.",
-        588
-      ],
-      "Old": [
-        "👴",
-        "旧的",
-        "oʊld",
-        "An old book.",
-        589
-      ],
-      "True": [
-        "✔️",
-        "真的",
-        "truː",
-        "A true story.",
-        590
-      ],
-      "Breath": [
+		"shot": [
+    "💉",
+    "打针",
+    "ʃɑːt",
+    "The doctor gave me a shot.",585
+],
+"x-ray": [
+    "🩻",
+    "X光",
+    "ˈeks reɪ",
+    "The doctor took an x-ray of my leg.",586
+],
+"scan": [
+    "🏥",
+    "扫描",
+    "skæn",
+    "I need a brain scan.",587
+]
+		 "breath": [
         "🌬️",
         "呼吸(名)",
         "breθ",
         "Take a breath.",
-        591
+        588
       ],
-      "Sniff": [
+      "sniff": [
         "👃",
         "闻一闻",
         "snɪf",
         "Sniff the flower.",
-        592
+        589
       ],
-      "Smile": [
-        "😊",
-        "微笑",
-        "smaɪl",
-        "Give me a smile.",
-        593
-      ],
-      "Laugh": [
-        "😆",
-        "大笑",
-        "læf",
-        "I like to laugh.",
-        594
-      ],
-      "Cry": [
-        "😭",
-        "哭",
-        "kraɪ",
-        "Baby, don't cry.",
-        595
-      ],
-      "Yawn": [
-        "🥱",
-        "打哈欠",
-        "jɔːn",
-        "I yawn when tired.",
-        596
-      ],
-      "Chew": [
-        "🍬",
-        "咀嚼",
-        "tʃuː",
-        "Chew your food.",
-        597
-      ],
-      "Taste": [
-        "👅",
-        "品尝",
-        "teɪst",
-        "Taste the cake.",
-        598
-      ],
-      "Grow": [
-        "🌱",
-        "成长",
-        "ɡroʊ",
-        "I grow every day.",
-        599
-      ],
-      "Touch": [
+		"hear": [
+    "👂",
+    "听见",
+    "hɪr",
+    "I can hear your voice.",590
+],
+		 "touch": [
         "🖐️",
         "触碰",
         "tʌtʃ",
         "Touch your toes.",
-        600
-      ]
-    }
+        591],
+		  
+      "cry": [
+        "😭",
+        "哭",
+        "kraɪ",
+        "Baby, don't cry.",
+        592
+      ],
+      "yawn": [
+        "🥱",
+        "打哈欠",
+        "jɔːn",
+        "I yawn when tired.",
+        593
+      ],
+      "chew": [
+        "🍬",
+        "咀嚼",
+        "tʃuː",
+        "Chew your food.",
+        594
+      ],
+      "taste": [
+        "👅",
+        "品尝",
+        "teɪst",
+        "Taste the cake.",
+        595
+      ],
+    
+      
+      
+      "fine": [
+        "🌈",
+        "还好",
+        "faɪn",
+        "I am doing fine.",
+        596
+      ],
+      "great": [
+        "🌟",
+        "棒极了",
+        "ɡreɪt",
+        "You look great!",
+        597
+      ],
+      "cool": [
+        "😎",
+        "酷",
+        "kuːl",
+        "He is very cool.",
+        598
+      ],
+     "better": [
+    "📈",
+    "更好的",
+    "ˈbetər",
+    "I feel much better today.",599
+],
+"well": [
+    "👌",
+    "健康的/好地",
+    "wel",
+    "I hope you get well soon.",600
+]      
+	}
   },
   "7": {
     "levelIndex": 7,
@@ -3983,7 +3870,7 @@ const DB = {
         604
       ],
       "season": [
-        "📅",
+        "🌱🌞🍂❄️",
         "季节",
         "sea-son / 细真",
         "I like the summer season.",
@@ -4032,14 +3919,14 @@ const DB = {
         611
       ],
       "yesterday": [
-        "⬅️",
+        "⬅️📆",
         "昨天",
         "yes-ter-day / 也是特忒",
         "It rained yesterday.",
         612
       ],
       "tomorrow": [
-        "➡️",
+        "📆➡️",
         "明天",
         "to-mor-row / 特冒肉",
         "See you tomorrow.",
@@ -4200,7 +4087,7 @@ const DB = {
         635
       ],
       "windy": [
-        "🍃",
+        "🌬️🍃",
         "刮风的",
         "wind-y / 温低",
         "It's very windy outside.",
@@ -4223,7 +4110,7 @@ const DB = {
       "soft": ["☁️", "柔软的", "s-oft / 搜夫特", "Soft green grass.", 639],
       "frost": ["❄️", "霜", "f-rost / 佛肉斯特", "Frost on the window.", 640],
       "warm": [
-        "🧥",
+        "☀️🧥",
         "温暖的",
         "w-arm / 窝姆",
         "A warm hug.",
@@ -4279,7 +4166,7 @@ const DB = {
         648
       ],
       "forest": [
-        "🌳",
+        "🌳🌳🌳",
         "森林",
         "for-est / 佛瑞斯特",
         "Many trees in the forest.",
@@ -4300,30 +4187,30 @@ const DB = {
         651
       ],
       "valley": [
-        "🏞️",
+        "https://www.stevesplayground.online/game/1000words/emoji/valley.webp",
         "山谷",
         "val-ley / 哇离",
         "A green valley.",
         652
       ],
-"stream": ["🏞️", "小溪/溪流", "s-tream / 斯垂姆", "The fish swims in the stream.", 653],
+"stream": ["https://www.stevesplayground.online/game/1000words/emoji/stream.webp", "小溪/溪流", "s-tream / 斯垂姆", "The fish swims in the stream.", 653],
 
       "river": [
-        "🌊",
+        "https://www.stevesplayground.online/game/1000words/emoji/river.webp",
         "河流",
         "riv-er / 瑞五儿",
         "Fish swim in the river.",
         654
       ],
       "lake": [
-        "💧",
+        "https://www.stevesplayground.online/game/1000words/emoji/lake.webp",
         "湖泊",
         "l-ake / 累刻",
         "The lake is quiet.",
         655
       ],
       "ocean": [
-        "🌏",
+        "https://www.stevesplayground.online/game/1000words/emoji/ocean.webp",
         "海洋",
         "o-cean / 欧旬",
         "The ocean is very deep.",
@@ -4344,14 +4231,14 @@ const DB = {
         658
       ],
       "desert": [
-        "🐪",
+        "https://www.stevesplayground.online/game/1000words/emoji/desert.webp",
         "沙漠",
         "des-ert / 呆热特",
         "It is dry in the desert.",
         659
       ],
       "cave": [
-        "🕳️",
+        "https://www.stevesplayground.online/game/1000words/emoji/cave.webp",
         "山洞",
         "c-ave / 块五",
         "A dark cave.",
@@ -4372,7 +4259,7 @@ const DB = {
         662
       ],
       "sand": [
-        "🏝️",
+        "https://www.stevesplayground.online/game/1000words/emoji/sand.webp",
         "沙子",
         "s-and / 散得",
         "Golden sand.",
@@ -4400,14 +4287,14 @@ const DB = {
         666
       ],
       "waterfall": [
-        "🏞️",
+        "https://www.stevesplayground.online/game/1000words/emoji/waterfall.webp",
         "瀑布",
         "wa-ter-fall / 窝特佛",
         "A beautiful waterfall.",
         667
       ],
       "field": [
-        "🌾",
+        "https://www.stevesplayground.online/game/1000words/emoji/field.webp",
         "田野",
         "f-ield / 费欧得",
         "Green rice field.",
@@ -4421,7 +4308,7 @@ const DB = {
         669
       ],
       "space": [
-        "🚀",
+        "https://www.stevesplayground.online/game/1000words/emoji/space.webp",
         "太空",
         "sp-ace / 斯配丝",
         "Travel to space.",
@@ -4484,7 +4371,7 @@ const DB = {
         678
       ],
       "jungle": [
-        "🌴",
+        "🌴🐯",
         "丛林",
         "jun-gle / 酱勾",
         "Animals in the jungle.",
@@ -4534,42 +4421,42 @@ const DB = {
       ],
      "steam": ["💨♨️", "蒸汽", "ste-am / 斯滴姆", "Hot steam from water.", 686],
       "clear": [
-        "💎",
+        "💎🌌",
         "清晰/晴朗",
         "cl-ear / 离儿",
         "Clear sky.",
         687
       ],
       "strong": [
-        "💪",
+        "💪🌬️",
         "强壮/强力",
         "str-ong / 斯准恩",
         "Strong wind.",
         688
       ],
       "quiet": [
-        "🤫",
+        "🤫🌌",
         "安静",
         "qui-et / 块额特",
         "A quiet night.",
         689
       ],
       "loud": [
-        "📢",
+        "📢⚡",
         "响亮",
         "l-oud / 牢得",
         "Loud thunder.",
         690
       ],
       "high": [
-        "👆",
+        "👆🏔️",
         "高的",
         "h-igh / 亥",
         "High mountain.",
         691
       ],
       "low": [
-        "👇",
+        "👇🟫",
         "低的",
         "l-ow / 搂",
         "Low land.",
@@ -4634,7 +4521,7 @@ const DB = {
         701
       ],
       "class": [
-        "👥",
+        "https://www.stevesplayground.online/game/1000words/emoji/class.webp",
         "班级",
         "cl-ass / 哥拉斯",
         "My class is big.",
@@ -4655,7 +4542,7 @@ const DB = {
         "I am a student.",
         705
       ],
-"staff": ["👥", "教职工", "s-taff / 斯大夫", "The staff are kind.", 706],
+"staff": ["👨‍🍳👨‍🏫", "教职工", "s-taff / 斯大夫", "The staff are kind.", 706],
 "coach": ["👨‍🏫👟", "教练", "c-oach / 扣起", "Our coach is great.", 707],
 
 "name": ["🧒🏷️", "名字", "n-ame / 内姆", "What is your name?", 708],
@@ -4667,7 +4554,7 @@ const DB = {
         709
       ],
 "classmate": ["🧑‍🤝‍🧑", "同班同学", "class-mate / 颗拉丝妹特", "He is my classmate.", 710],
-"club": ["🎷", "社团", "c-lub / 颗辣步", "The art club is fun.", 711],      
+"club": ["🎷⚽🎨", "社团", "c-lub / 颗辣步", "The art club is fun.", 711],      
 "desk": [
         "https://www.stevesplayground.online/game/1000words/emoji/desk.webp",
         "课桌",
@@ -4677,7 +4564,7 @@ const DB = {
       ],
     "drawer": ["🗄️", "抽屉", "draw-er / 抓哦", "Put it in the drawer.", 713],
         "board": [
-        "📋",
+        "https://www.stevesplayground.online/game/1000words/emoji/board.webp",
         "黑板/布告栏",
         "b-oard / 波得",
         "Look at the board.",
@@ -4700,7 +4587,7 @@ const DB = {
         717
       ],
       "library": [
-        "📚",
+        "https://www.stevesplayground.online/game/1000words/emoji/library.webp",
         "图书馆",
         "li-brar-y / 赖不瑞瑞",
         "Books in library.",
@@ -4801,7 +4688,7 @@ const DB = {
         733
       ],
       "globe": [
-        "🌍",
+        "https://www.stevesplayground.online/game/1000words/emoji/globe.webp",
         "地球仪",
         "gl-obe / 哥喽步",
         "Spin the globe.",
@@ -4809,14 +4696,14 @@ const DB = {
       ],
 "kit": ["🧰", "成套装备/箱", "k-it / 刻特", "The art kit is new.", 735],
       "ink": [
-        "💧",
+        "https://www.stevesplayground.online/game/1000words/emoji/ink.webp",
         "墨水",
         "i-nk / 硬刻",
         "Blue ink.",
         736
       ],
       "glue": [
-        "🧪",
+        "https://www.stevesplayground.online/game/1000words/emoji/glue.webp",
         "胶水",
         "gl-ue / 股路",
         "Stick it with glue.",
@@ -4865,10 +4752,10 @@ const DB = {
         743
       ],
       "sharpener": [
-        "🔪",
+        "🔪✏️",
         "卷笔刀",
         "sharp-en-er / 夏喷勒",
-        "My pencil is sharp.",
+        "I use sharpener to sharp my pencil.",
         744
       ],
       "calculator": [
@@ -4879,7 +4766,7 @@ const DB = {
         745
       ],
       "tape": [
-        "🎞️",
+        "https://www.stevesplayground.online/game/1000words/emoji/tape.webp",
         "胶带",
         "t-ape / 忒铺",
         "Sticky tape.",
@@ -4889,7 +4776,7 @@ const DB = {
         "📖",
         "字典",
         "dic-tion-ar-y / 迪克夏内瑞",
-        "Check the word.",
+        "Check the word in the dictionary.",
         747
       ],
       "chalk": [
@@ -4953,7 +4840,7 @@ const DB = {
         "🏛️",
         "历史",
         "his-to-ry / 希斯特瑞",
-        "Old stories.",
+        "History teaches old stories.",
         757
       ],
       "sport": [
@@ -5007,7 +4894,7 @@ const DB = {
       ],
      "triangle": ["🔺", "三角形", "tri-an-gle / 揣昂勾", "Draw a red triangle.", 765],
 "oval": ["🥚", "椭圆形", "o-val / 欧沃", "An egg is oval.", 766],
-"rectangle": ["📋", "长方形", "rec-tan-gle / 瑞克贪勾", "The board is a rectangle.", 767],
+"rectangle": ["https://www.stevesplayground.online/game/1000words/emoji/rectangle.webp", "长方形", "rec-tan-gle / 瑞克贪勾", "The board is a rectangle.", 767],
       "page": [
         "📑",
         "页码",
@@ -5044,21 +4931,21 @@ const DB = {
         772
       ],
       "quiz": [
-        "❓",
+        "📄❓",
         "小测验",
         "qu-iz / 亏字",
         "Quick quiz.",
         773
       ],
       "answer": [
-        "✅",
+        "✍️✅",
         "回答",
         "an-swer / 安色",
         "Correct answer.",
         774
       ],
       "question": [
-        "❓",
+        "👨‍🏫❓",
         "问题",
         "ques-tion / 亏死陈",
         "Ask a question.",
@@ -5154,7 +5041,7 @@ const DB = {
       ],
       "topic": ["💬", "话题", "t-opic / 掏披刻", "Today's topic is art.", 790],
       "color": [
-        "🖍️",
+        "🖍️🍎",
         "涂色",
         "col-or / 咯勒",
         "Color the apple.",
@@ -5186,7 +5073,7 @@ const DB = {
       "list": ["📋", "清单", "l-ist / 栗丝特", "Read the word list.", 797],
 "remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", 798],
       "understand": [
-        "💡",
+        "💡🙋",
         "明白",
         "un-der-stand / 安得斯单得",
         "I understand.",
@@ -6109,7 +5996,7 @@ const DB = {
         933
       ],
       "score": [
-        "🔢",
+        "💯",
         "得分",
         "sc-ore / 斯多",
         "Look at the score.",
@@ -6353,13 +6240,12 @@ const DB = {
         "Toy car model.",
         968
       ],
-      "ticket": [
-        "🎫",
-        "票",
-        "tick-et / 踢给特",
-        "Movie ticket.",
-        969
-      ],
+      "activity": [
+    "🏃",
+    "活动",
+    "ækˈtɪvəti",
+    "We have many outdoor activities at school.",969
+],
       "pop": [
         "🍿",
         "流行/爆破",
@@ -6554,6 +6440,7 @@ const DB = {
 
 
 const FULL_LIST = ["I", "you", "he", "she", "it", "me", "us", "we", "they", "am", "is", "are", "each", "both", "else", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "begin", "end", "go", "come", "eat", "drink", "see", "look", "add", "try", "can", "do", "get", "give", "know", "keep", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "any", "some", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "hall", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "mat", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "hook", "yard", "bell", "bin", "step", "tub", "rug", "toy", "doll", "ball", "dish", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "reservation", "counter", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "special", "dessert", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "lane", "hospital", "bank", "hotel", "park", "seat", "shop", "market", "zoo", "museum", "cinema", "fuel", "bridge", "tower", "temple", "church", "airport", "station", "building", "factory", "skyscraper", "farm", "platform", "passenger", "signal", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "compass", "flag", "gate", "ticket", "passport", "phone", "radio", "money", "card", "baggage", "backpack", "selfie", "suitcase", "passcode", "tent", "destination", "raincoat", "helmet", "depart", "arrive", "explore", "wait", "drive", "ride", "hike", "sail", "shuttle", "cable car", "express", "itinerary", "visit", "travel", "move", "push", "pull", "check-in", "check-out", "buy", "sell", "find", "lost", "far", "near", "tunnel", "traffic", "left", "right", "city", "Body", "Chest", "Back", "Waist", "Hip", "Skin", "Bone", "Muscle", "Blood", "Heart", "Brain", "Stomach", "Shoulder", "Elbow", "Wrist", "Knee", "Ankle", "Heel", "Toe", "Thumb", "Nail", "Palm", "Tongue", "Tooth", "Chin", "Cheek", "Forehead", "Eyebrow", "Eyelash", "Neck", "Health", "Soap", "Brush", "Comb", "Bath", "Sleep", "Wake", "Drink", "Clean", "Dirty", "Strong", "Weak", "Sick", "Cold", "Cough", "Hurt", "Cut", "Doctor", "Nurse", "Pill", "Happy", "Sad", "Angry", "Scared", "Tired", "Hungry", "Thirsty", "Funny", "Brave", "Proud", "Kind", "Shy", "Lonely", "Bored", "Sleepy", "Surprised", "Excited", "Fine", "Great", "Cool", "Quiet", "Loud", "Fast", "Slow", "Hard", "Soft", "Big", "Small", "Hot", "Sweet", "Sour", "Yummy", "Safe", "Smart", "Busy", "Full", "Empty", "New", "Old", "True", "Breath", "Sniff", "Smile", "Laugh", "Cry", "Yawn", "Chew", "Taste", "Grow", "Touch", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "date", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "soft", "frost", "warm", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "stream", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "steam", "clear", "strong", "quiet", "loud", "high", "low", "wide", "thin", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "principal", "teacher", "student", "staff", "coach", "name", "friend", "classmate", "club", "desk", "drawer", "board", "light", "lab", "playground", "library", "office", "gym", "lesson", "homework", "note", "test", "exam", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "kit", "ink", "glue", "scissors", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "laptop", "prize", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "triangle", "oval", "rectangle", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "idea", "remember", "mind", "draw", "listen", "speak", "learn", "study", "think", "spell", "count", "ask", "tell", "topic", "color", "cut", "paste", "clean", "task", "form", "list", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "stranger", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "cheerful", "careful", "lucky", "dream", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "fair", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "grow", "help", "share", "gift", "party", "wedding", "birthday", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "ticket", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "band", "singing", "race", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "climb", "net", "relax", "fun", "popular", "champion", "record", "top", "next", "finish"];
+
 
 
 

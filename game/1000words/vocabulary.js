@@ -33,7 +33,7 @@ const DB = {
         4
       ],
       "it": [
-        "📦",
+        "👉📦",
         "它",
         "i-t / 一特",
         "It is red.",
@@ -653,14 +653,14 @@ const DB = {
         101
       ],
       "home": [
-        "🏡",
+        "🏡👨‍👩‍👧‍👦",
         "家",
         "h-ome / 厚姆",
         "I love my home.",
         102
       ],
       "room": [
-        "🛌",
+        "https://www.stevesplayground.online/game/1000words/emoji/room.png",
         "房间",
         "r-oom / 入姆",
         "My room is big.",
@@ -688,63 +688,63 @@ const DB = {
         106
       ],
       "floor": [
-        "🪵",
+        "https://www.stevesplayground.online/game/1000words/emoji/floor.png",
         "地板",
         "fl-oor / 佛落",
         "Wooden floor.",
         107
       ],
       "ceiling": [
-        "🏗️",
+        "https://www.stevesplayground.online/game/1000words/emoji/celing.png",
         "天花板",
         "cei-ling / 细拎",
         "Look at the ceiling.",
         108
       ],
       "stairs": [
-        "🪜",
+        "https://www.stevesplayground.online/game/1000words/emoji/stairs.png",
         "楼梯",
         "st-airs / 斯带儿丝",
         "Walk up the stairs.",
         109
       ],
       "roof": [
-        "🏚️",
+        "https://www.stevesplayground.online/game/1000words/emoji/roof.png",
         "屋顶",
         "r-oof / 入夫",
         "The roof is leaking.",
         110
       ],
       "garden": [
-        "🌻",
+        "https://www.stevesplayground.online/game/1000words/emoji/garden.png",
         "花园",
         "gar-den / 嘎灯",
         "Flowers in the garden.",
         111
       ],
       "garage": [
-        "🚘",
+        "https://www.stevesplayground.online/game/1000words/emoji/garage.png",
         "车库",
         "ga-rage / 嘎入阿治",
         "Dad's car in the garage.",
         112
       ],
       "hall": [
-        "🚶",
+        "https://www.stevesplayground.online/game/1000words/emoji/hall.png",
         "走廊/大厅",
         "h-all / 候哦",
         "A long hall.",
         113
       ],
       "balcony": [
-        "🌇",
+        "https://www.stevesplayground.online/game/1000words/emoji/balcony.png",
         "阳台",
         "bal-co-ny / 拜欧口泥",
         "Stand on the balcony.",
         114
       ],
       "kitchen": [
-        "🍳",
+        "https://www.stevesplayground.online/game/1000words/emoji/kitchen.png",
         "厨房",
         "kitch-en / 旗琴",
         "Mom is in the kitchen.",
@@ -779,7 +779,7 @@ const DB = {
         119
       ],
       "fence": [
-        "🚧",
+        "https://www.stevesplayground.online/game/1000words/emoji/fence.png",
         "篱笆/围栏",
         "f-ence / 粉丝",
         "A white fence.",
@@ -807,14 +807,14 @@ const DB = {
         123
       ],
       "carpet": [
-        "🧶",
+        "https://www.stevesplayground.online/game/1000words/emoji/carpet.png",
         "地毯",
         "car-pet / 嘎陪特",
         "A soft carpet.",
         124
       ],
       "lamp": [
-        "💡",
+        "https://www.stevesplayground.online/game/1000words/emoji/lamp.png",
         "台灯",
         "l-amp / 蓝普",
         "Turn on the lamp.",
@@ -849,7 +849,7 @@ const DB = {
         129
       ],
       "shelf": [
-        "📚",
+        "https://www.stevesplayground.online/game/1000words/emoji/shelf.png",
         "架子",
         "sh-elf / 谁欧夫",
         "Books on the shelf.",
@@ -863,21 +863,21 @@ const DB = {
         131
       ],
       "curtain": [
-        "🎭",
+        "https://www.stevesplayground.online/game/1000words/emoji/curtain.png",
         "窗帘",
         "cur-tain / 颗藤",
         "Close the curtain.",
         132
       ],
       "fan": [
-        "🌬️",
+        "https://www.stevesplayground.online/game/1000words/emoji/fan.png",
         "风扇",
         "f-an / 饭",
         "Electric fan.",
         133
       ],
       "heater": [
-        "🔥",
+        "https://www.stevesplayground.online/game/1000words/emoji/heater.png",
         "取暖器",
         "heat-er / 希特",
         "Turn on the heater.",
@@ -898,7 +898,7 @@ const DB = {
         136
       ],
       "remote": [
-        "🎮",
+        "https://www.stevesplayground.online/game/1000words/emoji/remote.png",
         "遥控器",
         "re-mote / 瑞冒特",
         "TV remote.",
@@ -912,7 +912,7 @@ const DB = {
         138
       ],
       "socket": [
-        "🕳️",
+        "https://www.stevesplayground.online/game/1000words/emoji/socket.png",
         "插座",
         "sock-et / 搜盖特",
         "Find a socket.",
@@ -926,21 +926,21 @@ const DB = {
         140
       ],
       "fridge": [
-        "🧊",
+        "https://www.stevesplayground.online/game/1000words/emoji/fridge.png",
         "冰箱",
         "fri-dge / 佛瑞极",
         "Milk in the fridge.",
         141
       ],
       "stove": [
-        "🔥",
+        "https://www.stevesplayground.online/game/1000words/emoji/stove.png",
         "炉灶",
         "st-ove / 斯透五",
         "Gas stove.",
         142
       ],
       "oven": [
-        "🥘",
+        "https://www.stevesplayground.online/game/1000words/emoji/oven.png",
         "烤箱",
         "ov-en / 阿文",
         "Bread in the oven.",
@@ -954,14 +954,14 @@ const DB = {
         144
       ],
       "sink": [
-        "🚰",
+        "https://www.stevesplayground.online/game/1000words/emoji/sink.png",
         "洗手池",
         "s-ink / 胜刻",
         "Wash hands in the sink.",
         145
       ],
       "tap": [
-        "💧",
+        "https://www.stevesplayground.online/game/1000words/emoji/tap.png",
         "水龙头",
         "t-ap / 抬普",
         "The tap is dripping.",
@@ -1052,14 +1052,14 @@ const DB = {
         158
       ],
       "apron": [
-        "🎽",
+        "https://www.stevesplayground.online/game/1000words/emoji/apron.png",
         "围裙",
         "a-pron / 诶喷",
         "Wear an apron.",
         159
       ],
       "towel": [
-        "🧼",
+        "https://www.stevesplayground.online/game/1000words/emoji/towel.png",
         "毛巾",
         "tow-el / 套五",
         "Dry your hands.",
@@ -1073,42 +1073,42 @@ const DB = {
         161
       ],
       "pillow": [
-        "😴",
+        "https://www.stevesplayground.online/game/1000words/emoji/pillow.png",
         "枕头",
         "pil-low / 陪搂",
         "A white pillow.",
         162
       ],
       "sheet": [
-        "🏳️",
+        "https://www.stevesplayground.online/game/1000words/emoji/sheet.png",
         "床单",
         "sh-eet / 咻特",
         "Change the sheet.",
         163
       ],
       "blanket": [
-        "🧶",
+        "https://www.stevesplayground.online/game/1000words/emoji/blanket.png",
         "毯子",
         "blan-ket / 布兰克特",
         "A warm blanket.",
         164
       ],
       "closet": [
-        "👗",
+        "https://www.stevesplayground.online/game/1000words/emoji/closet.png",
         "大衣柜",
         "clo-set / 扣贼特",
         "Clothes in the closet.",
         165
       ],
       "hanger": [
-        "🧥",
+        "https://www.stevesplayground.online/game/1000words/emoji/hanger.png",
         "衣架",
         "hang-er / 汗格",
         "Hang your coat.",
         166
       ],
       "comb": [
-        "🪮",
+        "https://www.stevesplayground.online/game/1000words/emoji/comb.png",
         "梳子",
         "c-omb / 扣姆",
         "Comb your hair.",
@@ -1122,13 +1122,13 @@ const DB = {
         168
       ],
       "perfume": [
-        "🧪",
+        "https://www.stevesplayground.online/game/1000words/emoji/perfume.png",
         "香水",
         "per-fume / 坡肤姆",
         "Smell the perfume.",
         169
       ],
-      "mat": ["🚪", "垫子", "m-at / 埋特", "A welcome mat.", 170],
+      "mat": ["https://www.stevesplayground.online/game/1000words/emoji/mat.png", "垫子", "m-at / 埋特", "A welcome mat.", 170],
       "wallet": [
         "👛",
         "钱包",
@@ -1158,14 +1158,14 @@ const DB = {
         174
       ],
       "hat": [
-        "🧢",
+        "https://www.stevesplayground.online/game/1000words/emoji/hat.png",
         "帽子",
         "h-at / 亥特",
         "A sun hat.",
         175
       ],
       "cap": [
-        "🎓",
+        "🧢",
         "便帽",
         "c-ap / 盖普",
         "Baseball cap.",
@@ -1228,7 +1228,7 @@ const DB = {
         184
       ],
       "broom": [
-        "🪠",
+        "https://www.stevesplayground.online/game/1000words/emoji/broom.png",
         "扫帚",
         "br-oom / 补入姆",
         "Sweep the floor.",
@@ -1242,7 +1242,7 @@ const DB = {
         186
       ],
       "iron": [
-        "💨",
+        "https://www.stevesplayground.online/game/1000words/emoji/iron.png",
         "熨斗",
         "ir-on / 爱恩",
         "Hot iron.",
@@ -1255,14 +1255,14 @@ const DB = {
         "Give me a tissue.",
         188
       ],
-     "hook": ["🪝", "挂钩", "h-ook / 互刻", "Hang it on the hook.", 189],
-      "yard": ["🏡", "院子", "y-ard / 雅得", "Play in the yard.", 190],
+     "hook": ["https://www.stevesplayground.online/game/1000words/emoji/hook.png", "挂钩", "h-ook / 互刻", "Hang it on the hook.", 189],
+      "yard": ["https://www.stevesplayground.online/game/1000words/emoji/yard.png", "院子", "y-ard / 雅得", "Play in the yard.", 190],
      "bell": ["🔔", "门铃", "b-ell / 贝尔", "Ring the door bell.", 191],
 "bin": ["🗑️", "垃圾桶", "b-in / 宾", "Put it in the bin.", 192],
  
-     "step": ["🪜", "台阶/步", "s-tep / 斯带普", "Watch your step.",193],
+     "step": ["https://www.stevesplayground.online/game/1000words/emoji/step.png", "台阶/步", "s-tep / 斯带普", "Watch your step.",193],
     "tub": ["🛁", "浴缸", "t-ub / 踏步", "A hot tub.", 194],
-      "rug": ["🧺", "小地毯", "r-ug / 瑞格", "A soft rug.", 195],
+      "rug": ["https://www.stevesplayground.online/game/1000words/emoji/rug.png", "小地毯", "r-ug / 瑞格", "A soft rug.", 195],
       "toy": [
         "🧸",
         "玩偶",
@@ -6554,6 +6554,7 @@ const DB = {
 
 
 const FULL_LIST = ["I", "you", "he", "she", "it", "me", "us", "we", "they", "am", "is", "are", "each", "both", "else", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "begin", "end", "go", "come", "eat", "drink", "see", "look", "add", "try", "can", "do", "get", "give", "know", "keep", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "any", "some", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "hall", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "mat", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "hook", "yard", "bell", "bin", "step", "tub", "rug", "toy", "doll", "ball", "dish", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "reservation", "counter", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "special", "dessert", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "lane", "hospital", "bank", "hotel", "park", "seat", "shop", "market", "zoo", "museum", "cinema", "fuel", "bridge", "tower", "temple", "church", "airport", "station", "building", "factory", "skyscraper", "farm", "platform", "passenger", "signal", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "compass", "flag", "gate", "ticket", "passport", "phone", "radio", "money", "card", "baggage", "backpack", "selfie", "suitcase", "passcode", "tent", "destination", "raincoat", "helmet", "depart", "arrive", "explore", "wait", "drive", "ride", "hike", "sail", "shuttle", "cable car", "express", "itinerary", "visit", "travel", "move", "push", "pull", "check-in", "check-out", "buy", "sell", "find", "lost", "far", "near", "tunnel", "traffic", "left", "right", "city", "Body", "Chest", "Back", "Waist", "Hip", "Skin", "Bone", "Muscle", "Blood", "Heart", "Brain", "Stomach", "Shoulder", "Elbow", "Wrist", "Knee", "Ankle", "Heel", "Toe", "Thumb", "Nail", "Palm", "Tongue", "Tooth", "Chin", "Cheek", "Forehead", "Eyebrow", "Eyelash", "Neck", "Health", "Soap", "Brush", "Comb", "Bath", "Sleep", "Wake", "Drink", "Clean", "Dirty", "Strong", "Weak", "Sick", "Cold", "Cough", "Hurt", "Cut", "Doctor", "Nurse", "Pill", "Happy", "Sad", "Angry", "Scared", "Tired", "Hungry", "Thirsty", "Funny", "Brave", "Proud", "Kind", "Shy", "Lonely", "Bored", "Sleepy", "Surprised", "Excited", "Fine", "Great", "Cool", "Quiet", "Loud", "Fast", "Slow", "Hard", "Soft", "Big", "Small", "Hot", "Sweet", "Sour", "Yummy", "Safe", "Smart", "Busy", "Full", "Empty", "New", "Old", "True", "Breath", "Sniff", "Smile", "Laugh", "Cry", "Yawn", "Chew", "Taste", "Grow", "Touch", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "date", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "soft", "frost", "warm", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "stream", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "steam", "clear", "strong", "quiet", "loud", "high", "low", "wide", "thin", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "principal", "teacher", "student", "staff", "coach", "name", "friend", "classmate", "club", "desk", "drawer", "board", "light", "lab", "playground", "library", "office", "gym", "lesson", "homework", "note", "test", "exam", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "kit", "ink", "glue", "scissors", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "laptop", "prize", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "triangle", "oval", "rectangle", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "idea", "remember", "mind", "draw", "listen", "speak", "learn", "study", "think", "spell", "count", "ask", "tell", "topic", "color", "cut", "paste", "clean", "task", "form", "list", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "stranger", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "cheerful", "careful", "lucky", "dream", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "fair", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "grow", "help", "share", "gift", "party", "wedding", "birthday", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "ticket", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "band", "singing", "race", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "climb", "net", "relax", "fun", "popular", "champion", "record", "top", "next", "finish"];
+
 
 
 

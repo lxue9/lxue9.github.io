@@ -334,9 +334,11 @@
         
         			// --- 自动读取 Test 模式进度 ---
         			const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
+					setCurrentList(allWords);
+				
        				const startIdx = savedProgress ? parseInt(savedProgress) : 0;
         
-        			setCurrentList(savedProgress.length > 0 ? savedProgress : allWords);
+        			
         			setIdx(startIdx); // 直接从记录的索引开始，无需询问
         			setView('test');
                 } 
@@ -588,6 +590,7 @@
     </script>
 </body>
 </html>
+
 
 
 

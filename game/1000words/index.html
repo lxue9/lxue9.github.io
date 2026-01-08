@@ -427,22 +427,7 @@
                                         </div>
                                         <div className="flex gap-2 ml-4">
                                             <button onClick={() => startMode('card', id)} className="w-11 h-11 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-md btn-active">📖</button>
-                                            <button onClick={() => {
-										// 1. 检查数据是否存在，防止 startMode 内部 dbData[levelId] 报错
-   										 if (!dbData || !dbData[level.id]){
-     										 console.error("数据未加载或关卡不存在");
-      										return;
-    								}
-
-    									// 2. 如果你无法改动 JS 里的 .length 报错
-    									// 我们可以尝试在调用前，强行给 localStorage 塞一个不会报错的值（临时补丁）
-   										 const key = `test_progress_${level.id}`;
-   										 if (!localStorage.getItem(key)) {
-      										localStorage.setItem(key, ""); // 这样 savedProgress.length 就等于 0，不会报 null 错误
-   											 }
-
-    									// 3. 执行原来的函数
-											startMode('test', id)} className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
+                                            <button onClick={() => startMode('test', id)} className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
                                         </div>
                                     </div>
                                 );
@@ -597,6 +582,7 @@
     </script>
 </body>
 </html>
+
 
 
 

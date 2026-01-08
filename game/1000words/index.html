@@ -265,20 +265,11 @@
 					else {
                 		// --- Test 模式存档 ---
                			const nextIdx = idx + 1;
-                		const currentLevelId = dbData.levels.find(l => l.words === currentList)?.id;
-                
-                		if (nextIdx < currentList.length) {
-                   			 setIdx(nextIdx);
-                    		// 记录当前做到了第几个词
-                   			 if (currentLevelId) {
-                       			 localStorage.setItem(`test_progress_${currentLevelId}`, nextIdx);
-                    		}
-               			 } 
+                if (nextIdx < currentList.length) {
+                    // 还有下一题，直接增加索引
+                    setIdx(nextIdx);
 						else {
                     		// 正常完成全关，清除该关进度
-                   			 if (currentLevelId) {
-                        		localStorage.removeItem(`test_progress_${currentLevelId}`);
-                   				}
                    			 playSound('finish');
                     		setShowGameOver(true);
                 		}
@@ -582,6 +573,7 @@
     </script>
 </body>
 </html>
+
 
 
 

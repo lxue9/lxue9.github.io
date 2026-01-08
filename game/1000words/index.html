@@ -295,73 +295,69 @@
     		}
 		};
 
-            const startMode = (mode, levelId = '1') => {
-			// 1. 初始化所有状态
-            setIsChallenge(false); 
-			setIsWrongSetMode(false); 
-			setIdx(0); // 确保从第一个单词开始
-			setFlipped(false); 
-			setTestFeedback(null);
-			setShowGameOver(false); // 确保关闭结算弹窗
-			setWrongWords([]);
+            const handleChoice = (choice) => {
+    if (testFeedback) return;
+    
+    // 获取当前正在测试的单词（英文名）
+    const currentKey = currentList[idx];
 
-			if (!dbData || !dbData[levelId]) return;
-                	playSound('correct');
-				
-            if (mode === 'card') {
-				// 获取该关卡所有单词
-        	    const allWords = Object.keys(dbData[levelId].words);
-				// 过滤掉已学会的
-        	    const toLearn = allWords.filter(k => !learnedWords.includes(k));
-				// 如果全学完了，就复习全部，否则只学没学会的
-        	    setCurrentList(toLearn.length > 0 ? toLearn : allWords);
-				setCurrentLevel(levelId); 
-		    	setView('card');
-                } 
-				
-			else if (mode === 'test') {
-                    setIsChallenge(false);
-        			setCurrentList(Object.keys(dbData[levelId].words));
-                    setCurrentLevel(levelId); setView('test');
+    if (choice === currentKey) {
+        // --- 答对了 ---
+        speak(currentKey);
+        setTestFeedback('correct');
+        
+        // 记录到已掌握列表
+        if (!learnedWords.includes(currentKey)) {
+            setLearnedWords(prev => [...prev, currentKey]);
+        }
 
-                } 
-			
-			else if (mode === 'survival') {
-                    setIsChallenge(true);
-        
-        			// 尝试从本地恢复进度
-        			const savedScore = parseInt(localStorage.getItem('survival_score')) || 0;
-        			const savedList = JSON.parse(localStorage.getItem('survival_list') || '[]');
-        
-        			if (savedScore > 0 && savedList.length > 0) {
-            		// 如果有进度，询问是否继续
-           				 if (confirm(`继续上次挑战吗？当前得分：${savedScore}`)) {
-                			setScore(savedScore);
-                			setCurrentList(savedList);
-                			setIdx(savedList.length - 1); // 回到最后一个单词
-                			setView('test');
-               				 return;
-           					 }
-       				 		}
-        
-       				 // 重新开始逻辑
-        			setScore(0);
-        			const firstWord = fullList[Math.floor(Math.random() * fullList.length)];
-        			const newList = [firstWord];
-        			setCurrentList(newList);
-        			setIdx(0);
-        			localStorage.setItem('survival_score', '0');
-        			localStorage.setItem('survival_list', JSON.stringify(newList));
-       				setView('test');
-                } 
-				
-				else if (mode === 'wrong') {
-                    if (wrongWords.length === 0) return alert('目前沒有錯題！');
-                    setIsWrongSetMode(true);
-                    setCurrentList([...wrongWords].sort(() => Math.random() - 0.5));
-                    setView('test');
+        // 延迟跳转
+        setTimeout(() => {
+            setTestFeedback(null);
+            
+            if (isChallenge) {
+                // 生存模式逻辑
+                const newScore = score + 1;
+                setScore(newScore);
+                const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
+                const newList = [...currentList, nextWord];
+                setCurrentList(newList);
+                setIdx(idx + 1);
+                localStorage.setItem('survival_score', newScore);
+                localStorage.setItem('survival_list', JSON.stringify(newList));
+            } else {
+                // --- Test 模式修复逻辑 ---
+                const nextIdx = idx + 1;
+                
+                if (nextIdx < currentList.length) {
+                    // 核心修复：直接设置下一个索引，不再查找不存在的 dbData
+                    setIdx(nextIdx);
+                } else {
+                    // 这一关全部做完了
+                    playSound('finish');
+                    setShowGameOver(true);
                 }
-            };
+            }
+        }, 800); 
+
+    } else {
+        // --- 答错了 ---
+        setTestFeedback('wrong');
+        playSound('wrong');
+        if (!wrongWords.includes(currentKey)) {
+            setWrongWords(prev => [...prev, currentKey]);
+        }
+
+        if (isChallenge) {
+            localStorage.removeItem('survival_score');
+            localStorage.removeItem('survival_list');
+            setTimeout(() => setShowGameOver(true), 600);
+        } else {
+            // 允许重试
+            setTimeout(() => setTestFeedback(null), 600);
+        }
+    }
+};
 
             if (view === 'menu') {
                 return (
@@ -573,6 +569,7 @@
     </script>
 </body>
 </html>
+
 
 
 

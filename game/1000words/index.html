@@ -318,8 +318,11 @@
         
         // 读取进度
         const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
-        setIdx(savedProgress ? parseInt(savedProgress) : 0);
-        setView(mode); // 切换到 card 或 test 视图
+        const startIdx = savedProgress ? parseInt(savedProgress) : 0;
+		setIdx(startIdx);
+		// 切换到 card 或 test 视图
+        setView(mode); 
+		
     } else if (mode === 'survival') {
         setIsChallenge(true);
         
@@ -555,6 +558,7 @@
     </script>
 </body>
 </html>
+
 
 
 

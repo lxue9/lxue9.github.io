@@ -240,50 +240,69 @@
             }, [currentKey, currentList, fullList]);
 
             const handleChoice = (choice) => {
-                if (testFeedback) return;
-                if (choice === currentKey) {
-                    speak(currentKey);
-                    setTestFeedback('correct');
-                    if (isChallenge) {
-        				const newScore = score + 1;
-        				setScore(newScore);
-        				// 保存当前得分到本地
-        				localStorage.setItem('survival_score', newScore.toString());
-        
-        				const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
-        				const newList = [...currentList, nextWord];
-       					setCurrentList(newList);
-        				// 保存当前列表到本地，以便下次恢复
-       					localStorage.setItem('survival_list', JSON.stringify(newList));
-					    };
-					
-                    if (isWrongSetMode) setWrongWords(prev => prev.filter(w => w !== currentKey));
-                    if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
-                    setTimeout(() => {
-                        setTestFeedback(null);
-                        if (idx < currentList.length - 1) setIdx(idx + 1);
-                        else {
-                            if (isChallenge) {
-                                const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
-                                setCurrentList(prev => [...prev, nextWord]);
-                                setIdx(idx + 1);
-                            } else { playSound('finish'); setShowGameOver(true); }
-                        }
-                    }, 800);
-                } else {
-                    setTestFeedback('wrong'); playSound('wrong');
-                    if (!wrongWords.includes(currentKey)) setWrongWords(prev => [...prev, currentKey]);
-                    if (isChallenge) {
-						// 答错即视为挑战结束，清除存档
-        				localStorage.removeItem('survival_score');
-        				localStorage.removeItem('survival_list');
-                        setTimeout(() => {
-                            if (score > highScore) setHighScore(score);
-                            playSound('finish'); setShowGameOver(true);
-                        }, 600);
-                    } else { setTimeout(() => setTestFeedback(null), 600); }
-                }
-            };
+   		 	if (testFeedback) return;
+    		const currentKey = currentList[idx];
+
+    		if (choice === currentKey) {
+       			speak(currentKey);
+        		setTestFeedback('correct');
+        		if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
+
+        		setTimeout(() => {
+            		setTestFeedback(null);
+            		if (isChallenge) {
+               			 // --- Survival 模式存档 ---
+                		const newScore = score + 1;
+                		setScore(newScore);
+                		const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
+                		const newList = [...currentList, nextWord];
+                		setCurrentList(newList);
+                		setIdx(idx + 1);
+                
+                		localStorage.setItem('survival_score', newScore);
+                		localStorage.setItem('survival_list', JSON.stringify(newList));
+           			 } 
+					else {
+                		// --- Test 模式存档 ---
+               			const nextIdx = idx + 1;
+                		const currentLevelId = dbData.levels.find(l => l.words === currentList)?.id;
+                
+                		if (nextIdx < currentList.length) {
+                   			 setIdx(nextIdx);
+                    		// 记录当前做到了第几个词
+                   			 if (currentLevelId) {
+                       			 localStorage.setItem(`test_progress_${currentLevelId}`, nextIdx);
+                    		}
+               			 } 
+						else {
+                    		// 正常完成全关，清除该关进度
+                   			 if (currentLevelId) {
+                        		localStorage.removeItem(`test_progress_${currentLevelId}`);
+                   				}
+                   			 playSound('finish');
+                    		setShowGameOver(true);
+                		}
+            		}
+        		}, 800);
+   			 } 
+			else {
+        		// --- 答错逻辑 ---
+       			setTestFeedback('wrong');
+        		playSound('wrong');
+        		if (!wrongWords.includes(currentKey)) setWrongWords(prev => [...prev, currentKey]);
+
+       			if (isChallenge) {
+            		// 挑战模式失败：清除所有生存存档
+            		localStorage.removeItem('survival_score');
+            		localStorage.removeItem('survival_list');
+            		setTimeout(() => setShowGameOver(true), 600);
+        		} 
+				else {
+            		// Test模式失败：不清除进度，允许用户停留在这一题继续尝试
+            		setTimeout(() => setTestFeedback(null), 600);
+       			}
+    		}
+		};
 
             const startMode = (mode, levelId = '1') => {
 			// 1. 初始化所有状态
@@ -293,9 +312,11 @@
 			setFlipped(false); 
 			setTestFeedback(null);
 			setShowGameOver(false); // 确保关闭结算弹窗
+			setWrongWords([]);
 
 			if (!dbData || !dbData[levelId]) return;
                 	playSound('correct');
+				
             if (mode === 'card') {
 				// 获取该关卡所有单词
         	    const allWords = Object.keys(dbData[levelId].words);
@@ -308,8 +329,16 @@
                 } 
 				
 			else if (mode === 'test') {
-                    setCurrentList(Object.keys(dbData[levelId].words));
-                    setCurrentLevel(levelId); setView('test');
+                    setIsChallenge(false);
+        			const levelWords = dbData.levels.find(l => l.id === levelId).words;
+        
+        			// --- 自动读取 Test 模式进度 ---
+        			const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
+       				const startIdx = savedProgress ? parseInt(savedProgress) : 0;
+        
+        			setCurrentList(levelWords);
+        			setIdx(startIdx); // 直接从记录的索引开始，无需询问
+        			setView('test');
                 } 
 			
 			else if (mode === 'survival') {
@@ -321,7 +350,7 @@
         
         			if (savedScore > 0 && savedList.length > 0) {
             		// 如果有进度，询问是否继续
-           				 if (confirm(`上次挑战到（得分：${savedScore}），是否继续？`)) {
+           				 if (confirm(`继续上次挑战吗？当前得分：${savedScore}`)) {
                 			setScore(savedScore);
                 			setCurrentList(savedList);
                 			setIdx(savedList.length - 1); // 回到最后一个单词
@@ -559,5 +588,6 @@
     </script>
 </body>
 </html>
+
 
 

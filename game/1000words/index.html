@@ -306,6 +306,9 @@
 
             const startMode = (mode, levelId = '1') => {
 				// 1. 初始化所有状态
+			const safeLearnedWords = typeof learnedWords !== 'undefined' ? learnedWords : [];
+			const safeFullList = typeof fullList !== 'undefined' ? fullList : [];
+				
             setIsChallenge(false); 
 			setIsWrongSetMode(false); 
 			setIdx(0); // 确保从第一个单词开始
@@ -338,14 +341,14 @@
 				
 			else if (mode === 'test') {
                     setIsChallenge(false);
-					const targetLevel = data.levels.find(l => String(l.id) === String(levelId));
+					const targetLevel = data.levels?.find(l => String(l.id) === String(levelId));
         
         			if (!targetLevel) {
            				 console.error("找不到关卡 ID:", levelId);
             			return;
        				 }
 				
-        			const levelWords = targetLevel.words;
+        			const levelWords = targetLevel?.words;
         
         			// --- 自动读取 Test 模式进度 ---
         			const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
@@ -603,6 +606,7 @@
     </script>
 </body>
 </html>
+
 
 
 

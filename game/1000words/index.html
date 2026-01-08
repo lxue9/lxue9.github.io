@@ -330,17 +330,9 @@
 				
 			else if (mode === 'test') {
                     setIsChallenge(false);
-        			const allWords = Object.keys(dbData[levelId].words);
-        
-        			// --- 自动读取 Test 模式进度 ---
-        			const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
-					setCurrentList(allWords);
-				
-       				const startIdx = savedProgress ? parseInt(savedProgress) : 0;
-        
-        			
-        			setIdx(startIdx); // 直接从记录的索引开始，无需询问
-        			setView('test');
+        			setCurrentList(Object.keys(dbData[levelId].words));
+                    setCurrentLevel(levelId); setView('test');
+
                 } 
 			
 			else if (mode === 'survival') {
@@ -605,6 +597,7 @@
     </script>
 </body>
 </html>
+
 
 
 

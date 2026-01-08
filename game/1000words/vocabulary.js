@@ -1,7 +1,6 @@
 const DB = {
-  "levels":[
-	{
-    "id": "1",
+  "1": {
+    "levelIndex": 1,
     "levelEmoji": "🧒",
     "levelName": "第1关: 常用基础",
     "words": {
@@ -641,8 +640,8 @@ const DB = {
       ]          
     }
   },
-   {
-    "id": "2",
+  "2": {
+    "levelIndex": 2,
     "levelEmoji": "🏠",
     "levelName": "第2关: 居家用品",
     "words": {
@@ -1289,8 +1288,8 @@ const DB = {
       ]
     }
   },
-  {
-    "id": "3",
+  "3": {
+    "levelIndex": 3,
     "levelEmoji": "🐾",
     "levelName": "第3关: 动物乐园",
     "words": {
@@ -1996,8 +1995,8 @@ const DB = {
       ]
     }
   },
-  {
-    "id": "4",
+  "4": {
+    "levelIndex": 4,
     "levelEmoji": "🍕",
     "levelName": "第4关: 美味餐厅",
     "words": {
@@ -2695,8 +2694,8 @@ const DB = {
       ]
     }
   },
- {
-    "id": "5",
+  "5": {
+    "levelIndex": 5,
     "levelEmoji": "🚀",
     "levelName": "第5关: 城市交通",
     "words": {
@@ -3237,8 +3236,8 @@ const DB = {
       ]
     }
   },
-   {
-    "id": "6",
+  "6": {
+    "levelIndex": 6,
     "levelEmoji": "💪",
     "levelName": "第6关: 我的身体",
     "words": {
@@ -3831,8 +3830,8 @@ const DB = {
 ]      
 	}
   },
- {
-    "id": "7",
+  "7": {
+    "levelIndex": 7,
     "levelEmoji": "🌿",
     "levelName": "第7关: 奇妙自然",
     "words": {
@@ -4503,8 +4502,8 @@ const DB = {
       ]
     }
   },
-  {
-    "id": "8",
+  "8": {
+    "levelIndex": 8,
     "levelEmoji": "🎒",
     "levelName": "第8关: 校园学习",
     "words": {
@@ -5083,8 +5082,8 @@ const DB = {
       ]
     }
   },
-  {
-    "id": "9",
+  "9": {
+    "levelIndex": 9,
     "levelEmoji": "👨‍👩‍👧‍👦",
     "levelName": "第9关: 家人情感",
     "words": {
@@ -5754,8 +5753,8 @@ const DB = {
       ]
     }
   },
-  {
-    "id": "10",
+  "10": {
+    "levelIndex": 10,
     "levelEmoji": "🏆",
     "levelName": "第10关: 运动艺术",
     "words": {
@@ -6431,12 +6430,9 @@ const DB = {
       ]
     }
   }
-]
 };
 
 const FULL_LIST = ["I", "you", "he", "she", "it", "me", "us", "we", "they", "am", "is", "are", "each", "both", "else", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "begin", "end", "go", "come", "eat", "drink", "see", "look", "add", "try", "can", "do", "get", "give", "know", "keep", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "any", "some", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "living-room", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "mat", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "hook", "yard", "bell", "bin", "step", "tub", "rug", "toy", "doll", "ball", "dish", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "reservation", "counter", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "special", "dessert", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "lane", "hospital", "bank", "hotel", "park", "seat", "shop", "market", "zoo", "museum", "cinema", "fuel", "bridge", "tower", "temple", "church", "airport", "station", "building", "factory", "skyscraper", "farm", "platform", "passenger", "signal", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "compass", "flag", "gate", "ticket", "passport", "phone", "radio", "money", "card", "baggage", "backpack", "selfie", "suitcase", "passcode", "tent", "destination", "raincoat", "helmet", "depart", "arrive", "explore", "wait", "drive", "ride", "hike", "sail", "shuttle", "cable car", "express", "itinerary", "visit", "travel", "move", "push", "pull", "check-in", "check-out", "buy", "sell", "find", "lost", "far", "near", "tunnel", "traffic", "left", "right", "city", "face", "eye", "Eyebrow", "Eyelash", "ear", "nose", "mouth", "lip", "Tongue", "Tooth", "Forehead", "Chin", "Cheek", "Neck", "hair", "curly", "straight", "long", "short", "bangs", "braid", "ponytail", "pigtails", "bun", "bald", "body", "tall", "fit", "tiny", "fat", "chubby", "shoulder", "chest", "belly", "back", "waist", "hip", "thumb", "nail", "palm", "finger", "fist", "arm", "elbow", "wrist", "thigh", "leg", "knee", "ankle", "foot", "heel", "toe", "skin", "bone", "muscle", "blood", "brain", "heart", "stomach", "lung", "liver", "kidney", "vein", "navel", "health", "clean", "dirty", "pretty", "handsome", "weak", "sick", "cough", "sneeze", "fever", "dizzy", "shiver", "sweat", "itchy", "sleepy", "hurt", "cut", "doctor", "nurse", "pill", "shot", "x-ray", "scan", "breath", "sniff", "hear", "touch", "cry", "yawn", "chew", "taste", "fine", "great", "cool", "better", "well", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "date", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "soft", "frost", "warm", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "stream", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "steam", "clear", "strong", "quiet", "loud", "high", "low", "wide", "thin", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "principal", "teacher", "student", "staff", "coach", "name", "friend", "classmate", "club", "desk", "drawer", "board", "light", "lab", "playground", "library", "office", "gym", "lesson", "homework", "note", "test", "exam", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "kit", "ink", "glue", "scissors", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "laptop", "prize", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "triangle", "oval", "rectangle", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "idea", "mind", "draw", "listen", "speak", "learn", "study", "think", "spell", "count", "ask", "tell", "topic", "color", "cut", "paste", "clean", "task", "form", "list", "remember", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "stranger", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "cheerful", "careful", "lucky", "dream", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "fair", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "grow", "help", "share", "gift", "party", "wedding", "birthday", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "activity", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "band", "singing", "race", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "climb", "net", "relax", "fun", "popular", "champion", "record", "top", "next", "finish"];
-
-
 
 
 

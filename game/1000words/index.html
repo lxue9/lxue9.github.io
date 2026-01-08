@@ -240,114 +240,144 @@
             }, [currentKey, currentList, fullList]);
 
             const handleChoice = (choice) => {
-    if (testFeedback) return;
-    const currentKey = currentList[idx];
+   		 	if (testFeedback) return;
+    		const currentKey = currentList[idx];
 
-    if (choice === currentKey) {
-        speak(currentKey);
-        setTestFeedback('correct');
-        if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
+    		if (choice === currentKey) {
+       			speak(currentKey);
+        		setTestFeedback('correct');
+        		if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
 
-        setTimeout(() => {
-            setTestFeedback(null);
-            if (isChallenge) {
-                // --- Survival 模式存档 ---
-                const newScore = score + 1;
-                setScore(newScore);
-                const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
-                const newList = [...currentList, nextWord];
-                setCurrentList(newList);
-                setIdx(idx + 1);
+        		setTimeout(() => {
+            		setTestFeedback(null);
+            		if (isChallenge) {
+               			 // --- Survival 模式存档 ---
+                		const newScore = score + 1;
+                		setScore(newScore);
+                		const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
+                		const newList = [...currentList, nextWord];
+                		setCurrentList(newList);
+                		setIdx(idx + 1);
                 
-                localStorage.setItem('survival_score', newScore);
-                localStorage.setItem('survival_list', JSON.stringify(newList));
-            } else {
-                // --- Test 模式存档 ---
-                const nextIdx = idx + 1;
-                const currentLevelId = dbData.levels.find(l => l.words === currentList)?.id;
+                		localStorage.setItem('survival_score', newScore);
+                		localStorage.setItem('survival_list', JSON.stringify(newList));
+           			 } 
+					else {
+                		// --- Test 模式存档 ---
+               			const nextIdx = idx + 1;
+                		const currentLevelId = dbData.levels.find(l => l.words === currentList)?.id;
                 
-                if (nextIdx < currentList.length) {
-                    setIdx(nextIdx);
-                    // 记录当前做到了第几个词
-                    if (currentLevelId) {
-                        localStorage.setItem(`test_progress_${currentLevelId}`, nextIdx);
-                    }
-                } else {
-                    // 正常完成全关，清除该关进度
-                    if (currentLevelId) {
-                        localStorage.removeItem(`test_progress_${currentLevelId}`);
-                    }
-                    playSound('finish');
-                    setShowGameOver(true);
+                		if (nextIdx < currentList.length) {
+                   			 setIdx(nextIdx);
+                    		// 记录当前做到了第几个词
+                   			 if (currentLevelId) {
+                       			 localStorage.setItem(`test_progress_${currentLevelId}`, nextIdx);
+                    		}
+               			 } 
+						else {
+                    		// 正常完成全关，清除该关进度
+                   			 if (currentLevelId) {
+                        		localStorage.removeItem(`test_progress_${currentLevelId}`);
+                   				}
+                   			 playSound('finish');
+                    		setShowGameOver(true);
+                		}
+            		}
+        		}, 800);
+   			 } 
+			else {
+        		// --- 答错逻辑 ---
+       			setTestFeedback('wrong');
+        		playSound('wrong');
+        		if (!wrongWords.includes(currentKey)) setWrongWords(prev => [...prev, currentKey]);
+
+       			if (isChallenge) {
+            		// 挑战模式失败：清除所有生存存档
+            		localStorage.removeItem('survival_score');
+            		localStorage.removeItem('survival_list');
+            		setTimeout(() => setShowGameOver(true), 600);
+        		} 
+				else {
+            		// Test模式失败：不清除进度，允许用户停留在这一题继续尝试
+            		setTimeout(() => setTestFeedback(null), 600);
+       			}
+    		}
+		};
+
+            const startMode = (mode, levelId = '1') => {
+			// 1. 初始化所有状态
+            setIsChallenge(false); 
+			setIsWrongSetMode(false); 
+			setIdx(0); // 确保从第一个单词开始
+			setFlipped(false); 
+			setTestFeedback(null);
+			setShowGameOver(false); // 确保关闭结算弹窗
+			setWrongWords([]);
+
+			if (!dbData || !dbData[levelId]) return;
+                	playSound('correct');
+				
+            if (mode === 'card') {
+				// 获取该关卡所有单词
+        	    const allWords = Object.keys(dbData[levelId].words);
+				// 过滤掉已学会的
+        	    const toLearn = allWords.filter(k => !learnedWords.includes(k));
+				// 如果全学完了，就复习全部，否则只学没学会的
+        	    setCurrentList(toLearn.length > 0 ? toLearn : allWords);
+				setCurrentLevel(levelId); 
+		    	setView('card');
+                } 
+				
+			else if (mode === 'test') {
+                    setIsChallenge(false);
+        			const levelWords = dbData.levels.find(l => l.id === levelId).words;
+        
+        			// --- 自动读取 Test 模式进度 ---
+        			const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
+       				const startIdx = savedProgress ? parseInt(savedProgress) : 0;
+        
+        			setCurrentList(levelWords);
+        			setIdx(startIdx); // 直接从记录的索引开始，无需询问
+        			setView('test');
+                } 
+			
+			else if (mode === 'survival') {
+                    setIsChallenge(true);
+        
+        			// 尝试从本地恢复进度
+        			const savedScore = parseInt(localStorage.getItem('survival_score')) || 0;
+        			const savedList = JSON.parse(localStorage.getItem('survival_list') || '[]');
+        
+        			if (savedScore > 0 && savedList.length > 0) {
+            		// 如果有进度，询问是否继续
+           				 if (confirm(`继续上次挑战吗？当前得分：${savedScore}`)) {
+                			setScore(savedScore);
+                			setCurrentList(savedList);
+                			setIdx(savedList.length - 1); // 回到最后一个单词
+                			setView('test');
+               				 return;
+           					 }
+       				 		}
+        
+       				 // 重新开始逻辑
+        			setScore(0);
+        			const firstWord = fullList[Math.floor(Math.random() * fullList.length)];
+        			const newList = [firstWord];
+        			setCurrentList(newList);
+        			setIdx(0);
+        			localStorage.setItem('survival_score', '0');
+        			localStorage.setItem('survival_list', JSON.stringify(newList));
+       				setView('test');
+                } 
+				
+				else if (mode === 'wrong') {
+                    if (wrongWords.length === 0) return alert('目前沒有錯題！');
+                    setIsWrongSetMode(true);
+                    setCurrentList([...wrongWords].sort(() => Math.random() - 0.5));
+                    setView('test');
                 }
-            }
-        }, 800);
-    } else {
-        // --- 答错逻辑 ---
-        setTestFeedback('wrong');
-        playSound('wrong');
-        if (!wrongWords.includes(currentKey)) setWrongWords(prev => [...prev, currentKey]);
+            };
 
-        if (isChallenge) {
-            // 挑战模式失败：清除所有生存存档
-            localStorage.removeItem('survival_score');
-            localStorage.removeItem('survival_list');
-            setTimeout(() => setShowGameOver(true), 600);
-        } else {
-            // Test模式失败：不清除进度，允许用户停留在这一题继续尝试
-            setTimeout(() => setTestFeedback(null), 600);
-        }
-    }
-};
-
-           const startMode = (mode, levelId = '1') => {
-    setTestFeedback(null);
-    setShowGameOver(false);
-    setWrongWords([]);
-
-	// 获取对应的关卡数据
-    const levelData = dbData.levels.find(l => l.id === levelId);
-    if (!levelData) return;
-
-    const levelWords = Object.keys(levelData.words);
-
-    if (mode === 'card' || mode === 'test') {
-        setIsChallenge(false);
-		setCurrentLevel(levelId);
-        setCurrentList(levelWords);
-        
-        // 读取进度
-        const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
-        const startIdx = savedProgress ? parseInt(savedProgress) : 0;
-		setIdx(startIdx);
-		// 切换到 card 或 test 视图
-        setView(mode); 
-		
-    } else if (mode === 'survival') {
-        setIsChallenge(true);
-        
-        // --- 自动读取 Survival 模式进度 ---
-        const savedScore = parseInt(localStorage.getItem('survival_score')) || 0;
-        const savedList = JSON.parse(localStorage.getItem('survival_list'));
-        
-        if (savedScore > 0 && savedList) {
-            setScore(savedScore);
-            setCurrentList(savedList);
-            setIdx(savedList.length - 1);
-            setView('test');
-        } else {
-            // 重新开始挑战
-            setScore(0);
-            const firstWord = fullList[Math.floor(Math.random() * fullList.length)];
-            const newList = [firstWord];
-            setCurrentList(newList);
-            setIdx(0);
-            localStorage.setItem('survival_score', '0');
-            localStorage.setItem('survival_list', JSON.stringify(newList));
-            setView('test');
-        }
-    }
-};
             if (view === 'menu') {
                 return (
                     <div className="max-w-md mx-auto p-6 relative">
@@ -402,8 +432,8 @@
                                             </div>
                                         </div>
                                         <div className="flex gap-2 ml-4">
-                                            <button onClick={() => startMode('card', item.id)} className="w-11 h-11 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-md btn-active">📖</button>
-                                            <button onClick={() => startMode('test', item.id)} className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
+                                            <button onClick={() => startMode('card', id)} className="w-11 h-11 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-md btn-active">📖</button>
+                                            <button onClick={() => startMode('test', id)} className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
                                         </div>
                                     </div>
                                 );
@@ -558,15 +588,5 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
 
 

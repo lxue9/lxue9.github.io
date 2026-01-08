@@ -305,14 +305,7 @@
 		};
 
             const startMode = (mode, levelId = '1') => {
-
-				// 检查词库是否加载
-    			const data = window.dbData || (typeof dbData !== 'undefined' ? dbData : null);
-   				 if (!data || !data.levels) {
-       				 alert("机器人正在检查你不会的单词，请稍等哦...");
-       				 return;
-    				}
-			// 1. 初始化所有状态
+				// 1. 初始化所有状态
             setIsChallenge(false); 
 			setIsWrongSetMode(false); 
 			setIdx(0); // 确保从第一个单词开始
@@ -320,6 +313,14 @@
 			setTestFeedback(null);
 			setShowGameOver(false); // 确保关闭结算弹窗
 			setWrongWords([]);
+
+				// 检查词库是否加载
+    			const data = window.dbData || (typeof dbData !== 'undefined' ? dbData : null);
+   				 if (!data || !data.levels) {
+       				 alert("机器人正在检查你不会的单词，请稍等哦...");
+       				 return;
+    				}
+			
 
 			if (!data || !data[levelId]) return;
                 	playSound('correct');
@@ -602,6 +603,7 @@
     </script>
 </body>
 </html>
+
 
 
 

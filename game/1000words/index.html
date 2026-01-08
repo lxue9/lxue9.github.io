@@ -305,17 +305,21 @@
     setShowGameOver(false);
     setWrongWords([]);
 
-    if (mode === 'test') {
+	// 获取对应的关卡数据
+    const levelData = dbData.levels.find(l => l.id === levelId);
+    if (!levelData) return;
+
+    const levelWords = Object.keys(levelData.words);
+
+    if (mode === 'card' || mode === 'test') {
         setIsChallenge(false);
-        const levelWords = dbData.levels.find(l => l.id === levelId).words;
-        
-        // --- 自动读取 Test 模式进度 ---
-        const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
-        const startIdx = savedProgress ? parseInt(savedProgress) : 0;
-        
+		setCurrentLevel(levelId);
         setCurrentList(levelWords);
-        setIdx(startIdx); // 直接从记录的索引开始，无需询问
-        setView('test');
+        
+        // 读取进度
+        const savedProgress = localStorage.getItem(`test_progress_${levelId}`);
+        setIdx(savedProgress ? parseInt(savedProgress) : 0);
+        setView(mode); // 切换到 card 或 test 视图
     } else if (mode === 'survival') {
         setIsChallenge(true);
         
@@ -551,6 +555,7 @@
     </script>
 </body>
 </html>
+
 
 
 

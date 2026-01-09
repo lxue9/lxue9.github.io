@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://www.stevesplayground.online/game/1000words/vocabulary.js"></script>
+    <script src="./vocabulary.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
         body { 
@@ -498,7 +498,7 @@ const speak = (text, preferenceOverride = null) => {
                             </div>
                             {[
                                 { id: 'us-female', label: '🇺🇸 美音', color: 'text-indigo-600' },
-                                //{ id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
+                              //  { id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
                                 { id: 'uk-female', label: '🇬🇧 英音', color: 'text-rose-600' }
                             ].map(v => (
                                 <button
@@ -726,13 +726,19 @@ const speak = (text, preferenceOverride = null) => {
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
+// --- 注册 Service Worker 开始 ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // 注意：sw.js 必须存放在你服务器的根目录下
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('服务工作线程已就绪！范围:', reg.scope))
+                    .catch(err => console.error('注册失败:', err));
+            });
+        }
+        // --- 注册 Service Worker 结束 ---
     </script>
 </body>
 </html>
-
-
-
-
 
 
 

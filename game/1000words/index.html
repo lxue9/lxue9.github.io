@@ -89,6 +89,26 @@
 
         const App = () => {
             const [view, setView] = useState('menu');
+	    const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
+            const [voicePreference, setVoicePreference] = React.useState('us-female');
+
+useEffect(() => {
+    const warmup = () => {
+        const synth = window.speechSynthesis;
+        // 强制刷新音色列表并发出一个静音片段
+        synth.getVoices();
+        const u = new SpeechSynthesisUtterance("");
+        u.volume = 0;
+        synth.speak(u);
+        
+        // 成功触发后立即移除监听，不占用资源
+        window.removeEventListener('touchstart', warmup);
+        window.removeEventListener('click', warmup);
+    };
+    window.addEventListener('touchstart', warmup, { once: true });
+    window.addEventListener('click', warmup, { once: true });
+}, []);
+
             const [currentLevel, setCurrentLevel] = useState('1');
             const [idx, setIdx] = useState(0);
             const [flipped, setFlipped] = useState(false);
@@ -118,36 +138,118 @@
                 finish: useRef(new Audio('https://www.stevesplayground.online/game/1000words/finish.mp3'))
             };
 
-			// 自动识别并渲染 Emoji 或 图片
+const playSound = (type) => {
+    const sound = audioRefs[type]?.current;
+    if (sound) {
+        // 1. 先暂停
+        sound.pause();
+        // 2. 重置时间
+        sound.currentTime = 0;
+        
+        // 3. 使用异步播放并捕获异常
+        // 加上一个小延迟或确保是在用户交互事件内
+        setTimeout(() => {
+            const playPromise = sound.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("手机端自动播放拦截:", error);
+                    // 如果被拦截，通常需要引导用户再点一次
+                });
+            }
+        }, 0);
+    }
+};
+
+// 在 App 组件顶部定义一个变量（或使用 useRef）
+const isSpeakingRef = React.useRef(false);
+
+// 修改 speak 函数定义，增加第二个参数 preferenceOverride
+const speak = (text, preferenceOverride = null) => {
+    if (!text) return;
+    const synth = window.speechSynthesis;
+    synth.cancel(); 
+
+    const utter = new SpeechSynthesisUtterance(text);
+    
+    // 关键点：优先使用传入的参数，如果没有才用 state 里的状态
+    const currentPref = preferenceOverride || voicePreference;
+
+    const performSpeak = () => {
+        const voices = synth.getVoices();
+        let target;
+        
+        if (currentPref === 'us-male') {
+            target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
+            utter.pitch = 0.8;
+        } else if (currentPref === 'uk-female') {
+            target = voices.find(v => /female|en-GB|google uk/i.test(v.name) && /en-GB/.test(v.lang));
+            utter.pitch = 1.0;
+        } else {
+            target = voices.find(v => /samantha|aria|zira|susan|female/i.test(v.name) && /en-US/.test(v.lang))
+                     || voices.find(v => /en-US/i.test(v.lang) && !/male/i.test(v.name));
+            utter.pitch = 1.0;
+        }
+
+        if (target) utter.voice = target;
+        utter.lang = currentPref === 'uk-female' ? 'en-GB' : 'en-US';
+        utter.rate = 0.9;
+        synth.speak(utter);
+    };
+
+    if (synth.getVoices().length === 0) {
+        synth.onvoiceschanged = performSpeak;
+    } else {
+        performSpeak();
+    }
+};
+
+
+// 自动识别并渲染 Emoji 或 图片
 			const renderMedia = (source, sizeClass = "text-[120px]") => {
- 				 if (!source) return null;
-				const strSource = String(source).trim();
-  				const isImage = strSource.includes('/') || strSource.includes('.');
+    if (!source) return null;
+    const strSource = String(source).trim();
+    const isImage = strSource.includes('/') || strSource.includes('.');
 
- 				 if (isImage) {
-   					 return (
-    				  /* 为图片容器添加与 Emoji 相同的动画类 animate-float */
-     				 <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
-       					 <img 
-          					src={strSource} 
-					        className="max-w-full max-h-full object-contain pointer-events-none" 
-          					style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
-        				/>
-     				 </div>
-   					 );
- 				 }
+    if (isImage) {
+        return (
+            <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
+                <img 
+                    src={strSource} 
+                    className="max-w-full max-h-full object-contain pointer-events-none" 
+                    style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
+                />
+            </div>
+        );
+    }
 
-  			// Emoji 逻辑
-			
-			const emojiCount = Array.from(strSource).length;	
-  			const fontSize = emojiCount > 4 ? '60px' : (emojiCount > 2 ? '80px' : '120px');
- 			 return (
-    			/* 统一使用 animate-float 代替原来的 floating-emoji */
-    			<span className="animate-float transition-all duration-300" style={{ fontSize, lineHeight: '1' }}>
-      				{strSource}
-    			</span>
- 				 );
-			};
+    // --- Emoji 逻辑优化 ---
+    // 使用 Array.from 准确计算视觉 Emoji 数量
+    const emojiCount = Array.from(strSource).length;    
+    
+    // 细化字号阶梯：
+    // 1-2个: 120px
+    // 3个: 80px
+    // 4个: 65px
+    // 5个及以上: 50px
+    let fontSize = '120px';
+    if (emojiCount === 3) fontSize = '80px';
+    else if (emojiCount === 4) fontSize = '65px';
+    else if (emojiCount > 4) fontSize = '50px';
+
+    return (
+        <span 
+            className="animate-float transition-all duration-300 inline-block whitespace-nowrap" 
+            style={{ 
+                fontSize, 
+                lineHeight: '1',
+                textAlign: 'center',
+                maxWidth: '100%' // 确保不会超出卡片边界
+            }}
+        >
+            {strSource}
+        </span>
+    );
+};
 			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
             const fullList = useMemo(() => {
@@ -180,20 +282,6 @@
                     window.fireSuccessConfetti(isMaster);
                 }
             }, [showGameOver, isChallenge, score]);
-
-            const speak = (text) => {
-                if (!text) return;
-                window.speechSynthesis.cancel();
-                const utter = new SpeechSynthesisUtterance(text);
-                utter.lang = 'en-US';
-                utter.rate = 1.0;
-                window.speechSynthesis.speak(utter);
-            };
-
-            const playSound = (type) => {
-                const sound = audioRefs[type].current;
-                if (sound) { sound.currentTime = 0; sound.play().catch(()=>{}); }
-            };
 
             const handleTouchStart = (e) => { touchStart.current = e.touches[0].clientX; };
             const handleTouchEnd = (e) => {
@@ -298,66 +386,72 @@
 };
 
             const startMode = (mode, levelId = '1') => {
-			// 1. 初始化所有状态
-            setIsChallenge(false); 
-			setIsWrongSetMode(false); 
-			setIdx(0); // 确保从第一个单词开始
-			setFlipped(false); 
-			setTestFeedback(null);
-			setShowGameOver(false); // 确保关闭结算弹窗
-			setWrongWords([]);
+                // 1. 初始化所有状态
+                setIsChallenge(false); 
+                setIsWrongSetMode(false); 
+                setIdx(0); 
+                setFlipped(false); 
+                setTestFeedback(null);
+                setShowGameOver(false);
 
-			if (!dbData || !dbData[levelId]) return;
-                	playSound('correct');
-				
-            if (mode === 'card') {
-				// 获取该关卡所有单词
-        	    const allWords = Object.keys(dbData[levelId].words);
-				// 过滤掉已学会的
-        	    const toLearn = allWords.filter(k => !learnedWords.includes(k));
-				// 如果全学完了，就复习全部，否则只学没学会的
-        	    setCurrentList(toLearn.length > 0 ? toLearn : allWords);
-				setCurrentLevel(levelId); 
-		    	setView('card');
+                if (!dbData || !dbData[levelId]) return;
+                playSound('correct');
+                
+                if (mode === 'card') {
+                    // 获取该关卡所有单词
+                    const allWords = Object.keys(dbData[levelId].words);
+                    // 过滤掉已学会的
+                    const toLearn = allWords.filter(k => !learnedWords.includes(k));
+                    // 如果全学完了，就复习全部，否则只学没学会的
+                    setCurrentList(toLearn.length > 0 ? toLearn : allWords);
+                    setCurrentLevel(levelId); 
+                    setView('card');
                 } 
-				
-			else if (mode === 'test') {
+                else if (mode === 'test') {
                     setIsChallenge(false);
-        			setCurrentList(Object.keys(dbData[levelId].words));
-                    setCurrentLevel(levelId); setView('test');
+                    // 1. 获取当前关卡的所有单词键
+                    const allLevelWords = Object.keys(dbData[levelId].words);
+                    const totalCount = allLevelWords.length;
+                    
+                    // 2. 过滤出已学会的单词
+                    const learnedInLevel = allLevelWords.filter(k => learnedWords.includes(k));
+                    const learnedCount = learnedInLevel.length;
+                    
+                    // 3. 核心逻辑：学会数量为 0 或等于总数，测试全部；否则只测试已学会的
+                    const toTest = (learnedCount === 0 || learnedCount === totalCount) 
+                        ? allLevelWords 
+                        : learnedInLevel;
 
+                    setCurrentList(toTest);
+                    setCurrentLevel(levelId); 
+                    setView('test');
                 } 
-			
-			else if (mode === 'survival') {
+                else if (mode === 'survival') {
                     setIsChallenge(true);
-        
-        			// 尝试从本地恢复进度
-        			const savedScore = parseInt(localStorage.getItem('survival_score')) || 0;
-        			const savedList = JSON.parse(localStorage.getItem('survival_list') || '[]');
-        
-        			if (savedScore > 0 && savedList.length > 0) {
-            		// 如果有进度，询问是否继续
-           				 if (confirm(`继续上次挑战吗？当前得分：${savedScore}`)) {
-                			setScore(savedScore);
-                			setCurrentList(savedList);
-                			setIdx(savedList.length - 1); // 回到最后一个单词
-                			setView('test');
-               				 return;
-           					 }
-       				 		}
-        
-       				 // 重新开始逻辑
-        			setScore(0);
-        			const firstWord = fullList[Math.floor(Math.random() * fullList.length)];
-        			const newList = [firstWord];
-        			setCurrentList(newList);
-        			setIdx(0);
-        			localStorage.setItem('survival_score', '0');
-        			localStorage.setItem('survival_list', JSON.stringify(newList));
-       				setView('test');
+                    // 尝试从本地恢复进度
+                    const savedScore = parseInt(localStorage.getItem('survival_score')) || 0;
+                    const savedList = JSON.parse(localStorage.getItem('survival_list') || '[]');
+                    
+                    if (savedScore > 0 && savedList.length > 0) {
+                        // 移除 confirm，直接恢复进度
+                        setScore(savedScore);
+                        setCurrentList(savedList);
+                        setIdx(savedList.length - 1); 
+                        setView('test');
+                        return;
+                    }
+                    
+                    // 重新开始逻辑
+                    setScore(0);
+                    const firstWord = fullList[Math.floor(Math.random() * fullList.length)];
+                    const newList = [firstWord];
+                    setCurrentList(newList);
+                    setIdx(0);
+                    localStorage.setItem('survival_score', '0');
+                    localStorage.setItem('survival_list', JSON.stringify(newList));
+                    setView('test');
                 } 
-				
-				else if (mode === 'wrong') {
+                else if (mode === 'wrong') {
                     if (wrongWords.length === 0) return alert('目前沒有錯題！');
                     setIsWrongSetMode(true);
                     setCurrentList([...wrongWords].sort(() => Math.random() - 0.5));
@@ -384,6 +478,61 @@
                                     <span className="text-indigo-600">{userName || 'Steve'}'s</span> English Master
                                 </h1>
                             </div>
+
+<div className="fixed top-4 right-4 z-50">
+                <button 
+                    		onClick={() => setShowVoiceMenu(!showVoiceMenu)}
+                    		className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${showVoiceMenu ? 'bg-slate-800 rotate-90' : 'bg-white text-slate-600 hover:scale-110'}`}
+                		>
+                    		{showVoiceMenu ? <span className="text-white text-xl">✕</span> : <span className="text-2xl">⚙️</span>}
+                	    </button>
+
+                {showVoiceMenu && (
+                    <div className="absolute top-14 right-0 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 w-44 flex flex-col gap-1">
+                        <div className="text-[10px] font-black text-slate-400 px-3 py-2 uppercase tracking-widest border-b border-slate-50 mb-1">
+                            Voice Accent
+                        </div>
+                        {[
+                            { id: 'us-female', label: '👩 美音女声', color: 'text-indigo-600' },
+                            { id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
+                            //{ id: 'child',     label: '👧 可爱童声', color: 'text-amber-600' },
+                            { id: 'uk-female', label: '🇬🇧 英音女声', color: 'text-rose-600' }
+
+                        ].map(v => (
+                            <button
+                                key={v.id}
+                                onClick={() => {
+                                    setVoicePreference(v.id);
+                                    setShowVoiceMenu(false);
+
+				    // 2. 预热引擎
+    window.speechSynthesis.getVoices();
+    const utterance = new SpeechSynthesisUtterance("");
+    utterance.volume = 0;
+    window.speechSynthesis.speak(utterance);
+
+    // 3. 【核心修改】直接传入 v.id，确保 speak 函数立即拿到最新选择
+    setTimeout(() => {
+	const cleanName = userName.trim();
+        const testText = v.id === 'uk-female' ? `Hello${cleanName}!` : `Hi${cleanName}!`;
+        speak(testText, v.id); // 这里传入 v.id 强制覆盖旧状态
+    }, 100);
+                                }}
+                                className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
+                                    voicePreference === v.id 
+                                    ? 'bg-slate-100 ' + v.color 
+                                    : 'text-slate-600 hover:bg-slate-50'
+                                }`}
+                            >
+                                <span className="text-xl">{v.label.split(' ')[0]}</span>
+                                <span>{v.label.split(' ')[1]}</span>
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+			    
+
                             <button onClick={resetProgress} className="bg-white border border-slate-100 px-3 py-1 rounded-full text-[10px] font-black text-slate-400 shadow-sm btn-active uppercase">Reset</button>
                         </header>
                         
@@ -426,6 +575,8 @@
                                 );
                             })}
                             <div style={{ height: '220px' }}></div>
+
+
                         </div>
                         
                         <nav className="floating-nav flex gap-3 max-w-md mx-auto">
@@ -518,6 +669,8 @@
                                 </div>
                             )
                         )}
+
+
                     </div>
 
                     {showGameOver && (
@@ -566,6 +719,7 @@
                             </div>
                         </div>
                     )}
+
                 </div>
             );
         };

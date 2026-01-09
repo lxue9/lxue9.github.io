@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://www.stevesplayground.online/game/1000words/vocabulary.js"></script>
+    <script src="vocabulary.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
         body { 
@@ -477,64 +477,63 @@ const speak = (text, preferenceOverride = null) => {
                                 <h1 className="text-2xl font-black text-slate-800 tracking-tight">
                                     <span className="text-indigo-600">{userName || 'Steve'}'s</span> English Master
                                 </h1>
+				<button onClick={resetProgress} className="bg-white border border-slate-100 px-3 py-1 rounded-full text-[10px] font-black text-slate-400 shadow-sm btn-active uppercase">Reset</button>
                             </div>
 
-<div className="fixed top-4 right-4 z-50">
-                <button 
-                    		onClick={() => setShowVoiceMenu(!showVoiceMenu)}
-                    		className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${showVoiceMenu ? 'bg-slate-800 rotate-90' : 'bg-white text-slate-600 hover:scale-110'}`}
-                		>
-                    		{showVoiceMenu ? <span className="text-white text-xl">✕</span> : <span className="text-2xl">⚙️</span>}
-                	    </button>
+			   
+	{/* 右侧：原 Reset 的位置现在放置 Voice Menu 按钮 */}
+                <div className="relative">
+                    <button 
+                        onClick={() => setShowVoiceMenu(!showVoiceMenu)}
+                        className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ${showVoiceMenu ? 'bg-slate-800 rotate-90' : 'bg-white text-slate-600 hover:scale-110'}`}
+                    >
+                        {showVoiceMenu ? <span className="text-white text-xl">✕</span> : <span className="text-2xl">⚙️</span>}
+                    </button>
 
-                {showVoiceMenu && (
-                    <div className="absolute top-14 right-0 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 w-44 flex flex-col gap-1">
-                        <div className="text-[10px] font-black text-slate-400 px-3 py-2 uppercase tracking-widest border-b border-slate-50 mb-1">
-                            Voice Accent
+                    {/* 下拉菜单逻辑保持不变 */}
+                    {showVoiceMenu && (
+                        <div className="absolute top-14 right-0 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 w-44 flex flex-col gap-1 z-50">
+                            <div className="text-[10px] font-black text-slate-400 px-3 py-2 uppercase tracking-widest border-b border-slate-50 mb-1">
+                                Voice Accent
+                            </div>
+                            {[
+                                { id: 'us-female', label: '👩 美音女声', color: 'text-indigo-600' },
+                                { id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
+                                { id: 'uk-female', label: '🇬🇧 英音女声', color: 'text-rose-600' }
+                            ].map(v => (
+                                <button
+                                    key={v.id}
+                                    onClick={() => {
+                                        setVoicePreference(v.id);
+                                        setShowVoiceMenu(false);
+                                        
+                                        // 预热与发音逻辑
+                                        window.speechSynthesis.getVoices();
+                                        const utterance = new SpeechSynthesisUtterance("");
+                                        utterance.volume = 0;
+                                        window.speechSynthesis.speak(utterance);
+
+                                        setTimeout(() => {
+                                            const cleanName = (userName || 'Steve').trim();
+                                            // 注意：Hello 和 Hi 后面加了空格
+                                            const testText = v.id === 'uk-female' ? `Hello ${cleanName}!` : `Hi ${cleanName}!`;
+                                            speak(testText, v.id);
+                                        }, 100);
+                                    }}
+                                    className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
+                                        voicePreference === v.id 
+                                        ? 'bg-slate-100 ' + v.color 
+                                        : 'text-slate-600 hover:bg-slate-50'
+                                    }`}
+                                >
+                                    <span className="text-xl">{v.label.split(' ')[0]}</span>
+                                    <span>{v.label.split(' ')[1]}</span>
+                                </button>
+                            ))}
                         </div>
-                        {[
-                            { id: 'us-female', label: '👩 美音女声', color: 'text-indigo-600' },
-                            { id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
-                            //{ id: 'child',     label: '👧 可爱童声', color: 'text-amber-600' },
-                            { id: 'uk-female', label: '🇬🇧 英音女声', color: 'text-rose-600' }
-
-                        ].map(v => (
-                            <button
-                                key={v.id}
-                                onClick={() => {
-                                    setVoicePreference(v.id);
-                                    setShowVoiceMenu(false);
-
-				    // 2. 预热引擎
-    window.speechSynthesis.getVoices();
-    const utterance = new SpeechSynthesisUtterance("");
-    utterance.volume = 0;
-    window.speechSynthesis.speak(utterance);
-
-    // 3. 【核心修改】直接传入 v.id，确保 speak 函数立即拿到最新选择
-    setTimeout(() => {
-	const cleanName = userName.trim();
-        const testText = v.id === 'uk-female' ? `Hello${cleanName}!` : `Hi${cleanName}!`;
-        speak(testText, v.id); // 这里传入 v.id 强制覆盖旧状态
-    }, 100);
-                                }}
-                                className={`flex items-center gap-3 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
-                                    voicePreference === v.id 
-                                    ? 'bg-slate-100 ' + v.color 
-                                    : 'text-slate-600 hover:bg-slate-50'
-                                }`}
-                            >
-                                <span className="text-xl">{v.label.split(' ')[0]}</span>
-                                <span>{v.label.split(' ')[1]}</span>
-                            </button>
-                        ))}
-                    </div>
-                )}
-            </div>
-			    
-
-                            <button onClick={resetProgress} className="bg-white border border-slate-100 px-3 py-1 rounded-full text-[10px] font-black text-slate-400 shadow-sm btn-active uppercase">Reset</button>
-                        </header>
+                    )}
+                </div>
+            </header>
                         
                         <div className="grid grid-cols-3 gap-3 mb-10">
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
@@ -575,6 +574,7 @@ const speak = (text, preferenceOverride = null) => {
                                 );
                             })}
                             <div style={{ height: '220px' }}></div>
+
 
 
                         </div>

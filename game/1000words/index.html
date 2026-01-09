@@ -133,9 +133,9 @@ useEffect(() => {
 
             const touchStart = useRef(null);
             const audioRefs = {
-                wrong: useRef(new Audio('https://www.stevesplayground.online/game/1000words/wrong.mp3')),
-                correct: useRef(new Audio('https://www.stevesplayground.online/game/1000words/correct.mp3')),
-                finish: useRef(new Audio('https://www.stevesplayground.online/game/1000words/finish.mp3'))
+                wrong: useRef(new Audio('./music/wrong.mp3')),
+                correct: useRef(new Audio('./music/correct.mp3')),
+                finish: useRef(new Audio('./music/finish.mp3'))
             };
 
 const playSound = (type) => {
@@ -739,6 +739,7 @@ const speak = (text, preferenceOverride = null) => {
     </script>
 </body>
 </html>
+
 
 
 

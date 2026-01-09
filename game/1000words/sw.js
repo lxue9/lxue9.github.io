@@ -1,51 +1,43 @@
-const CACHE_NAME = 'steve-vocab-v1';
+const CACHE_NAME = 'steve-vocab-v4';
 
-// 初始只缓存核心文件（外壳）
+// 1. 只放你确定路径正确的本地文件
 const PRE_CACHE = [
   './',
   './index.html',
-  'https://cdn.tailwindcss.com',
   './music/correct.mp3',
   './music/wrong.mp3',
   './music/finish.mp3'
 ];
 
-// 安装阶段
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(PRE_CACHE))
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      // 使用 map 逐个添加，防止其中一个失败导致全部失败
+      return Promise.allSettled(
+        PRE_CACHE.map(url => cache.add(url))
+      );
+    })
   );
+  self.skipWaiting();
 });
 
-// 激活阶段：清理旧缓存
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.map(key => {
-        if (key !== CACHE_NAME) return caches.delete(key);
-      })
-    ))
-  );
-});
+self.addEventListener('fetch', (event) => {
+  // 跳过外部 CDN (如 tailwind)，只拦截同源资源或特定图片
+  if (event.request.url.includes('tailwindcss.com')) return;
 
-// 核心：拦截并自动缓存图片
-self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    caches.match(e.request).then(cachedResponse => {
-      if (cachedResponse) return cachedResponse;
-
-      return fetch(e.request).then(response => {
-        // 如果请求的是图片（来自你的域名或 emoji 文件夹）
-        if (e.request.url.includes('emoji/') || e.request.url.includes('.webp')) {
-          return caches.open(CACHE_NAME).then(cache => {
-            cache.put(e.request, response.clone()); // 边用边存
-            return response;
-          });
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request).then((fetchResponse) => {
+        // 动态缓存图片
+        if (fetchResponse.ok && event.request.url.includes('.webp')) {
+          const responseClone = fetchResponse.clone();
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, responseClone));
         }
-        return response;
+        return fetchResponse;
+      }).catch(() => {
+        // 离线备选
+        return response; 
       });
     })
   );
-
 });
-

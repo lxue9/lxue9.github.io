@@ -163,22 +163,26 @@ const playSound = (type) => {
 
 // 在 App 组件顶部定义一个变量（或使用 useRef）
 const isSpeakingRef = React.useRef(false);
+const currentUtterRef = React.useRef(null);
 
-// 修改 speak 函数定义，增加第二个参数 preferenceOverride
 const speak = (text, preferenceOverride = null) => {
     if (!text) return;
     const synth = window.speechSynthesis;
+    
+    // 关键：停止之前的播放并清空引用
     synth.cancel(); 
 
-    const utter = new SpeechSynthesisUtterance(text);
-    
-    // 关键点：优先使用传入的参数，如果没有才用 state 里的状态
+    // 2. 将实例赋值给外部引用的 Ref，防止被垃圾回收
+    currentUtterRef.current = new SpeechSynthesisUtterance(text);
+    const utter = currentUtterRef.current; 
+
     const currentPref = preferenceOverride || voicePreference;
 
     const performSpeak = () => {
         const voices = synth.getVoices();
         let target;
         
+        // --- 你的音色选择逻辑保持不变 ---
         if (currentPref === 'us-male') {
             target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
             utter.pitch = 0.8;
@@ -194,6 +198,16 @@ const speak = (text, preferenceOverride = null) => {
         if (target) utter.voice = target;
         utter.lang = currentPref === 'uk-female' ? 'en-GB' : 'en-US';
         utter.rate = 0.9;
+
+        // 3. 增加事件监听，播放结束时释放引用
+        utter.onend = () => {
+            currentUtterRef.current = null;
+        };
+        utter.onerror = (e) => {
+            console.error("Speech error:", e);
+            currentUtterRef.current = null;
+        };
+
         synth.speak(utter);
     };
 
@@ -203,7 +217,6 @@ const speak = (text, preferenceOverride = null) => {
         performSpeak();
     }
 };
-
 
 // 自动识别并渲染 Emoji 或 图片
 			const renderMedia = (source, sizeClass = "text-[120px]") => {
@@ -740,6 +753,7 @@ const speak = (text, preferenceOverride = null) => {
     </script>
 </body>
 </html>
+
 
 
 

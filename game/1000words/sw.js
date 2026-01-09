@@ -4,9 +4,9 @@ const CACHE_NAME = 'steve-vocab-v1';
 const PRE_CACHE = [
   './',
   './index.html',
-  'https://cdn.tailwindcss.com'
-  './music/correct.mp3'
-  './music/wrong.mp3'
+  'https://cdn.tailwindcss.com',
+  './music/correct.mp3',
+  './music/wrong.mp3',
   './music/finish.mp3'
 ];
 
@@ -46,4 +46,5 @@ self.addEventListener('fetch', (e) => {
       });
     })
   );
+
 });

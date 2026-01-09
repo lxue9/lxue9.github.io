@@ -497,9 +497,9 @@ const speak = (text, preferenceOverride = null) => {
                                 Voice Accent
                             </div>
                             {[
-                                { id: 'us-female', label: '👩 美音女声', color: 'text-indigo-600' },
-                                { id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
-                                { id: 'uk-female', label: '🇬🇧 英音女声', color: 'text-rose-600' }
+                                { id: 'us-female', label: '🇺🇸 美音', color: 'text-indigo-600' },
+                                //{ id: 'us-male',   label: '🧔 美音男声', color: 'text-blue-600' },
+                                { id: 'uk-female', label: '🇬🇧 英音', color: 'text-rose-600' }
                             ].map(v => (
                                 <button
                                     key={v.id}
@@ -729,6 +729,7 @@ const speak = (text, preferenceOverride = null) => {
     </script>
 </body>
 </html>
+
 
 
 

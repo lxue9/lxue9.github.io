@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:image" content="https://www.stevesplayground.online/game/1000words/logo/small_steve.png" />
-	<link rel="icon" href="./logo/favicon_32x32.png">
-    <meta property="og:title" content="小学生基础英语1000词!" />
+    <meta property="og:image" content="https://www.stevesplayground.online/game/1000words_logo.png" />
+    <meta property="og:title" content="Welcome to Steve's playground！" />
     <meta property="og:description" content="A game site developed by Steve and his mom." />
     <meta property="og:url" content="https://www.stevesplayground.online/game/1000words/" />
     <meta property="og:type" content="website" />
@@ -18,8 +17,48 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="./vocabulary.js"></script>
+    <script src="vocabulary.js"></script>
     <style>
+
+/* 步骤切换时的进场动画 */
+@keyframes slide-up-fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-anim {
+    animation: slide-up-fade 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* 模拟手指点击动作 */
+@keyframes hand-tap-simple {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(0.9) translateY(5px); }
+}
+
+.hand-simple {
+    font-size: 50px;
+    position: absolute;
+    z-index: 50;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+    animation: hand-tap-simple 1.5s infinite ease-in-out;
+}
+
+/* 进度条动画 */
+.progress-fill {
+    transition: width 0.5s ease-out;
+}
+
+/* 星星点亮时的呼吸灯效果 */
+@keyframes star-glow {
+    0%, 100% { filter: drop-shadow(0 0 2px rgba(251,191,36,0.4)); }
+    50% { filter: drop-shadow(0 0 10px rgba(251,191,36,0.7)); }
+}
+
+.star-active {
+    animation: star-glow 2s infinite ease-in-out;
+}
+
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
         body { 
             font-family: 'Nunito', sans-serif; 
@@ -64,6 +103,7 @@
 		
     </style>
 </head>
+
 <body>
     <div id="root"></div>
 
@@ -88,10 +128,190 @@
             }, 250);
         };
 
-        const App = () => {
-            const [view, setView] = useState('menu');
-	    const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
-            const [voicePreference, setVoicePreference] = React.useState('us-female');
+
+const TutorialLoader = ({ onFinish }) => {
+    const [step, setStep] = React.useState(0);
+    const [subState, setSubState] = React.useState(0);
+
+    React.useEffect(() => {
+        let stepTimer, subTimer1, subTimer2, scrollTimer;
+
+        if (step === 0) {
+            // Step 1: Learn - 顺序：Apple -> 苹果 -> ✅
+            setSubState(0);
+            subTimer1 = setTimeout(() => setSubState(1), 1500); 
+            subTimer2 = setTimeout(() => setSubState(2), 1500); 
+            stepTimer = setTimeout(() => { setStep(1); setSubState(0); }, 3000);
+        } else if (step === 1) {
+            // Step 2: Play
+            subTimer1 = setTimeout(() => setSubState(1), 1000);
+            stepTimer = setTimeout(() => { setStep(2); setSubState(0); }, 2000);
+        } else if (step === 2) {
+            // Step 3: Explore - 快速滚动
+            let count = 0;
+            scrollTimer = setInterval(() => {
+                count = (count + 1) % 4;
+                setSubState(count);
+            }, 800);
+            stepTimer = setTimeout(() => { setStep(3); setSubState(0); }, 2000);
+        } else {
+            // Step 4: Finish
+            if (window.fireSuccessConfetti) window.fireSuccessConfetti(false);
+            stepTimer = setTimeout(onFinish, 3500);
+        }
+
+        return () => {
+            clearTimeout(stepTimer);
+            clearTimeout(subTimer1);
+            clearTimeout(subTimer2);
+            clearInterval(scrollTimer);
+        };
+    }, [step]);
+
+    const steps = [
+        { title: "Learn", color: "text-emerald-500", bg: "bg-emerald-50", icon: "📖", btnColor: "bg-emerald-100", desc: "认识新朋友" },
+        { title: "Play", color: "text-indigo-600", bg: "bg-indigo-50", icon: "🕹️", btnColor: "bg-indigo-100", desc: "猜猜我是谁" },
+        { title: "Explore", color: "text-amber-500", bg: "bg-amber-50", icon: "⚡", btnColor: "bg-amber-100", desc: "挑战速度！" },
+        { title: "Let's Go!", color: "text-rose-500", bg: "bg-white", icon: "🎉", btnColor: "bg-rose-100", desc: "准备好了吗？" }
+    ];
+
+    const current = steps[step];
+
+    return (
+        <div className={`fixed inset-0 z-[1000] flex flex-col items-center justify-center p-6 transition-colors duration-700 ${current.bg}`}>
+            <div className="text-center mb-8">
+                <h1 className={`text-5xl font-black ${current.color} mb-2`}>{current.title}</h1>
+                <p className="text-slate-500 font-bold text-lg">{current.desc}</p>
+            </div>
+
+            <div className="relative w-full max-w-[320px] h-[440px] bg-white rounded-[40px] shadow-2xl border-4 border-white overflow-hidden flex flex-col">
+                {step === 3 ? (
+                    <div className="w-full h-full flex flex-col items-center justify-center p-6">
+                        <div className="w-44 h-44 bg-slate-50 rounded-full shadow-inner flex items-center justify-center mb-8 overflow-hidden border-4 border-indigo-50">
+                            <img src="https://www.stevesplayground.online/1000words/logo/small_steve.png" className="w-full h-full object-contain" 
+                                 onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML='<span style="font-size:70px">🚀</span>'; }} />
+                        </div>
+                        <div className="flex gap-4 mb-10 font-black text-lg">
+                            <span className="text-emerald-500">Learn</span>
+                            <span className="text-amber-500">Play</span>
+                            <span className="text-indigo-600">Explore</span>
+                            <span className="text-rose-500">Fun</span>
+                        </div>
+                        <button onClick={onFinish} className="bg-indigo-600 text-white text-2xl font-black px-12 py-4 rounded-full shadow-xl animate-bounce">GO!</button>
+                    </div>
+                ) : (
+                    <>
+                        <div className={`h-[140px] ${current.btnColor} flex items-center justify-center relative border-b-4 border-white`}>
+                            <div className="w-20 h-20 bg-white rounded-[24px] shadow-sm flex items-center justify-center text-4xl relative">
+                                {current.icon}
+                                {((step !== 2 && subState === 0) || (step === 2)) && <div className="hand-simple top-10 left-10">👆</div>}
+                            </div>
+                        </div>
+                        <div className="flex-1 relative flex items-center justify-center bg-slate-50 p-6">
+                            {step === 0 && (
+                                <div className={`relative w-48 h-64 rounded-[32px] shadow-lg border-2 flex flex-col items-center justify-center transition-all duration-700 ${subState >= 1 ? 'bg-indigo-600 border-indigo-500' : 'bg-white border-slate-100'}`}>
+                                    <div className={`absolute inset-0 flex flex-col items-center justify-center transition-all duration-500 ${subState >= 1 ? 'opacity-0 scale-75' : 'opacity-100 scale-100'}`}>
+                                        <div className="text-7xl mb-4 animate-float">🍎</div>
+                                        <div className="text-3xl font-black text-slate-800">Apple</div>
+                                    </div>
+                                    <div className={`absolute inset-0 flex flex-col items-center justify-center text-white transition-all duration-500 ${subState >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}>
+                                        <div className="text-5xl font-black mb-6">苹果</div>
+                                        <div className={`w-14 h-14 bg-emerald-400 rounded-full flex items-center justify-center text-3xl shadow-lg border-4 border-white transition-all duration-500 ${subState === 2 ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>✅</div>
+                                    </div>
+                                    {subState === 2 && <div className="hand-simple bottom-4 right-4 animate-bounce">👆</div>}
+                                </div>
+                            )}
+                            {step === 1 && (
+                                <div className="w-full">
+                                    <div className="flex justify-center mb-4 text-6xl animate-bounce">🐘</div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {['Cat', 'Elephant', 'Dog', 'Ant'].map((opt, i) => (
+                                            <div key={i} className={`h-10 rounded-xl flex items-center justify-center text-xs font-black border-2 transition-colors ${opt === 'Elephant' && subState === 1 ? 'bg-emerald-400 text-white border-emerald-400' : 'bg-white text-slate-400 border-slate-200'}`}>{opt}</div>
+                                        ))}
+                                    </div>
+                                    {subState === 1 && <div className="hand-simple top-20 right-10">👆</div>}
+                                </div>
+                            )}
+                           
+{/* --- Step 3: Explore 滚动演示 --- */}
+                            {step === 2 && (
+                                <div className="flex flex-col items-center w-full">
+                                    <div className="w-full h-40 bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center relative overflow-hidden">
+                                        
+                                        {/* 1. Emoji 滚动层 */}
+                                        <div className="h-20 flex items-center justify-center w-full relative">
+                                            {['🦁', '🐯', '🐒', '🐼'].map((emoji, i) => (
+                                                <span key={i} className={`absolute text-6xl transition-all duration-500 ease-in-out ${
+                                                    subState === i ? 'translate-x-0 opacity-100' : 
+                                                    subState > i ? 'translate-x-[-150%] opacity-0' : 'translate-x-[150%] opacity-0'
+                                                }`}>
+                                                    {emoji}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* 2. 英文单词滚动层 */}
+                                        <div className="h-10 flex items-center justify-center w-full relative">
+                                            {['lion', 'tiger', 'monkey', 'panda'].map((word, i) => (
+                                                <span key={i} className={`absolute text-xl font-black uppercase tracking-widest text-indigo-500 transition-all duration-500 ease-in-out ${
+                                                    subState === i ? 'translate-x-0 opacity-100' : 
+                                                    subState > i ? 'translate-x-[-150%] opacity-0' : 'translate-x-[150%] opacity-0'
+                                                }`}>
+                                                    {word}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* 进度小点 */}
+                                        <div className="absolute bottom-3 flex gap-1.5">
+                                            {[0, 1, 2, 3].map(i => (
+                                                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${subState === i ? 'w-4 bg-indigo-400' : 'w-1.5 bg-slate-200'}`} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
+            </div>
+
+            {/* 底部步骤进度条 */}
+            <div className="mt-10 flex gap-2">
+                {[0, 1, 2, 3].map(i => (
+                    <div key={i} className={`h-2 rounded-full transition-all duration-500 ${step === i ? 'w-8 ' + current.color.replace('text', 'bg') : 'w-2 bg-slate-200'}`}></div>
+                ))}
+            </div>
+        </div>
+    );
+};	
+
+const App = () => {
+	const [isLoading, setIsLoading] = React.useState(true);
+	const [showTutorial, setShowTutorial] = React.useState(() => {
+        	return localStorage.getItem('tutorialCompleted') !== 'true';
+    });
+
+
+const handleCloseTutorial = () => {
+    setShowTutorial(false);
+    // ✅ 记录到本地存储，有效期是永久（除非清除浏览器缓存）
+    localStorage.setItem('tutorialCompleted', 'true');
+};
+
+
+
+	const [view, setView] = React.useState('menu');
+	const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
+	const [voicePreference, setVoicePreference] = React.useState('us-female');
+	const handleTutorialFinish = () => {
+        // 1. 设置标记到本地存储，这样下次刷新就不会再出现了
+        	localStorage.setItem('hasSeenTutorial', 'true');
+        // 2. 关闭引导界面
+        	setShowTutorial(false);
+    };
+	
+   
 
 useEffect(() => {
     const warmup = () => {
@@ -112,6 +332,16 @@ useEffect(() => {
 
             const [currentLevel, setCurrentLevel] = useState('1');
             const [idx, setIdx] = useState(0);
+
+ 	    // --- ✅ 粘贴这里：新增的星星和进度状态 ---
+    	    const [showStageClear, setShowStageClear] = React.useState(false); 
+    	    const WORDS_PER_STAGE = 20; 
+    	    const TOTAL_WORDS = 100;    
+    
+           // 计算当前星星数量 (0-5)
+          // 注意：这里用 idx + 1 因为索引是从 0 开始的
+            const currentStars = Math.floor((idx + 1) / WORDS_PER_STAGE);
+
             const [flipped, setFlipped] = useState(false);
             const [testFeedback, setTestFeedback] = useState(null);
             const [isChecking, setIsChecking] = useState(false);
@@ -136,6 +366,7 @@ useEffect(() => {
             const audioRefs = {
                 wrong: useRef(new Audio('./music/wrong.mp3')),
                 correct: useRef(new Audio('./music/correct.mp3')),
+		star: useRef(new Audio('./music/star.mp3')),
                 finish: useRef(new Audio('./music/finish.mp3'))
             };
 
@@ -163,61 +394,47 @@ const playSound = (type) => {
 
 // 在 App 组件顶部定义一个变量（或使用 useRef）
 const isSpeakingRef = React.useRef(false);
-const currentUtterRef = React.useRef(null);
 
+// 修改 speak 函数定义，增加第二个参数 preferenceOverride
 const speak = (text, preferenceOverride = null) => {
     if (!text) return;
     const synth = window.speechSynthesis;
+    synth.cancel(); 
 
-    // 1. 强制停止当前所有正在进行的语音
-    synth.cancel();
+    const utter = new SpeechSynthesisUtterance(text);
+    
+    // 关键点：优先使用传入的参数，如果没有才用 state 里的状态
+    const currentPref = preferenceOverride || voicePreference;
 
-    // 2. 手机端特供补丁：在 cancel 之后延迟一小会儿再开始
-    // 这样可以防止引擎在“停止旧音色”和“加载新音色”之间冲突锁死
-    setTimeout(() => {
-        const utter = new SpeechSynthesisUtterance(text);
-        currentUtterRef.current = utter;
-
-        const currentPref = preferenceOverride || voicePreference;
+    const performSpeak = () => {
         const voices = synth.getVoices();
-
-        // 如果此时 voices 还没加载出来，手机端最好的做法是“盲读”
-        // 而不是等待 onvoiceschanged，因为那个事件在手机上触发极不稳定
-        if (voices.length > 0) {
-            let target;
-            if (currentPref === 'us-male') {
-                target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
-                utter.pitch = 0.8;
-            } else if (currentPref === 'uk-female') {
-                target = voices.find(v => /female|en-GB|google uk/i.test(v.name) && /en-GB/.test(v.lang));
-                utter.pitch = 1.0;
-            } else {
-                target = voices.find(v => /samantha|aria|zira|susan|female/i.test(v.name) && /en-US/.test(v.lang))
-                         || voices.find(v => /en-US/i.test(v.lang) && !/male/i.test(v.name));
-                utter.pitch = 1.0;
-            }
-            if (target) utter.voice = target;
+        let target;
+        
+        if (currentPref === 'us-male') {
+            target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
+            utter.pitch = 0.8;
+        } else if (currentPref === 'uk-female') {
+            target = voices.find(v => /female|en-GB|google uk/i.test(v.name) && /en-GB/.test(v.lang));
+            utter.pitch = 1.0;
+        } else {
+            target = voices.find(v => /samantha|aria|zira|susan|female/i.test(v.name) && /en-US/.test(v.lang))
+                     || voices.find(v => /en-US/i.test(v.lang) && !/male/i.test(v.name));
+            utter.pitch = 1.0;
         }
 
+        if (target) utter.voice = target;
         utter.lang = currentPref === 'uk-female' ? 'en-GB' : 'en-US';
         utter.rate = 0.9;
-
-        // 3. 关键监听
-        utter.onend = () => { currentUtterRef.current = null; };
-        utter.onerror = () => { 
-            currentUtterRef.current = null;
-            synth.cancel(); // 报错时清空，防止卡死
-        };
-
-        // 4. 执行播放
         synth.speak(utter);
+    };
 
-        // 5. iOS 强制唤醒：有时需要这一句才能在静音后恢复
-        if (synth.paused) {
-            synth.resume();
-        }
-    }, 100); // 100ms 的延迟对用户几乎无感，但对手机引擎非常重要
+    if (synth.getVoices().length === 0) {
+        synth.onvoiceschanged = performSpeak;
+    } else {
+        performSpeak();
+    }
 };
+
 
 // 自动识别并渲染 Emoji 或 图片
 			const renderMedia = (source, sizeClass = "text-[120px]") => {
@@ -308,15 +525,16 @@ const speak = (text, preferenceOverride = null) => {
             };
 
             const handleNext = () => {
-                if (idx < currentList.length - 1) {
-                    setFlipped(false);
-                    setIdx(prev => prev + 1);
-                } else {
-		    // 最后一题答完
-                    playSound('finish');
-                    setShowGameOver(true);
-                }
-            };
+    if (idx < currentList.length - 1) {
+        setFlipped(false);
+        setIdx(prev => prev + 1);
+    } else {
+	triggerStars();
+        setTimeout(triggerStars, 500);
+        playSound('finish');
+        setShowGameOver(true);
+    }
+};
 
             const handlePrev = () => { if (idx > 0) { setFlipped(false); setIdx(prev => prev - 1); } };
 
@@ -400,6 +618,42 @@ const speak = (text, preferenceOverride = null) => {
     }
 };
 
+const triggerStars = () => {
+    // 检查库是否加载
+    if (typeof confetti === 'undefined') return;
+
+    // 喷射星星
+    const defaults = {
+        spread: 360,
+        ticks: 50,
+        gravity: 0.5,
+        decay: 0.94,
+        startVelocity: 30,
+        colors: ['#FFE400', '#FFBD00', '#E89400', '#FFCA6C', '#FDFFB8']
+    };
+
+    function shoot() {
+        confetti({
+            ...defaults,
+            particleCount: 40,
+            scalar: 1.2,
+            shapes: ['star'] // 关键：设置为星形
+        });
+
+        confetti({
+            ...defaults,
+            particleCount: 10,
+            scalar: 0.75,
+            shapes: ['heart']
+        });
+    }
+
+    // 连续喷射两次，增加层次感
+    setTimeout(shoot, 0);
+    setTimeout(shoot, 100);
+    setTimeout(shoot, 200);
+};
+
             const startMode = (mode, levelId = '1') => {
                 // 1. 初始化所有状态
                 setIsChallenge(false); 
@@ -420,7 +674,10 @@ const speak = (text, preferenceOverride = null) => {
                     // 如果全学完了，就复习全部，否则只学没学会的
                     setCurrentList(toLearn.length > 0 ? toLearn : allWords);
                     setCurrentLevel(levelId); 
-                    setView('card');
+                    
+		    setIdx(0);          // 从第 0 个单词开始
+                    setShowStageClear(false);
+		    setView('card');
                 } 
                 else if (mode === 'test') {
                     setIsChallenge(false);
@@ -472,7 +729,17 @@ const speak = (text, preferenceOverride = null) => {
                     setCurrentList([...wrongWords].sort(() => Math.random() - 0.5));
                     setView('test');
                 }
+
+
             };
+
+if (isLoading) {
+        return <TutorialLoader onFinish={() => setIsLoading(false)} />;
+    }
+{/* 只有在 showTutorial 为 true 时才加载 TutorialLoader */}
+        {showTutorial && (
+            <TutorialLoader onFinish={handleTutorialFinish} />
+        )}
 
             if (view === 'menu') {
                 return (
@@ -482,7 +749,8 @@ const speak = (text, preferenceOverride = null) => {
                                 <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl">
                                     <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
                                     <input type="text" value={tempName} onChange={(e) => setTempName(e.target.value)} placeholder="Steve..." className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" />
-                                    <button onClick={() => { setUserName(tempName); localStorage.setItem('steve_name', tempName); setShowNameModal(false); playSound('correct'); }} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
+                                    <button onClick={() => { setUserName(tempName); localStorage.setItem('steve_name', tempName); setShowNameModal(false); playSound('correct');setShowTutorial(false);
+        localStorage.setItem('tutorialCompleted', 'true'); }} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
                                 </div>
                             </div>
                         )}
@@ -613,18 +881,66 @@ const speak = (text, preferenceOverride = null) => {
 
             return (
                 <div className="max-w-md mx-auto h-screen flex flex-col p-6 bg-white overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
-                    <header className="flex justify-between items-center mb-6">
-                        <button onClick={() => setView('menu')} className="bg-slate-50 px-5 py-2.5 rounded-full font-black text-slate-400 text-[11px] uppercase border border-slate-100 btn-active">← 返回</button>
-                        <div className="text-[11px] font-black text-slate-400 uppercase tracking-widest">
-                            {isChallenge ? `得分: ${score}` : (isWrongSetMode ? `錯題復習` : `等級 ${currentLevel}`)} • {idx + 1}/{isChallenge ?fullList.length:currentList.length}
-                        </div>
-                        <div className="w-12"></div>
-                    </header>
+                   <header className="flex flex-col gap-4 mb-6">
+    {/* 第一行：返回按钮 + 星星进度 */}
+    <div className="flex justify-between items-center">
+        <button 
+            onClick={() => setView('menu')} 
+            className="bg-slate-50 h-10 px-4 rounded-2xl font-black text-slate-400 text-[11px] uppercase border border-slate-100 btn-active flex items-center justify-center"
+        >
+            ← Back
+        </button>
+
+        {/* ✅ 专业级星星进度：居中显示 */}
+        <div className="bg-slate-50/50 border border-slate-100 px-3 py-1.5 rounded-2xl flex items-center gap-1.5 shadow-inner">
+            {[0, 1, 2, 3, 4].map(starIdx => {
+                const levelWords = Object.keys(dbData[currentLevel].words);
+                const learnedInLevel = learnedWords.filter(w => levelWords.includes(w)).length;
+                const earnedStars = Math.floor(learnedInLevel / 20);
+                const isActive = starIdx < earnedStars;
+                
+                return (
+                    <div key={starIdx} className="relative w-6 h-6 flex items-center justify-center">
+                        <span className="text-slate-200 text-lg absolute">☆</span>
+                        {isActive && (
+                            <span 
+                                className="text-amber-400 text-lg absolute animate-in zoom-in duration-500 drop-shadow-[0_0_8px_rgba(251,191,36,0.4)]"
+                                style={{ animationDelay: `${starIdx * 100}ms` }}
+                            >
+                                ⭐
+                            </span>
+                        )}
+                    </div>
+                );
+            })}
+        </div>
+
+        {/* 右侧占位，确保星星完美居中 */}
+        <div className="w-[60px]"></div> 
+    </div>
+
+    {/* 第二行：左侧显示关卡名，右侧显示进度数字 */}
+    <div className="flex justify-between items-end px-1">
+        <div className="flex flex-col">
+            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">Current Progress</span>
+            <div className="text-[14px] font-black text-slate-600">
+                {isWrongSetMode ? "错题复习" : `LEVEL ${currentLevel}`}
+            </div>
+        </div>
+        <div className="text-right">
+            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">Word Count</span>
+            <div className="text-[14px] font-black text-indigo-600">
+                {idx + 1} <span className="text-slate-300">/</span> {currentList.length}
+            </div>
+        </div>
+    </div>
+</header>
                     <div className="flex-1 flex flex-col items-center justify-center relative">
                         {wordInfo && (
                             view === 'card' ? (
                                 <div className="w-full flex flex-col items-center">
-                                    <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
+                     
+					<div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                                         <div className="card-face bg-white border-slate-50">
                                            
 											{/* 统一容器：高度固定在 130px 左右 */}
@@ -650,7 +966,26 @@ const speak = (text, preferenceOverride = null) => {
                                             <button onClick={(e) => { 
                                                 e.stopPropagation(); setIsChecking(true); playSound('correct');
                                                 setTimeout(() => { 
-                                                    if (!learnedWords.includes(currentKey)) setLearnedWords(prev => [...prev, currentKey]);
+     
+const isNewWord = !learnedWords.includes(currentKey);
+if (isNewWord) {
+    // 1. 先更新全局学会列表
+    const newTotalLearned = [...learnedWords, currentKey];
+    setLearnedWords(newTotalLearned);
+
+    // 2. ✅ 获取【当前关卡】的所有单词 Key
+    const levelWords = Object.keys(dbData[currentLevel].words);
+    
+    // 3. ✅ 计算【当前关卡】里已经学会了多少个
+    const countInCurrentLevel = newTotalLearned.filter(w => levelWords.includes(w)).length;
+
+    // 4. ✅ 判断是否达到当前关卡的 20 倍数
+    if (countInCurrentLevel > 0 && countInCurrentLevel % 20 === 0) {
+	playSound('star');
+	triggerStars();
+        setShowStageClear(true);
+    }
+}
                                                     setFlipped(false); setIsChecking(false); handleNext();
                                                 }, 800);
                                             }} className={`mt-8 w-20 h-20 rounded-full border-4 border-white flex items-center justify-center btn-active ${isChecking ? 'bg-emerald-400 border-emerald-400 scale-110' : 'bg-white/20'}`}>
@@ -687,7 +1022,25 @@ const speak = (text, preferenceOverride = null) => {
 
 
                     </div>
-
+{/* 阶段性奖励弹窗 */}
+{showStageClear && (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
+        <div className="bg-white rounded-[40px] p-8 flex flex-col items-center shadow-2xl animate-in zoom-in duration-300">
+            <div className="text-8xl mb-4 animate-[bounce_1s_infinite] drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]">⭐</div>
+            <h2 className="text-3xl font-black text-slate-800 mb-2">太棒了!</h2>
+            <p className="text-slate-500 font-bold text-lg mb-8 text-center">
+                你已经学完了 <span className="text-indigo-600 text-2xl">{learnedWords.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length}</span> 个单词<br/>
+                获得第<span className="text-amber-500 text-2xl"> {Math.floor(learnedWords.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length / 20)}</span> 颗星！
+            </p>
+            <button 
+                onClick={() => setShowStageClear(false)}
+                className="bg-indigo-600 text-white text-xl font-black px-12 py-4 rounded-full shadow-lg active:scale-95"
+            >
+                继续下一组
+            </button>
+        </div>
+    </div>
+)}
                     {showGameOver && (
                         <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-[200] p-6 text-slate-800">
                             <div className={`bg-white p-10 rounded-[56px] text-center w-full max-w-[380px] shadow-2xl transform transition-all ${score >= 1000 ? 'gold-glow' : ''}`}>
@@ -720,10 +1073,10 @@ const speak = (text, preferenceOverride = null) => {
                                                         本輪進度
                                                     </p>
                                                     <p className="text-3xl font-black text-indigo-600">
-                                                        {idx + 1} / {currentList.length}
+                                                        100
                                                     </p>
                                                     <p className="text-[11px] font-bold text-slate-400">
-                                                        Words Mastered
+                                                        Words Mastered in Level {currentLevel}
                                                     </p>
                                                 </div>
                                             )}
@@ -754,15 +1107,6 @@ const speak = (text, preferenceOverride = null) => {
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
 
 

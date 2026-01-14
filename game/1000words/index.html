@@ -287,9 +287,14 @@ const TutorialLoader = ({ onFinish }) => {
 };	
 
 const App = () => {
-	const [isLoading, setIsLoading] = React.useState(true);
+	
 	const [showTutorial, setShowTutorial] = React.useState(() => {
-        	return localStorage.getItem('tutorialCompleted') !== 'true';
+        try {
+            // 如果本地存储里没有标记为 'true'，则显示教程
+            return localStorage.getItem('steve_tutorial_done') !== 'true';
+        } catch (e) {
+            return true; // 容错处理
+        }
     });
 
 
@@ -305,10 +310,10 @@ const handleCloseTutorial = () => {
 	const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
 	const [voicePreference, setVoicePreference] = React.useState('us-female');
 	const handleTutorialFinish = () => {
-        // 1. 设置标记到本地存储，这样下次刷新就不会再出现了
-        	localStorage.setItem('hasSeenTutorial', 'true');
+        // 1. 设置标记到本地存储 (Key 必须和上面 useState 里的一样)
+        localStorage.setItem('steve_tutorial_done', 'true');
         // 2. 关闭引导界面
-        	setShowTutorial(false);
+        setShowTutorial(false);
     };
 	
    
@@ -358,37 +363,56 @@ useEffect(() => {
 
             const [isChallenge, setIsChallenge] = useState(false);
             const [isWrongSetMode, setIsWrongSetMode] = useState(false);
+	    const [isTest, setIsTest] = React.useState(false);
             const [currentList, setCurrentList] = useState([]);
             const [score, setScore] = useState(0);
             const [showGameOver, setShowGameOver] = useState(false);
 
             const touchStart = useRef(null);
-            const audioRefs = {
-                wrong: useRef(new Audio('./music/wrong.mp3')),
-                correct: useRef(new Audio('./music/correct.mp3')),
-		star: useRef(new Audio('./music/star.mp3')),
-                finish: useRef(new Audio('./music/finish.mp3'))
-            };
+            // --- ✅ 修复 1: 使用 useMemo 只创建一次音频对象，并修正 URL 路径 ---
+const audioClips = useMemo(() => {
+    // 基础路径
+    const baseUrl = 'https://www.stevesplayground.online/game/1000words/music';
+    
+    return {
+        wrong: new Audio(`${baseUrl}/wrong.mp3`),
+        correct: new Audio(`${baseUrl}/correct.mp3`),
+        star: new Audio(`${baseUrl}/star.mp3`),
+        finish: new Audio(`${baseUrl}/finish.mp3`)
+    };
+}, []); // 空数组确保只初始化一次
 
+// 预加载音频，避免第一次播放延迟
+useEffect(() => {
+    Object.values(audioClips).forEach(audio => {
+        audio.preload = 'auto';
+        audio.load(); // 强制浏览器提前请求资源
+    });
+}, [audioClips]);
+
+// --- ✅ 修复 2: 移除 setTimeout 以兼容 iOS，增加错误处理 ---
 const playSound = (type) => {
-    const sound = audioRefs[type]?.current;
+    const sound = audioClips[type];
+    
     if (sound) {
-        // 1. 先暂停
-        sound.pause();
-        // 2. 重置时间
+        // 1. 尝试重置进度
         sound.currentTime = 0;
         
-        // 3. 使用异步播放并捕获异常
-        // 加上一个小延迟或确保是在用户交互事件内
-        setTimeout(() => {
-            const playPromise = sound.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("手机端自动播放拦截:", error);
-                    // 如果被拦截，通常需要引导用户再点一次
-                });
-            }
-        }, 0);
+        // 2. 直接播放 (不要用 setTimeout，否则 iOS 会拦截)
+        const playPromise = sound.play();
+        
+        // 3. 捕获播放错误 (通常是因为没有用户交互或资源未加载)
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.warn(`播放 ${type} 音效失败:`, error);
+                // 某些旧版浏览器可能需要重新 load 才能重播
+                if (error.name === 'NotAllowedError') {
+                     console.log("浏览器阻止了自动播放，需要用户点击");
+                }
+            });
+        }
+    } else {
+        console.error(`未找到音效类型: ${type}`);
     }
 };
 
@@ -524,18 +548,45 @@ const speak = (text, preferenceOverride = null) => {
                 touchStart.current = null;
             };
 
-            const handleNext = () => {
+          const handleNext = () => {
+    const levelWords = Object.keys(dbData[currentLevel].words);
+    const learnedInLevel = learnedWords.filter(w => levelWords.includes(w)).length;
+    const isLevelCompleted = learnedInLevel >= 100; // ✅ 判断是否已全学完
+
     if (idx < currentList.length - 1) {
+        // 还没到最后一张，正常下一张
         setFlipped(false);
         setIdx(prev => prev + 1);
     } else {
-	triggerStars();
-        setTimeout(triggerStars, 500);
-        playSound('finish');
-        setShowGameOver(true);
+        // 到了最后一张
+        if (isTest || isWrongSetMode || isChallenge) {
+            // 测试/挑战模式：直接结算
+            triggerStars();
+            setTimeout(triggerStars, 500);
+            playSound('finish');
+            setShowGameOver(true);
+        } else {
+            // Card 模式
+            if (isLevelCompleted) {
+                // ✅ 关键点：如果已经全部学完了，回到第一张循环，不要弹 GameOver
+                setFlipped(false);
+                setIdx(0);
+            } else {
+                // 如果还没学完 100 个，但当前列表走完了（比如剩下那 80 个走完了）
+                // 此时如果刚好打完最后一个勾凑满 100，才弹窗
+                if (learnedInLevel >= 100) {
+                    triggerStars();
+                    setTimeout(triggerStars, 500);
+                    playSound('finish');
+                    setShowGameOver(true);
+                } else {
+                    setFlipped(false);
+                    setIdx(0);
+                }
+            }
+        }
     }
 };
-
             const handlePrev = () => { if (idx > 0) { setFlipped(false); setIdx(prev => prev - 1); } };
 
             const resetProgress = () => {
@@ -581,6 +632,10 @@ const speak = (text, preferenceOverride = null) => {
                 // Survival 模式
                 const newScore = score + 1;
                 setScore(newScore);
+		if (newScore > highScore) {
+                    setHighScore(newScore);
+                    // 注意：你现有的 useEffect 会自动将 highScore 同步保存到 localStorage
+                }
                 const nextWord = fullList[Math.floor(Math.random() * fullList.length)];
                 const newList = [...currentList, nextWord];
                 setCurrentList(newList);
@@ -611,7 +666,7 @@ const speak = (text, preferenceOverride = null) => {
         if (isChallenge) {
             localStorage.removeItem('survival_score');
             localStorage.removeItem('survival_list');
-            setTimeout(() => setShowGameOver(true), 600);
+            setTimeout(() => {triggerStars();playSound('finish');setShowGameOver(true)}, 600);
         } else {
             setTimeout(() => setTestFeedback(null), 600);
         }
@@ -658,10 +713,12 @@ const triggerStars = () => {
                 // 1. 初始化所有状态
                 setIsChallenge(false); 
                 setIsWrongSetMode(false); 
+		setIsTest(false);
                 setIdx(0); 
                 setFlipped(false); 
                 setTestFeedback(null);
                 setShowGameOver(false);
+		setShowStageClear(false);
 
                 if (!dbData || !dbData[levelId]) return;
                 playSound('correct');
@@ -671,6 +728,8 @@ const triggerStars = () => {
                     const allWords = Object.keys(dbData[levelId].words);
                     // 过滤掉已学会的
                     const toLearn = allWords.filter(k => !learnedWords.includes(k));
+		    const isLevelCompleted =  toLearn.length === 0;
+
                     // 如果全学完了，就复习全部，否则只学没学会的
                     setCurrentList(toLearn.length > 0 ? toLearn : allWords);
                     setCurrentLevel(levelId); 
@@ -681,6 +740,8 @@ const triggerStars = () => {
                 } 
                 else if (mode === 'test') {
                     setIsChallenge(false);
+		    setIsTest(true);
+
                     // 1. 获取当前关卡的所有单词键
                     const allLevelWords = Object.keys(dbData[levelId].words);
                     const totalCount = allLevelWords.length;
@@ -733,13 +794,9 @@ const triggerStars = () => {
 
             };
 
-if (isLoading) {
-        return <TutorialLoader onFinish={() => setIsLoading(false)} />;
+if (showTutorial) {
+        return <TutorialLoader onFinish={handleTutorialFinish} />;
     }
-{/* 只有在 showTutorial 为 true 时才加载 TutorialLoader */}
-        {showTutorial && (
-            <TutorialLoader onFinish={handleTutorialFinish} />
-        )}
 
             if (view === 'menu') {
                 return (
@@ -851,7 +908,7 @@ if (isLoading) {
                                         </div>
                                         <div className="flex gap-2 ml-4">
                                             <button onClick={() => startMode('card', id)} className="w-11 h-11 bg-indigo-600 text-white rounded-2xl flex items-center justify-center shadow-md btn-active">📖</button>
-                                            <button onClick={() => startMode('test', id)} className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
+                                            <button onClick={() => {startMode('test', id); setIsTest(true);setIsChallenge(false);setIsWrongSetMode(false);}}className="w-11 h-11 bg-slate-100 text-slate-600 rounded-2xl flex items-center justify-center btn-active">🕹️</button>
                                         </div>
                                     </div>
                                 );
@@ -882,16 +939,17 @@ if (isLoading) {
             return (
                 <div className="max-w-md mx-auto h-screen flex flex-col p-6 bg-white overflow-hidden" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
                    <header className="flex flex-col gap-4 mb-6">
-    {/* 第一行：返回按钮 + 星星进度 */}
-    <div className="flex justify-between items-center">
-        <button 
-            onClick={() => setView('menu')} 
-            className="bg-slate-50 h-10 px-4 rounded-2xl font-black text-slate-400 text-[11px] uppercase border border-slate-100 btn-active flex items-center justify-center"
-        >
-            ← Back
-        </button>
+   {/* 第一行：返回按钮 + 星星进度 */}
+<div className="flex justify-between items-center">
+    <button 
+        onClick={() => setView('menu')} 
+        className="bg-slate-50 h-10 px-4 rounded-2xl font-black text-slate-400 text-[11px] uppercase border border-slate-100 btn-active flex items-center justify-center"
+    >
+        ← 返回
+    </button>
 
-        {/* ✅ 专业级星星进度：居中显示 */}
+    {/* ✅ 只有在 Card 模式 或 Test 模式下才显示星星进度条 */}
+    {(view === 'card' && !isWrongSetMode && !isChallenge) || isTest ? (
         <div className="bg-slate-50/50 border border-slate-100 px-3 py-1.5 rounded-2xl flex items-center gap-1.5 shadow-inner">
             {[0, 1, 2, 3, 4].map(starIdx => {
                 const levelWords = Object.keys(dbData[currentLevel].words);
@@ -914,23 +972,28 @@ if (isLoading) {
                 );
             })}
         </div>
+    ) : (
+        /* 非 Card/Test 模式时，中间留空以保持布局平衡 */
+        <div className="flex-1"></div>
+    )}
 
-        {/* 右侧占位，确保星星完美居中 */}
-        <div className="w-[60px]"></div> 
-    </div>
+    {/* 右侧占位 */}
+    <div className="w-[60px]"></div> 
+</div>
 
     {/* 第二行：左侧显示关卡名，右侧显示进度数字 */}
     <div className="flex justify-between items-end px-1">
         <div className="flex flex-col">
-            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">Current Progress</span>
+            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">{isChallenge ? "Survival Mode" : (isWrongSetMode ?"Review Mode":"Current Progress")}</span>
             <div className="text-[14px] font-black text-slate-600">
-                {isWrongSetMode ? "错题复习" : `LEVEL ${currentLevel}`}
+                {isChallenge ? "挑戰 1000 詞" : (isWrongSetMode ? "錯題複習" : `LEVEL ${currentLevel}`)}
+		
             </div>
         </div>
         <div className="text-right">
-            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">Word Count</span>
+            <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest leading-none mb-1">{isChallenge ? "Total Attempt" : "Word Count"}</span>
             <div className="text-[14px] font-black text-indigo-600">
-                {idx + 1} <span className="text-slate-300">/</span> {currentList.length}
+                {idx + 1} <span className="text-slate-300">/</span> {isChallenge ? fullList.length : currentList.length}
             </div>
         </div>
     </div>
@@ -964,7 +1027,25 @@ if (isLoading) {
                                                 "{wordInfo[3]}"
                                             </div>
                                             <button onClick={(e) => { 
-                                                e.stopPropagation(); setIsChecking(true); playSound('correct');
+                                                e.stopPropagation(); 
+
+// 1. 获取当前关卡所有单词及其学会状态
+        const levelWords = Object.keys(dbData[currentLevel].words);
+        const countInCurrentLevel = learnedWords.filter(w => levelWords.includes(w)).length;
+        const isLevelCompleted = countInCurrentLevel >= 100;
+
+        // 2. 如果已经全学完了，直接切到下一个，不执行加入列表逻辑
+        if (isLevelCompleted) {
+            setFlipped(false);
+            handleNext();
+            return;
+        }
+
+
+
+
+
+setIsChecking(true); playSound('correct');
                                                 setTimeout(() => { 
      
 const isNewWord = !learnedWords.includes(currentKey);
@@ -988,8 +1069,16 @@ if (isNewWord) {
 }
                                                     setFlipped(false); setIsChecking(false); handleNext();
                                                 }, 800);
-                                            }} className={`mt-8 w-20 h-20 rounded-full border-4 border-white flex items-center justify-center btn-active ${isChecking ? 'bg-emerald-400 border-emerald-400 scale-110' : 'bg-white/20'}`}>
-                                                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/></svg>
+                                            }} 
+
+className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-center transition-all ${
+        (learnedWords.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length >= 100)
+            ? 'bg-slate-300 border-slate-300 opacity-50 cursor-default' // 已学完：灰色
+            : (isChecking ? 'bg-emerald-400 border-emerald-400 scale-110 btn-active' : 'bg-white/20 border-white btn-active') // 学习中
+    }`}
+>                                                <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/>
+    </svg>
                                             </button>
                                         </div>
                                     </div>
@@ -1060,27 +1149,43 @@ if (isNewWord) {
                                             {isChallenge ? (score > highScore ? "🏆" : "🎉") : "✅"}
                                         </div>
                                         <h2 className="text-2xl font-black mb-2">
-                                            {isChallenge ? (score > highScore ? "打破紀錄!" : "太棒了!") : "學習完成!"}
+                                            {isChallenge ? (score >= highScore ? "打破紀錄!" : "太棒了!") : (isWrongSetMode ? "訂正完成!" :(isTest ? "測試完成！":"學習完成!" ))}
                                         </h2>
                                         <div className="mb-8">
-                                            {isChallenge ? (
-                                                <p className="font-black text-slate-400 text-lg uppercase tracking-widest">
-                                                    Score: {score}
-                                                </p>
-                                            ) : (
-                                                <div className="flex flex-col items-center gap-2">
-                                                    <p className="font-black text-slate-400 text-sm uppercase tracking-widest">
-                                                        本輪進度
-                                                    </p>
-                                                    <p className="text-3xl font-black text-indigo-600">
-                                                        100
-                                                    </p>
-                                                    <p className="text-[11px] font-bold text-slate-400">
-                                                        Words Mastered in Level {currentLevel}
-                                                    </p>
-                                                </div>
-                                            )}
-                                        </div>
+    {isChallenge ? (
+        /* --- 1. Survival Challenge 模式：顯示分數 --- */
+        <p className="font-black text-slate-400 text-lg uppercase tracking-widest">
+            Score: {score}
+        </p>
+    ) : (
+        <div className="flex flex-col items-center gap-2">
+            <p className="font-black text-slate-400 text-sm uppercase tracking-widest">
+                {isWrongSetMode ? "錯題複習進度" : (isTest ? "本次測試成果" : "本關總進度")}
+            </p>
+            
+            <p className="text-4xl font-black text-indigo-600">
+                {/* --- 2. 數量邏輯判斷 --- */}
+                {isWrongSetMode ? (
+                    // 錯題模式：顯示已訂正的數量
+                    `已訂正 ${currentList.length} 個單字`
+                ) : isTest ? (
+                    // 測試模式：顯示已複習的數量
+                    `已複習完 ${currentList.length} 個單字`
+                ) : (
+                    // Card 模式：固定顯示學完 100 個單字
+                    <span className="flex flex-col items-center">
+                        <span className="text-amber-500">已學完 100 個單字</span>
+                        <span className="text-[14px] mt-1">⭐⭐⭐⭐⭐</span>
+                    </span>
+                )}
+            </p>
+
+            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mt-1">
+                {isWrongSetMode ? "Review Mode Completed" : (isTest ? "Test Session Finished" : `Level ${currentLevel} Mastered`)}
+            </p>
+        </div>
+    )}
+</div>
                                     </>
                                 )}
                                 <button onClick={() => { setShowGameOver(false); setView('menu'); setIdx(0); }} className="w-full bg-slate-900 text-white py-5 rounded-[28px] font-black btn-active shadow-lg">回到首頁</button>

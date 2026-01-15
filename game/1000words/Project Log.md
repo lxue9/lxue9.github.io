@@ -15,7 +15,7 @@ Updates:
 11.替换82个重复单词 done  
 12.优化emoji - 更新webp 格式图片 done  
 13. 优化答对音效 done  
-14. 顶部星星进度条仅用于card mode done
+14. 顶部星星进度条仅用于card mode done  
 15. finish 画面文案按照card,test,challenge区分 done  
 16. 添加排行榜，机器人玩家 done  
 17. 添加avatar选项 done  

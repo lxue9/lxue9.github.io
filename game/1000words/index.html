@@ -16,7 +16,7 @@
 <script src="https://fastly.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
 <script src="https://fastly.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://fastly.jsdelivr.net/npm/@babel/standalone@7.23.10/babel.min.js"></script>
-<script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -110,7 +110,19 @@
 </head>
 
 <body>
-    <div id="root"></div>
+   
+	<div id="root">
+    <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#f8fafc; font-family:sans-serif; color:#6366f1;">
+        <div style="text-align:center;">
+            <div style="border:4px solid #e0e7ff; border-top:4px solid #6366f1; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto 16px;"></div>
+            <p style="font-weight:bold; font-size:14px;">准备单词冒险中...</p>
+        </div>
+    </div>
+</div>
+
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
 
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
@@ -1477,9 +1489,10 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
         }
         // --- 注册 Service Worker 结束 ---
     </script>
-
+<script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

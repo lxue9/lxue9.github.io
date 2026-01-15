@@ -1087,7 +1087,7 @@ if (showTutorial) {
 			     <button 
         			onClick={() => {
            			setShowLeaderboard(true);
-            			playSound('star'); // 增加點擊反馈
+            			
         			}}
                         	className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
                                 <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已學會</p>
@@ -1145,6 +1145,38 @@ if (showTutorial) {
                                 <div className="text-left"><p className="text-[10px] font-black uppercase opacity-60 leading-none">鞏固練習</p><p className="text-[13px] font-black leading-none mt-1">我的錯題</p></div>
                             </button>
                         </nav>
+
+
+{showLeaderboard && (
+    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div className="bg-slate-50 w-full max-w-md h-[90vh] sm:h-[80vh] rounded-t-[40px] sm:rounded-[40px] flex flex-col relative shadow-2xl animate-in slide-in-from-bottom duration-300">
+            
+            {/* 关闭按钮 */}
+            <button 
+                onClick={() => setShowLeaderboard(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-xl shadow-sm"
+            >
+                ✕
+            </button>
+
+            {/* 内容区 */}
+            <div className="flex-1 overflow-y-auto p-6 pt-10">
+                <Leaderboard />
+            </div>
+
+            {/* 底部按钮 */}
+            <div className="p-6 bg-white border-t border-slate-100 rounded-b-[40px]">
+                <button 
+                    onClick={() => setShowLeaderboard(false)}
+                    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-transform"
+                >
+                    我知道啦
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
                     </div>
                 );
             }
@@ -1411,35 +1443,6 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
                         </div>
                     )}
 
-{showLeaderboard && (
-    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div className="bg-slate-50 w-full max-w-md h-[90vh] sm:h-[80vh] rounded-t-[40px] sm:rounded-[40px] flex flex-col relative shadow-2xl animate-in slide-in-from-bottom duration-300">
-            
-            {/* 关闭按钮 */}
-            <button 
-                onClick={() => setShowLeaderboard(false)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-xl shadow-sm"
-            >
-                ✕
-            </button>
-
-            {/* 内容区 */}
-            <div className="flex-1 overflow-y-auto p-6 pt-10">
-                <Leaderboard />
-            </div>
-
-            {/* 底部按钮 */}
-            <div className="p-6 bg-white border-t border-slate-100 rounded-b-[40px]">
-                <button 
-                    onClick={() => setShowLeaderboard(false)}
-                    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-transform"
-                >
-                    我知道啦
-                </button>
-            </div>
-        </div>
-    </div>
-)}
 
 
                 </div>

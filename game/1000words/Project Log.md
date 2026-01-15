@@ -15,11 +15,14 @@ Updates:
 11.替换82个重复单词 done  
 12.优化emoji - 更新webp 格式图片 done  
 13. 优化答对音效 done  
-14. 顶部星星进度条仅用于card mode
-15. finish 画面文案按照card,test,challenge区分
+14. 顶部星星进度条仅用于card mode done
+15. finish 画面文案按照card,test,challenge区分 done  
+16. 添加排行榜，机器人玩家 done  
+17. 添加avatar选项 done  
 
-Issues:  
-1. 缺少蔬菜水果基本单词
+
+Ideas:  
+1. 新增关卡 -基本单词： 1）蔬菜水果 2）童话神话
 
 Dev:  
-1. 游戏模式： 剪影猜动物，蔬菜
+1. 游戏模式： 1. 剪影猜动物，蔬菜， 2. 消消乐

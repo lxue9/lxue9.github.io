@@ -1082,27 +1082,47 @@ if (showTutorial) {
                 </div>
             </header>
                         
-                        <div className="grid grid-cols-3 gap-3 mb-10">
+                        <div className="grid grid-cols-4 gap-2.5 mb-10">
+    {/* 1. 排行榜 - 采用渐变金感 */}
+    <button 
+        onClick={() => {
+            if (window.playSound) playSound('star');
+            setShowLeaderboard(true);
+        }}
+        className="relative overflow-hidden bg-gradient-to-b from-amber-50 to-white p-3 py-4 rounded-[28px] border border-amber-100 shadow-[0_4px_12px_-4px_rgba(251,191,36,0.3)] text-center active:scale-95 transition-all group"
+    >
+        <div className="absolute -right-1 -top-1 opacity-10 group-hover:scale-125 transition-transform">🥇</div>
+        <p className="text-[9px] font-black text-amber-600/60 uppercase mb-1 tracking-wider whitespace-nowrap">排行榜</p>
+        <p className="text-xl transform group-hover:scale-110 transition-transform">🥇</p>
+        <p className="text-[8px] font-bold text-amber-500 mt-1 leading-none bg-amber-100/50 py-0.5 rounded-full">Click</p>
+    </button>
 
-			     <button 
-        			onClick={() => {
-           			setShowLeaderboard(true);
-            			
-        			}}
-                        	className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
-                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已學會</p>
-                                <p className="text-xl font-black text-indigo-600">{learnedWords.length} 📖</p>
-                         </button>
+    {/* 2. 已学会 - 柔和紫 */}
+    <div className="bg-gradient-to-b from-indigo-50 to-white p-3 py-4 rounded-[28px] border border-indigo-100 shadow-[0_4px_12px_-4px_rgba(79,70,229,0.2)] text-center">
+        <p className="text-[9px] font-black text-indigo-600/50 uppercase mb-1 tracking-wider whitespace-nowrap">已學會</p>
+        <p className="text-xl font-black text-indigo-600 flex items-center justify-center gap-0.5">
+            {learnedWords.length}<span className="text-sm opacity-70">📖</span>
+        </p>
+        <p className="text-[8px] font-bold text-indigo-300 mt-1 leading-none ">Words</p>
+    </div>
 
-                            <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
-                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">最高分</p>
-                                <p className="text-xl font-black text-slate-700">{highScore} 🏆</p>
-                            </div>
-                            <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
-                                <p className="text-[10px] font-black text-slate-300 uppercase mb-1">打卡天數</p>
-                                <p className="text-xl font-black text-emerald-500">{streak} 🔥</p>
-                            </div>
-                        </div>
+    {/* 3. 最高分 - 冷艳灰 */}
+    <div className="bg-gradient-to-b from-slate-50 to-white p-3 py-4 rounded-[28px] border border-slate-100 shadow-[0_4px_12px_-4px_rgba(71,85,105,0.15)] text-center">
+        <p className="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-wider whitespace-nowrap">最高分</p>
+        <p className="text-xl font-black text-slate-700">{highScore}<span className="text-sm opacity-70">🏆</span>
+</p>
+        <p className="text-[8px] font-bold text-slate-300 mt-1 leading-none">Best Score</p>
+    </div>
+
+    {/* 4. 打卡天数 - 活力绿 */}
+    <div className="bg-gradient-to-b from-emerald-50 to-white p-3 py-4 rounded-[28px] border border-emerald-100 shadow-[0_4px_12px_-4px_rgba(16,185,129,0.2)] text-center group">
+        <p className="text-[9px] font-black text-emerald-600/50 uppercase mb-1 tracking-wider whitespace-nowrap">打卡</p>
+        <p className="text-xl font-black text-emerald-500 flex items-center justify-center gap-0.5 transition-transform group-hover:bounce">
+            {streak}<span className="text-sm">🔥</span>
+        </p>
+        <p className="text-[8px] font-bold text-emerald-400 mt-1 leading-none">Days</p>
+    </div>
+</div>
 			
 
                         <div className="space-y-4">

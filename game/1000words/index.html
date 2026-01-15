@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta property="og:image" content="https://www.stevesplayground.online/game/small_steve.png" />
+    <meta property="og:image" content="https://www.stevesplayground.online/game/1000words_logo.png" />
     <meta property="og:title" content="Welcome to Steve's playground！" />
     <meta property="og:description" content="A game site developed by Steve and his mom." />
     <meta property="og:url" content="https://www.stevesplayground.online/game/1000words/" />
@@ -17,6 +17,16 @@
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+
+
+
+
+
     <script src="vocabulary.js"></script>
     <style>
 
@@ -109,6 +119,158 @@
 
     <script type="text/babel">
         const { useState, useEffect, useMemo, useRef } = React;
+	const AVATAR_OPTIONS = ['👦','👧','🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🦄', '🐲'];
+	const BOT_NAMES = [
+  	  "快乐小虎", "单词超人", "闪电兔", "学习之星", 
+   	 "智慧小宝", "冲刺队长", "满分喵喵", "彩虹小马",
+    	"奥特曼", "艾莎公主", "超级飞侠", "汪汪队"
+	];
+
+	// 生成 100-200 之间的随机整数
+	const getRandomScore = () => Math.floor(Math.random() * (200 - 100 + 1)) + 100;
+	// 随机获取一个数组元素
+	const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+
+// ... 你的 firebaseConfig 初始化 ...
+ // 從 Firebase 控制台複製你的配置
+  const firebaseConfig = {
+  apiKey: "AIzaSyAiQ334fR19FoxA2y_BXhjA-33j3tW3svo",
+  authDomain: "words-dddcd.firebaseapp.com",
+  databaseURL: "https://words-dddcd-default-rtdb.firebaseio.com",
+  projectId: "words-dddcd",
+  storageBucket: "words-dddcd.firebasestorage.app",
+  messagingSenderId: "78083720510",
+  appId: "1:78083720510:web:2cd8ee255246cea774586f",
+  measurementId: "G-L1MCW0108M"
+};
+  
+  // 初始化 Firebase
+  if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+  const auth = firebase.auth();
+  const database = firebase.database();
+
+const syncToCloud = (name, count,avatar) => {
+    const user = firebase.auth().currentUser;
+    if (!user || !name) return;
+
+    const userRef = firebase.database().ref('leaderboard/' + user.uid);
+    
+    // 使用 update 确保只更新分数和名字，不破坏其他数据
+    userRef.update({
+        name: name,
+        score: count,
+	avatar: avatar || '🧑‍🚀',
+        lastUpdate: firebase.database.ServerValue.TIMESTAMP
+    });
+};
+
+const Leaderboard = () => {
+    const [displayList, setDisplayList] = React.useState([]);
+    const [realPlayerCount, setRealPlayerCount] = React.useState(0);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        // 1. 获取排行榜数据（这里我们稍微改一下，获取前20个，确保有足够数据）
+        const rankRef = firebase.database().ref('leaderboard');
+        
+        const listener = rankRef.on('value', (snapshot) => {
+            let realData = [];
+            
+            // 统计真实玩家
+            if (snapshot.exists()) {
+                setRealPlayerCount(snapshot.numChildren()); // 记录真实总人数
+                
+                snapshot.forEach((child) => {
+                    realData.push({ id: child.key, ...child.val() });
+                });
+            } else {
+                setRealPlayerCount(0);
+            }
+
+            // --- 核心逻辑：虚拟数据填充 ---
+            let finalData = [...realData];
+
+            // 如果真实数据少于 10 条，开始造假
+            if (finalData.length < 10) {
+                const needed = 10 - finalData.length;
+                
+                for (let i = 0; i < needed; i++) {
+                    finalData.push({
+                        id: `bot_${i}`, // 虚拟ID
+                        name: getRandomItem(BOT_NAMES), // 随机名字
+                        avatar: getRandomItem(AVATAR_OPTIONS), // 随机头像
+                        score: getRandomScore(), // 100-200 随机分
+                        isBot: true // 标记一下（可选，目前UI不区分）
+                    });
+                }
+            }
+
+            // 2. 统一排序：按分数从高到低
+            // 注意：因为Firebase是升序，所以真实数据可能需要反转，
+            // 但这里混合了随机数据，所以必须重新 sort
+            finalData.sort((a, b) => b.score - a.score);
+
+            // 3. 只取前 10 名展示
+            setDisplayList(finalData.slice(0, 10));
+            setLoading(false);
+        });
+
+        return () => rankRef.off('value', listener);
+    }, []);
+
+    return (
+        <div className="bg-white/90 backdrop-blur-sm p-5 rounded-[36px] border-4 border-indigo-50 shadow-xl w-full">
+            {/* 标题栏 & 总人数展示 */}
+            <div className="flex flex-col items-center justify-center mb-5">
+                <div className="flex items-center gap-2">
+                    <span className="text-2xl animate-bounce">🏆</span>
+                    <h3 className="font-black text-indigo-600 text-lg tracking-wider">学霸排行榜</h3>
+                </div>
+                {/* 展示真实玩家数量，增加信任感 */}
+                <p className="text-xs font-bold text-slate-400 mt-1">
+                    已有 <span className="text-indigo-500 text-sm">{realPlayerCount > 100 ? realPlayerCount : 100 + realPlayerCount}</span> 位小朋友加入挑战
+                </p>
+            </div>
+            
+            <div className="space-y-3">
+                {loading ? (
+                    <div className="text-center text-slate-400 py-4 font-bold">加载排行榜中...</div>
+                ) : displayList.map((player, index) => {
+                    // 样式处理
+                    let rankIcon = <span className="font-black text-slate-400 w-6 text-center">{index + 1}</span>;
+                    let bgClass = "bg-slate-50 border-slate-100";
+                    
+                    if (index === 0) { rankIcon = "🥇"; bgClass = "bg-yellow-50 border-yellow-200"; }
+                    if (index === 1) { rankIcon = "🥈"; bgClass = "bg-slate-100 border-slate-300"; }
+                    if (index === 2) { rankIcon = "🥉"; bgClass = "bg-orange-50 border-orange-200"; }
+
+                    return (
+                        <div key={player.id} className={`flex items-center justify-between p-3 rounded-2xl border-2 ${bgClass} transition-transform hover:scale-[1.02]`}>
+                            <div className="flex items-center gap-3">
+                                <div className="text-xl w-8 text-center flex-shrink-0">{rankIcon}</div>
+                                <div className="text-2xl bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-100">
+                                    {player.avatar || '🧑‍🚀'}
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="font-black text-slate-700 text-sm truncate max-w-[100px]">{player.name}</span>
+                                    {/* 如果是前三名且分数很高，可以加个标签 */}
+                                    {index < 3 && <span className="text-[10px] text-orange-400 font-bold">🔥 超级学霸</span>}
+                                </div>
+                            </div>
+                            <span className="font-black text-indigo-600 bg-white px-3 py-1 rounded-full shadow-sm text-xs whitespace-nowrap">
+                                {player.score} 词
+                            </span>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
 
         // 全局噴泉/黃金雨函數
         window.fireSuccessConfetti = (isGoldRain = false) => {
@@ -171,7 +333,7 @@ const TutorialLoader = ({ onFinish }) => {
     const steps = [
         { title: "Learn", color: "text-emerald-500", bg: "bg-emerald-50", icon: "📖", btnColor: "bg-emerald-100", desc: "认识新朋友" },
         { title: "Play", color: "text-indigo-600", bg: "bg-indigo-50", icon: "🕹️", btnColor: "bg-indigo-100", desc: "猜猜我是谁" },
-        { title: "Explore", color: "text-amber-500", bg: "bg-amber-50", icon: "⚡", btnColor: "bg-amber-100", desc: "挑战速度！" },
+        { title: "Explore", color: "text-amber-500", bg: "bg-amber-50", icon: "⚡", btnColor: "bg-amber-100", desc: "挑战词汇量！" },
         { title: "Let's Go!", color: "text-rose-500", bg: "bg-white", icon: "🎉", btnColor: "bg-rose-100", desc: "准备好了吗？" }
     ];
 
@@ -309,6 +471,8 @@ const handleCloseTutorial = () => {
 	const [view, setView] = React.useState('menu');
 	const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
 	const [voicePreference, setVoicePreference] = React.useState('us-female');
+	const [showLeaderboard, setShowLeaderboard] = useState(false);
+
 	const handleTutorialFinish = () => {
         // 1. 设置标记到本地存储 (Key 必须和上面 useState 里的一样)
         localStorage.setItem('steve_tutorial_done', 'true');
@@ -351,6 +515,7 @@ useEffect(() => {
             const [testFeedback, setTestFeedback] = useState(null);
             const [isChecking, setIsChecking] = useState(false);
             const [userName, setUserName] = useState(() => localStorage.getItem('steve_name') || '');
+	    const [userAvatar, setUserAvatar] = useState(() => localStorage.getItem('steve_avatar') || '🧒');
             const [showNameModal, setShowNameModal] = useState(!localStorage.getItem('steve_name'));
             const [tempName, setTempName] = useState(localStorage.getItem('steve_name') || '');
             
@@ -370,6 +535,7 @@ useEffect(() => {
 
             const touchStart = useRef(null);
             // --- ✅ 修复 1: 使用 useMemo 只创建一次音频对象，并修正 URL 路径 ---
+
 const audioClips = useMemo(() => {
     // 基础路径
     const baseUrl = 'https://www.stevesplayground.online/game/1000words/music';
@@ -460,8 +626,9 @@ const speak = (text, preferenceOverride = null) => {
 };
 
 
+
 // 自动识别并渲染 Emoji 或 图片
-			const renderMedia = (source, sizeClass = "text-[120px]") => {
+const renderMedia = (source, sizeClass = "text-[120px]") => {
     if (!source) return null;
     const strSource = String(source).trim();
     const isImage = strSource.includes('/') || strSource.includes('.');
@@ -508,6 +675,10 @@ const speak = (text, preferenceOverride = null) => {
 };
 			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
+	    const [isDataLoading, setIsDataLoading] = React.useState(true);
+
+
+
             const fullList = useMemo(() => {
                 if (!dbData) return [];
                 let all = [];
@@ -597,19 +768,28 @@ const speak = (text, preferenceOverride = null) => {
                 }
             };
 
-            useEffect(() => {
-                localStorage.setItem('steve_learned', JSON.stringify(learnedWords));
-                localStorage.setItem('steve_wrong', JSON.stringify(wrongWords));
-                localStorage.setItem('steve_highscore', highScore.toString());
-            }, [learnedWords, wrongWords, highScore]);
+           
+useEffect(() => {
+    // 1. 本地存储逻辑
+    localStorage.setItem('userName', userName); // 确保这里用了你改名后的 key
+    localStorage.setItem('steve_learned', JSON.stringify(learnedWords));
+    localStorage.setItem('steve_wrong', JSON.stringify(wrongWords));
+    localStorage.setItem('steve_highscore', highScore.toString());
+    localStorage.setItem('steve_avatar', userAvatar);
 
-            useEffect(() => {
-                if (currentKey && fullList.length > 0) {
-                    const distractors = fullList.filter(k => k !== currentKey).sort(() => 0.5 - Math.random()).slice(0, 3);
-                    setShuffledOptions([currentKey, ...distractors].sort(() => 0.5 - Math.random()));
-                    setTestFeedback(null);
-                }
-            }, [currentKey, currentList, fullList]);
+    // 2. 云端同步逻辑（带防抖）
+    const handler = setTimeout(() => {
+        if (userName && learnedWords.length > 0) {
+            // 确保 syncToCloud 函数已在外部定义
+            syncToCloud(userName, learnedWords.length, userAvatar);
+        }
+    }, 2000);
+
+    // 3. 清除函数（这是关键，检查这里的括号是否闭合正确）
+    return () => {
+        clearTimeout(handler);
+    }; 
+}, [learnedWords, wrongWords, highScore, userAvatar, userName]); 
 
             const handleChoice = (choice) => {
     if (testFeedback) return;
@@ -709,6 +889,16 @@ const triggerStars = () => {
     setTimeout(shoot, 200);
 };
 
+useEffect(() => {
+    			   if (showLeaderboard) {
+        			document.body.style.overflow = 'hidden';
+   				 } else {
+        			document.body.style.overflow = 'unset';
+    				}
+			       }, [showLeaderboard]);
+
+
+
             const startMode = (mode, levelId = '1') => {
                 // 1. 初始化所有状态
                 setIsChallenge(false); 
@@ -805,9 +995,26 @@ if (showTutorial) {
                             <div className="modal-overlay">
                                 <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl">
                                     <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
+
+				{/* 头像选择区 */}
+                           	    <p className="text-xs font-bold text-slate-400 uppercase mb-2">选择一个头像</p>
+                            	    <div className="grid grid-cols-4 gap-2 mb-6">
+                                	{AVATAR_OPTIONS.map(emoji => (
+                                    	<button 
+                                        	key={emoji}
+                                        	onClick={() => setUserAvatar(emoji)}
+                                        	className={`text-3xl p-2 rounded-xl border-2 transition-all ${userAvatar === emoji ? 'bg-indigo-100 border-indigo-500 scale-110' : 'bg-slate-50 border-slate-100 hover:bg-white'}`}
+                                     	>
+                                        {emoji}
+                                    </button>
+                                ))}
+                            	   </div>
+
+
                                     <input type="text" value={tempName} onChange={(e) => setTempName(e.target.value)} placeholder="Steve..." className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" />
                                     <button onClick={() => { setUserName(tempName); localStorage.setItem('steve_name', tempName); setShowNameModal(false); playSound('correct');setShowTutorial(false);
-        localStorage.setItem('tutorialCompleted', 'true'); }} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
+        localStorage.setItem('tutorialCompleted', 'true'); syncToCloud(tempName, learnedWords.length, userAvatar);
+}} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
                                 </div>
                             </div>
                         )}
@@ -876,10 +1083,17 @@ if (showTutorial) {
             </header>
                         
                         <div className="grid grid-cols-3 gap-3 mb-10">
-                            <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
+
+			     <button 
+        			onClick={() => {
+           			setShowLeaderboard(true);
+            			playSound('correct'); // 增加點擊反馈
+        			}}
+                        	className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
                                 <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已學會</p>
                                 <p className="text-xl font-black text-indigo-600">{learnedWords.length} 📖</p>
-                            </div>
+                         </button>
+
                             <div className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
                                 <p className="text-[10px] font-black text-slate-300 uppercase mb-1">最高分</p>
                                 <p className="text-xl font-black text-slate-700">{highScore} 🏆</p>
@@ -889,6 +1103,7 @@ if (showTutorial) {
                                 <p className="text-xl font-black text-emerald-500">{streak} 🔥</p>
                             </div>
                         </div>
+			
 
                         <div className="space-y-4">
                             {dbData && Object.entries(dbData).map(([id, data]) => {
@@ -1111,6 +1326,38 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 
 
                     </div>
+
+{showLeaderboard && (
+    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div className="bg-slate-50 w-full max-w-md h-[90vh] sm:h-[80vh] rounded-t-[40px] sm:rounded-[40px] flex flex-col relative shadow-2xl animate-in slide-in-from-bottom duration-300">
+            
+            {/* 关闭按钮 */}
+            <button 
+                onClick={() => setShowLeaderboard(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-xl shadow-sm"
+            >
+                ✕
+            </button>
+
+            {/* 内容区 */}
+            <div className="flex-1 overflow-y-auto p-6 pt-10">
+                <Leaderboard />
+            </div>
+
+            {/* 底部按钮 */}
+            <div className="p-6 bg-white border-t border-slate-100 rounded-b-[40px]">
+                <button 
+                    onClick={() => setShowLeaderboard(false)}
+                    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-transform"
+                >
+                    我知道啦
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
+
 {/* 阶段性奖励弹窗 */}
 {showStageClear && (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
@@ -1210,10 +1457,9 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
         }
         // --- 注册 Service Worker 结束 ---
     </script>
+
 </body>
 </html>
-
-
 
 
 

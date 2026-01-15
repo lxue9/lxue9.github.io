@@ -4,9 +4,11 @@ const CACHE_NAME = 'steve-vocab-v4';
 const PRE_CACHE = [
   './',
   './index.html',
+  'https://fastly.jsdelivr.net/npm/@babel/standalone@7.23.0/babel.min.js',
   './music/correct.mp3',
   './music/wrong.mp3',
-  './music/finish.mp3'
+  './music/finish.mp3',
+  './music/star.mp3'
 ];
 
 self.addEventListener('install', (event) => {
@@ -41,3 +43,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+

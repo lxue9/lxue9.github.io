@@ -331,9 +331,9 @@ const TutorialLoader = ({ onFinish }) => {
     }, [step]);
 
     const steps = [
-        { title: "Learn", color: "text-emerald-500", bg: "bg-emerald-50", icon: "📖", btnColor: "bg-emerald-100", desc: "认识新朋友" },
-        { title: "Play", color: "text-indigo-600", bg: "bg-indigo-50", icon: "🕹️", btnColor: "bg-indigo-100", desc: "猜猜我是谁" },
-        { title: "Explore", color: "text-amber-500", bg: "bg-amber-50", icon: "⚡", btnColor: "bg-amber-100", desc: "挑战词汇量！" },
+        { title: "Learn", color: "text-emerald-500", bg: "bg-emerald-50", icon: "📖", btnColor: "bg-emerald-100", desc: "认识新朋友",subDesc: "正面听单词读音，反面看中文解释" },
+        { title: "Play", color: "text-indigo-600", bg: "bg-indigo-50", icon: "🕹️", btnColor: "bg-indigo-100", desc: "猜猜我是谁",subDesc: "复习已掌握的单词" },
+        { title: "Explore", color: "text-amber-500", bg: "bg-amber-50", icon: "⚡", btnColor: "bg-amber-100", desc: "挑战词汇量！",subDesc: "词汇量测试" },
         { title: "Let's Go!", color: "text-rose-500", bg: "bg-white", icon: "🎉", btnColor: "bg-rose-100", desc: "准备好了吗？" }
     ];
 
@@ -1087,7 +1087,7 @@ if (showTutorial) {
 			     <button 
         			onClick={() => {
            			setShowLeaderboard(true);
-            			playSound('correct'); // 增加點擊反馈
+            			playSound('star'); // 增加點擊反馈
         			}}
                         	className="bg-white p-4 rounded-3xl border border-slate-50 shadow-sm text-center">
                                 <p className="text-[10px] font-black text-slate-300 uppercase mb-1">已學會</p>
@@ -1327,35 +1327,6 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 
                     </div>
 
-{showLeaderboard && (
-    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
-        <div className="bg-slate-50 w-full max-w-md h-[90vh] sm:h-[80vh] rounded-t-[40px] sm:rounded-[40px] flex flex-col relative shadow-2xl animate-in slide-in-from-bottom duration-300">
-            
-            {/* 关闭按钮 */}
-            <button 
-                onClick={() => setShowLeaderboard(false)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-xl shadow-sm"
-            >
-                ✕
-            </button>
-
-            {/* 内容区 */}
-            <div className="flex-1 overflow-y-auto p-6 pt-10">
-                <Leaderboard />
-            </div>
-
-            {/* 底部按钮 */}
-            <div className="p-6 bg-white border-t border-slate-100 rounded-b-[40px]">
-                <button 
-                    onClick={() => setShowLeaderboard(false)}
-                    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-transform"
-                >
-                    我知道啦
-                </button>
-            </div>
-        </div>
-    </div>
-)}
 
 
 {/* 阶段性奖励弹窗 */}
@@ -1439,6 +1410,37 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
                             </div>
                         </div>
                     )}
+
+{showLeaderboard && (
+    <div className="fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+        <div className="bg-slate-50 w-full max-w-md h-[90vh] sm:h-[80vh] rounded-t-[40px] sm:rounded-[40px] flex flex-col relative shadow-2xl animate-in slide-in-from-bottom duration-300">
+            
+            {/* 关闭按钮 */}
+            <button 
+                onClick={() => setShowLeaderboard(false)}
+                className="absolute top-4 right-4 z-10 w-10 h-10 bg-white/80 rounded-full flex items-center justify-center text-xl shadow-sm"
+            >
+                ✕
+            </button>
+
+            {/* 内容区 */}
+            <div className="flex-1 overflow-y-auto p-6 pt-10">
+                <Leaderboard />
+            </div>
+
+            {/* 底部按钮 */}
+            <div className="p-6 bg-white border-t border-slate-100 rounded-b-[40px]">
+                <button 
+                    onClick={() => setShowLeaderboard(false)}
+                    className="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black shadow-lg active:scale-95 transition-transform"
+                >
+                    我知道啦
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
 
                 </div>
             );

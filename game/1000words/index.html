@@ -13,59 +13,59 @@
     <meta property="og:image:height" content="630" />
     <title>English Master</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<script src="https://fastly.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
-<script src="https://fastly.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
-<script src="https://fastly.jsdelivr.net/npm/@babel/standalone@7.23.10/babel.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://fastly.jsdelivr.net/npm/@babel/standalone@7.23.10/babel.min.js"></script>
 
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
     <script src="vocabulary.js"></script>
     <style>
 
-/* 步骤切换时的进场动画 */
-@keyframes slide-up-fade {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+    /* 步骤切换时的进场动画 */
+    @keyframes slide-up-fade {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-.step-anim {
-    animation: slide-up-fade 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-}
+    .step-anim {
+      animation: slide-up-fade 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
 
-/* 模拟手指点击动作 */
-@keyframes hand-tap-simple {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(0.9) translateY(5px); }
-}
+    /* 模拟手指点击动作 */
+    @keyframes hand-tap-simple {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(0.9) translateY(5px); }
+    }
 
-.hand-simple {
-    font-size: 50px;
-    position: absolute;
-    z-index: 50;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-    animation: hand-tap-simple 1.5s infinite ease-in-out;
-}
+    .hand-simple {
+      font-size: 50px;
+      position: absolute;
+      z-index: 50;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
+      animation: hand-tap-simple 1.5s infinite ease-in-out;
+    }
 
-/* 进度条动画 */
-.progress-fill {
-    transition: width 0.5s ease-out;
-}
+    /* 进度条动画 */
+   .progress-fill {
+      transition: width 0.5s ease-out;
+    }
 
-/* 星星点亮时的呼吸灯效果 */
-@keyframes star-glow {
-    0%, 100% { filter: drop-shadow(0 0 2px rgba(251,191,36,0.4)); }
-    50% { filter: drop-shadow(0 0 10px rgba(251,191,36,0.7)); }
-}
+    /* 星星点亮时的呼吸灯效果 */
+    @keyframes star-glow {
+     0%, 100% { filter: drop-shadow(0 0 2px rgba(251,191,36,0.4)); }
+      50% { filter: drop-shadow(0 0 10px rgba(251,191,36,0.7)); }
+    }
 
-.star-active {
-    animation: star-glow 2s infinite ease-in-out;
-}
+    .star-active {
+      animation: star-glow 2s infinite ease-in-out;
+    }
 
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
-        body { 
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+    body { 
             font-family: 'Nunito', sans-serif; 
             -webkit-tap-highlight-color: transparent; 
             background: #fcfcfd; color: #1e293b; margin: 0; padding: 0;
@@ -111,7 +111,7 @@
 
 <body>
    
-	<div id="root">
+<div id="root">
     <div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#f8fafc; font-family:sans-serif; color:#6366f1;">
         <div style="text-align:center;">
             <div style="border:4px solid #e0e7ff; border-top:4px solid #6366f1; border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto 16px;"></div>
@@ -124,33 +124,112 @@
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo, useRef } = React;
+<script type="text/babel">
+  const { useState, useEffect, useMemo, useRef } = React;
 	const AVATAR_OPTIONS = ['👦','👧','🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🦄', '🐲'];
 	const BOT_NAMES = [
   	  "快乐小虎", "单词超人", "闪电兔", "学习之星", 
    	 "智慧小宝", "冲刺队长", "满分喵喵", "彩虹小马",
     	"奥特曼", "艾莎公主", "超级飞侠", "汪汪队"
-	];
-
-	// 生成 100-200 之间的随机整数
-	const getRandomScore = () => Math.floor(Math.random() * (200 - 100 + 1)) + 100;
-	// 随机获取一个数组元素
-	const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
-
-
-// ... 你的 firebaseConfig 初始化 ...
- // 從 Firebase 控制台複製你的配置
-  const firebaseConfig = {
-  apiKey: "AIzaSyAiQ334fR19FoxA2y_BXhjA-33j3tW3svo",
-  authDomain: "words-dddcd.firebaseapp.com",
-  databaseURL: "https://words-dddcd-default-rtdb.firebaseio.com",
-  projectId: "words-dddcd",
-  storageBucket: "words-dddcd.firebasestorage.app",
-  messagingSenderId: "78083720510",
-  appId: "1:78083720510:web:2cd8ee255246cea774586f",
-  measurementId: "G-L1MCW0108M"
+	    ];
+  
+  const MISSION_REWARDS = {
+    1: ["🌱", "🌿", "☘️", "🍀", "🌳"],  // Level 1: 植物成长
+    2: ["🐣", "🐥", "🐤", "🐦", "🦅"],  // Level 2: 鸟类进化
+    3: ["💧", "🌊", "🧊", "❄️", "🏔️"],  // Level 3: 水之形态
+    4: ["🕯️", "🔦", "💡", "☀️", "🔥"],  // Level 4: 光明之源
+    5: ["🚗", "🏎️", "🚄", "✈️", "🚀"],  // Level 5: 速度飞跃
+    6: ["🥉", "🥈", "🥇", "🏆", "👑"],  // Level 6: 荣誉阶梯
+    7: ["🚲", "🛵", "🏍️", "🏎️", "🛸"],  // Level 7: 未来交通
+    8: ["☁️", "🌤️", "☀️", "🌈", "🪐"],  // Level 8: 天空探索
+    9: ["🥊", "🥋", "🤺", "🤺", "⚔️"],  // Level 9: 勇者之路
+    10: ["🏹", "🛡️", "⚔️", "💎", "🔱"]  // Level 10: 最终神话
 };
+  
+
+   // 生成 100-200 之间的随机整数
+   const getRandomScore = () => Math.floor(Math.random() * (200 - 100 + 1)) + 100;
+   // 随机获取一个数组元素
+   const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  // ==========================================
+// 鼓励语矩阵 (50句)
+// ==========================================
+const MOTIVATIONAL_QUOTES = [
+    // --- 基础鼓励 (1-10) ---
+    "Great start! 一小步也是进步！",
+    "Keep going! 继续加油！",
+    "You are amazing! 你太棒了！",
+    "Wow! So smart! 哇！真聪明！",
+    "Awesome! 太厉害了！",
+    "You're on fire! 你现在势不可挡！",
+    "Fantastic! 太出色了！",
+    "Good job! 做得好！",
+    "Brilliant! 很有才华！",
+    "Keep it up! 坚持下去！",
+
+    // --- 进阶鼓励 (11-20) ---
+    "Unstoppable! 谁也挡不住你！",
+    "Superb work! 极好的表现！",
+    "You're a natural! 你很有天赋！",
+    "Outstanding! 表现优异！",
+    "Perfect score! 满分表现！",
+    "Incredible progress! 惊人的进步！",
+    "You make it look easy! 你让学习变得好简单！",
+    "Top notch! 顶尖水平！",
+    "Victory is yours! 胜利属于你！",
+    "Keep shining! 继续闪耀！",
+
+    // --- 挑战鼓励 (21-30) ---
+    "Challenge accepted! 挑战成功！",
+    "Way to go! 就该这么做！",
+    "Impressive! 令人印象深刻！",
+    "Knowledge is power! 知识就是力量！",
+    "Believe in yourself! 相信你自己！",
+    "Hard work pays off! 努力终有回报！",
+    "You're a superstar! 你是个巨星！",
+    "Never give up! 永不言弃！",
+    "Dream big! 志存高远！",
+    "Stay curious! 保持好奇心！",
+
+    // --- 进阶智慧 (31-40) ---
+    "Excellence is a habit! 优秀是一种习惯！",
+    "Focus and win! 专注就能赢！",
+    "You're getting better! 你越来越棒了！",
+    "Amazing effort! 了不起的努力！",
+    "High five! 击个掌吧！",
+    "You're the best! 你是最棒的！",
+    "Smart move! 聪明的选择！",
+    "Genius at work! 天才正在努力！",
+    "Bravo! 喝彩！",
+    "Pure gold! 纯金般的表现！",
+
+    // --- 终极巅峰 (41-50) ---
+    "Master status! 大师级别！",
+    "Simply the best! 简直是最好的！",
+    "Legendary! 传奇般的表现！",
+    "Beyond compare! 无与伦比！",
+    "The sky is the limit! 潜力无限！",
+    "You've got the power! 你充满力量！",
+    "World class! 世界级的表现！",
+    "Peak performance! 巅峰状态！",
+    "Simply wonderful! 简直太精彩了！",
+    "The world is yours! 世界属于你！"
+];
+
+
+  // ... 你的 firebaseConfig 初始化 ...
+  // 從 Firebase 控制台複製你的配置
+  const firebaseConfig = {
+    apiKey: "AIzaSyAiQ334fR19FoxA2y_BXhjA-33j3tW3svo",
+    authDomain: "words-dddcd.firebaseapp.com",
+    databaseURL: "https://words-dddcd-default-rtdb.firebaseio.com",
+    projectId: "words-dddcd",
+    storageBucket: "words-dddcd.firebasestorage.app",
+    messagingSenderId: "78083720510",
+    appId: "1:78083720510:web:2cd8ee255246cea774586f",
+    measurementId: "G-L1MCW0108M"
+  };
   
   // 初始化 Firebase
   if (!firebase.apps.length) {
@@ -158,31 +237,50 @@
     }
   const auth = firebase.auth();
   const database = firebase.database();
+  const syncToCloud = (name, count,avatar) => {
+  const user = firebase.auth().currentUser;
+  if (!user || !name) return;
 
-const syncToCloud = (name, count,avatar) => {
-    const user = firebase.auth().currentUser;
-    if (!user || !name) return;
-
-    const userRef = firebase.database().ref('leaderboard/' + user.uid);
+  const userRef = firebase.database().ref('leaderboard/' + user.uid);
     
-    // 使用 update 确保只更新分数和名字，不破坏其他数据
-    userRef.update({
-        name: name,
-        score: count,
-	avatar: avatar || '🧑‍🚀',
-        lastUpdate: firebase.database.ServerValue.TIMESTAMP
+   // 使用 update 确保只更新分数和名字，不破坏其他数据
+   userRef.update({
+      name: name,
+      score: count,
+	    avatar: avatar || '🧑‍🚀',
+      lastUpdate: firebase.database.ServerValue.TIMESTAMP
     });
-};
+   };
 
-const Leaderboard = () => {
-    const [displayList, setDisplayList] = React.useState([]);
+const Leaderboard = (props) => {
+  
     const [realPlayerCount, setRealPlayerCount] = React.useState(0);
+    const learnedWords = props.learnedWords || window.learnedWords || [];
+
+React.useEffect(() => {
+    // 每次 learnedWords 变化时，都强制更新全局变量
+    window.learnedWords = learnedWords;
+    console.log("Global words updated:", learnedWords.length);
+}, [learnedWords]);
+
+
+    const [displayList, setDisplayList] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+
+    // 计算我的排名
+    const myId = window.userId || 'me';
+    // 优先从全局全量数据中找，如果没有，就用当前显示的列表找
+    const fullData = window.globalLeaderboardData || displayList;
+    const myRankIndex = fullData.findIndex(p => p.id === myId);
+
+    // 最终显示的名次数字（如果没上榜，根据单词量算一个假排名）
+    const myRankNumber = myRankIndex !== -1 
+        ? myRankIndex + 1 
+        : Math.max(1, 99 - Math.floor(learnedWords.length / 5));
 
     React.useEffect(() => {
         // 1. 获取排行榜数据（这里我们稍微改一下，获取前20个，确保有足够数据）
-        const rankRef = firebase.database().ref('leaderboard');
-        
+        const rankRef = firebase.database().ref('leaderboard'); 
         const listener = rankRef.on('value', (snapshot) => {
             let realData = [];
             
@@ -203,11 +301,19 @@ const Leaderboard = () => {
             // 如果真实数据少于 10 条，开始造假
             if (finalData.length < 10) {
                 const needed = 10 - finalData.length;
+		// 1. 获取现有真实玩家的名字集合，用于彻底避雷
+    		const existingNames = new Set(finalData.map(p => p.name));
                 
+		// 2. 准备可用的虚拟名字：过滤掉已存在的，并随机洗牌
+    		const availableNames = BOT_NAMES
+       		 .filter(name => !existingNames.has(name))
+        	.sort(() => Math.random() - 0.5); // 随机洗牌	
+
                 for (let i = 0; i < needed; i++) {
+		    const botName = availableNames[i] || `Player_${i + 1}`;
                     finalData.push({
-                        id: `bot_${i}`, // 虚拟ID
-                        name: getRandomItem(BOT_NAMES), // 随机名字
+                        id: `bot_${i}_${Date.now()}`, // 虚拟ID
+                        name: botName, // 随机名字
                         avatar: getRandomItem(AVATAR_OPTIONS), // 随机头像
                         score: getRandomScore(), // 100-200 随机分
                         isBot: true // 标记一下（可选，目前UI不区分）
@@ -222,6 +328,7 @@ const Leaderboard = () => {
 
             // 3. 只取前 10 名展示
             setDisplayList(finalData.slice(0, 10));
+	    window.globalLeaderboardData = finalData;
             setLoading(false);
         });
 
@@ -246,38 +353,79 @@ const Leaderboard = () => {
                 {loading ? (
                     <div className="text-center text-slate-400 py-4 font-bold">加载排行榜中...</div>
                 ) : displayList.map((player, index) => {
-                    // 样式处理
-                    let rankIcon = <span className="font-black text-slate-400 w-6 text-center">{index + 1}</span>;
-                    let bgClass = "bg-slate-50 border-slate-100";
-                    
-                    if (index === 0) { rankIcon = "🥇"; bgClass = "bg-yellow-50 border-yellow-200"; }
-                    if (index === 1) { rankIcon = "🥈"; bgClass = "bg-slate-100 border-slate-300"; }
-                    if (index === 2) { rankIcon = "🥉"; bgClass = "bg-orange-50 border-orange-200"; }
+                  const isMe = player.id === myId;
+    const rank = index + 1;
 
-                    return (
-                        <div key={player.id} className={`flex items-center justify-between p-3 rounded-2xl border-2 ${bgClass} transition-transform hover:scale-[1.02]`}>
-                            <div className="flex items-center gap-3">
-                                <div className="text-xl w-8 text-center flex-shrink-0">{rankIcon}</div>
-                                <div className="text-2xl bg-white w-10 h-10 rounded-full flex items-center justify-center shadow-sm border border-slate-100">
-                                    {player.avatar || '🧑‍🚀'}
-                                </div>
-                                <div className="flex flex-col">
-                                    <span className="font-black text-slate-700 text-sm truncate max-w-[100px]">{player.name}</span>
-                                    {/* 如果是前三名且分数很高，可以加个标签 */}
-                                    {index < 3 && <span className="text-[10px] text-orange-400 font-bold">🔥 超级学霸</span>}
-                                </div>
-                            </div>
-                            <span className="font-black text-indigo-600 bg-white px-3 py-1 rounded-full shadow-sm text-xs whitespace-nowrap">
-                                {player.score} 词
-                            </span>
-                        </div>
-                    );
-                })}
+    // --- 定义前三名的特殊颜色 ---
+    const getRankStyle = () => {
+        if (rank === 1) return 'bg-amber-50 border-amber-200 shadow-amber-100'; // 金色调
+        if (rank === 2) return 'bg-rose-50 border-rose-200 shadow-rose-100';  // 红色色调
+        if (rank === 3) return 'bg-emerald-50 border-emerald-200 shadow-orange-100'; // 绿色调
+        return isMe ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-100';
+    };
+
+    return (
+        <div 
+            key={player.id} 
+            className={`flex items-center gap-4 p-4 rounded-[24px] transition-all mb-3 border-2
+                ${getRankStyle()} 
+                ${isMe ? 'ring-2 ring-indigo-500 ring-offset-2 scale-[1.02] z-10' : ''}
+            `}
+        >
+            {/* 1. 排名图标 */}
+            <div className="w-8 h-8 flex items-center justify-center">
+                {rank === 1 ? <span className="text-3xl drop-shadow-sm">🥇</span> : 
+                 rank === 2 ? <span className="text-3xl drop-shadow-sm">🥈</span> : 
+                 rank === 3 ? <span className="text-3xl drop-shadow-sm">🥉</span> : 
+                 <span className="font-black text-slate-400 italic">#{rank}</span>}
+            </div>
+
+            {/* 2. 头像 (前三名头像框大一点) */}
+            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm
+                ${rank === 1 ? 'bg-amber-400 text-white' : 
+                  rank === 2 ? 'bg-rose-300 text-white' : 
+                  rank === 3 ? 'bg-emerald-400 text-white' : 'bg-slate-100'}`}>
+                {player.avatar}
+            </div>
+
+            {/* 3. 名字 */}
+            <div className="flex-1">
+                <div className="flex items-center gap-2">
+                    <span className={`font-black ${rank <= 3 ? 'text-slate-900' : 'text-slate-700'}`}>
+                        {player.name}
+                    </span>
+                    {isMe && (
+                        <span className="bg-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black">
+                            YOU
+                        </span>
+                    )}
+                </div>
+                {/* 前三名的小奖牌说明 */}
+                {rank <= 3 && (
+                    <span className="text-[10px] font-bold text-amber-600/70 uppercase tracking-widest">
+                        {rank === 1 ? 'Top Performer' : rank === 2 ? 'Elite Student' : 'Rising Star'}
+                    </span>
+                )}
+            </div>
+
+            {/* 4. 单词数 */}
+            <div className="text-right">
+                <p className="font-black text-base text-slate-900 leading-none">
+                    {player.score}
+                </p>
+                <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">
+                    Words
+                </p>
             </div>
         </div>
     );
-};
+})}
 
+
+</div>
+        </div>
+    );
+};
 
         // 全局噴泉/黃金雨函數
         window.fireSuccessConfetti = (isGoldRain = false) => {
@@ -456,31 +604,75 @@ const TutorialLoader = ({ onFinish }) => {
 };	
 
 const App = () => {
+
+
+   const [view, setView] = React.useState('menu');
+   const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
+   const [voicePreference, setVoicePreference] = React.useState('us-female');
+   const [showLeaderboard, setShowLeaderboard] = useState(false);
+   const openMedals = () => {
+    	 setView('medals');
+	};
+
+   const [currentLevel, setCurrentLevel] = useState('1');
+   const [idx, setIdx] = useState(0);
+   const [currentList, setCurrentList] = useState([]);
+   const currentKey = currentList[idx];
+
+   // --- ✅ 粘贴这里：新增的星星和进度状态 ---
+   const [showStageClear, setShowStageClear] = React.useState(false); 
+   const WORDS_PER_STAGE = 20; 
+   const TOTAL_WORDS = 100;    
+    
+  // 计算当前星星数量 (0-5)
+  // 注意：这里用 idx + 1 因为索引是从 0 开始的
+   const currentStars = Math.floor((idx + 1) / WORDS_PER_STAGE);
+
+   const [flipped, setFlipped] = useState(false);
+   const [testFeedback, setTestFeedback] = useState(null);
+   const [isChecking, setIsChecking] = useState(false);
+   const [userName, setUserName] = useState(() => localStorage.getItem('steve_name') || '');
+	 const [userAvatar, setUserAvatar] = useState(() => localStorage.getItem('steve_avatar') || '🧒');
+   const [showNameModal, setShowNameModal] = useState(!localStorage.getItem('steve_name'));
+   const [tempName, setTempName] = useState(localStorage.getItem('steve_name') || '');
+            
+   const [learnedWords, setLearnedWords] = useState(() => JSON.parse(localStorage.getItem('steve_learned') || '[]'));
+   const [wrongWords, setWrongWords] = useState(() => JSON.parse(localStorage.getItem('steve_wrong') || '[]'));
+   const [highScore, setHighScore] = useState(() => parseInt(localStorage.getItem('steve_highscore')) || 0);
+            
+    // 3. 打卡天數修復邏輯
+   const [streak, setStreak] = useState(() => parseInt(localStorage.getItem('steve_streak')) || 0);
+
+   const [isChallenge, setIsChallenge] = useState(false);
+   const [isWrongSetMode, setIsWrongSetMode] = useState(false);
+	  const [isTest, setIsTest] = React.useState(false);
+            
+   const [score, setScore] = useState(0);
+   const [showGameOver, setShowGameOver] = useState(false);
+   const [currentQuote, setCurrentQuote] = useState("");
+
+   const [shuffledOptions, setShuffledOptions] = useState([]);
+            
+
+   const touchStart = useRef(null);
 	
-	const [showTutorial, setShowTutorial] = React.useState(() => {
+   const [showTutorial, setShowTutorial] = React.useState(() => {
         try {
             // 如果本地存储里没有标记为 'true'，则显示教程
             return localStorage.getItem('steve_tutorial_done') !== 'true';
-        } catch (e) {
+           } catch (e) {
             return true; // 容错处理
-        }
-    });
+           }
+        });
 
 
-const handleCloseTutorial = () => {
-    setShowTutorial(false);
-    // ✅ 记录到本地存储，有效期是永久（除非清除浏览器缓存）
-    localStorage.setItem('tutorialCompleted', 'true');
-};
+    const handleCloseTutorial = () => {
+      setShowTutorial(false);
+      // ✅ 记录到本地存储，有效期是永久（除非清除浏览器缓存）
+      localStorage.setItem('tutorialCompleted', 'true');
+    };
 
-
-
-	const [view, setView] = React.useState('menu');
-	const [showVoiceMenu, setShowVoiceMenu] = React.useState(false);
-	const [voicePreference, setVoicePreference] = React.useState('us-female');
-	const [showLeaderboard, setShowLeaderboard] = useState(false);
-
-	const handleTutorialFinish = () => {
+    const handleTutorialFinish = () => {
         // 1. 设置标记到本地存储 (Key 必须和上面 useState 里的一样)
         localStorage.setItem('steve_tutorial_done', 'true');
         // 2. 关闭引导界面
@@ -488,9 +680,8 @@ const handleCloseTutorial = () => {
     };
 	
    
-
-useEffect(() => {
-    const warmup = () => {
+    useEffect(() => {
+      const warmup = () => {
         const synth = window.speechSynthesis;
         // 强制刷新音色列表并发出一个静音片段
         synth.getVoices();
@@ -501,70 +692,36 @@ useEffect(() => {
         // 成功触发后立即移除监听，不占用资源
         window.removeEventListener('touchstart', warmup);
         window.removeEventListener('click', warmup);
-    };
-    window.addEventListener('touchstart', warmup, { once: true });
-    window.addEventListener('click', warmup, { once: true });
-}, []);
+      };
+      window.addEventListener('touchstart', warmup, { once: true });
+      window.addEventListener('click', warmup, { once: true });
+      }, []);
 
-            const [currentLevel, setCurrentLevel] = useState('1');
-            const [idx, setIdx] = useState(0);
-
- 	    // --- ✅ 粘贴这里：新增的星星和进度状态 ---
-    	    const [showStageClear, setShowStageClear] = React.useState(false); 
-    	    const WORDS_PER_STAGE = 20; 
-    	    const TOTAL_WORDS = 100;    
-    
-           // 计算当前星星数量 (0-5)
-          // 注意：这里用 idx + 1 因为索引是从 0 开始的
-            const currentStars = Math.floor((idx + 1) / WORDS_PER_STAGE);
-
-            const [flipped, setFlipped] = useState(false);
-            const [testFeedback, setTestFeedback] = useState(null);
-            const [isChecking, setIsChecking] = useState(false);
-            const [userName, setUserName] = useState(() => localStorage.getItem('steve_name') || '');
-	    const [userAvatar, setUserAvatar] = useState(() => localStorage.getItem('steve_avatar') || '🧒');
-            const [showNameModal, setShowNameModal] = useState(!localStorage.getItem('steve_name'));
-            const [tempName, setTempName] = useState(localStorage.getItem('steve_name') || '');
             
-            const [learnedWords, setLearnedWords] = useState(() => JSON.parse(localStorage.getItem('steve_learned') || '[]'));
-            const [wrongWords, setWrongWords] = useState(() => JSON.parse(localStorage.getItem('steve_wrong') || '[]'));
-            const [highScore, setHighScore] = useState(() => parseInt(localStorage.getItem('steve_highscore')) || 0);
-            
-            // 3. 打卡天數修復邏輯
-            const [streak, setStreak] = useState(() => parseInt(localStorage.getItem('steve_streak')) || 0);
+      // --- ✅ 修复 1: 使用 useMemo 只创建一次音频对象，并修正 URL 路径 ---
 
-            const [isChallenge, setIsChallenge] = useState(false);
-            const [isWrongSetMode, setIsWrongSetMode] = useState(false);
-	    const [isTest, setIsTest] = React.useState(false);
-            const [currentList, setCurrentList] = useState([]);
-            const [score, setScore] = useState(0);
-            const [showGameOver, setShowGameOver] = useState(false);
-
-            const touchStart = useRef(null);
-            // --- ✅ 修复 1: 使用 useMemo 只创建一次音频对象，并修正 URL 路径 ---
-
-const audioClips = useMemo(() => {
+    const audioClips = useMemo(() => {
     // 基础路径
-    const baseUrl = 'https://www.stevesplayground.online/game/1000words/music';
+        const baseUrl = 'https://www.stevesplayground.online/game/1000words/music';
     
     return {
         wrong: new Audio(`${baseUrl}/wrong.mp3`),
         correct: new Audio(`${baseUrl}/correct.mp3`),
         star: new Audio(`${baseUrl}/star.mp3`),
         finish: new Audio(`${baseUrl}/finish.mp3`)
-    };
-}, []); // 空数组确保只初始化一次
+        };
+      }, []); // 空数组确保只初始化一次
 
-// 预加载音频，避免第一次播放延迟
-useEffect(() => {
+    // 预加载音频，避免第一次播放延迟
+  useEffect(() => {
     Object.values(audioClips).forEach(audio => {
         audio.preload = 'auto';
         audio.load(); // 强制浏览器提前请求资源
-    });
-}, [audioClips]);
+      });
+  }, [audioClips]);
 
-// --- ✅ 修复 2: 移除 setTimeout 以兼容 iOS，增加错误处理 ---
-const playSound = (type) => {
+    // --- ✅ 修复 2: 移除 setTimeout 以兼容 iOS，增加错误处理 ---
+  const playSound = (type) => {
     const sound = audioClips[type];
     
     if (sound) {
@@ -587,13 +744,13 @@ const playSound = (type) => {
     } else {
         console.error(`未找到音效类型: ${type}`);
     }
-};
+  };
 
-// 在 App 组件顶部定义一个变量（或使用 useRef）
-const isSpeakingRef = React.useRef(false);
+  // 在 App 组件顶部定义一个变量（或使用 useRef）
+  const isSpeakingRef = React.useRef(false);
 
-// 修改 speak 函数定义，增加第二个参数 preferenceOverride
-const speak = (text, preferenceOverride = null) => {
+  // 修改 speak 函数定义，增加第二个参数 preferenceOverride
+  const speak = (text, preferenceOverride = null) => {
     if (!text) return;
     const synth = window.speechSynthesis;
     synth.cancel(); 
@@ -632,6 +789,37 @@ const speak = (text, preferenceOverride = null) => {
     }
 };
 
+const getStageInfo = () => {
+    // 过滤出当前关卡已学会的单词数量
+    const levelWordKeys = Object.keys(dbData[currentLevel]?.words || {});
+    const count = learnedWords.filter(w => levelWordKeys.includes(w)).length;
+    
+    // 计算当前是第几个 20 词阶段 (1-5)
+    const stage = Math.min(Math.floor(count / 20), 5);
+    const index = Math.max(stage - 1, 0); // 数组索引 0-4
+    
+    return {
+        count,
+        stage, // 当前拿到了几颗星
+        emoji: (MISSION_REWARDS[currentLevel] || MISSION_REWARDS[1])[index]
+    };
+};
+
+const getMyRank = () => {
+    // 优先读取全局同步的数据
+    const leaderboard = window.globalLeaderboardData;
+    const myId = window.userId || 'me'; // 确保你有用户ID
+
+    if (leaderboard && leaderboard.length > 0) {
+        // 在完整列表中寻找当前用户的排名
+        const myIndex = leaderboard.findIndex(user => user.id === myId);
+        return myIndex !== -1 ? `No.${myIndex + 1}` : "99+";
+    }
+
+    // 兜底：如果数据还没加载好，显示基于单词量的虚拟排名
+    const count = (Array.isArray(learnedWords) ? learnedWords : []).length;
+    return `No.${Math.max(1, 99 - Math.floor(count / 5))}`;
+};
 
 
 // 自动识别并渲染 Emoji 或 图片
@@ -693,8 +881,7 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
                 return all;
             }, [dbData]);
 
-            const [shuffledOptions, setShuffledOptions] = useState([]);
-            const currentKey = currentList[idx];
+            
 
             // 4. 自動計算打卡天數
             useEffect(() => {
@@ -729,40 +916,25 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
           const handleNext = () => {
     const levelWords = Object.keys(dbData[currentLevel].words);
     const learnedInLevel = learnedWords.filter(w => levelWords.includes(w)).length;
-    const isLevelCompleted = learnedInLevel >= 100; // ✅ 判断是否已全学完
+    
+    // 1. 核心修复：一旦达到 100，立即强制处理，不让它进 idx + 1 的逻辑
+    if (learnedInLevel >= 100) {
+        triggerStars();
+        setTimeout(triggerStars, 500);
+        playSound('finish');
+        setShowGameOver(true); // 弹窗提示：你已学完本关 100 词
+        return; // 拦截，不执行后续代码
+    }
 
+    // 2. 原有的正常翻页逻辑
     if (idx < currentList.length - 1) {
         // 还没到最后一张，正常下一张
         setFlipped(false);
         setIdx(prev => prev + 1);
     } else {
-        // 到了最后一张
-        if (isTest || isWrongSetMode || isChallenge) {
-            // 测试/挑战模式：直接结算
-            triggerStars();
-            setTimeout(triggerStars, 500);
-            playSound('finish');
-            setShowGameOver(true);
-        } else {
-            // Card 模式
-            if (isLevelCompleted) {
-                // ✅ 关键点：如果已经全部学完了，回到第一张循环，不要弹 GameOver
-                setFlipped(false);
-                setIdx(0);
-            } else {
-                // 如果还没学完 100 个，但当前列表走完了（比如剩下那 80 个走完了）
-                // 此时如果刚好打完最后一个勾凑满 100，才弹窗
-                if (learnedInLevel >= 100) {
-                    triggerStars();
-                    setTimeout(triggerStars, 500);
-                    playSound('finish');
-                    setShowGameOver(true);
-                } else {
-                    setFlipped(false);
-                    setIdx(0);
-                }
-            }
-        }
+        // 走到了数组末尾（可能是词库里不满 100 个的情况）
+        setFlipped(false);
+        setIdx(0); // 回到第一张
     }
 };
             const handlePrev = () => { if (idx > 0) { setFlipped(false); setIdx(prev => prev - 1); } };
@@ -798,7 +970,17 @@ useEffect(() => {
     }; 
 }, [learnedWords, wrongWords, highScore, userAvatar, userName]); 
 
-            const handleChoice = (choice) => {
+useEffect(() => {
+                if (currentKey && fullList.length > 0) {
+                    const distractors = fullList.filter(k => k !== currentKey).sort(() => 0.5 - Math.random()).slice(0, 3);
+                    setShuffledOptions([currentKey, ...distractors].sort(() => 0.5 - Math.random()));
+                    setTestFeedback(null);
+                }
+            }, [currentKey, currentList, fullList]);
+
+
+
+    const handleChoice = (choice) => {
     if (testFeedback) return;
     
     const currentKey = currentList[idx];
@@ -995,6 +1177,119 @@ if (showTutorial) {
         return <TutorialLoader onFinish={handleTutorialFinish} />;
     }
 
+
+if (view === 'medals') {
+    // 预处理：确保 learnedWords 始终是数组，防止报错
+    const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
+
+    return (
+        <div className="min-h-screen bg-slate-50 flex flex-col p-6 animate-in fade-in duration-300">
+            {/* 顶部标题栏 */}
+            <div className="flex items-center justify-between mb-6">
+                <button 
+                    onClick={() => setView('menu')} 
+                    className="w-10 h-10 bg-white rounded-2xl shadow-sm flex items-center justify-center text-slate-400 font-bold cursor-pointer active:scale-90 transition-all"
+                >
+                    ✕
+                </button>
+                <h2 className="text-xl font-black text-slate-800 tracking-tight">成就勋章墙</h2>
+                <div className="w-10"></div>
+            </div>
+
+            {/* 列表容器 - 修正了 fw-full 的拼写错误 */}
+            <div className="w-full max-w-md mx-auto px-4 flex-1 overflow-y-auto pb-4">
+               {Object.keys(MISSION_REWARDS).map((lvl) => {
+    const rewards = MISSION_REWARDS[lvl];
+    if (!rewards) return null;
+
+    // 1. 尝试从所有可能的地方抓取词库
+    // 这里我把 dbData 也加进来了
+    const source = window.DB || (typeof dbData !== 'undefined' ? dbData : null);
+    
+    // 2. 获取当前关卡数据
+    const levelData = source ? (source[lvl] || source[parseInt(lvl)]) : null;
+    
+    // 3. 提取单词
+    const levelWords = levelData && levelData.words ? Object.keys(levelData.words) : [];
+    
+    // 4. 计算进度
+    const learnedInLevel = (Array.isArray(learnedWords) ? learnedWords : [])
+        .filter(w => levelWords.includes(w)).length;
+
+            
+                    return (
+                        <div key={lvl} className="bg-white rounded-[32px] p-5 shadow-sm border border-slate-100 flex items-center gap-4 mb-4 active:scale-[0.98] transition-all">
+                            {/* 左侧大勋章 */}
+                            <div className={`w-20 h-20 rounded-[24px] flex items-center justify-center text-4xl shadow-inner transition-all ${learnedInLevel >= 100 ? 'bg-amber-50 animate-float' : 'bg-slate-50 grayscale opacity-20'}`}>
+                                {rewards[4] || "🏆"}
+                            </div>
+
+                            <div className="flex-1">
+                                <div className="flex justify-between items-end mb-2">
+                                    <div>
+                                        <h3 className="font-black text-slate-800 text-sm leading-none">LEVEL {lvl}</h3>
+                                        <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">{learnedInLevel}/100 WORDS</p>
+                                    </div>
+                                    <span className="text-[10px] font-black text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">
+                                        {Math.min(5, Math.floor(learnedInLevel / 20))}/5 Unlocked
+                                    </span>
+                                </div>
+
+                                {/* 20词阶梯小勋章 */}
+                                <div className="flex gap-2 mt-2">
+                                    {rewards.map((emoji, i) => {
+                                        const threshold = (i + 1) * 20;
+                                        const isStepUnlocked = learnedInLevel >= threshold;
+                                        return (
+                                            <div 
+                                                key={i} 
+                                                className={`w-9 h-9 rounded-full flex items-center justify-center text-base border-2 transition-all duration-500
+                                                ${isStepUnlocked 
+                                                    ? 'bg-gradient-to-br from-white to-indigo-50 border-indigo-200 shadow-md scale-110 opacity-100' 
+                                                    : 'bg-slate-100 border-slate-200 opacity-20 grayscale' 
+                                                }`}
+                                            >
+                                                {isStepUnlocked ? emoji : "🔒"}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+
+            {/* 底部汇总卡片 */}
+            <div className="w-full max-w-md mx-auto bg-slate-900 rounded-[32px] p-6 text-white flex justify-between items-center shadow-2xl mb-4">
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl">🏆</div>
+                    <div>
+                        <p className="text-[10px] font-bold opacity-50 uppercase leading-none mb-1">Total Medals</p>
+                        <p className="text-xl font-black">
+                            {Object.keys(MISSION_REWARDS).reduce((acc, lvl) => {
+                                const dbData = window.DB || {};
+                                const levelData = dbData[lvl] || dbData[parseInt(lvl)];
+                                if (!levelData) return acc;
+                                // 使用预处理过的 safeLearnedWords
+                                const count = safeLearnedWords.filter(w => Object.keys(levelData.words).includes(w)).length;
+                                return acc + Math.floor(count / 20);
+                            }, 0)}
+                        </p>
+                    </div>
+                </div>
+                <button 
+                    onClick={() => setView('menu')} 
+                    className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm active:scale-95 transition-all cursor-pointer"
+                >
+                    返回
+                </button>
+            </div>
+
+
+        </div>
+    );
+}
             if (view === 'menu') {
                 return (
                     <div className="max-w-md mx-auto p-6 relative">
@@ -1101,16 +1396,17 @@ if (showTutorial) {
         <div className="absolute -right-1 -top-1 opacity-10 group-hover:scale-125 transition-transform">🥇</div>
         <p className="text-[9px] font-black text-amber-600/60 uppercase mb-1 tracking-wider whitespace-nowrap">排行榜</p>
         <p className="text-xl transform group-hover:scale-110 transition-transform">🥇</p>
-        <p className="text-[8px] font-bold text-amber-500 mt-1 leading-none bg-amber-100/50 py-0.5 rounded-full">Click</p>
+        <p className="text-[8px] font-bold text-amber-500 mt-1 leading-none bg-amber-100/50 py-0.5 rounded-full">Top {getMyRank()}</p>
     </button>
 
     {/* 2. 已学会 - 柔和紫 */}
-    <div className="bg-gradient-to-b from-indigo-50 to-white p-3 py-4 rounded-[28px] border border-indigo-100 shadow-[0_4px_12px_-4px_rgba(79,70,229,0.2)] text-center">
+    <div onClick={() => setView('medals')} className="bg-gradient-to-b from-indigo-50 to-white p-3 py-4 rounded-[28px] border border-indigo-100 shadow-[0_4px_12px_-4px_rgba(79,70,229,0.2)] text-center cursor-pointer">
+
         <p className="text-[9px] font-black text-indigo-600/50 uppercase mb-1 tracking-wider whitespace-nowrap">已學會</p>
         <p className="text-xl font-black text-indigo-600 flex items-center justify-center gap-0.5">
             {learnedWords.length}<span className="text-sm opacity-70">📖</span>
         </p>
-        <p className="text-[8px] font-bold text-indigo-300 mt-1 leading-none ">Words</p>
+        <p className="text-[8px] font-bold text-ingido-500 mt-1 leading-none bg-indigo-100/50 py-0.5 rounded-full">Words</p>
     </div>
 
     {/* 3. 最高分 - 冷艳灰 */}
@@ -1118,7 +1414,7 @@ if (showTutorial) {
         <p className="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-wider whitespace-nowrap">最高分</p>
         <p className="text-xl font-black text-slate-700">{highScore}<span className="text-sm opacity-70">🏆</span>
 </p>
-        <p className="text-[8px] font-bold text-slate-300 mt-1 leading-none">Best Score</p>
+        <p className="text-[8px] font-bold text-slate-500 mt-1 leading-none bg-slate-100/50 py-0.5 rounded-full">Best Score</p>
     </div>
 
     {/* 4. 打卡天数 - 活力绿 */}
@@ -1127,7 +1423,7 @@ if (showTutorial) {
         <p className="text-xl font-black text-emerald-500 flex items-center justify-center gap-0.5 transition-transform group-hover:bounce">
             {streak}<span className="text-sm">🔥</span>
         </p>
-        <p className="text-[8px] font-bold text-emerald-400 mt-1 leading-none">Days</p>
+        <p className="text-[8px] font-bold text-emerald-500 mt-1 leading-none bg-emerald-100/50 py-0.5 rounded-full">Days</p>
     </div>
 </div>
 			
@@ -1324,7 +1620,7 @@ setIsChecking(true); playSound('correct');
      
 const isNewWord = !learnedWords.includes(currentKey);
 if (isNewWord) {
-    // 1. 先更新全局学会列表
+    // 1. ✅先更新全局学会列表
     const newTotalLearned = [...learnedWords, currentKey];
     setLearnedWords(newTotalLearned);
 
@@ -1336,9 +1632,19 @@ if (isNewWord) {
 
     // 4. ✅ 判断是否达到当前关卡的 20 倍数
     if (countInCurrentLevel > 0 && countInCurrentLevel % 20 === 0) {
-	playSound('star');
+	
+    // 5. ✅计算索引：(当前关卡-1)*5 + (当前题数/20 - 1)
+        const quoteIdx = (parseInt(currentLevel) - 1) * 5 + (Math.floor(idx / 20) - 1);
+        const quote = MOTIVATIONAL_QUOTES[quoteIdx] || "Keep it up!";
+
+    // 6. ✅更新文字状态并显示弹窗
+        setCurrentQuote(quote);
+ 	playSound('star');
 	triggerStars();
         setShowStageClear(true);
+
+    // 7. ✅同步语音朗读 (延迟 0.5s 等音效播完)
+        setTimeout(() => speak(quote), 500);
     }
 }
                                                     setFlipped(false); setIsChecking(false); handleNext();
@@ -1390,85 +1696,140 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 
 {/* 阶段性奖励弹窗 */}
 {showStageClear && (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
-        <div className="bg-white rounded-[40px] p-8 flex flex-col items-center shadow-2xl animate-in zoom-in duration-300">
-            <div className="text-8xl mb-4 animate-[bounce_1s_infinite] drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]">⭐</div>
-            <h2 className="text-3xl font-black text-slate-800 mb-2">太棒了!</h2>
-            <p className="text-slate-500 font-bold text-lg mb-8 text-center">
-                你已经学完了 <span className="text-indigo-600 text-2xl">{learnedWords.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length}</span> 个单词<br/>
-                获得第<span className="text-amber-500 text-2xl"> {Math.floor(learnedWords.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length / 20)}</span> 颗星！
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-6">
+        <div className="bg-white rounded-[40px] p-8 flex flex-col items-center shadow-2xl animate-in zoom-in duration-300 w-full max-w-sm border-2 border-slate-100">
+            
+            {/* 动态 Emoji 动画 */}
+            <div className="text-8xl mb-4 animate-bounce drop-shadow-xl">
+                {getStageInfo().emoji}
+            </div>
+
+            <div className="text-center mb-6">
+                <h2 className="text-2xl font-black text-slate-800">{currentQuote}</h2>
+                <p className="text-indigo-600 font-bold uppercase text-[10px] tracking-widest mt-1">获得阶段勋章</p>
+            </div>
+            
+            {/* 5格进度指示器 */}
+            <div className="flex gap-3 mb-8">
+                {[1, 2, 3, 4, 5].map((s) => (
+                    <div 
+                        key={s}
+                        className={`w-4 h-4 rounded-full border-2 transition-all duration-500 ${
+                            s <= getStageInfo().stage ? 'bg-indigo-500 border-indigo-200 scale-110' : 'bg-slate-100 border-slate-50'
+                        }`}
+                    ></div>
+                ))}
+            </div>
+
+            <p className="text-slate-500 font-bold mb-8 text-center text-sm">
+                你已在 Level {currentLevel} 学完 <span className="text-indigo-600 text-xl">{getStageInfo().count}</span> 词<br/>
+		
+                <span className="text-indigo-600 font-bold text-center mb-6 text-lg px-4">{getStageInfo().count >= 100 ? "本关打卡成功!" : "再学20个单词解锁新勋章哦!"} </span> 
             </p>
+
             <button 
                 onClick={() => setShowStageClear(false)}
-                className="bg-indigo-600 text-white text-xl font-black px-12 py-4 rounded-full shadow-lg active:scale-95"
+                className="w-full bg-slate-900 text-white text-lg font-black py-4 rounded-3xl shadow-lg active:scale-95 transition-all"
             >
                 继续下一组
             </button>
         </div>
     </div>
 )}
-                    {showGameOver && (
-                        <div className="fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center z-[200] p-6 text-slate-800">
-                            <div className={`bg-white p-10 rounded-[56px] text-center w-full max-w-[380px] shadow-2xl transform transition-all ${score >= 1000 ? 'gold-glow' : ''}`}>
-                                {isChallenge && score >= 1000 ? (
-                                    <>
-                                        <div className="text-8xl mb-6 floating-emoji">👑</div>
-                                        <h2 className="text-2xl font-black mb-4 tracking-tight leading-tight">
-                                            Congratulations, <span className="text-yellow-500">{userName || 'Steve'}</span>!
-                                        </h2>
-                                        <p className="text-slate-600 font-bold mb-8 leading-relaxed">
-                                            祝賀你在 <span className="text-emerald-500 text-xl">{streak}</span> 天內完成了 <span className="text-indigo-600 text-xl">1000詞</span> 大挑戰！
-                                        </p>
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="text-8xl mb-6">
-                                            {isChallenge ? (score > highScore ? "🏆" : "🎉") : "✅"}
-                                        </div>
-                                        <h2 className="text-2xl font-black mb-2">
-                                            {isChallenge ? (score >= highScore ? "打破紀錄!" : "太棒了!") : (isWrongSetMode ? "訂正完成!" :(isTest ? "測試完成！":"學習完成!" ))}
-                                        </h2>
-                                        <div className="mb-8">
-    {isChallenge ? (
-        /* --- 1. Survival Challenge 模式：顯示分數 --- */
-        <p className="font-black text-slate-400 text-lg uppercase tracking-widest">
-            Score: {score}
-        </p>
-    ) : (
-        <div className="flex flex-col items-center gap-2">
-            <p className="font-black text-slate-400 text-sm uppercase tracking-widest">
-                {isWrongSetMode ? "錯題複習進度" : (isTest ? "本次測試成果" : "本關總進度")}
-            </p>
-            
-            <p className="text-4xl font-black text-indigo-600">
-                {/* --- 2. 數量邏輯判斷 --- */}
-                {isWrongSetMode ? (
-                    // 錯題模式：顯示已訂正的數量
-                    `已訂正 ${currentList.length} 個單字`
-                ) : isTest ? (
-                    // 測試模式：顯示已複習的數量
-                    `已複習完 ${currentList.length} 個單字`
-                ) : (
-                    // Card 模式：固定顯示學完 100 個單字
-                    <span className="flex flex-col items-center">
-                        <span className="text-amber-500">已學完 100 個單字</span>
-                        <span className="text-[14px] mt-1">⭐⭐⭐⭐⭐</span>
-                    </span>
-                )}
-            </p>
+                    
+{showGameOver && (
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-slate-900/90 backdrop-blur-xl p-6">
+        {/* 判断是否为普通闯关模式 (Card模式) */}
+        {(!isChallenge && !isTest && !isWrongSetMode) ? (
+            /* ==========================================
+               1. CARD 模式 (领取勋章界面)
+               ========================================== */
+            <div className="bg-white rounded-[56px] p-10 flex flex-col items-center shadow-2xl w-full max-w-sm border-2 border-amber-100 relative animate-in fade-in zoom-in duration-300">
+                {/* 终极勋章 */}
+                <div className="relative mb-6 medal-main">
+                    <div className="text-[120px] leading-none filter drop-shadow-2xl animate-float">
+                        {MISSION_REWARDS[currentLevel] ? MISSION_REWARDS[currentLevel][4] : "🏆"}
+                    </div>
+                </div>
 
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mt-1">
-                {isWrongSetMode ? "Review Mode Completed" : (isTest ? "Test Session Finished" : `Level ${currentLevel} Mastered`)}
-            </p>
-        </div>
-    )}
-</div>
-                                    </>
-                                )}
-                                <button onClick={() => { setShowGameOver(false); setView('menu'); setIdx(0); }} className="w-full bg-slate-900 text-white py-5 rounded-[28px] font-black btn-active shadow-lg">回到首頁</button>
-                            </div>
+                {/* 五星动态弹出 */}
+                <div className="flex gap-1 mb-6">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                        <span key={s} className="text-4xl star-animated" style={{ animationDelay: `${s * 0.15}s` }}>⭐</span>
+                    ))}
+                </div>
+
+                <div className="text-center mb-10">
+                    <h2 className="text-3xl font-black text-slate-800 tracking-tight leading-none mb-2">LEVEL {currentLevel}</h2>
+                    <div className="bg-amber-100 text-amber-700 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest inline-block">
+                        勋章已收入收藏夹
+                    </div>
+                    <p className="text-amber-500 font-black mt-4 text-xl">已学完 100 个单词！</p>
+                </div>
+
+                <button 
+                    onClick={() => { setShowGameOver(false); setView('menu'); setIdx(0); }}
+                    className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black text-xl shadow-xl active:scale-95 transition-all"
+                >
+                    领取并返回
+                </button>
+            </div>
+        ) : (
+            /* ==========================================
+               2. 其他模式 (Challenge, Test, WrongSet)
+               ========================================== */
+            <div className={`bg-white p-10 rounded-[56px] text-center w-full max-w-[380px] shadow-2xl transform transition-all ${score >= 1000 ? 'gold-glow' : ''}`}>
+                {isChallenge && score >= 1000 ? (
+                    /* 特殊情况：挑战模式大满贯 */
+                    <>
+                        <div className="text-8xl mb-6 floating-emoji">👑</div>
+                        <h2 className="text-2xl font-black mb-4 tracking-tight leading-tight">
+                            Congratulations, <span className="text-yellow-500">{userName || 'Steve'}</span>!
+                        </h2>
+                        <p className="text-slate-600 font-bold mb-8 leading-relaxed">
+                            祝賀你在 <span className="text-emerald-500 text-xl">{streak}</span> 天內完成了 <span className="text-indigo-600 text-xl">1000詞</span> 大挑戰！
+                        </p>
+                    </>
+                ) : (
+                    /* 常规测试/错题/普通挑战结果 */
+                    <>
+                        <div className="text-8xl mb-6">
+                            {isChallenge ? (score > highScore ? "🏆" : "🎉") : "✅"}
                         </div>
-                    )}
+                        <h2 className="text-2xl font-black mb-2">
+                            {isChallenge ? (score >= highScore ? "打破紀錄!" : "太棒了!") : (isWrongSetMode ? "訂正完成!" : (isTest ? "測試完成！" : "學習完成!"))}
+                        </h2>
+                        <div className="mb-8">
+                            {isChallenge ? (
+                                <p className="font-black text-slate-400 text-lg uppercase tracking-widest">
+                                    Score: {score}
+                                </p>
+                            ) : (
+                                <div className="flex flex-col items-center gap-2">
+                                    <p className="font-black text-slate-400 text-sm uppercase tracking-widest">
+                                        {isWrongSetMode ? "错题複習進度" : "本次測試成果"}
+                                    </p>
+                                    <p className="text-4xl font-black text-indigo-600">
+                                        {isWrongSetMode ? `已訂正 ${currentList.length} 個單字` : `已複習完 ${currentList.length} 個单字`}
+                                    </p>
+                                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-tight mt-1">
+                                        {isWrongSetMode ? "Review Mode Completed" : "Test Session Finished"}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    </>
+                )}
+                <button 
+                    onClick={() => { setShowGameOver(false); setView('menu'); setIdx(0); }} 
+                    className="w-full bg-slate-900 text-white py-5 rounded-[28px] font-black btn-active shadow-lg"
+                >
+                    回到首頁
+                </button>
+            </div>
+        )}
+    </div>
+)}
 
 
 
@@ -1492,11 +1853,3 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-

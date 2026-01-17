@@ -22,7 +22,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
-    <script src="vocabulary.js"></script>
+    <script src="./vocabulary.js"></script>
     <style>
 
     /* 步骤切换时的进场动画 */
@@ -813,12 +813,12 @@ const getMyRank = () => {
     if (leaderboard && leaderboard.length > 0) {
         // 在完整列表中寻找当前用户的排名
         const myIndex = leaderboard.findIndex(user => user.id === myId);
-        return myIndex !== -1 ? `No.${myIndex + 1}` : "99+";
+        return myIndex !== -1 ? `${myIndex + 1}` : "99+";
     }
 
     // 兜底：如果数据还没加载好，显示基于单词量的虚拟排名
     const count = (Array.isArray(learnedWords) ? learnedWords : []).length;
-    return `No.${Math.max(1, 99 - Math.floor(count / 5))}`;
+    return `${Math.max(1, 99 - Math.floor(count / 5))}`;
 };
 
 
@@ -1261,30 +1261,40 @@ if (view === 'medals') {
             </div>
 
             {/* 底部汇总卡片 */}
-            <div className="w-full max-w-md mx-auto bg-slate-900 rounded-[32px] p-6 text-white flex justify-between items-center shadow-2xl mb-4">
-                <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl">🏆</div>
-                    <div>
-                        <p className="text-[10px] font-bold opacity-50 uppercase leading-none mb-1">Total Medals</p>
-                        <p className="text-xl font-black">
-                            {Object.keys(MISSION_REWARDS).reduce((acc, lvl) => {
-                                const dbData = window.DB || {};
-                                const levelData = dbData[lvl] || dbData[parseInt(lvl)];
-                                if (!levelData) return acc;
-                                // 使用预处理过的 safeLearnedWords
-                                const count = safeLearnedWords.filter(w => Object.keys(levelData.words).includes(w)).length;
-                                return acc + Math.floor(count / 20);
-                            }, 0)}
-                        </p>
-                    </div>
-                </div>
-                <button 
-                    onClick={() => setView('menu')} 
-                    className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm active:scale-95 transition-all cursor-pointer"
-                >
-                    返回
-                </button>
-            </div>
+<div className="w-full max-w-md mx-auto bg-slate-900 rounded-[32px] p-6 text-white flex justify-between items-center shadow-2xl mb-4">
+    <div className="flex items-center gap-4">
+        <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl shadow-inner">🏆</div>
+        <div>
+            <p className="text-[10px] font-bold opacity-50 uppercase leading-none mb-1">Total Medals</p>
+            <p className="text-xl font-black text-amber-400">
+                {(() => {
+                    // 使用立即执行函数来计算总数，确保逻辑清晰
+                    let totalUnlocked = 0;
+                    const dbData = window.DB || {};
+                    const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
+
+                    Object.keys(MISSION_REWARDS).forEach(lvl => {
+                        const levelData = dbData[lvl] || dbData[parseInt(lvl)];
+                        if (levelData && levelData.words) {
+                            const levelWordKeys = Object.keys(levelData.words);
+                            // 计算该关卡已学会单词
+                            const count = safeLearnedWords.filter(w => levelWordKeys.includes(w)).length;
+                            // 每 20 个单词算一个勋章（每关最多 5 个）
+                            totalUnlocked += Math.floor(Math.min(100, count) / 20);
+                        }
+                    });
+                    return totalUnlocked;
+                })()}
+            </p>
+        </div>
+    </div>
+    <button 
+        onClick={() => setView('menu')} 
+        className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm active:scale-95 hover:bg-slate-100 transition-all cursor-pointer"
+    >
+        返回主页
+    </button>
+</div>
 
 
         </div>
@@ -1394,9 +1404,9 @@ if (view === 'medals') {
         className="relative overflow-hidden bg-gradient-to-b from-amber-50 to-white p-3 py-4 rounded-[28px] border border-amber-100 shadow-[0_4px_12px_-4px_rgba(251,191,36,0.3)] text-center active:scale-95 transition-all group"
     >
         <div className="absolute -right-1 -top-1 opacity-10 group-hover:scale-125 transition-transform">🥇</div>
-        <p className="text-[9px] font-black text-amber-600/60 uppercase mb-1 tracking-wider whitespace-nowrap">排行榜</p>
-        <p className="text-xl transform group-hover:scale-110 transition-transform">🥇</p>
-        <p className="text-[8px] font-bold text-amber-500 mt-1 leading-none bg-amber-100/50 py-0.5 rounded-full">Top {getMyRank()}</p>
+        <p className="text-[9px] font-amber text-amber-600/60 uppercase mb-1 tracking-wider whitespace-nowrap">排行榜</p>
+        <p className="text-xl font-black text-amber-600 flex items-center justify-center gap-0.5">{getMyRank()}🥇</p>
+        <p className="text-[8px] font-bold text-amber-500 mt-1 leading-none bg-amber-100/50 py-0.5 rounded-full">Top 10 </p>
     </button>
 
     {/* 2. 已学会 - 柔和紫 */}
@@ -1414,7 +1424,7 @@ if (view === 'medals') {
         <p className="text-[9px] font-black text-slate-400 uppercase mb-1 tracking-wider whitespace-nowrap">最高分</p>
         <p className="text-xl font-black text-slate-700">{highScore}<span className="text-sm opacity-70">🏆</span>
 </p>
-        <p className="text-[8px] font-bold text-slate-500 mt-1 leading-none bg-slate-100/50 py-0.5 rounded-full">Best Score</p>
+        <p className="text-[8px] font-bold text-slate-500 mt-1 leading-none bg-slate-100/100 py-0.5 rounded-full">Best Score</p>
     </div>
 
     {/* 4. 打卡天数 - 活力绿 */}

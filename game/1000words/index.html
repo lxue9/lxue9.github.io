@@ -750,35 +750,45 @@ const App = () => {
   const isSpeakingRef = React.useRef(false);
 
   // 修改 speak 函数定义，增加第二个参数 preferenceOverride
-  const speak = (text, preferenceOverride = null) => {
+const speak = (text, preferenceOverride = null) => {
     if (!text) return;
     const synth = window.speechSynthesis;
     synth.cancel(); 
 
     const utter = new SpeechSynthesisUtterance(text);
-    
-    // 关键点：优先使用传入的参数，如果没有才用 state 里的状态
     const currentPref = preferenceOverride || voicePreference;
 
     const performSpeak = () => {
         const voices = synth.getVoices();
         let target;
-        
-        if (currentPref === 'us-male') {
-            target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
-            utter.pitch = 0.8;
-        } else if (currentPref === 'uk-female') {
-            target = voices.find(v => /female|en-GB|google uk/i.test(v.name) && /en-GB/.test(v.lang));
+
+        // --- 新增逻辑：检测是否包含中文 ---
+        const hasChinese = /[\u4e00-\u9fa5]/.test(text);
+
+        if (hasChinese) {
+            // 如果有中文，寻找中文发音人（通常中文发音人也能读简单的英文句子）
+            target = voices.find(v => /zh-CN|chinese|huihui|xiaoxiao/i.test(v.lang + v.name));
+            utter.lang = 'zh-CN';
             utter.pitch = 1.0;
+            utter.rate = 0.9; // 稍微放慢一点，让双语听得清楚
         } else {
-            target = voices.find(v => /samantha|aria|zira|susan|female/i.test(v.name) && /en-US/.test(v.lang))
-                     || voices.find(v => /en-US/i.test(v.lang) && !/male/i.test(v.name));
-            utter.pitch = 1.0;
+            // --- 原有逻辑：处理纯英文偏好 ---
+            if (currentPref === 'us-male') {
+                target = voices.find(v => /male|david|guy|nathan/i.test(v.name) && /en-US/.test(v.lang));
+                utter.pitch = 0.8;
+            } else if (currentPref === 'uk-female') {
+                target = voices.find(v => /female|en-GB|google uk/i.test(v.name) && /en-GB/.test(v.lang));
+                utter.pitch = 1.0;
+            } else {
+                target = voices.find(v => /samantha|aria|zira|susan|female/i.test(v.name) && /en-US/.test(v.lang))
+                         || voices.find(v => /en-US/i.test(v.lang) && !/male/i.test(v.name));
+                utter.pitch = 1.0;
+            }
+            utter.lang = currentPref === 'uk-female' ? 'en-GB' : 'en-US';
+            utter.rate = 0.9;
         }
 
         if (target) utter.voice = target;
-        utter.lang = currentPref === 'uk-female' ? 'en-GB' : 'en-US';
-        utter.rate = 0.9;
         synth.speak(utter);
     };
 

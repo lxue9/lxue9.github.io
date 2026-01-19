@@ -268,10 +268,12 @@ React.useEffect(() => {
     const [loading, setLoading] = React.useState(true);
 
     // 计算我的排名
-    const myId = window.userId || 'me';
+    const myId = window.userId || localStorage.getItem('steve_name') || 'Me';
     // 优先从全局全量数据中找，如果没有，就用当前显示的列表找
     const fullData = window.globalLeaderboardData || displayList;
-    const myRankIndex = fullData.findIndex(p => p.id === myId);
+    const myRankIndex = fullData.findIndex(p => 
+    String(p.id) === String(myId) || String(p.name) === String(myId)
+);
 
     // 最终显示的名次数字（如果没上榜，根据单词量算一个假排名）
     const myRankNumber = myRankIndex !== -1 
@@ -353,7 +355,7 @@ React.useEffect(() => {
                 {loading ? (
                     <div className="text-center text-slate-400 py-4 font-bold">加载排行榜中...</div>
                 ) : displayList.map((player, index) => {
-                  const isMe = player.id === myId;
+                  const isMe = String(player.id) === String(myId) || player.name === myId;
     const rank = index + 1;
 
     // --- 定义前三名的特殊颜色 ---
@@ -818,11 +820,12 @@ const getStageInfo = () => {
 const getMyRank = () => {
     // 优先读取全局同步的数据
     const leaderboard = window.globalLeaderboardData;
-    const myId = window.userId || 'me'; // 确保你有用户ID
+    const myId = window.userId || localStorage.getItem('steve_name') || 'Me'; // 确保你有用户ID
 
     if (leaderboard && leaderboard.length > 0) {
         // 在完整列表中寻找当前用户的排名
-        const myIndex = leaderboard.findIndex(user => user.id === myId);
+        const myIndex = leaderboard.findIndex(user => String(user.id).trim() === myId || String(user.name).trim() === myId
+        );
         return myIndex !== -1 ? `${myIndex + 1}` : "99+";
     }
 
@@ -1873,3 +1876,4 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+

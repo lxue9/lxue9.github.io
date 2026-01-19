@@ -253,7 +253,7 @@ const MOTIVATIONAL_QUOTES = [
    };
 
 const Leaderboard = (props) => {
-  
+  	const [userName, setUserName] = React.useState(() => localStorage.getItem('steve_name') || '');
     const [realPlayerCount, setRealPlayerCount] = React.useState(0);
     const learnedWords = props.learnedWords || window.learnedWords || [];
 
@@ -1876,5 +1876,6 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 

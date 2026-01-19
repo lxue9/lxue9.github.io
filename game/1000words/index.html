@@ -1284,7 +1284,7 @@ if (view === 'medals') {
                 {(() => {
                     // 使用立即执行函数来计算总数，确保逻辑清晰
                     let totalUnlocked = 0;
-                    
+                    const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
                     const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
 
                     Object.keys(MISSION_REWARDS).forEach(lvl => {

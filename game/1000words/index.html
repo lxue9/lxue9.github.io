@@ -820,6 +820,7 @@ const getStageInfo = () => {
 const getMyRank = () => {
     // 优先读取全局同步的数据
     const leaderboard = window.globalLeaderboardData;
+	const [userName, setUserName] = React.useState(() => localStorage.getItem('steve_name') || '');
     const currentName = (userName || localStorage.getItem('steve_name') || 'Steve').trim();
 
     if (leaderboard && leaderboard.length > 0) {
@@ -1876,6 +1877,7 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

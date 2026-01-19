@@ -1284,7 +1284,7 @@ if (view === 'medals') {
                 {(() => {
                     // 使用立即执行函数来计算总数，确保逻辑清晰
                     let totalUnlocked = 0;
-                    const dbData = window.DB || {};
+                    
                     const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
 
                     Object.keys(MISSION_REWARDS).forEach(lvl => {
@@ -1877,6 +1877,7 @@ className={`mt-8 w-20 h-20 rounded-full border-4 flex items-center justify-cente
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

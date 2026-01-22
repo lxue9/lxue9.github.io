@@ -979,6 +979,19 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
            medalsListRef.current.scrollTop = 0;
        }
    }, [view]);
+
+// --- ✅ 新增：菜单页列表的 Ref ---
+   const menuListRef = useRef(null);
+
+   // --- ✅ 新增：进入菜单页时，自动滚动到顶部 ---
+   React.useEffect(() => {
+       if (view === 'menu' && menuListRef.current) {
+           menuListRef.current.scrollTop = 0;
+       }
+   }, [view]);
+
+
+
 			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
 	    const [isDataLoading, setIsDataLoading] = React.useState(true);
@@ -1419,32 +1432,47 @@ if (view === 'medals') {
 			{/* 名字模态框*/}
 
                         {showNameModal && (
-                            <div className="modal-overlay">
-                                <div className="bg-white p-6 rounded-[48px] max-w-[340px] text-center w-full max-w-[340px] shadow-2xl">
-                                    <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
+    /* 修复 1: 外层改为 overflow-y-auto，允许整个遮罩层滚动 */
+    <div className="fixed inset-0 z-[500] bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
+        {/* 使用 min-h-full 确保在内容较少时居中，内容较多时可滚动 */}
+        <div className="min-h-full flex items-center justify-center p-4">
+            <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl relative">
+                <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
 
-				{/* 头像选择区 */}
-                           	    <p className="text-xs font-bold text-slate-400 uppercase mb-2">选择一个头像</p>
-                            	    <div className="grid grid-cols-4 gap-2 mb-6">
-                                	{AVATAR_OPTIONS.map(emoji => (
-                                    	<button 
-                                        	key={emoji}
-                                        	onClick={() => setUserAvatar(emoji)}
-                                        	className={`text-3xl p-2 rounded-xl border-2 transition-all ${userAvatar === emoji ? 'bg-indigo-100 border-indigo-500 scale-110' : 'bg-slate-50 border-slate-100 hover:bg-white'}`}
-                                     	>
-                                        {emoji}
-                                    </button>
-                                ))}
-                            	   </div>
+                {/* 头像选择区 */}
+                <p className="text-xs font-bold text-slate-400 uppercase mb-2">选择一个头像</p>
+                <div className="grid grid-cols-4 gap-2 mb-6">
+                    {AVATAR_OPTIONS.map(emoji => (
+                        <button 
+                            key={emoji}
+                            onClick={() => setUserAvatar(emoji)}
+                            className={`text-3xl p-2 rounded-xl border-2 transition-all ${userAvatar === emoji ? 'bg-indigo-100 border-indigo-500 scale-110' : 'bg-slate-50 border-slate-100 hover:bg-white'}`}
+                        >
+                            {emoji}
+                        </button>
+                    ))}
+                </div>
 
-
-                                    <input type="text" value={tempName} onChange={(e) => setTempName(e.target.value)} placeholder="Steve..." className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" />
-                                    <button onClick={() => { setUserName(tempName); localStorage.setItem('steve_name', tempName); setShowNameModal(false); playSound('correct');setShowTutorial(false);
-        localStorage.setItem('tutorialCompleted', 'true'); syncToCloud(tempName, learnedWords.length, userAvatar);
-}} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
-                                </div>
-                            </div>
-                        )}
+                <input 
+                    type="text" 
+                    value={tempName} 
+                    onChange={(e) => setTempName(e.target.value)} 
+                    placeholder="Steve..." 
+                    className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" 
+                />
+                <button onClick={() => { 
+                    setUserName(tempName); 
+                    localStorage.setItem('steve_name', tempName); 
+                    setShowNameModal(false); 
+                    playSound('correct');
+                    setShowTutorial(false);
+                    localStorage.setItem('tutorialCompleted', 'true'); 
+                    syncToCloud(tempName, learnedWords.length, userAvatar);
+                }} className="w-full bg-indigo-600 text-white py-5 rounded-[28px] font-black btn-active">Let's Go!</button>
+            </div>
+        </div>
+    </div>
+)}
 
 			{/* 顶部标题栏 (原 header 内容) */}
                         <header className="flex justify-between items-center mb-6">
@@ -1582,7 +1610,7 @@ if (view === 'medals') {
 </div>
 			
 {/* --- 第二部分：下方可滑动的列表 --- */}
-<div className="flex-1 overflow-y-auto px-6 pt-4 pb-24 scroll-smooth">
+<div ref={menuListRef} className="flex-1 overflow-y-auto px-6 pt-4 pb-24 scroll-smooth">
                 <div className="max-w-md mx-auto">
 
                         <div className="space-y-4">

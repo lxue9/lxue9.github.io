@@ -284,35 +284,33 @@ const MOTIVATIONAL_QUOTES = [
 
 
 const Leaderboard = (props) => {
-    // --- 修改点 1: 保留一个 loading 即可，删除重复的 ---
+    // --- 状态定义 ---
     const [realPlayerCount, setRealPlayerCount] = React.useState(0);
     const [displayList, setDisplayList] = React.useState([]);
     const [loading, setLoading] = React.useState(true); 
+    const [totalParticipants, setTotalParticipants] = React.useState(0); // 新增：用于显示合理的总人数
 
     const learnedWords = props.learnedWords || window.learnedWords || [];
 
-    // --- 修改点 2: 统一排名计算逻辑 (解决 76 名跳变的关键) ---
+    // --- 核心修复 1: 确保排名计算引用全量数据 ---
     const myRankNumber = React.useMemo(() => {
-        if (loading) return "--"; // 加载中显示横杠
+        if (loading) return "--"; 
         
-        // 从全量数据中查找
         const fullData = window.globalLeaderboardData || [];
         const myLocalName = (localStorage.getItem('steve_name') || 'Steve').trim();
         
+        // 在全量数据中查找自己的真实位置
         const index = fullData.findIndex(p => 
             (p.name && p.name.trim() === myLocalName) || p.isMe === true
         );
         
-        // 如果找到了返回 index+1，没找到则显示 "..."
-        return index !== -1 ? (index + 1) : "...";
-    }, [loading, displayList]); 
+        return index !== -1 ? (index + 1) : "--";
+    }, [loading, displayList]); // 依赖 displayList 更新触发重算
 
-    // 原有的 useEffect 保持更新全局变量
     React.useEffect(() => {
         window.learnedWords = learnedWords;
     }, [learnedWords]);
 
-    // --- 修改点 3: 修正 useEffect 内部的逻辑 ---
     React.useEffect(() => {
         const rankRef = firebase.database().ref('leaderboard'); 
         const listener = rankRef.on('value', (snapshot) => {
@@ -326,42 +324,37 @@ const Leaderboard = (props) => {
                 setRealPlayerCount(0);
             }
 
-        // --- 核心逻辑：虚拟数据算法 ---
-        const getDailyGrowth = () => {
-            const today = new Date();
-            // 每天产生一个固定的增长基数
-            return (today.getFullYear() - 2024) * 365 + today.getMonth() * 30 + today.getDate();
-        };
+            // --- 虚拟数据算法 ---
+            const getDailyGrowth = () => {
+                const today = new Date();
+                return (today.getFullYear() - 2024) * 365 + today.getMonth() * 30 + today.getDate();
+            };
 
-// 3. 确保“我”在全量数据里，且分数实时同步
-        let finalData = [...realData];
-        const myScore = learnedWords.length;
-        const myLocalName = (localStorage.getItem('steve_name') || 'Steve').trim();
+            let finalData = [...realData];
+            const myScore = learnedWords.length;
+            const myLocalName = (localStorage.getItem('steve_name') || 'Steve').trim();
 
+            // 生成 15 个虚拟机器人
+            if (finalData.length < 15) { 
+                const needed = 15 - finalData.length; // 确保至少填满15人
+                const existingNames = new Set(finalData.map(p => p.name));
+                const availableNames = BOT_NAMES.filter(name => !existingNames.has(name));
 
-        // 2. 虚拟选手生成（身份固定，分数动态）
-        if (finalData.length < 15) { 
-            const needed = 15 - finalData.length;
-            const existingNames = new Set(finalData.map(p => p.name));
-            const availableNames = BOT_NAMES.filter(name => !existingNames.has(name));
-
-            for (let i = 0; i < needed; i++) {
-                const botName = availableNames[i] || `Student_${i + 1}`;
-                const baseOffset = 15 - (i * 3); // 分数梯队
-                const growth = getDailyGrowth();
-                
-                finalData.push({
-                    id: `fixed_bot_${i}`, 
-                    name: botName,
-                    avatar: AVATAR_OPTIONS[i % AVATAR_OPTIONS.length],
-                    // 分数逻辑：你的分数 + 梯队偏移 + 每日微调 (growth % 5)
-                    score: Math.max(10, myScore + baseOffset + (growth % 5)), 
-                    isBot: true
-                });
+                for (let i = 0; i < 15; i++) { // 固定生成15个机器人作为基底
+                    const botName = availableNames[i] || `Student_${i + 1}`;
+                    const baseOffset = 15 - (i * 3); 
+                    const growth = getDailyGrowth();
+                    
+                    // 机器人逻辑：即使你0分，机器人也是10分起步，所以你会排在它们后面
+                    finalData.push({
+                        id: `fixed_bot_${i}`, 
+                        name: botName,
+                        avatar: AVATAR_OPTIONS[i % AVATAR_OPTIONS.length],
+                        score: Math.max(10, myScore + baseOffset + (growth % 5)), 
+                        isBot: true
+                    });
+                }
             }
-        }
-
-       
 
             // 确保“我”的数据更新
             const meIdx = finalData.findIndex(p => p.name === myLocalName);
@@ -372,125 +365,128 @@ const Leaderboard = (props) => {
                 finalData.push({ id: 'me_local', name: myLocalName, score: myScore, isMe: true, avatar: '😎' });
             }
 
+            // 排序：分数高到低
             finalData.sort((a, b) => b.score - a.score);
 
-            const myFinalRank = finalData.findIndex(p => p.name === myLocalName);
-            let displayResult = finalData.slice(0, 10);
+            // 更新全局数据供 Menu 使用
+            window.globalLeaderboardData = finalData;
+            
+            // --- 核心修复 2: 截取逻辑优化 ---
+            const myFinalRank = finalData.findIndex(p => p.isMe === true);
+            let displayResult = finalData.slice(0, 10); // 取前10名
+            
+            // 如果我在10名开外，把我追加到列表末尾
             if (myFinalRank >= 10) {
                 displayResult.push(finalData[myFinalRank]);
             }
 
-            // 更新状态
-            window.globalLeaderboardData = finalData; // 先存全局，再设 loading
             setDisplayList(displayResult);
-            setLoading(false); // 这一行会触发 myRankNumber 重新计算
+            // 设置合理的总人数：真实玩家 + 机器人
+            setTotalParticipants(finalData.length);
+            setLoading(false); 
         });
 
         return () => rankRef.off('value', listener);
-const myName = localStorage.getItem('steve_name') || 'Steve';
+    }, [learnedWords.length]); // 依赖 learnedWords 触发刷新
+
+    // 同步云端
+    const myName = localStorage.getItem('steve_name') || 'Steve';
     const myAvatar = window.userAvatar || '😎';
-    
-    // 每次词数改变，同步到云端
     syncToCloud(myName, learnedWords.length, myAvatar);
-    }, [learnedWords.length]);
-console.log("当前真实人数:", realPlayerCount);
    
     return (
         <div className="bg-white/90 backdrop-blur-sm p-5 rounded-[36px] border-4 border-indigo-50 shadow-xl w-full">
-            {/* 标题栏 & 总人数展示 */}
             <div className="flex flex-col items-center justify-center mb-5">
                 <div className="flex items-center gap-2">
                     <span className="text-2xl animate-bounce">🏆</span>
                     <h3 className="font-black text-indigo-600 text-lg tracking-wider">学霸排行榜</h3>
                 </div>
-                {/* 展示真实玩家数量，增加信任感 */}
-		
+                {/* --- 核心修复 3: 显示合理的逻辑人数 (真实+机器人) --- */}
                 <p className="text-xs font-bold text-slate-400 mt-1">
-                    已有 <span className="text-indigo-500 text-sm">{loading ? "100+" : (100 + Math.max(1, realPlayerCount))}</span> 位小朋友加入挑战
-		    
+                    已有 <span className="text-indigo-500 text-sm">{loading ? "--" : totalParticipants}</span> 位小朋友加入挑战
                 </p>
             </div>
             
             <div className="space-y-3">
-    {loading ? (
-        <div className="text-center text-slate-400 py-4 font-bold">加载排行榜中...</div>
-    ) : (
-        displayList.map((player, index) => {
-            const myLocalName = (localStorage.getItem('steve_name') || 'Steve').trim();
-            // 匹配逻辑：名字对得上，或者 ID 对得上
-            const isMe = (player.name && player.name.trim() === myLocalName) || player.id === myLocalName;
-            const rank = index + 1;
+            {loading ? (
+                <div className="text-center text-slate-400 py-4 font-bold">加载排行榜中...</div>
+            ) : (
+                displayList.map((player, index) => {
+                    const myLocalName = (localStorage.getItem('steve_name') || 'Steve').trim();
+                    const isMe = (player.name && player.name.trim() === myLocalName) || player.id === myLocalName || player.isMe;
+                    
+                    // --- 核心修复 4: 排名显示逻辑 ---
+                    // 如果是"我"，直接使用计算出的真实排名(myRankNumber)
+                    // 如果是别人(必然在Top10列表里)，直接用 index+1
+                    const rank = isMe ? myRankNumber : (index + 1);
 
-            // 定义样式函数
-            const getRankStyle = () => {
-                if (rank === 1) return 'bg-amber-50 border-amber-200 shadow-amber-100';
-                if (rank === 2) return 'bg-rose-50 border-rose-200 shadow-rose-100';
-                if (rank === 3) return 'bg-emerald-50 border-emerald-200 shadow-orange-100';
-                return isMe ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-100';
-            };
+                    const getRankStyle = () => {
+                        if (rank === 1) return 'bg-amber-50 border-amber-200 shadow-amber-100';
+                        if (rank === 2) return 'bg-rose-50 border-rose-200 shadow-rose-100';
+                        if (rank === 3) return 'bg-emerald-50 border-emerald-200 shadow-orange-100';
+                        return isMe ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-slate-100';
+                    };
 
-            return (
-                <div 
-                    key={player.id || `rank-${index}`} 
-                    className={`flex items-center gap-4 p-4 rounded-[24px] transition-all mb-3 border-2
-                        ${getRankStyle()} 
-                        ${isMe ? 'ring-2 ring-indigo-500 ring-offset-2 scale-[1.02] z-10' : ''}
-                    `}
-                >
-                    {/* 1. 排名图标 */}
-                    <div className="w-8 h-8 flex items-center justify-center">
-                        {rank === 1 ? <span className="text-3xl drop-shadow-sm">🥇</span> : 
-                         rank === 2 ? <span className="text-3xl drop-shadow-sm">🥈</span> : 
-                         rank === 3 ? <span className="text-3xl drop-shadow-sm">🥉</span> : 
-                         <span className="font-black text-slate-400 italic">#{rank}</span>}
-                    </div>
+                    return (
+                        <div 
+                            key={player.id || `rank-${index}`} 
+                            className={`flex items-center gap-4 p-4 rounded-[24px] transition-all mb-3 border-2
+                                ${getRankStyle()} 
+                                ${isMe ? 'ring-2 ring-indigo-500 ring-offset-2 scale-[1.02] z-10' : ''}
+                            `}
+                        >
+                            {/* 排名图标 */}
+                            <div className="w-8 h-8 flex items-center justify-center">
+                                {rank === 1 ? <span className="text-3xl drop-shadow-sm">🥇</span> : 
+                                 rank === 2 ? <span className="text-3xl drop-shadow-sm">🥈</span> : 
+                                 rank === 3 ? <span className="text-3xl drop-shadow-sm">🥉</span> : 
+                                 <span className="font-black text-slate-400 italic">#{rank}</span>}
+                            </div>
 
-                    {/* 2. 头像 */}
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm
-                        ${rank === 1 ? 'bg-amber-400 text-white' : 
-                          rank === 2 ? 'bg-rose-300 text-white' : 
-                          rank === 3 ? 'bg-emerald-400 text-white' : 'bg-slate-100'}`}>
-                        {player.avatar || '👤'}
-                    </div>
+                            {/* 头像 */}
+                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shadow-sm
+                                ${rank === 1 ? 'bg-amber-400 text-white' : 
+                                  rank === 2 ? 'bg-rose-300 text-white' : 
+                                  rank === 3 ? 'bg-emerald-400 text-white' : 'bg-slate-100'}`}>
+                                {player.avatar || '👤'}
+                            </div>
 
-                    {/* 3. 名字 */}
-                    <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                            <span className={`font-black ${rank <= 3 ? 'text-slate-900' : 'text-slate-700'}`}>
-                                {player.name}
-                            </span>
-                            {isMe && (
-                                <span className="bg-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black">
-                                    YOU
-                                </span>
-                            )}
+                            {/* 名字 */}
+                            <div className="flex-1">
+                                <div className="flex items-center gap-2">
+                                    <span className={`font-black ${rank <= 3 ? 'text-slate-900' : 'text-slate-700'}`}>
+                                        {player.name}
+                                    </span>
+                                    {isMe && (
+                                        <span className="bg-indigo-600 text-white text-[9px] px-1.5 py-0.5 rounded-md font-black">
+                                            YOU
+                                        </span>
+                                    )}
+                                </div>
+                                {rank <= 3 && (
+                                    <span className="text-[10px] font-bold text-amber-600/70 uppercase tracking-widest block">
+                                        {rank === 1 ? 'Top Performer' : rank === 2 ? 'Elite Student' : 'Rising Star'}
+                                    </span>
+                                )}
+                            </div>
+
+                            {/* 单词数 */}
+                            <div className="text-right">
+                                <p className="font-black text-base text-slate-900 leading-none">
+                                    {player.score}
+                                </p>
+                                <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">
+                                    Words
+                                </p>
+                            </div>
                         </div>
-                        {rank <= 3 && (
-                            <span className="text-[10px] font-bold text-amber-600/70 uppercase tracking-widest block">
-                                {rank === 1 ? 'Top Performer' : rank === 2 ? 'Elite Student' : 'Rising Star'}
-                            </span>
-                        )}
-                    </div>
-
-                    {/* 4. 单词数 */}
-                    <div className="text-right">
-                        <p className="font-black text-base text-slate-900 leading-none">
-                            {player.score}
-                        </p>
-                        <p className="text-[9px] font-bold text-slate-400 uppercase mt-1">
-                            Words
-                        </p>
-                    </div>
-                </div>
-            );
-        })
-    )}
-</div>
+                    );
+                })
+            )}
+            </div>
         </div>
     );
-};
-
-        // 全局噴泉/黃金雨函數
+};        // 全局噴泉/黃金雨函數
         window.fireSuccessConfetti = (isGoldRain = false) => {
             if (typeof confetti !== 'function') return;
             const duration = isGoldRain ? 10 * 1000 : 2.5 * 1000;
@@ -975,6 +971,14 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
         </span>
     );
 };
+
+// --- ✅ 新增：勋章墙的滚动 Ref 和自动回顶逻辑 ---
+   const medalsListRef = React.useRef(null);
+   React.useEffect(() => {
+       if (view === 'medals' && medalsListRef.current) {
+           medalsListRef.current.scrollTop = 0;
+       }
+   }, [view]);
 			
             const dbData = window.DB || (typeof DB !== 'undefined' ? DB : null);
 	    const [isDataLoading, setIsDataLoading] = React.useState(true);
@@ -1290,135 +1294,120 @@ if (view === 'medals') {
     const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
 
     return (
-        <div className="h-screen flex flex-col bg-slate-50 overflow-hidden relative">
+        // 修复 1: 使用 h-[100dvh] 代替 h-screen，解决手机浏览器底部遮挡问题
+        <div className="h-[100dvh] flex flex-col bg-slate-50 overflow-hidden relative">
         
-        {/* 1. 顶部标题区 (可选) */}
             {/* 顶部标题栏 */}
-	  <div className="w-full max-w-md mx-auto px-6 pt-6 flex-none">
-            <div className="flex items-center justify-between mb-6">
-                <button 
-                    onClick={() => setView('menu')} 
-                    className="w-10 h-10 bg-white rounded-2xl shadow-sm flex items-center justify-center text-slate-400 font-bold cursor-pointer active:scale-90 transition-all"
-                >
-                    ✕
-                </button>
-                <h2 className="text-xl font-black text-slate-800 tracking-tight">成就勋章墙</h2>
-                <div className="w-10"></div>
+            <div className="w-full max-w-md mx-auto px-6 pt-6 flex-none">
+                <div className="flex items-center justify-between mb-6">
+                    <button 
+                        onClick={() => setView('menu')} 
+                        className="w-10 h-10 bg-white rounded-2xl shadow-sm flex items-center justify-center text-slate-400 font-bold cursor-pointer active:scale-90 transition-all"
+                    >
+                        ✕
+                    </button>
+                    <h2 className="text-xl font-black text-slate-800 tracking-tight">成就勋章墙</h2>
+                    <div className="w-10"></div>
+                </div>
             </div>
- </div>
 
-            {/* 列表容器  */}
-<div className="flex-1 overflow-y-auto pt-2 pb-40 scroll-smooth">
-<div className="max-w-md mx-auto px-6">
+            {/* 列表容器 */}
+            {/* 修复 2: 绑定 ref={medalsListRef} 用于自动回到顶部 */}
+            <div ref={medalsListRef} className="flex-1 overflow-y-auto pt-2 pb-40 scroll-smooth">
+                <div className="max-w-md mx-auto px-6">
+                    {Object.keys(MISSION_REWARDS).map((lvl) => {
+                        const rewards = MISSION_REWARDS[lvl];
+                        if (!rewards) return null;
 
-                         {Object.keys(MISSION_REWARDS).map((lvl) => {
-    const rewards = MISSION_REWARDS[lvl];
-    if (!rewards) return null;
-
-    // 1. 尝试从所有可能的地方抓取词库
-    // 这里我把 dbData 也加进来了
-    const source = window.DB || (typeof dbData !== 'undefined' ? dbData : null);
-    
-    // 2. 获取当前关卡数据
-    const levelData = source ? (source[lvl] || source[parseInt(lvl)]) : null;
-    
-    // 3. 提取单词
-    const levelWords = levelData && levelData.words ? Object.keys(levelData.words) : [];
-    
-    // 4. 计算进度
-    const learnedInLevel = (Array.isArray(learnedWords) ? learnedWords : [])
-        .filter(w => levelWords.includes(w)).length;
-
+                        const source = window.DB || (typeof dbData !== 'undefined' ? dbData : null);
+                        const levelData = source ? (source[lvl] || source[parseInt(lvl)]) : null;
+                        const levelWords = levelData && levelData.words ? Object.keys(levelData.words) : [];
+                        
+                        const learnedInLevel = safeLearnedWords.filter(w => levelWords.includes(w)).length;
             
-                    return (
-                        <div key={lvl} className="bg-white rounded-[32px] p-5 shadow-sm border border-slate-100 flex items-center gap-4 mb-4 active:scale-[0.98] transition-all">
-                            {/* 左侧大勋章 */}
-                            <div className={`w-20 h-20 rounded-[24px] flex items-center justify-center text-4xl shadow-inner transition-all ${learnedInLevel >= 100 ? 'bg-amber-50 animate-float' : 'bg-slate-50 grayscale opacity-20'}`}>
-                                {rewards[4] || "🏆"}
-                            </div>
+                        return (
+                            <div key={lvl} className="bg-white rounded-[32px] p-5 shadow-sm border border-slate-100 flex items-center gap-4 mb-4 active:scale-[0.98] transition-all">
+                                {/* 左侧大勋章 */}
+                                <div className={`w-20 h-20 rounded-[24px] flex items-center justify-center text-4xl shadow-inner transition-all ${learnedInLevel >= 100 ? 'bg-amber-50 animate-float' : 'bg-slate-50 grayscale opacity-20'}`}>
+                                    {rewards[4] || "🏆"}
+                                </div>
 
-                            <div className="flex-1">
-                                <div className="flex justify-between items-end mb-2">
-                                    <div>
-                                        <h3 className="font-black text-slate-800 text-sm leading-none">LEVEL {lvl}</h3>
-                                        <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">{learnedInLevel}/100 WORDS</p>
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-end mb-2">
+                                        <div>
+                                            <h3 className="font-black text-slate-800 text-sm leading-none">LEVEL {lvl}</h3>
+                                            <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-wider">{learnedInLevel}/100 WORDS</p>
+                                        </div>
+                                        <span className="text-[10px] font-black text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">
+                                            {Math.min(5, Math.floor(learnedInLevel / 20))}/5 Unlocked
+                                        </span>
                                     </div>
-                                    <span className="text-[10px] font-black text-indigo-500 bg-indigo-50 px-2 py-0.5 rounded-full">
-                                        {Math.min(5, Math.floor(learnedInLevel / 20))}/5 Unlocked
-                                    </span>
-                                </div>
 
-                                {/* 20词阶梯小勋章 */}
-                                <div className="flex gap-2 mt-2">
-                                    {rewards.map((emoji, i) => {
-                                        const threshold = (i + 1) * 20;
-                                        const isStepUnlocked = learnedInLevel >= threshold;
-                                        return (
-                                            <div 
-                                                key={i} 
-                                                className={`w-9 h-9 rounded-full flex items-center justify-center text-base border-2 transition-all duration-500
-                                                ${isStepUnlocked 
-                                                    ? 'bg-gradient-to-br from-white to-indigo-50 border-indigo-200 shadow-md scale-110 opacity-100' 
-                                                    : 'bg-slate-100 border-slate-200 opacity-20 grayscale' 
-                                                }`}
-                                            >
-                                                {isStepUnlocked ? emoji : "🔒"}
-                                            </div>
-                                        );
-                                    })}
+                                    {/* 20词阶梯小勋章 */}
+                                    <div className="flex gap-2 mt-2">
+                                        {rewards.map((emoji, i) => {
+                                            const threshold = (i + 1) * 20;
+                                            const isStepUnlocked = learnedInLevel >= threshold;
+                                            return (
+                                                <div 
+                                                    key={i} 
+                                                    className={`w-9 h-9 rounded-full flex items-center justify-center text-base border-2 transition-all duration-500
+                                                    ${isStepUnlocked 
+                                                        ? 'bg-gradient-to-br from-white to-indigo-50 border-indigo-200 shadow-md scale-110 opacity-100' 
+                                                        : 'bg-slate-100 border-slate-200 opacity-20 grayscale' 
+                                                    }`}
+                                                >
+                                                    {isStepUnlocked ? emoji : "🔒"}
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
-</div>
 
             {/* 底部汇总卡片 */}
-<div className="absolute bottom-0 left-0 right-0 z-50 pointer-events-none">
+            <div className="absolute bottom-0 left-0 right-0 z-50 pointer-events-none">
                 <div className="h-24 bg-gradient-to-t from-slate-50 to-transparent" />
+                {/* 修复 3: 增加 pb-safe 逻辑 (这里用 pb-8 基本够用，结合外层的 100dvh 即可解决遮挡) */}
                 <div className="bg-slate-50 px-6 pb-8 pointer-events-auto">
                     <div className="w-full max-w-md mx-auto bg-slate-900 rounded-[32px] p-6 text-white flex justify-between items-center shadow-2xl">
                         <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-2xl shadow-inner">🏆</div>
-        	<div>
-            	 <p className="text-[10px] font-bold opacity-50 uppercase leading-none mb-1">Total Medals</p>
-            	<p className="text-xl font-black text-amber-400">
-                {(() => {
-                    // 使用立即执行函数来计算总数，确保逻辑清晰
-                    let totalUnlocked = 0;
-                    
-                    const safeLearnedWords = Array.isArray(learnedWords) ? learnedWords : [];
-
-                    Object.keys(MISSION_REWARDS).forEach(lvl => {
-                        const levelData = dbData[lvl] || dbData[parseInt(lvl)];
-                        if (levelData && levelData.words) {
-                            const levelWordKeys = Object.keys(levelData.words);
-                            // 计算该关卡已学会单词
-                            const count = safeLearnedWords.filter(w => levelWordKeys.includes(w)).length;
-                            // 每 20 个单词算一个勋章（每关最多 5 个）
-                            totalUnlocked += Math.floor(Math.min(100, count) / 20);
-                        }
-                    });
-                    return totalUnlocked;
-                })()}
-            </p>
+                            <div>
+                                <p className="text-[10px] font-bold opacity-50 uppercase leading-none mb-1">Total Medals</p>
+                                <p className="text-xl font-black text-amber-400">
+                                    {(() => {
+                                        let totalUnlocked = 0;
+                                        Object.keys(MISSION_REWARDS).forEach(lvl => {
+                                            const levelData = dbData[lvl] || dbData[parseInt(lvl)];
+                                            if (levelData && levelData.words) {
+                                                const levelWordKeys = Object.keys(levelData.words);
+                                                const count = safeLearnedWords.filter(w => levelWordKeys.includes(w)).length;
+                                                totalUnlocked += Math.floor(Math.min(100, count) / 20);
+                                            }
+                                        });
+                                        return totalUnlocked;
+                                    })()}
+                                </p>
+                            </div>
+                        </div>
+             
+                        <button 
+                            onClick={() => setView('menu')} 
+                            className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm active:scale-95 hover:bg-slate-100 transition-all cursor-pointer"
+                        >
+                            返回主页
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
- 
-    <button 
-        onClick={() => setView('menu')} 
-        className="bg-white text-slate-900 px-6 py-3 rounded-2xl font-black text-sm active:scale-95 hover:bg-slate-100 transition-all cursor-pointer"
-    >
-        返回主页
-    </button>
-</div>
-</div>
-</div>
-</div>
     );
-}
-            if (view === 'menu') {
+}            if (view === 'menu') {
                 return (
 
 <div className="h-screen flex flex-col bg-slate-50 overflow-hidden">
@@ -1431,7 +1420,7 @@ if (view === 'medals') {
 
                         {showNameModal && (
                             <div className="modal-overlay">
-                                <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl">
+                                <div className="bg-white p-6 rounded-[48px] max-w-[340px] text-center w-full max-w-[340px] shadow-2xl">
                                     <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
 
 				{/* 头像选择区 */}

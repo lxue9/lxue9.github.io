@@ -985,8 +985,14 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
 
    // --- ✅ 新增：进入菜单页时，自动滚动到顶部 ---
    React.useEffect(() => {
-       if (view === 'menu' && menuListRef.current) {
-           menuListRef.current.scrollTop = 0;
+       if (view === 'menu') {
+           // 1. 强制整个网页窗口回顶（关键修复：解决标题需要上滑才显示的问题）
+           window.scrollTo(0, 0);
+           
+           // 2. 强制内部列表回顶
+           if (menuListRef.current) {
+               menuListRef.current.scrollTop = 0;
+           }
        }
    }, [view]);
 

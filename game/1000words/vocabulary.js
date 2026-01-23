@@ -4,640 +4,106 @@ const DB = {
     "levelEmoji": "🧒",
     "levelName": "第1关: 常用基础",
     "words": {
-      "I": [
-        "🙋",
-        "我",
-        "I / 爱",
-        "I am happy.",
-        1
-      ],
-      "you": [
-        "🫵",
-        "你",
-        "y-ou / 优",
-        "I love you.",
-        2
-      ],
-      "he": [
-        "👦",
-        "他",
-        "h-e / 嘿",
-        "He is big.",
-        3
-      ],
-      "she": [
-        "👧",
-        "她",
-        "sh-e / 谁",
-        "She is cute.",
-        4
-      ],
-      "it": [
-        "👉📦",
-        "它",
-        "i-t / 一特",
-        "It is a box.",
-        5
-      ],
-"me": ["🙋‍♂️", "我", "m-e / 密", "Look at me.", 6],
-"us": ["👨‍👩‍👦", "我们", "u-s / 阿丝", "Wait for us.", 7],
-
-      "we": [
-        "👨‍👩‍👦",
-        "我们",
-        "w-e / 威",
-        "We are family.",
-        8
-      ],
-
-      "they": [
-        "👥",
-        "他们",
-        "th-ey / 贼",
-        "They are friends.",
-        9
-      ],
- "am": [
-        "🙋‍♂️",
-        "是",
-        "a-m / 爱慕",
-        "I am a boy.",
-        10
-      ],
-      "is": [
-        "☝️",
-        "是",
-        "i-s / 一死",
-        "It is a pen.",
-        11
-      ],
-     
-      "are": [
-        "🫵🧒",
-        "是",
-        "a-re / 啊",
-        "You are kind.",
-        12
-      ],
-
-"each": ["🧒🍎", "每个", "e-ach / 意其", "Each child gets one apple.", 13],
-"both": ["🧒🍎🧒🍎", "两者都", "b-oth / 波丝", "Both get one apple.", 14],
-"else": ["🧒🍎❓", "其他", "e-lse / 艾欧丝", "What else do you want?",15],
-
-      "yes": [
-        "✅",
-        "是/对",
-        "y-es / 耶丝",
-        "Yes, it is.",
-        16
-      ],
-      "no": [
-        "❌",
-        "不/不对",
-        "n-o / 闹",
-        "No, I am not.",
-        17
-      ],
-      "hello": [
-        "👋",
-        "你好",
-        "hel-lo / 哈喽",
-        "Hello, teacher.",
-        18
-      ],
-      "thanks": [
-        "🙏",
-        "谢谢",
-        "th-anks / 散克斯",
-        "Thanks a lot.",
-        19
-      ],
-      "please": [
-        "🥺",
-        "请",
-        "pl-ease / 铺力丝",
-        "Please help me.",
-        20
-      ],
-      "good": [
-        "👍",
-        "好的",
-        "g-ood / 谷得",
-        "Good job.",
-        21
-      ],
-      "bad": [
-        "👎",
-        "坏的",
-        "b-ad / 拜得",
-        "A bad day.",
-        22
-      ],
-      "big": [
-        "🐘",
-        "大的",
-        "b-ig / 逼格",
-        "A big elephant.",
-        23
-      ],
-      "small": [
-        "🐭",
-        "小的",
-        "sm-all / 斯冒",
-        "A small mouse.",
-        24
-      ],
-      "hot": [
-        "🔥🥵",
-        "热的",
-        "h-ot / 浩特",
-        "The water is hot.",
-        25
-      ],
-      "cold": [
-        "❄️🥶",
-        "冷的",
-        "c-old / 扣得",
-        "It is cold.",
-        26
-      ],
-      "begin": ["▶️", "开始", "be-gin / 必更", "Let us begin now.", 27],
-      "end": ["🔚", "结束", "e-nd / 恩得", "The game is end.", 28],
-      "go": [
-        "🚶‍♂️➡️",
-        "去",
-        "g-o / 够",
-        "Go to school.",
-        29
-      ],
-      "come": [
-        "🚶‍♂️⬅️",
-        "来",
-        "c-ome / 砍",
-        "Come here.",
-        30
-      ],
-      "eat": [
-        "🍎👄",
-        "吃",
-        "e-at / 意特",
-        "Eat an apple.",
-        31
-      ],
-      "drink": [
-        "🥤👄",
-        "喝",
-        "dr-ink / 拽英刻",
-        "Drink some water.",
-        32
-      ],
-      "see": [
-        "👁️",
-        "看",
-        "s-ee / 谁",
-        "I see a bird.",
-        33
-      ],
-      "look": [
-        "👀",
-        "看/瞧",
-        "l-ook / 鲁刻",
-        "Look at me.",
-        34
-      ],
-     "add": ["➕", "增加", "a-dd / 艾得", "Add some salt.", 35],
-      "try": ["🎯", "尝试", "t-ry / 揣", "Try a new food.", 36],
-      "can": [
-        "💪",
-        "能/可以",
-        "c-an / 看",
-        "I can swim.",
-        37
-      ],
-      "do": [
-        "🛠️",
-        "做",
-        "d-o / 肚",
-        "Do your work.",
-        38
-      ],
-      "get": [
-        "🎁🤲",
-        "得到",
-        "g-et / 盖特",
-        "Get a gift.",
-        39
-      ],
-      "give": [
-        "🎁🤝",
-        "给",
-        "g-ive / 给五",
-        "Give me a pen.",
-        40
-      ],
-      "know": [
-        "💡🧠",
-        "知道",
-        "kn-ow / 闹",
-        "I know that.",
-        41
-      ],
-      "keep": ["📦", "保持", "k-eep / keepers", "Keep it in the box.", 42],
-      "play": [
-        "🎮",
-        "玩",
-        "pl-ay / 喷累",
-        "Play a game.",
-        43
-      ],
-      "run": [
-        "🏃‍♂️",
-        "跑",
-        "r-un / 软",
-        "Run fast.",
-        44
-      ],
-      "jump": [
-        "🦘",
-        "跳",
-        "j-ump / 酱普",
-        "Jump high.",
-        45
-      ],
-      "walk": [
-        "🚶",
-        "走",
-        "w-alk / 窝刻",
-        "Walk home.",
-        46
-      ],
-      "stop": [
-        "🛑",
-        "停止",
-        "st-op / 斯道普",
-        "Stop the car.",
-        47
-      ],
-      "open": [
-        "📖🔓",
-        "打开",
-        "o-pen / 欧喷",
-        "Open the door.",
-        48
-      ],
-      "close": [
-        "📖🔒",
-        "关闭",
-        "cl-ose / 扣滋",
-        "Close the book.",
-        49
-      ],
-      "sit": [
-        "🪑🧘",
-        "坐",
-        "s-it / 谁特",
-        "Sit down.",
-        50
-      ],
-      "stand": [
-        "🧍",
-        "站",
-        "st-and / 斯丹得",
-        "Stand up.",
-        51
-      ],
-      "read": [
-        "📖",
-        "读",
-        "r-ead / 瑞得",
-        "Read a story.",
-        52
-      ],
-      "write": [
-        "✍️",
-        "写",
-        "wr-ite / 赖特",
-        "Write my name.",
-        53
-      ],
-      "sing": [
-        "🎤",
-        "唱",
-        "s-ing / 胜",
-        "Sing a song.",
-        54
-      ],
-      "dance": [
-        "💃",
-        "跳舞",
-        "d-ance / 丹丝",
-        "I like to dance.",
-        55
-      ],
-      "sleep": [
-        "😴💤",
-        "睡觉",
-        "sl-eep / 斯力普",
-        "Time to sleep.",
-        56
-      ],
-      "wake": [
-        "⏰👀",
-        "醒来",
-        "w-ake / 威刻",
-        "Wake up early.",
-        57
-      ],
-      "one": [
-        "1️⃣",
-        "一",
-        "one / 万",
-        "One apple.",
-        58
-      ],
-      "two": [
-        "2️⃣",
-        "二",
-        "t-wo / 吐",
-        "Two eyes.",
-        59
-      ],
-      "three": [
-        "3️⃣",
-        "三",
-        "thr-ee / 斯瑞",
-        "Three birds.",
-        60
-      ],
-      "four": [
-        "4️⃣",
-        "四",
-        "f-our / 佛",
-        "Four legs.",
-        61
-      ],
-      "five": [
-        "5️⃣",
-        "五",
-        "f-ive / 饭五",
-        "Five fingers.",
-        62
-      ],
-      "six": [
-        "6️⃣",
-        "六",
-        "s-ix / 希克斯",
-        "Six pens.",
-        63
-      ],
-      "seven": [
-        "7️⃣",
-        "七",
-        "sev-en / 塞闻",
-        "Seven days.",
-        64
-      ],
-      "eight": [
-        "8️⃣",
-        "八",
-        "e-ight / 诶特",
-        "Eight balls.",
-        65
-      ],
-      "nine": [
-        "9️⃣",
-        "九",
-        "n-ine / 拿音",
-        "Nine books.",
-        66
-      ],
-      "ten": [
-        "🔟",
-        "十",
-        "t-en / 腾",
-        "Count to ten.",
-        67
-      ],
-      "red": [
-        "🔴",
-        "红色",
-        "r-ed / 瑞得",
-        "A red apple.",
-        68
-      ],
-      "blue": [
-        "🔵",
-        "蓝色",
-        "bl-ue / 不路",
-        "Blue sky.",
-        69
-      ],
-      "green": [
-        "🟢",
-        "绿色",
-        "gr-een / 哥瑞恩",
-        "Green grass.",
-        70
-      ],
-      "yellow": [
-        "🟡",
-        "黄色",
-        "yel-low / 耶楼",
-        "Yellow sun.",
-        71
-      ],
-      "black": [
-        "⚫",
-        "黑色",
-        "bl-ack / 布莱刻",
-        "Black cat.",
-        72
-      ],
-      "white": [
-        "⚪",
-        "白色",
-        "wh-ite / 歪特",
-        "White cloud.",
-        73
-      ],
-      "what": [
-        "❓",
-        "什么",
-        "wh-at / 窝特",
-        "What is it?",
-        74
-      ],
-      "who": [
-        "👤❓",
-        "谁",
-        "wh-o / 呼",
-        "Who are you?",
-        75
-      ],
-      "where": [
-        "📍❓",
-        "哪里",
-        "wh-ere / 位儿",
-        "Where is it?",
-        76
-      ],
-      "when": [
-        "⏰❓",
-        "什么时候",
-        "wh-en / 闻",
-        "When is it?",
-        77
-      ],
-      "how": [
-        "🤔❓",
-        "怎样",
-        "h-ow / 耗",
-        "How are you?",
-        78
-      ],
-"any": ["❓", "任何", "a-ny / 艾泥", "Do you have any?", 79],
-"some": ["🍰🍰🍰", "一些", "s-ome / 萨姆", "I want some cake.", 80],
-      "this": [
-        "👉📦",
-        "这个",
-        "th-is / 贼丝",
-        "This is mine.",
-        81
-      ],
-      "that": [
-        "👉..📦",
-        "那个",
-        "th-at / 贼特",
-        "That is yours.",
-        82
-      ],
-      "here": [
-        "📍👇",
-        "这里",
-        "h-ere / 嘿儿",
-        "Stay here.",
-        83
-      ],
-      "there": [
-        "📍👉",
-        "那里",
-        "th-ere / 贼儿",
-        "Over there.",
-        84
-      ],
-      "now": [
-        "⏰👇",
-        "现在",
-        "n-ow / 拿五",
-        "Do it now.",
-        85
-      ],
-      "today": [
-        "📅👇",
-        "今天",
-        "to-day / 图嘚",
-        "Today is sunny.",
-        86
-      ],
-      "and": [
-        "➕",
-        "和",
-        "a-nd / 安得",
-        "You and me.",
-        87
-      ],
-      "but": [
-        "🐭🔄💪",
-        "但是",
-        "b-ut / 罢特",
-        "Small but strong.",
-        88
-      ],
-      "with": [
-        "🤝👫",
-        "和...一起",
-        "w-ith / 位丝",
-        "Play with me.",
-        89
-      ],
-      "for": [
-        "🎁➡️🫵",
-        "给/为了",
-        "f-or / 佛",
-        "This is for you.",
-        90
-      ],
-      "from": [
-        "📦⬅️📍",
-        "来自",
-        "fr-om / 佛囊",
-        "From China.",
-        91
-      ],
-      "in": [
-        "📥",
-        "在...里面",
-        "i-n / 硬",
-        "In the box.",
-        92
-      ],
-      "on": [
-        "🔛",
-        "在...上面",
-        "o-n / 昂",
-        "On the desk.",
-        93
-      ],
-
-      "under": [
-        "⬇️📦",
-        "在...下面",
-        "un-der / 安得",
-        "Under the tree.",
-        94
-      ],
-      "up": [
-        "⬆️",
-        "向上",
-        "u-p / 阿普",
-        "Hands up.",
-        95
-      ],
-      "down": [
-        "⬇️",
-        "向下",
-        "d-own / 荡",
-        "Sit down.",
-        96
-      ],
-      "fast": [
-        "⚡🏎️",
-        "快的",
-        "f-ast / 凡斯特",
-        "Run fast.",
-        97
-      ],
-      "slow": [
-        "🐢",
-        "慢的",
-        "sl-ow / 斯楼",
-        "Slow turtle.",
-        98
-      ],
-      "new": [
-        "✨🆕",
-        "新的",
-        "n-ew / 妞",
-        "A new bag.",
-        99
-      ],
-      "old": [
-        "👴📜",
-        "旧的/老的",
-        "o-ld / 欧得",
-        "An old book.",
-        100
-      ]          
+      "I": ["🙋", "我", "I / 爱", "I am happy.", "wǒ", "我很高兴。", 1],
+      "you": ["🫵", "你", "y-ou / 优", "I love you.", "nǐ", "我爱你。", 2],
+      "he": ["👦", "他", "h-e / 嘿", "He is big.", "tā", "他很高大。", 3],
+      "she": ["👧", "她", "sh-e / 谁", "She is cute.", "tā", "她很可爱。", 4],
+      "it": ["👉📦", "它", "i-t / 一特", "It is a box.", "tā", "它是一个盒子。", 5],
+      "me": ["🙋‍♂️", "我", "m-e / 密", "Look at me.", "wǒ", "看着我。", 6],
+      "us": ["👨‍👩‍👦", "我们", "u-s / 阿丝", "Wait for us.", "wǒ men", "等等我们。", 7],
+      "we": ["👨‍👩‍👦", "我们", "w-e / 威", "We are family.", "wǒ men", "我们是一家人。", 8],
+      "they": ["👥", "他们", "th-ey / 贼", "They are friends.", "tā men", "他们是朋友。", 9],
+      "am": ["🙋‍♂️", "是", "a-m / 爱慕", "I am a boy.", "shì", "我是个男孩。", 10],
+      "is": ["☝️", "是", "i-s / 一死", "It is a pen.", "shì", "它是一支钢笔。", 11],
+      "are": ["🫵🧒", "是", "a-re / 啊", "You are kind.", "shì", "你是善良的。", 12],
+      "each": ["🧒🍎", "每个", "e-ach / 意其", "Each child gets one apple.", "měi gè", "每个孩子得到一个苹果。", 13],
+      "both": ["🧒🍎🧒🍎", "两者都", "b-oth / 波丝", "Both get one apple.", "liǎng zhě dōu", "两者都得到了一个苹果。", 14],
+      "else": ["🧒🍎❓", "其他", "e-lse / 艾欧丝", "What else do you want?", "qí tā", "你还想要其他什么？", 15],
+      "yes": ["✅", "是/对", "y-es / 耶丝", "Yes, it is.", "shì / duì", "是，它是。", 16],
+      "no": ["❌", "不/不对", "n-o / 闹", "No, I am not.", "bù / bù duì", "不，我不是。", 17],
+      "hello": ["👋", "你好", "hel-lo / 哈喽", "Hello, teacher.", "nǐ hǎo", "你好，老师。", 18],
+      "thanks": ["🙏", "谢谢", "th-anks / 散克斯", "Thanks a lot.", "xiè xie", "非常谢谢。", 19],
+      "please": ["🥺", "请", "pl-ease / 铺力丝", "Please help me.", "qǐng", "请帮帮我。", 20],
+      "good": ["👍", "好的", "g-ood / 谷得", "Good job.", "hǎo de", "做得好的。", 21],
+      "bad": ["👎", "坏的", "b-ad / 拜得", "A bad day.", "huài de", "坏的一天。", 22],
+      "big": ["🐘", "大的", "b-ig / 逼格", "A big elephant.", "dà de", "一头大的大象。", 23],
+      "small": ["🐭", "小的", "sm-all / 斯冒", "A small mouse.", "xiǎo de", "一只小的老鼠。", 24],
+      "hot": ["🔥🥵", "热的", "h-ot / 浩特", "The water is hot.", "rè de", "水是热的。", 25],
+      "cold": ["❄️🥶", "冷的", "c-old / 扣得", "It is cold.", "lěng de", "天气是冷的。", 26],
+      "begin": ["▶️", "开始", "be-gin / 必更", "Let us begin now.", "kāi shǐ", "让我们现在开始。", 27],
+      "end": ["🔚", "结束", "e-nd / 恩得", "The game is end.", "jié shù", "游戏结束。", 28],
+      "go": ["🚶‍♂️➡️", "去", "g-o / 够", "Go to school.", "qù", "去学校。", 29],
+      "come": ["🚶‍♂️⬅️", "来", "c-ome / 砍", "Come here.", "lái", "来这里。", 30],
+      "eat": ["🍎👄", "吃", "e-at / 意特", "Eat an apple.", "chī", "吃一个苹果。", 31],
+      "drink": ["🥤👄", "喝", "dr-ink / 拽英刻", "Drink some water.", "hē", "喝一些水。", 32],
+      "see": ["👁️", "看", "s-ee / 谁", "I see a bird.", "kàn", "我看见一只鸟。", 33],
+      "look": ["👀", "看/瞧", "l-ook / 鲁刻", "Look at me.", "kàn / qiáo", "看着我。", 34],
+      "add": ["➕", "增加", "a-dd / 艾得", "Add some salt.", "zēng jiā", "增加一些盐。", 35],
+      "try": ["🎯", "尝试", "t-ry / 揣", "Try a new food.", "cháng shì", "尝试一种新食物。", 36],
+      "can": ["💪", "能/可以", "c-an / 看", "I can swim.", "néng / kě yǐ", "我可以游泳。", 37],
+      "do": ["🛠️", "做", "d-o / 肚", "Do your work.", "zuò", "做你的工作。", 38],
+      "get": ["🎁🤲", "得到", "g-et / 盖特", "Get a gift.", "dé dào", "得到一份礼物。", 39],
+      "give": ["🎁🤝", "给", "g-ive / 给五", "Give me a pen.", "gěi", "给我一支笔。", 40],
+      "know": ["💡🧠", "知道", "kn-ow / 闹", "I know that.", "zhī dào", "我知道那个。", 41],
+      "keep": ["📦", "保持", "k-eep / keepers", "Keep it in the box.", "bǎo chí", "把它保持在盒子里。", 42],
+      "play": ["🎮", "玩", "pl-ay / 喷累", "Play a game.", "wán", "玩一个游戏。", 43],
+      "run": ["🏃‍♂️", "跑", "r-un / 软", "Run fast.", "pǎo", "跑得快。", 44],
+      "jump": ["🦘", "跳", "j-ump / 酱普", "Jump high.", "tiào", "跳得高。", 45],
+      "walk": ["🚶", "走", "w-alk / 窝刻", "Walk home.", "zǒu", "走回家。", 46],
+      "stop": ["🛑", "停止", "st-op / 斯道普", "Stop the car.", "tíng zhǐ", "停止这辆车。", 47],
+      "open": ["📖🔓", "打开", "o-pen / 欧喷", "Open the door.", "dǎ kāi", "打开门。", 48],
+      "close": ["📖🔒", "关闭", "cl-ose / 扣滋", "Close the book.", "guān bì", "关闭这本书。", 49],
+      "sit": ["🪑🧘", "坐", "s-it / 谁特", "Sit down.", "zuò", "坐下。", 50],
+      "stand": ["🧍", "站", "st-and / 斯丹得", "Stand up.", "zhàn", "站起来。", 51],
+      "read": ["📖", "读", "r-ead / 瑞得", "Read a story.", "dú", "读一个故事。", 52],
+      "write": ["✍️", "写", "wr-ite / 赖特", "Write my name.", "xiě", "写我的名字。", 53],
+      "sing": ["🎤", "唱", "s-ing / 胜", "Sing a song.", "chàng", "唱一首歌。", 54],
+      "dance": ["💃", "跳舞", "d-ance / 丹丝", "I like to dance.", "tiào wǔ", "我喜欢跳舞。", 55],
+      "sleep": ["😴💤", "睡觉", "sl-eep / 斯力普", "Time to sleep.", "shuì jiào", "睡觉的时间到了。", 56],
+      "wake": ["⏰👀", "醒来", "w-ake / 威刻", "Wake up early.", "xǐng lái", "早早醒来。", 57],
+      "one": ["1️⃣", "一", "one / 万", "One apple.", "yī", "一个苹果。", 58],
+      "two": ["2️⃣", "二", "t-wo / 吐", "Two eyes.", "èr", "二只眼睛。", 59],
+      "three": ["3️⃣", "三", "thr-ee / 斯瑞", "Three birds.", "sān", "三只鸟。", 60],
+      "four": ["4️⃣", "四", "f-our / 佛", "Four legs.", "sì", "四条腿。", 61],
+      "five": ["5️⃣", "五", "f-ive / 饭五", "Five fingers.", "wǔ", "五根手指。", 62],
+      "six": ["6️⃣", "六", "s-ix / 希克斯", "Six pens.", "liù", "六支钢笔。", 63],
+      "seven": ["7️⃣", "七", "sev-en / 塞闻", "Seven days.", "qī", "七天。", 64],
+      "eight": ["8️⃣", "八", "e-ight / 诶特", "Eight balls.", "bā", "八个球。", 65],
+      "nine": ["9️⃣", "九", "n-ine / 拿音", "Nine books.", "jiǔ", "九本书。", 66],
+      "ten": ["🔟", "十", "t-en / 腾", "Count to ten.", "shí", "数到十。", 67],
+      "red": ["🔴", "红色", "r-ed / 瑞得", "A red apple.", "hóng sè", "一个红色的苹果。", 68],
+      "blue": ["🔵", "蓝色", "bl-ue / 不路", "Blue sky.", "lán sè", "蓝色的天空。", 69],
+      "green": ["🟢", "绿色", "gr-een / 哥瑞恩", "Green grass.", "lǜ sè", "绿色的草。", 70],
+      "yellow": ["🟡", "黄色", "yel-low / 耶楼", "Yellow sun.", "huáng sè", "黄色的太阳。", 71],
+      "black": ["⚫", "黑色", "bl-ack / 布莱刻", "Black cat.", "hēi sè", "黑色的猫。", 72],
+      "white": ["⚪", "白色", "wh-ite / 歪特", "White cloud.", "bái sè", "白色的云。", 73],
+      "what": ["❓", "什么", "wh-at / 窝特", "What is it?", "shén me", "它是什么？", 74],
+      "who": ["👤❓", "谁", "wh-o / 呼", "Who are you?", "shéi", "你是谁？", 75],
+      "where": ["📍❓", "哪里", "wh-ere / 位儿", "Where is it?", "nǎ lǐ", "它在哪里？", 76],
+      "when": ["⏰❓", "什么时候", "wh-en / 闻", "When is it?", "shén me shí hòu", "它是什么时候？", 77],
+      "how": ["🤔❓", "怎样", "h-ow / 耗", "How are you?", "zěn yàng", "你怎样？（你好吗）", 78],
+      "any": ["❓", "任何", "a-ny / 艾泥", "Do you have any?", "rèn hé", "你有任何（东西）吗？", 79],
+      "some": ["🍰🍰🍰", "一些", "s-ome / 萨姆", "I want some cake.", "yì xiē", "我想要一些蛋糕。", 80],
+      "this": ["👉📦", "这个", "th-is / 贼丝", "This is mine.", "zhè ge", "这个是我的。", 81],
+      "that": ["👉..📦", "那个", "th-at / 贼特", "That is yours.", "nà ge", "那个是你的。", 82],
+      "here": ["📍👇", "这里", "h-ere / 嘿儿", "Stay here.", "zhè lǐ", "待在这里。", 83],
+      "there": ["📍👉", "那里", "th-ere / 贼儿", "Over there.", "nà lǐ", "在那里。", 84],
+      "now": ["⏰👇", "现在", "n-ow / 拿五", "Do it now.", "xiàn zài", "现在做它。", 85],
+      "today": ["📅👇", "今天", "to-day / 图嘚", "Today is sunny.", "jīn tiān", "今天是晴朗的。", 86],
+      "and": ["➕", "和", "a-nd / 安得", "You and me.", "hé", "你和我。", 87],
+      "but": ["🐭🔄💪", "但是", "b-ut / 罢特", "Small but strong.", "dàn shì", "小但是强壮。", 88],
+      "with": ["🤝👫", "和...一起", "w-ith / 位丝", "Play with me.", "hé ... yī qǐ", "和我一起玩。", 89],
+      "for": ["🎁➡️🫵", "给/为了", "f-or / 佛", "This is for you.", "gěi / wèi le", "这是给你的。", 90],
+      "from": ["📦⬅️📍", "来自", "fr-om / 佛囊", "From China.", "lái zì", "来自中国。", 91],
+      "in": ["📥", "在...里面", "i-n / 硬", "In the box.", "zài ... lǐ miàn", "在盒子里面。", 92],
+      "on": ["🔛", "在...上面", "o-n / 昂", "On the desk.", "zài ... shàng miàn", "在桌子上面。", 93],
+      "under": ["⬇️📦", "在...下面", "un-der / 安得", "Under the tree.", "zài ... xià miàn", "在树下面。", 94],
+      "up": ["⬆️", "向上", "u-p / 阿普", "Hands up.", "xiàng shàng", "手向上。", 95],
+      "down": ["⬇️", "向下", "d-own / 荡", "Sit down.", "xiàng xià", "坐下。", 96],
+      "fast": ["⚡🏎️", "快的", "f-ast / 凡斯特", "Run fast.", "kuài de", "跑得快的。", 97],
+      "slow": ["🐢", "慢的", "sl-ow / 斯楼", "Slow turtle.", "màn de", "慢的乌龟。", 98],
+      "new": ["✨🆕", "新的", "n-ew / 妞", "A new bag.", "xīn de", "一个新的包。", 99],
+      "old": ["👴📜", "旧的/老的", "o-ld / 欧得", "An old book.", "jiù de / lǎo de", "一本旧的书。", 100]
     }
   },
   "2": {
@@ -645,647 +111,106 @@ const DB = {
     "levelEmoji": "🏠",
     "levelName": "第2关: 居家用品",
     "words": {
-      "house": [
-        "🏠",
-        "房子",
-        "hou-se / 豪丝",
-        "This is my house.",
-        101
-      ],
-      "home": [
-        "🏡👨‍👩‍👧‍👦",
-        "家",
-        "h-ome / 厚姆",
-        "I love my home.",
-        102
-      ],
-      "room": [
-        "./emoji/room.webp",
-        "房间",
-        "r-oom / 入姆",
-        "My room is big.",
-        103
-      ],
-      "door": [
-        "🚪",
-        "门",
-        "d-oor / 剁",
-        "Open the door.",
-        104
-      ],
-      "window": [
-        "🪟",
-        "窗户",
-        "win-dow / 温逗",
-        "Clean the window.",
-        105
-      ],
-      "wall": [
-        "🧱",
-        "墙壁",
-        "w-all / 窝哦",
-        "A white wall.",
-        106
-      ],
-      "floor": [
-        "./emoji/floor.webp",
-        "地板",
-        "fl-oor / 佛落",
-        "Wooden floor.",
-        107
-      ],
-      "ceiling": [
-        "./emoji/celing.webp",
-        "天花板",
-        "cei-ling / 细拎",
-        "Look at the ceiling.",
-        108
-      ],
-      "stairs": [
-        "./emoji/stairs.webp",
-        "楼梯",
-        "st-airs / 斯带儿丝",
-        "Walk up the stairs.",
-        109
-      ],
-      "roof": [
-        "./emoji/roof.webp",
-        "屋顶",
-        "r-oof / 入夫",
-        "The roof is leaking.",
-        110
-      ],
-      "garden": [
-        "./emoji/garden.webp",
-        "花园",
-        "gar-den / 嘎灯",
-        "Flowers in the garden.",
-        111
-      ],
-      "garage": [
-        "./emoji/garage.webp",
-        "车库",
-        "ga-rage / 嘎入阿治",
-        "Dad's car in the garage.",
-        112
-      ],
-      "living-room": ["🛋️📺", "客厅", "liv-ing-room / 里文肉姆", "We watch TV in the living-room.", 113],
-      "balcony": [
-        "./emoji/balcony.webp",
-        "阳台",
-        "bal-co-ny / 拜欧口泥",
-        "Stand on the balcony.",
-        114
-      ],
-      "kitchen": [
-        "./emoji/kitchen.webp",
-        "厨房",
-        "kitch-en / 旗琴",
-        "Mom is in the kitchen.",
-        115
-      ],
-      "bathroom": [
-        "🛀",
-        "浴室",
-        "bath-room / 爸丝入姆",
-        "Clean the bathroom.",
-        116
-      ],
-      "toilet": [
-        "🚽",
-        "厕所",
-        "toi-let / 托类特",
-        "Where is the toilet?",
-        117
-      ],
-      "bedroom": [
-        "🛌",
-        "卧室",
-        "bed-room / 败得入姆",
-        "Sleep in the bedroom.",
-        118
-      ],
-      "mailbox": [
-        "📬",
-        "信箱",
-        "mail-box / 没哦暴克斯",
-        "Check the mailbox.",
-        119
-      ],
-      "fence": [
-        "./emoji/fence.webp",
-        "篱笆/围栏",
-        "f-ence / 粉丝",
-        "A white fence.",
-        120
-      ],
-      "sofa": [
-        "🛋️",
-        "沙发",
-        "so-fa / 搜发",
-        "Sit on the sofa.",
-        121
-      ],
-      "table": [
-        "./emoji/table.webp",
-        "桌子",
-        "ta-ble / 抬剥",
-        "A round table.",
-        122
-      ],
-      "chair": [
-        "🪑",
-        "椅子",
-        "ch-air / 拆儿",
-        "A wooden chair.",
-        123
-      ],
-      "carpet": [
-        "./emoji/carpet.webp",
-        "地毯",
-        "car-pet / 嘎陪特",
-        "A soft carpet.",
-        124
-      ],
-      "lamp": [
-        "./emoji/lamp.webp",
-        "台灯",
-        "l-amp / 蓝普",
-        "Turn on the lamp.",
-        125
-      ],
-      "clock": [
-        "⏰",
-        "闹钟",
-        "cl-ock / 扩克",
-        "The clock is fast.",
-        126
-      ],
-      "mirror": [
-        "🪞",
-        "镜子",
-        "mir-ror / 眯若",
-        "A clean mirror.",
-        127
-      ],
-      "vase": [
-        "🏺",
-        "花瓶",
-        "v-ase / 哇子",
-        "Flowers in the vase.",
-        128
-      ],
-      "frame": [
-        "🖼️",
-        "相框",
-        "fr-ame / 佛瑞姆",
-        "A picture frame.",
-        129
-      ],
-      "shelf": [
-        "./emoji/shelf.webp",
-        "架子",
-        "sh-elf / 谁欧夫",
-        "Books on the shelf.",
-        130
-      ],
-      "tv": [
-        "📺",
-        "电视机",
-        "T-V / 提微",
-        "Turn off the TV.",
-        131
-      ],
-      "curtain": [
-        "./emoji/curtain.webp",
-        "窗帘",
-        "cur-tain / 颗藤",
-        "Close the curtain.",
-        132
-      ],
-      "fan": [
-        "./emoji/fan.webp",
-        "风扇",
-        "f-an / 饭",
-        "Electric fan.",
-        133
-      ],
-      "heater": [
-        "./emoji/heater.webp",
-        "取暖器",
-        "heat-er / 希特",
-        "Turn on the heater.",
-        134
-      ],
-      "key": [
-        "🔑",
-        "钥匙",
-        "k-ey / 扣一",
-        "Lose the key.",
-        135
-      ],
-      "lock": [
-        "🔒",
-        "锁",
-        "l-ock / 洛克",
-        "Unlock the door.",
-        136
-      ],
-      "remote": [
-        "./emoji/remote.webp",
-        "遥控器",
-        "re-mote / 瑞冒特",
-        "TV remote.",
-        137
-      ],
-      "plug": [
-        "🔌",
-        "插头",
-        "pl-ug / 铺拉格",
-        "Pull the plug.",
-        138
-      ],
-      "socket": [
-        "./emoji/socket.webp",
-        "插座",
-        "sock-et / 搜盖特",
-        "Find a socket.",
-        139
-      ],
-      "battery": [
-        "🔋",
-        "电池",
-        "bat-ter-y / 拜德瑞",
-        "Need a battery.",
-        140
-      ],
-      "fridge": [
-        "./emoji/fridge.webp",
-        "冰箱",
-        "fri-dge / 佛瑞极",
-        "Milk in the fridge.",
-        141
-      ],
-      "stove": [
-        "./emoji/stove.webp",
-        "炉灶",
-        "st-ove / 斯透五",
-        "Gas stove.",
-        142
-      ],
-      "oven": [
-        "./emoji/oven.webp",
-        "烤箱",
-        "ov-en / 阿文",
-        "Bread in the oven.",
-        143
-      ],
-      "kettle": [
-        "🫖",
-        "热水壶",
-        "ket-tle / 盖透",
-        "Boil the kettle.",
-        144
-      ],
-      "sink": [
-        "./emoji/sink.webp",
-        "洗手池",
-        "s-ink / 胜刻",
-        "Wash hands in the sink.",
-        145
-      ],
-      "tap": [
-        "./emoji/tap.webp",
-        "水龙头",
-        "t-ap / 抬普",
-        "The tap is dripping.",
-        146
-      ],
-      "pot": [
-        "🍲",
-        "深锅",
-        "p-ot / 跑特",
-        "A pot of tea.",
-        147
-      ],
-      "pan": [
-        "🍳",
-        "平底锅",
-        "p-an / 盼",
-        "Fry an egg.",
-        148
-      ],
-      "cup": [
-        "🥛",
-        "杯子",
-        "c-up / 咔普",
-        "A cup of milk.",
-        149
-      ],
-      "mug": [
-        "🍺",
-        "马克杯",
-        "m-ug / 骂格",
-        "A coffee mug.",
-        150
-      ],
-      "glass": [
-        "🍹",
-        "玻璃杯",
-        "gl-ass / 哥拉斯",
-        "A glass of water.",
-        151
-      ],
-      "plate": [
-        "🍽️",
-        "盘子",
-        "pl-ate / 铺累特",
-        "Clean the plate.",
-        152
-      ],
-      "bowl": [
-        "🥣",
-        "碗",
-        "b-owl / 褒五",
-        "A bowl of rice.",
-        153
-      ],
-      "spoon": [
-        "🥄",
-        "勺子",
-        "sp-oon / 斯铺嗯",
-        "Eat with a spoon.",
-        154
-      ],
-      "fork": [
-        "🍴",
-        "叉子",
-        "f-ork / 佛克",
-        "Use a fork.",
-        155
-      ],
-      "knife": [
-        "🔪",
-        "刀",
-        "kn-ife / 奶夫",
-        "A sharp knife.",
-        156
-      ],
-      "bottle": [
-        "🍼",
-        "瓶子",
-        "bot-tle / 报透",
-        "A bottle of juice.",
-        157
-      ],
-      "trash": [
-        "🗑️",
-        "垃圾箱",
-        "tr-ash / 吹湿",
-        "Empty the trash.",
-        158
-      ],
-      "apron": [
-        "./emoji/apron.webp",
-        "围裙",
-        "a-pron / 诶喷",
-        "Wear an apron.",
-        159
-      ],
-      "towel": [
-        "./emoji/towel.webp",
-        "毛巾",
-        "tow-el / 套五",
-        "Dry your hands.",
-        160
-      ],
-      "bed": [
-        "🛏️",
-        "床",
-        "b-ed / 败得",
-        "A soft bed.",
-        161
-      ],
-      "pillow": [
-        "./emoji/pillow.webp",
-        "枕头",
-        "pil-low / 陪搂",
-        "A white pillow.",
-        162
-      ],
-      "sheet": [
-        "./emoji/sheet.webp",
-        "床单",
-        "sh-eet / 咻特",
-        "Change the sheet.",
-        163
-      ],
-      "blanket": [
-        "./emoji/blanket.webp",
-        "毯子",
-        "blan-ket / 布兰克特",
-        "A warm blanket.",
-        164
-      ],
-      "closet": [
-        "./emoji/closet.webp",
-        "大衣柜",
-        "clo-set / 扣贼特",
-        "Clothes in the closet.",
-        165
-      ],
-      "hanger": [
-        "./emoji/hanger.webp",
-        "衣架",
-        "hang-er / 汗格",
-        "Hang your coat.",
-        166
-      ],
-      "comb": [
-        "./emoji/comb.webp",
-        "梳子",
-        "c-omb / 扣姆",
-        "Comb your hair.",
-        167
-      ],
-      "brush": [
-        "🪥",
-        "刷子/梳刷",
-        "br-ush / 不辣湿",
-        "A hair brush.",
-        168
-      ],
-      "perfume": [
-        "./emoji/perfume.webp",
-        "香水",
-        "per-fume / 坡肤姆",
-        "Smell the perfume.",
-        169
-      ],
-      "mat": ["./emoji/mat.webp", "垫子", "m-at / 埋特", "A welcome mat.", 170],
-      "wallet": [
-        "👛",
-        "钱包",
-        "wal-let / 窝类特",
-        "Small wallet.",
-        171
-      ],
-      "purse": [
-        "👜",
-        "手提包",
-        "p-urse / 坡丝",
-        "Mom's purse.",
-        172
-      ],
-      "shoes": [
-        "👟",
-        "鞋子",
-        "sh-oes / 咻子",
-        "Put on shoes.",
-        173
-      ],
-      "socks": [
-        "🧦",
-        "袜子",
-        "s-ocks / 搜克斯",
-        "Wear socks.",
-        174
-      ],
-      "hat": [
-        "./emoji/hat.webp",
-        "帽子",
-        "h-at / 亥特",
-        "A sun hat.",
-        175
-      ],
-      "cap": [
-        "🧢",
-        "便帽",
-        "c-ap / 盖普",
-        "Baseball cap.",
-        176
-      ],
-      "watch": [
-        "⌚",
-        "手表",
-        "w-atch / 窝旗",
-        "Gold watch.",
-        177
-      ],
-      "ring": [
-        "💍",
-        "戒指",
-        "r-ing / 瑞恩",
-        "A diamond ring.",
-        178
-      ],
-      "umbrella": [
-        "🌂",
-        "雨伞",
-        "um-brel-la / 安不瑞拉",
-        "Open the umbrella.",
-        179
-      ],
-      "glasses": [
-        "👓",
-        "眼镜",
-        "glass-es / 哥拉斯丝",
-        "Wear glasses.",
-        180
-      ],
-      "soap": [
-        "🫧",
-        "肥皂",
-        "s-oap / 搜普",
-        "Wash with soap.",
-        181
-      ],
-      "shampoo": [
-        "🧴",
-        "洗发水",
-        "sham-poo / 山铺",
-        "Hair shampoo.",
-        182
-      ],
-      "sponge": [
-        "🧽",
-        "海绵",
-        "sp-onge / 死帮指",
-        "Clean with sponge.",
-        183
-      ],
-      "mop": [
-        "🧹",
-        "拖把",
-        "m-op / 冒普",
-        "Mop the floor.",
-        184
-      ],
-      "broom": [
-        "./emoji/broom.webp",
-        "扫帚",
-        "br-oom / 补入姆",
-        "Sweep the floor.",
-        185
-      ],
-      "bucket": [
-        "🪣",
-        "水桶",
-        "buck-et / 拜给特",
-        "A bucket of water.",
-        186
-      ],
-      "iron": [
-        "./emoji/iron.webp",
-        "熨斗",
-        "ir-on / 爱恩",
-        "Hot iron.",
-        187
-      ],
-      "tissue": [
-        "🤧",
-        "纸巾",
-        "tis-sue / 踢咻",
-        "Give me a tissue.",
-        188
-      ],
-     "hook": ["./emoji/hook.webp", "挂钩", "h-ook / 互刻", "Hang it on the hook.", 189],
-      "yard": ["./emoji/yard.webp", "院子", "y-ard / 雅得", "Play in the yard.", 190],
-     "bell": ["🔔", "门铃", "b-ell / 贝尔", "Ring the door bell.", 191],
-"bin": ["🗑️", "垃圾桶", "b-in / 宾", "Put it in the bin.", 192],
- 
-     "step": ["./emoji/step.webp", "台阶/步", "s-tep / 斯带普", "Watch your step.",193],
-    "tub": ["🛁", "浴缸", "t-ub / 踏步", "A hot tub.", 194],
-      "rug": ["./emoji/rug.webp", "小地毯", "r-ug / 瑞格", "A soft rug.", 195],
-      "toy": [
-        "🧸",
-        "玩偶",
-        "t-oy / 托一",
-        "A teddy toy.",
-        196
-      ],
-      "doll": [
-        "🪆",
-        "洋娃娃",
-        "d-oll / 多哦",
-        "Playing with a doll.",
-        197
-      ],
-      "ball": [
-        "⚽",
-        "球",
-        "b-all / 播哦",
-        "Kick the ball.",
-        198
-      ],
-      "dish": ["🍽️", "碟子", "d-ish / 滴嘘", "A clean dish.", 199],
-      "box": [
-        "📦",
-        "纸箱",
-        "b-ox / 暴克斯",
-        "Pack the box.",
-        200
-      ]
+      "house": ["🏠", "房子", "hou-se / 豪丝", "This is my house.", "fáng zi", "这是我的房子。", 101],
+      "home": ["🏡👨‍👩‍👧‍👦", "家", "h-ome / 厚姆", "I love my home.", "jiā", "我爱我的家。", 102],
+      "room": ["./emoji/room.webp", "房间", "r-oom / 入姆", "My room is big.", "fáng jiān", "我的房间很大。", 103],
+      "door": ["🚪", "门", "d-oor / 剁", "Open the door.", "mén", "打开门。", 104],
+      "window": ["🪟", "窗户", "win-dow / 温逗", "Clean the window.", "chuāng hu", "擦窗户。", 105],
+      "wall": ["🧱", "墙壁", "w-all / 窝哦", "A white wall.", "qiáng bì", "一面白色的墙壁。", 106],
+      "floor": ["./emoji/floor.webp", "地板", "fl-oor / 佛落", "Wooden floor.", "dì bǎn", "木质地板。", 107],
+      "ceiling": ["./emoji/celing.webp", "天花板", "cei-ling / 细拎", "Look at the ceiling.", "tiān huā bǎn", "看着天花板。", 108],
+      "stairs": ["./emoji/stairs.webp", "楼梯", "st-airs / 斯带儿丝", "Walk up the stairs.", "lóu tī", "走上楼梯。", 109],
+      "roof": ["./emoji/roof.webp", "屋顶", "r-oof / 入夫", "The roof is leaking.", "wū dǐng", "屋顶在漏水。", 110],
+      "garden": ["./emoji/garden.webp", "花园", "gar-den / 嘎灯", "Flowers in the garden.", "huā yuán", "花园里的花。", 111],
+      "garage": ["./emoji/garage.webp", "车库", "ga-rage / 嘎入阿治", "Dad's car in the garage.", "chē kù", "爸爸的车在车库里。", 112],
+      "living-room": ["🛋️📺", "客厅", "liv-ing-room / 里文肉姆", "We watch TV in the living-room.", "kè tīng", "我们在客厅看电视。", 113],
+      "balcony": ["./emoji/balcony.webp", "阳台", "bal-co-ny / 拜欧口泥", "Stand on the balcony.", "yáng tái", "站在阳台上。", 114],
+      "kitchen": ["./emoji/kitchen.webp", "厨房", "kitch-en / 旗琴", "Mom is in the kitchen.", "chú fáng", "妈妈在厨房里。", 115],
+      "bathroom": ["🛀", "浴室", "bath-room / 爸丝入姆", "Clean the bathroom.", "yù shì", "打扫浴室。", 116],
+      "toilet": ["🚽", "厕所", "toi-let / 托类特", "Where is the toilet?", "cè suǒ", "厕所在哪里？", 117],
+      "bedroom": ["🛌", "卧室", "bed-room / 败得入姆", "Sleep in the bedroom.", "wò shì", "在卧室睡觉。", 118],
+      "mailbox": ["📬", "信箱", "mail-box / 没哦暴克斯", "Check the mailbox.", "xìn xiāng", "检查信箱。", 119],
+      "fence": ["./emoji/fence.webp", "篱笆/围栏", "f-ence / 粉丝", "A white fence.", "lí ba", "一道白色的篱笆。", 120],
+      "sofa": ["🛋️", "沙发", "so-fa / 搜发", "Sit on the sofa.", "shā fā", "坐在沙发上。", 121],
+      "table": ["./emoji/table.webp", "桌子", "ta-ble / 抬剥", "A round table.", "zhuō zi", "一张圆桌子。", 122],
+      "chair": ["🪑", "椅子", "ch-air / 拆儿", "A wooden chair.", "yǐ zi", "一把木椅子。", 123],
+      "carpet": ["./emoji/carpet.webp", "地毯", "car-pet / 嘎陪特", "A soft carpet.", "dì tǎn", "一块柔软的地毯。", 124],
+      "lamp": ["./emoji/lamp.webp", "台灯", "l-amp / 蓝普", "Turn on the lamp.", "tái dēng", "打开台灯。", 125],
+      "clock": ["⏰", "闹钟", "cl-ock / 扩克", "The clock is fast.", "nào zhōng", "闹钟快了。", 126],
+      "mirror": ["🪞", "镜子", "mir-ror / 眯若", "A clean mirror.", "jìng zi", "一面干净的镜子。", 127],
+      "vase": ["🏺", "花瓶", "v-ase / 哇子", "Flowers in the vase.", "huā píng", "花瓶里的花。", 128],
+      "frame": ["🖼️", "相框", "fr-ame / 佛瑞姆", "A picture frame.", "xiàng kuāng", "一个相框。", 129],
+      "shelf": ["./emoji/shelf.webp", "架子", "sh-elf / 谁欧夫", "Books on the shelf.", "jià zi", "书在架子上。", 130],
+      "tv": ["📺", "电视机", "T-V / 提微", "Turn off the TV.", "diàn shì jī", "关掉电视机。", 131],
+      "curtain": ["./emoji/curtain.webp", "窗帘", "cur-tain / 颗藤", "Close the curtain.", "chuāng lián", "拉上窗帘。", 132],
+      "fan": ["./emoji/fan.webp", "风扇", "f-an / 饭", "Electric fan.", "fēng shàn", "电风扇。", 133],
+      "heater": ["./emoji/heater.webp", "取暖器", "heat-er / 希特", "Turn on the heater.", "qǔ nuǎn qì", "打开取暖器。", 134],
+      "key": ["🔑", "钥匙", "k-ey / 扣一", "Lose the key.", "yào shi", "丢了钥匙。", 135],
+      "lock": ["🔒", "锁", "l-ock / 洛克", "Unlock the door.", "suǒ", "打开门的锁。", 136],
+      "remote": ["./emoji/remote.webp", "遥控器", "re-mote / 瑞冒特", "TV remote.", "yáo kòng qì", "电视遥控器。", 137],
+      "plug": ["🔌", "插头", "pl-ug / 铺拉格", "Pull the plug.", "chā tóu", "拔掉插头。", 138],
+      "socket": ["./emoji/socket.webp", "插座", "sock-et / 搜盖特", "Find a socket.", "chā zuò", "找到一个插座。", 139],
+      "battery": ["🔋", "电池", "bat-ter-y / 拜德瑞", "Need a battery.", "diàn chí", "需要一节电池。", 140],
+      "fridge": ["./emoji/fridge.webp", "冰箱", "fri-dge / 佛瑞极", "Milk in the fridge.", "bīng xiāng", "牛奶在冰箱里。", 141],
+      "stove": ["./emoji/stove.webp", "炉灶", "st-ove / 斯透五", "Gas stove.", "lú zào", "煤气炉灶。", 142],
+      "oven": ["./emoji/oven.webp", "烤箱", "ov-en / 阿文", "Bread in the oven.", "kǎo xiāng", "面包在烤箱里。", 143],
+      "kettle": ["🫖", "热水壶", "ket-tle / 盖透", "Boil the kettle.", "rè shuǐ hú", "烧开热水壶。", 144],
+      "sink": ["./emoji/sink.webp", "洗手池", "s-ink / 胜刻", "Wash hands in the sink.", "xǐ shǒu chí", "在洗手池洗手。", 145],
+      "tap": ["./emoji/tap.webp", "水龙头", "t-ap / 抬普", "The tap is dripping.", "shuǐ lóng tóu", "水龙头在滴水。", 146],
+      "pot": ["🍲", "深锅", "p-ot / 跑特", "A pot of tea.", "guō", "一锅茶。", 147],
+      "pan": ["🍳", "平底锅", "p-an / 盼", "Fry an egg.", "píng dǐ guō", "用平底锅煎蛋。", 148],
+      "cup": ["🥛", "杯子", "c-up / 咔普", "A cup of milk.", "bēi zi", "一杯牛奶。", 149],
+      "mug": ["🍺", "马克杯", "m-ug / 骂格", "A coffee mug.", "mǎ kè bēi", "一个咖啡马克杯。", 150],
+      "glass": ["🍹", "玻璃杯", "gl-ass / 哥拉斯", "A glass of water.", "bō li bēi", "一玻璃杯水。", 151],
+      "plate": ["🍽️", "盘子", "pl-ate / 铺累特", "Clean the plate.", "pán zi", "清洗盘子。", 152],
+      "bowl": ["🥣", "碗", "b-owl / 褒五", "A bowl of rice.", "wǎn", "一碗米饭。", 153],
+      "spoon": ["🥄", "勺子", "sp-oon / 斯铺嗯", "Eat with a spoon.", "sháo zi", "用勺子吃。", 154],
+      "fork": ["🍴", "叉子", "f-ork / 佛克", "Use a fork.", "chā zi", "使用叉子。", 155],
+      "knife": ["🔪", "刀", "kn-ife / 奶夫", "A sharp knife.", "dāo", "一把锋利的刀。", 156],
+      "bottle": ["🍼", "瓶子", "bot-tle / 报透", "A bottle of juice.", "píng zi", "一瓶子果汁。", 157],
+      "trash": ["🗑️", "垃圾箱", "tr-ash / 吹湿", "Empty the trash.", "lā jī xiāng", "倒空垃圾箱。", 158],
+      "apron": ["./emoji/apron.webp", "围裙", "a-pron / 诶喷", "Wear an apron.", "wéi qún", "穿上围裙。", 159],
+      "towel": ["./emoji/towel.webp", "毛巾", "tow-el / 套五", "Dry your hands with the towel.", "máo jīn", "用毛巾擦干你的手。", 160],
+      "bed": ["🛏️", "床", "b-ed / 败得", "A soft bed.", "chuáng", "一张柔软的床。", 161],
+      "pillow": ["./emoji/pillow.webp", "枕头", "pil-low / 陪搂", "A white pillow.", "zhěn tou", "一个白色的枕头。", 162],
+      "sheet": ["./emoji/sheet.webp", "床单", "sh-eet / 咻特", "Change the sheet.", "chuáng dān", "更换床单。", 163],
+      "blanket": ["./emoji/blanket.webp", "毯子", "blan-ket / 布兰克特", "A warm blanket.", "tǎn zi", "一条温暖的毯子。", 164],
+      "closet": ["./emoji/closet.webp", "大衣柜", "clo-set / 扣贼特", "Clothes in the closet.", "yī guì", "衣服在大衣柜里。", 165],
+      "hanger": ["./emoji/hanger.webp", "衣架", "hang-er / 汗格", "Hang your coat.", "yī jià", "把你的外套挂在衣架上。", 166],
+      "comb": ["./emoji/comb.webp", "梳子", "c-omb / 扣姆", "Comb your hair.", "shū zi", "梳你的头发。", 167],
+      "brush": ["🪥", "刷子/梳刷", "br-ush / 不辣湿", "A hair brush.", "shuā zi", "一把发刷。", 168],
+      "perfume": ["./emoji/perfume.webp", "香水", "per-fume / 坡肤姆", "Smell the perfume.", "xiāng shuǐ", "闻这个香水。", 169],
+      "mat": ["./emoji/mat.webp", "垫子", "m-at / 埋特", "A welcome mat.", "diàn zi", "一块欢迎垫子。", 170],
+      "wallet": ["👛", "钱包", "wal-let / 窝类特", "Small wallet.", "qián bāo", "小钱包。", 171],
+      "purse": ["👜", "手提包", "p-urse / 坡丝", "Mom's purse.", "shǒu tí bāo", "妈妈的手提包。", 172],
+      "shoes": ["👟", "鞋子", "sh-oes / 咻子", "Put on shoes.", "xié zi", "穿上鞋子。", 173],
+      "socks": ["🧦", "袜子", "s-ocks / 搜克斯", "Wear socks.", "wà zi", "穿袜子。", 174],
+      "hat": ["./emoji/hat.webp", "帽子", "h-at / 亥特", "A sun hat.", "mào zi", "一顶遮阳帽。", 175],
+      "cap": ["🧢", "便帽", "c-ap / 盖普", "Baseball cap.", "biàn mào", "棒球便帽。", 176],
+      "watch": ["⌚", "手表", "w-atch / 窝旗", "Gold watch.", "shǒu biǎo", "金手表。", 177],
+      "ring": ["💍", "戒指", "r-ing / 瑞恩", "A diamond ring.", "jiè zhi", "一枚钻石戒指。", 178],
+      "umbrella": ["🌂", "雨伞", "um-brel-la / 安不瑞拉", "Open the umbrella.", "yǔ sǎn", "打开雨伞。", 179],
+      "glasses": ["👓", "眼镜", "glass-es / 哥拉斯丝", "Wear glasses.", "yǎn jìng", "戴眼镜。", 180],
+      "soap": ["🫧", "肥皂", "s-oap / 搜普", "Wash with soap.", "féi zào", "用肥皂洗。", 181],
+      "shampoo": ["🧴", "洗发水", "sham-poo / 山铺", "Hair shampoo.", "xǐ fà shuǐ", "洗发水。", 182],
+      "sponge": ["🧽", "海绵", "sp-onge / 死帮指", "Clean with sponge.", "hǎi mián", "用海绵清洗。", 183],
+      "mop": ["🧹", "拖把", "m-op / 冒普", "Mop the floor.", "tuō bǎ", "用拖把拖地。", 184],
+      "broom": ["./emoji/broom.webp", "扫帚", "br-oom / 补入姆", "Sweep the floor.", "sào zhǒu", "用扫帚扫地。", 185],
+      "bucket": ["🪣", "水桶", "buck-et / 拜给特", "A bucket of water.", "shuǐ tǒng", "一水桶水。", 186],
+      "iron": ["./emoji/iron.webp", "熨斗", "ir-on / 爱恩", "Hot iron.", "yùn dǒu", "热熨斗。", 187],
+      "tissue": ["🤧", "纸巾", "tis-sue / 踢咻", "Give me a tissue.", "zhǐ jīn", "给我一张纸巾。", 188],
+      "hook": ["./emoji/hook.webp", "挂钩", "h-ook / 互刻", "Hang it on the hook.", "guà gōu", "把它挂在挂钩上。", 189],
+      "yard": ["./emoji/yard.webp", "院子", "y-ard / 雅得", "Play in the yard.", "yuàn zi", "在院子里玩。", 190],
+      "bell": ["🔔", "门铃", "b-ell / 贝尔", "Ring the door bell.", "mén líng", "按门铃。", 191],
+      "bin": ["🗑️", "垃圾桶", "b-in / 宾", "Put it in the bin.", "lā jī tǒng", "把它放进垃圾桶。", 192],
+      "step": ["./emoji/step.webp", "台阶", "s-tep / 斯带普", "Watch your step.", "tái jiē", "注意台阶。", 193],
+      "tub": ["🛁", "浴缸", "t-ub / 踏步", "A hot tub.", "yù gāng", "一个热浴缸。", 194],
+      "rug": ["./emoji/rug.webp", "小地毯", "r-ug / 瑞格", "A soft rug.", "xiǎo dì tǎn", "一块柔软的小地毯。", 195],
+      "toy": ["🧸", "玩偶", "t-oy / 托一", "A teddy toy.", "wán ǒu", "一个泰迪玩偶。", 196],
+      "doll": ["🪆", "洋娃娃", "d-oll / 多哦", "Playing with a doll.", "yáng wá wa", "和洋娃娃玩。", 197],
+      "ball": ["⚽", "球", "b-all / 播哦", "Kick the ball.", "qiú", "踢球。", 198],
+      "dish": ["🍽️", "碟子", "d-ish / 滴嘘", "A clean dish.", "dié zi", "一个干净的碟子。", 199],
+      "box": ["📦", "纸箱", "b-ox / 暴克斯", "Pack the box.", "zhǐ xiāng", "打包纸箱。", 200]
     }
   },
   "3": {
@@ -1293,706 +218,106 @@ const DB = {
     "levelEmoji": "🐾",
     "levelName": "第3关: 动物乐园",
     "words": {
-      "lion": [
-        "🦁",
-        "狮子",
-        "li-on / 赖恩",
-        "The lion is the king.",
-        201
-      ],
-      "tiger": [
-        "🐯",
-        "老虎",
-        "ti-ger / 抬格",
-        "The tiger has stripes.",
-        202
-      ],
-      "elephant": [
-        "🐘",
-        "大象",
-        "el-e-phant / 哎勒粉特",
-        "Elephants are big.",
-        203
-      ],
-      "monkey": [
-        "🐒",
-        "猴子",
-        "mon-key / 芒扣",
-        "Monkeys like bananas.",
-        204
-      ],
-      "giraffe": [
-        "🦒",
-        "长颈鹿",
-        "gi-raffe / 极拉夫",
-        "A giraffe has a long neck.",
-        205
-      ],
-      "zebra": [
-        "🦓",
-        "斑马",
-        "ze-bra / 贼布拉",
-        "Zebras are black and white.",
-        206
-      ],
-      "bear": [
-        "🐻",
-        "熊",
-        "b-ear / 贝尔",
-        "Bears like honey.",
-        207
-      ],
-      "panda": [
-        "🐼",
-        "熊猫",
-        "pan-da / 盼打",
-        "Pandas eat bamboo.",
-        208
-      ],
-      "wolf": [
-        "🐺",
-        "狼",
-        "w-olf / 屋欧夫",
-        "The wolf howls at night.",
-        209
-      ],
-      "fox": [
-        "🦊",
-        "狐狸",
-        "f-ox / 佛克斯",
-        "The fox is very smart.",
-        210
-      ],
-      "deer": [
-        "🦌",
-        "鹿",
-        "d-eer / 弟儿",
-        "The deer runs fast.",
-        211
-      ],
-      "rabbit": [
-        "🐰",
-        "兔子",
-        "rab-bit / 瑞必特",
-        "Rabbits like carrots.",
-        212
-      ],
-      "squirrel": [
-        "🐿️",
-        "松鼠",
-        "squir-rel / 死跪柔",
-        "Squirrels eat nuts.",
-        213
-      ],
-      "kangaroo": [
-        "🦘",
-        "袋鼠",
-        "kan-ga-roo / 砍嘎入",
-        "The kangaroo jumps high.",
-        214
-      ],
-      "hippo": [
-        "🦛",
-        "河马",
-        "hip-po / 嘿跑",
-        "The hippo is in the water.",
-        215
-      ],
-      "rhinoceros": [
-        "🦏",
-        "犀牛",
-        "rhi-noc-er-os / 来闹色弱丝",
-        "Rhinos have strong horns.",
-        216
-      ],
-      "gorilla": [
-        "🦍",
-        "大猩猩",
-        "go-ril-la / 狗瑞拉",
-        "Gorillas are very strong.",
-        217
-      ],
-      "koala": [
-        "🐨",
-        "树袋熊",
-        "ko-a-la / 考阿拉",
-        "Koalas sleep in trees.",
-        218
-      ],
-      "hedgehog": [
-        "🦔",
-        "刺猬",
-        "hedge-hog / 嘿值好格",
-        "Hedgehogs have spikes.",
-        219
-      ],
-      "leopard": [
-        "🐆",
-        "豹子",
-        "leop-ard / 勒泼得",
-        "Leopards run fast.",
-        220
-      ],
-      "raccoon": [
-        "🦝",
-        "浣熊",
-        "rac-coon / 瑞昆",
-        "Raccoons have masks.",
-        221
-      ],
-      "skunk": [
-        "🦨",
-        "臭鼬",
-        "sk-unk / 斯刚刻",
-        "Skunks smell bad.",
-        222
-      ],
-      "otter": [
-        "🦦",
-        "水獭",
-        "ot-ter / 阿特",
-        "Otters like water.",
-        223
-      ],
-      "sloth": [
-        "🦥",
-        "树懒",
-        "sl-oth / 斯搂丝",
-        "The sloth moves slowly.",
-        224
-      ],
-      "badger": [
-        "🦡",
-        "獾",
-        "badg-er / 拜折",
-        "The badger is brave.",
-        225
-      ],
-      "dog": [
-        "🐶",
-        "狗",
-        "d-og / 到格",
-        "I have a pet dog.",
-        226
-      ],
-      "cat": [
-        "🐱",
-        "猫",
-        "c-at / 开特",
-        "The cat is sleeping.",
-        227
-      ],
-      "cow": [
-        "🐮",
-        "奶牛",
-        "c-ow / 靠",
-        "Cows give us milk.",
-        228
-      ],
-      "pig": [
-        "🐷",
-        "猪",
-        "p-ig / 披格",
-        "The pig is fat.",
-        229
-      ],
-      "sheep": [
-        "🐑",
-        "绵羊",
-        "sh-eep / 咻普",
-        "Sheep are soft.",
-        230
-      ],
-      "goat": [
-        "🐐",
-        "山羊",
-        "g-oat / 够特",
-        "The goat eats grass.",
-        231
-      ],
-      "horse": [
-        "🐴",
-        "马",
-        "h-orse / 厚丝",
-        "Ride a horse.",
-        232
-      ],
-      "donkey": [
-        "🫏",
-        "驴",
-        "don-key / 当扣",
-        "The donkey is loud.",
-        233
-      ],
-      "chicken": [
-        "🐔",
-        "鸡",
-        "chick-en / 旗肯",
-        "Chickens lay eggs.",
-        234
-      ],
-      "duck": [
-        "🦆",
-        "鸭子",
-        "d-uck / 答刻",
-        "Ducks swim.",
-        235
-      ],
-      "mouse": [
-        "🐭",
-        "老鼠",
-        "m-ouse / 猫丝",
-        "Mouse likes cheese.",
-        236
-      ],
-      "rat": [
-        "🐀",
-        "大老鼠",
-        "r-at / 瑞特",
-        "A rat in the house.",
-        237
-      ],
-      "hamster": [
-        "🐹",
-        "仓鼠",
-        "ham-ster / 汗姆斯特",
-        "Cute hamster.",
-        238
-      ],
-      "ox": [
-        "🐂",
-        "公牛",
-        "o-x / 阿克斯",
-        "The ox is strong.",
-        239
-      ],
-      "camel": [
-        "🐫",
-        "骆驼",
-        "cam-el / 盖某",
-        "Camels in desert.",
-        240
-      ],
-      "llama": [
-        "🦙",
-        "羊驼",
-        "lla-ma / 拉吗",
-        "The llama is funny.",
-        241
-      ],
-      "bull": [
-        "🐃",
-        "水牛",
-        "b-ull / 不欧",
-        "The bull is angry.",
-        242
-      ],
-      "ram": [
-        "🐏",
-        "公绵羊",
-        "r-am / 瑞姆",
-        "The ram has horns.",
-        243
-      ],
-      "rooster": [
-        "🐓",
-        "公鸡",
-        "roos-ter / 入斯特",
-        "Rooster crows.",
-        244
-      ],
-      "turkey": [
-        "🦃",
-        "火鸡",
-        "tur-key / 特扣",
-        "Eat turkey.",
-        245
-      ],
-      "bird": [
-        "🐦",
-        "鸟",
-        "b-ird / 波得",
-        "Birds sing.",
-        246
-      ],
-      "eagle": [
-        "🦅",
-        "老鹰",
-        "ea-gle / 亿勾",
-        "Eagle flies high.",
-        247
-      ],
-      "owl": [
-        "🦉",
-        "猫头鹰",
-        "o-wl / 奥五",
-        "Owls see at night.",
-        248
-      ],
-      "parrot": [
-        "🦜",
-        "鹦鹉",
-        "par-rot / 派若特",
-        "Parrot can talk.",
-        249
-      ],
-      "peacock": [
-        "🦚",
-        "孔雀",
-        "pea-cock / 披扩刻",
-        "Beautiful peacock.",
-        250
-      ],
-      "swan": [
-        "🦢",
-        "天鹅",
-        "sw-an / 丝袜恩",
-        "White swan.",
-        251
-      ],
-      "flamingo": [
-        "🦩",
-        "火烈鸟",
-        "fla-min-go / 佛拉明够",
-        "Pink flamingo.",
-        252
-      ],
-      "penguin": [
-        "🐧",
-        "企鹅",
-        "pen-guin / 喷滚",
-        "Penguin on ice.",
-        253
-      ],
-      "dove": [
-        "🕊️",
-        "和平鸽",
-        "d-ove / 达夫",
-        "White dove.",
-        254
-      ],
-      "goose": [
-        "🪿",
-        "鹅",
-        "g-oose / 估丝",
-        "Look at the goose.",
-        255
-      ],
-      "crow": [
-        "🐦‍⬛",
-        "乌鸦",
-        "cr-ow / 亏肉",
-        "Black crow.",
-        256
-      ],
-      "chick": [
-        "🐤",
-        "小鸡",
-        "ch-ick / 旗刻",
-        "Yellow chick.",
-        257
-      ],
-      "bat": [
-        "🦇",
-        "蝙蝠",
-        "b-at / 拜特",
-        "Bat flies.",
-        258
-      ],
-      "vulture": [
-        "🦅",
-        "秃鹫",
-        "vul-ture / 瓦切",
-        "Vultures eat meat.",
-        259
-      ],
-      "stork": [
-        "🪹",
-        "鹳",
-        "st-ork / 斯多刻",
-        "Stork in the nest.",
-        260
-      ],
-      "falcon": [
-        "🐦‍🔥",
-        "猎隼/不死鸟",
-        "fal-con / 佛扛",
-        "Fast falcon.",
-        261
-      ],
-      "pigeon": [
-        "./emoji/pigeon.webp",
-        "鸽子",
-        "pi-geon / 批准",
-        "Pigeon in city.",
-        262
-      ],
-      "dodo": [
-        "🦤",
-        "渡渡鸟",
-        "do-do / 都都",
-        "Dodo is extinct.",
-        263
-      ],
-      "mallard": [
-        "🦆",
-        "野鸭",
-        "mal-lard / 卖辣得",
-        "A wild duck.",
-        264
-      ],
-      "canary": [
-        "🐤",
-        "金丝雀",
-        "ca-na-ry / 哥内瑞",
-        "Small yellow bird.",
-        265
-      ],
-      "fish": [
-        "🐟",
-        "鱼",
-        "f-ish / 飞湿",
-        "Small fish.",
-        266
-      ],
-      "shark": [
-        "🦈",
-        "鲨鱼",
-        "sh-ark / 夏刻",
-        "Great white shark.",
-        267
-      ],
-      "whale": [
-        "🐋",
-        "鲸鱼",
-        "wh-ale / 威欧",
-        "Blue whale.",
-        268
-      ],
-      "dolphin": [
-        "🐬",
-        "海豚",
-        "dol-phin / 多欧粉",
-        "Smart dolphin.",
-        269
-      ],
-      "turtle": [
-        "🐢",
-        "乌龟",
-        "tur-tle / 特透",
-        "Slow turtle.",
-        270
-      ],
-      "crab": [
-        "🦀",
-        "螃蟹",
-        "cr-ab / 亏步",
-        "Crab has claws.",
-        271
-      ],
-      "shrimp": [
-        "🦐",
-        "虾",
-        "shr-imp / 咻瑞姆普",
-        "Eat shrimp.",
-        272
-      ],
-      "octopus": [
-        "🐙",
-        "章鱼",
-        "oc-to-pus / 阿克托铺丝",
-        "Eight arms.",
-        273
-      ],
-      "squid": [
-        "🦑",
-        "鱿鱼",
-        "squ-id / 斯跪得",
-        "Deep sea squid.",
-        274
-      ],
-      "lobster": [
-        "🦞",
-        "龙虾",
-        "lob-ster / 罗布斯特",
-        "Red lobster.",
-        275
-      ],
-      "seal": [
-        "🦭",
-        "海豹",
-        "s-eal / 细欧",
-        "Cute seal.",
-        276
-      ],
-      "frog": [
-        "🐸",
-        "青蛙",
-        "fr-og / 佛若格",
-        "Frog jumps.",
-        277
-      ],
-      "crocodile": [
-        "🐊",
-        "鳄鱼",
-        "croc-o-dile / 亏口呆欧",
-        "Big crocodile.",
-        278
-      ],
-      "snake": [
-        "🐍",
-        "蛇",
-        "sn-ake / 斯内刻",
-        "Long snake.",
-        279
-      ],
-      "lizard": [
-        "🦎",
-        "蜥蜴",
-        "liz-ard / 里惹得",
-        "Green lizard.",
-        280
-      ],
-      "seahorse": [
-        "./emoji/seahorse.webp",
-        "海马",
-        "sea-horse / 细厚丝",
-        "Seahorse in sea.",
-        281
-      ],
-      "jellyfish": [
-        "🪼",
-        "水母",
-        "jel-ly-fish / 杰离飞湿",
-        "Clear jellyfish.",
-        282
-      ],
-      "shell": [
-        "🐚",
-        "贝壳",
-        "sh-ell / 谁哦",
-        "Sea shell.",
-        283
-      ],
-      "coral": [
-        "🪸",
-        "珊瑚",
-        "cor-al / 阔柔",
-        "Pink coral.",
-        284
-      ],
-      "blowfish": [
-        "🐡",
-        "河豚",
-        "blow-fish / 步搂飞湿",
-        "Puffy blowfish.",
-        285
-      ],
-      "bee": [
-        "🐝",
-        "蜜蜂",
-        "b-ee / 逼",
-        "Bees make honey.",
-        286
-      ],
-      "ant": [
-        "🐜",
-        "蚂蚁",
-        "a-nt / 安特",
-        "Ants work hard.",
-        287
-      ],
-      "butterfly": [
-        "🦋",
-        "蝴蝶",
-        "but-ter-fly / 拜特佛莱",
-        "Pretty butterfly.",
-        288
-      ],
-      "spider": [
-        "🕷️",
-        "蜘蛛",
-        "spi-der / 斯派打",
-        "Spider web.",
-        289
-      ],
-      "mosquito": [
-        "🦟",
-        "蚊子",
-        "mos-qui-to / 莫斯给透",
-        "Biting mosquito.",
-        290
-      ],
-      "fly": [
-        "🪰",
-        "苍蝇",
-        "fl-y / 佛莱",
-        "Dirty fly.",
-        291
-      ],
-      "ladybug": [
-        "🐞",
-        "瓢虫",
-        "la-dy-bug / 累低拜格",
-        "Red ladybug.",
-        292
-      ],
-      "caterpillar": [
-        "🐛",
-        "毛毛虫",
-        "cat-er-pil-lar / 盖特陪勒",
-        "Green caterpillar.",
-        293
-      ],
-      "worm": [
-        "🪱",
-        "蠕虫",
-        "w-orm / 窝姆",
-        "Worm in soil.",
-        294
-      ],
-      "snail": [
-        "🐌",
-        "蜗牛",
-        "sn-ail / 斯内欧",
-        "Slow snail.",
-        295
-      ],
-      "cricket": [
-        "🦗",
-        "蟋蟀",
-        "crick-et / 亏给特",
-        "Cricket sings.",
-        296
-      ],
-      "scorpion": [
-        "🦂",
-        "蝎子",
-        "scor-pi-on / 斯郭皮恩",
-        "Dangerous scorpion.",
-        297
-      ],
-      "beetle": [
-        "🪲",
-        "甲虫",
-        "bee-tle / 逼透",
-        "Hard beetle.",
-        298
-      ],
-      "mantis": [
-        "🦗",
-        "螳螂",
-        "man-tis / 蛮体丝",
-        "Green mantis.",
-        299
-      ],
-      "microbe": [
-        "🦠",
-        "细菌",
-        "mi-crobe / 麦口肉步",
-        "Small microbe.",
-        300
-      ]
+      "lion": ["🦁", "狮子", "li-on / 赖恩", "The lion is the king.", "shī zi", "狮子是国王。", 201],
+      "tiger": ["🐯", "老虎", "ti-ger / 抬格", "The tiger has stripes.", "lǎo hǔ", "老虎有条纹。", 202],
+      "elephant": ["🐘", "大象", "el-e-phant / 哎勒粉特", "Elephants are big.", "dà xiàng", "大象很大。", 203],
+      "monkey": ["🐒", "猴子", "mon-key / 芒扣", "Monkeys like bananas.", "hóu zi", "猴子喜欢香蕉。", 204],
+      "giraffe": ["🦒", "长颈鹿", "gi-raffe / 极拉夫", "A giraffe has a long neck.", "cháng jǐng lù", "长颈鹿有长长的脖子。", 205],
+      "zebra": ["🦓", "斑马", "ze-bra / 贼布拉", "Zebras are black and white.", "bān mǎ", "斑马是黑白相间的。", 206],
+      "bear": ["🐻", "熊", "b-ear / 贝尔", "Bears like honey.", "xióng", "熊喜欢蜂蜜。", 207],
+      "panda": ["🐼", "熊猫", "pan-da / 盼打", "Pandas eat bamboo.", "xióng māo", "熊猫吃竹子。", 208],
+      "wolf": ["🐺", "狼", "w-olf / 屋欧夫", "The wolf howls at night.", "láng", "狼在晚上嚎叫。", 209],
+      "fox": ["🦊", "狐狸", "f-ox / 佛克斯", "The fox is very smart.", "hú li", "狐狸非常聪明。", 210],
+      "deer": ["🦌", "鹿", "d-eer / 弟儿", "The deer runs fast.", "lù", "鹿跑得很快。", 211],
+      "rabbit": ["🐰", "兔子", "rab-bit / 瑞必特", "Rabbits like carrots.", "tù zi", "兔子喜欢胡萝卜。", 212],
+      "squirrel": ["🐿️", "松鼠", "squir-rel / 死跪柔", "Squirrels eat nuts.", "sōng shǔ", "松鼠吃坚果。", 213],
+      "kangaroo": ["🦘", "袋鼠", "kan-ga-roo / 砍嘎入", "The kangaroo jumps high.", "dài shǔ", "袋鼠跳得很高。", 214],
+      "hippo": ["🦛", "河马", "hip-po / 嘿跑", "The hippo is in the water.", "hé mǎ", "河马在水里。", 215],
+      "rhinoceros": ["🦏", "犀牛", "rhi-noc-er-os / 来闹色弱丝", "Rhinos have strong horns.", "xī niú", "犀牛有强壮的角。", 216],
+      "gorilla": ["🦍", "大猩猩", "go-ril-la / 狗瑞拉", "Gorillas are very strong.", "dà xīng xīng", "大猩猩非常强壮。", 217],
+      "koala": ["🐨", "树袋熊", "ko-a-la / 考阿拉", "Koalas sleep in trees.", "shù dài xióng", "树袋熊在树上睡觉。", 218],
+      "hedgehog": ["🦔", "刺猬", "hedge-hog / 嘿值好格", "Hedgehogs have spikes.", "cì wèi", "刺猬有刺。", 219],
+      "leopard": ["🐆", "豹子", "leop-ard / 勒泼得", "Leopards run fast.", "bào zi", "豹子跑得很快。", 220],
+      "raccoon": ["🦝", "浣熊", "rac-coon / 瑞昆", "Raccoons have masks.", "huàn xióng", "浣熊像戴着面具。", 221],
+      "skunk": ["🦨", "臭鼬", "sk-unk / 斯刚刻", "Skunks smell bad.", "chòu yòu", "臭鼬闻起来很臭。", 222],
+      "otter": ["🦦", "水獭", "ot-ter / 阿特", "Otters like water.", "shuǐ tǎ", "水獭喜欢水。", 223],
+      "sloth": ["🦥", "树懒", "sl-oth / 斯搂丝", "The sloth moves slowly.", "shù lǎn", "树懒移动得很慢。", 224],
+      "badger": ["🦡", "獾", "badg-er / 拜折", "The badger is brave.", "huān", "獾很勇敢。", 225],
+      "dog": ["🐶", "狗", "d-og / 到格", "I have a pet dog.", "gǒu", "我有一只宠物狗。", 226],
+      "cat": ["🐱", "猫", "c-at / 开特", "The cat is sleeping.", "māo", "猫正在睡觉。", 227],
+      "cow": ["🐮", "奶牛", "c-ow / 靠", "Cows give us milk.", "nǎi niú", "奶牛给我们牛奶。", 228],
+      "pig": ["🐷", "猪", "p-ig / 披格", "The pig is fat.", "zhū", "这只猪很胖。", 229],
+      "sheep": ["🐑", "绵羊", "sh-eep / 咻普", "Sheep are soft.", "mián yáng", "绵羊是柔软的。", 230],
+      "goat": ["🐐", "山羊", "g-oat / 够特", "The goat eats grass.", "shān yáng", "山羊吃草。", 231],
+      "horse": ["🐴", "马", "h-orse / 厚丝", "Ride a horse.", "mǎ", "骑马。", 232],
+      "donkey": ["🫏", "驴", "don-key / 当扣", "The donkey is loud.", "lǘ", "这头驴很吵。", 233],
+      "chicken": ["🐔", "鸡", "chick-en / 旗肯", "Chickens lay eggs.", "jī", "鸡下蛋。", 234],
+      "duck": ["🦆", "鸭子", "d-uck / 答刻", "Ducks swim.", "yā zi", "鸭子游泳。", 235],
+      "mouse": ["🐭", "老鼠", "m-ouse / 猫丝", "Mouse likes cheese.", "lǎo shǔ", "老鼠喜欢奶酪。", 236],
+      "rat": ["🐀", "大老鼠", "r-at / 瑞特", "A rat in the house.", "lǎo shǔ", "屋里有一只大老鼠。", 237],
+      "hamster": ["🐹", "仓鼠", "ham-ster / 汗姆斯特", "Cute hamster.", "cāng shǔ", "可爱的仓鼠。", 238],
+      "ox": ["🐂", "公牛", "o-x / 阿克斯", "The ox is strong.", "gōng niú", "公牛很强壮。", 239],
+      "camel": ["🐫", "骆驼", "cam-el / 盖某", "Camels in desert.", "luò tuo", "沙漠里的骆驼。", 240],
+      "llama": ["🦙", "羊驼", "lla-ma / 拉吗", "The llama is funny.", "yáng tuó", "羊驼很有趣。", 241],
+      "bull": ["🐃", "水牛", "b-ull / 不欧", "The bull is angry.", "shuǐ niú", "水牛生气了。", 242],
+      "ram": ["🐏", "公绵羊", "r-am / 瑞姆", "The ram has horns.", "gōng mián yáng", "公绵羊有角。", 243],
+      "rooster": ["🐓", "公鸡", "roos-ter / 入斯特", "Rooster crows.", "gōng jī", "公鸡打鸣。", 244],
+      "turkey": ["🦃", "火鸡", "tur-key / 特扣", "Eat turkey.", "huǒ jī", "吃火鸡。", 245],
+      "bird": ["🐦", "鸟", "b-ird / 波得", "Birds sing.", "niǎo", "鸟儿唱歌。", 246],
+      "eagle": ["🦅", "老鹰", "ea-gle / 亿勾", "Eagle flies high.", "lǎo yīng", "老鹰飞得高。", 247],
+      "owl": ["🦉", "猫头鹰", "o-wl / 奥五", "Owls see at night.", "māo tóu yīng", "猫头鹰在晚上看东西。", 248],
+      "parrot": ["🦜", "鹦鹉", "par-rot / 派若特", "Parrot can talk.", "yīng wǔ", "鹦鹉会说话。", 249],
+      "peacock": ["🦚", "孔雀", "pea-cock / 披扩刻", "Beautiful peacock.", "kǒng què", "美丽的孔雀。", 250],
+      "swan": ["🦢", "天鹅", "sw-an / 丝袜恩", "White swan.", "tiān é", "白色的天鹅。", 251],
+      "flamingo": ["🦩", "火烈鸟", "fla-min-go / 佛拉明够", "Pink flamingo.", "huǒ liè niǎo", "粉红色的火烈鸟。", 252],
+      "penguin": ["🐧", "企鹅", "pen-guin / 喷滚", "Penguin on ice.", "qǐ é", "冰上的企鹅。", 253],
+      "dove": ["🕊️", "和平鸽", "d-ove / 达夫", "White dove.", "hé píng gē", "白色的和平鸽。", 254],
+      "goose": ["🪿", "鹅", "g-oose / 估丝", "Look at the goose.", "é", "看那只鹅。", 255],
+      "crow": ["🐦‍⬛", "乌鸦", "cr-ow / 亏肉", "Black crow.", "wū yā", "黑色的乌鸦。", 256],
+      "chick": ["🐤", "小鸡", "ch-ick / 旗刻", "Yellow chick.", "xiǎo jī", "黄色的小鸡。", 257],
+      "bat": ["🦇", "蝙蝠", "b-at / 拜特", "Bat flies.", "biān fú", "蝙蝠飞行。", 258],
+      "vulture": ["🦅", "秃鹫", "vul-ture / 瓦切", "Vultures eat meat.", "tū jiù", "秃鹫吃肉。", 259],
+      "stork": ["🪹", "鹳", "st-ork / 斯多刻", "Stork in the nest.", "guàn", "巢里的鹳。", 260],
+      "falcon": ["🐦‍🔥", "猎隼/不死鸟", "fal-con / 佛扛", "Fast falcon.", "liè sǔn", "快速的猎隼。", 261],
+      "pigeon": ["./emoji/pigeon.webp", "鸽子", "pi-geon / 批准", "Pigeon in city.", "gē zi", "城市里的鸽子。", 262],
+      "dodo": ["🦤", "渡渡鸟", "do-do / 都都", "Dodo is extinct.", "dù dù niǎo", "渡渡鸟灭绝了。", 263],
+      "mallard": ["🦆", "野鸭", "mal-lard / 卖辣得", "A wild duck.", "yě yā", "一只野鸭。", 264],
+      "canary": ["🐤", "金丝雀", "ca-na-ry / 哥内瑞", "Canary is a small yellow bird.", "jīn sī què", "金丝雀是一种黄色的小鸟。", 265],
+      "fish": ["🐟", "鱼", "f-ish / 飞湿", "Small fish.", "yú", "小鱼。", 266],
+      "shark": ["🦈", "鲨鱼", "sh-ark / 夏刻", "Great white shark.", "shā yú", "大白鲨。", 267],
+      "whale": ["🐋", "鲸鱼", "wh-ale / 威欧", "Blue whale.", "jīng yú", "蓝鲸。", 268],
+      "dolphin": ["🐬", "海豚", "dol-phin / 多欧粉", "Smart dolphin.", "hǎi tún", "聪明的海豚。", 269],
+      "turtle": ["🐢", "乌龟", "tur-tle / 特透", "Slow turtle.", "wū guī", "慢吞吞的乌龟。", 270],
+      "crab": ["🦀", "螃蟹", "cr-ab / 亏步", "Crab has claws.", "páng xiè", "螃蟹有钳子。", 271],
+      "shrimp": ["🦐", "虾", "shr-imp / 咻瑞姆普", "Eat shrimp.", "xiā", "吃虾。", 272],
+      "octopus": ["🐙", "章鱼", "oc-to-pus / 阿克托铺丝", "Octopus has eight arms.", "zhāng yú", "章鱼又叫八爪鱼，有八只手臂。", 273],
+      "squid": ["🦑", "鱿鱼", "squ-id / 斯跪得", "Deep sea squid.", "yóu yú", "深海鱿鱼。", 274],
+      "lobster": ["🦞", "龙虾", "lob-ster / 罗布斯特", "Red lobster.", "lóng xiā", "红色的龙虾。", 275],
+      "seal": ["🦭", "海豹", "s-eal / 细欧", "Cute seal.", "hǎi bào", "可爱的海豹。", 276],
+      "frog": ["🐸", "青蛙", "fr-og / 佛若格", "Frog jumps.", "qīng wā", "青蛙跳。", 277],
+      "crocodile": ["🐊", "鳄鱼", "croc-o-dile / 亏口呆欧", "Big crocodile.", "è yú", "大鳄鱼。", 278],
+      "snake": ["🐍", "蛇", "sn-ake / 斯内刻", "Long snake.", "shé", "长蛇。", 279],
+      "lizard": ["🦎", "蜥蜴", "liz-ard / 里惹得", "Green lizard.", "xī yì", "绿色的蜥蜴。", 280],
+      "seahorse": ["./emoji/seahorse.webp", "海马", "sea-horse / 细厚丝", "Seahorse in sea.", "hǎi mǎ", "海里的海马。", 281],
+      "jellyfish": ["🪼", "水母", "jel-ly-fish / 杰离飞湿", "Clear jellyfish.", "shuǐ mǔ", "透明的水母。", 282],
+      "shell": ["🐚", "贝壳", "sh-ell / 谁哦", "Sea shell.", "bèi ké", "海贝壳。", 283],
+      "coral": ["🪸", "珊瑚", "cor-al / 阔柔", "Pink coral.", "shān hú", "粉红色的珊瑚。", 284],
+      "blowfish": ["🐡", "河豚", "blow-fish / 步搂飞湿", "Puffy blowfish.", "hé tún", "圆鼓鼓的河豚。", 285],
+      "bee": ["🐝", "蜜蜂", "b-ee / 逼", "Bees make honey.", "mì fēng", "蜜蜂酿蜜。", 286],
+      "ant": ["🐜", "蚂蚁", "a-nt / 安特", "Ants work hard.", "mǎ yǐ", "蚂蚁工作努力。", 287],
+      "butterfly": ["🦋", "蝴蝶", "but-ter-fly / 拜特佛莱", "Pretty butterfly.", "hú dié", "漂亮的蝴蝶。", 288],
+      "spider": ["🕷️", "蜘蛛", "spi-der / 斯派打", "Spider web.", "zhī zhū", "蜘蛛网。", 289],
+      "mosquito": ["🦟", "蚊子", "mos-qui-to / 莫斯给透", "Biting mosquito.", "wén zi", "咬人的蚊子。", 290],
+      "fly": ["🪰", "苍蝇", "fl-y / 佛莱", "Dirty fly.", "cāng ying", "肮脏的苍蝇。", 291],
+      "ladybug": ["🐞", "瓢虫", "la-dy-bug / 累低拜格", "Red ladybug.", "piáo chóng", "红色的瓢虫。", 292],
+      "caterpillar": ["🐛", "毛毛虫", "cat-er-pil-lar / 盖特陪勒", "Green caterpillar.", "máo máo chóng", "绿色的毛毛虫。", 293],
+      "worm": ["🪱", "蠕虫", "w-orm / 窝姆", "Worm in soil.", "rú chóng", "泥土里的蠕虫。", 294],
+      "snail": ["🐌", "蜗牛", "sn-ail / 斯内欧", "Slow snail.", "wō niú", "慢吞吞的蜗牛。", 295],
+      "cricket": ["🦗", "蟋蟀", "crick-et / 亏给特", "Cricket sings.", "xī shuài", "蟋蟀唱歌。", 296],
+      "scorpion": ["🦂", "蝎子", "scor-pi-on / 斯郭皮恩", "Dangerous scorpion.", "xiē zi", "危险的蝎子。", 297],
+      "beetle": ["🪲", "甲虫", "bee-tle / 逼透", "Hard beetle.", "jiǎ chóng", "坚硬的甲虫。", 298],
+      "mantis": ["🦗", "螳螂", "man-tis / 蛮体丝", "Green mantis.", "táng láng", "绿色的螳螂。", 299],
+      "microbe": ["🦠", "细菌", "mi-crobe / 麦口肉步", "Small microbe.", "xì jūn", "微小的细菌。", 300]
     }
   },
   "4": {
@@ -2000,1240 +325,214 @@ const DB = {
     "levelEmoji": "🍕",
     "levelName": "第4关: 美味餐厅",
     "words": {
-      "pizza": [
-        "🍕",
-        "比萨",
-        "piz-za / 披萨",
-        "A big Italian pizza.",
-        301
-      ],
-      "burger": [
-        "🍔",
-        "汉堡",
-        "bur-ger / 播格",
-        "I want a beef burger.",
-        302
-      ],
-      "sandwich": [
-        "🥪",
-        "三明治",
-        "sand-wich / 三得未旗",
-        "A healthy sandwich.",
-        303
-      ],
-      "taco": [
-        "🌮",
-        "塔可",
-        "ta-co / 踏口",
-        "Mexican taco is spicy.",
-        304
-      ],
-      "sushi": [
-        "🍣",
-        "寿司",
-        "su-shi / 苏希",
-        "Japanese sushi is fresh.",
-        305
-      ],
-      "spaghetti": [
-        "🍝",
-        "意大利面",
-        "spa-ghet-ti / 斯巴给体",
-        "Long spaghetti noodles.",
-        306
-      ],
-      "curry": [
-        "🍛",
-        "咖喱饭",
-        "cur-ry / 咖瑞",
-        "Spicy chicken curry.",
-        307
-      ],
-      "bento": [
-        "🍱",
-        "便当",
-        "ben-to / 本托",
-        "A delicious bento box.",
-        308
-      ],
-      "steak": [
-        "🥩",
-        "牛排",
-        "st-eak / 斯得刻",
-        "The steak is medium.",
-        309
-      ],
-      "dumpling": [
-        "🥟",
-        "饺子",
-        "dump-ling / 当铺令",
-        "Make dumplings at New Year.",
-        310
-      ],
-      "fries": [
-        "🍟",
-        "薯条",
-        "fr-ies / 夫赖丝",
-        "French fries with salt.",
-        311
-      ],
-      "hotdog": [
-        "🌭",
-        "热狗",
-        "hot-dog / 耗特到格",
-        "Hotdog with mustard.",
-        312
-      ],
-      "burrito": [
-        "🌯",
-        "卷饼",
-        "bur-ri-to / 捕瑞透",
-        "Beef and bean burrito.",
-        313
-      ],
-      "stew": [
-        "🥘",
-        "炖菜",
-        "st-ew / 斯丢",
-        "A hot meat stew.",
-        314
-      ],
-      "kebab": [
-        "🍢",
-        "串烧/肉串",
-        "ke-bab / 盖吧",
-        "Grilled meat kebab.",
-        315
-      ],
-      "falafel": [
-        "🧆",
-        "炸丸子",
-        "fa-la-fel / 法拉佛",
-        "Vegetable falafel.",
-        316
-      ],
-      "pretzel": [
-        "🥨",
-        "卷饼干",
-        "pret-zel / 铺瑞奏",
-        "A salty pretzel.",
-        317
-      ],
-      "waffle": [
-        "🧇",
-        "华夫饼",
-        "waf-fle / 窝佛",
-        "Honey on the waffle.",
-        318
-      ],
-      "pancake": [
-        "🥞",
-        "松饼",
-        "pan-cake / 盼块刻",
-        "Sweet breakfast pancake.",
-        319
-      ],
-      "omelet": [
-        "🍳",
-        "煎蛋卷",
-        "om-e-let / 阿姆类特",
-        "Egg omelet for breakfast.",
-        320
-      ],
-      "bagel": [
-        "🥯",
-        "贝果",
-        "ba-gel / 贝勾",
-        "Cream cheese bagel.",
-        321
-      ],
-      "ramen": [
-        "🍜",
-        "拉面",
-        "ra-men / 拉门",
-        "Hot Japanese ramen.",
-        322
-      ],
-      "dimsum": [
-        "🥢",
-        "点心",
-        "dim-sum / 顶三",
-        "Eat dim sum in morning.",
-        323
-      ],
-      "paella": [
-        "🥘",
-        "海鲜饭",
-        "pa-el-la / 啪爱拉",
-        "Spanish seafood paella.",
-        324
-      ],
-      "fondue": [
-        "🫕",
-        "火锅",
-        "fon-due / 饭丢",
-        "Cheese or meat fondue.",
-        325
-      ],
-      "cake": [
-        "🍰",
-        "蛋糕",
-        "c-ake / 块刻",
-        "Chocolate cake.",
-        326
-      ],
-      "cookie": [
-        "🍪",
-        "曲奇",
-        "coo-kie / 库ki",
-        "Milk and cookies.",
-        327
-      ],
-      "donut": [
-        "🍩",
-        "甜甜圈",
-        "do-nut / 逗纳特",
-        "Sweet pink donut.",
-        328
-      ],
-      "icecream": [
-        "🍦",
-        "冰淇淋",
-        "ice-cream / 爱丝亏姆",
-        "Vanilla ice cream.",
-        329
-      ],
-      "chocolate": [
-        "🍫",
-        "巧克力",
-        "choc-o-late / 巧克类特",
-        "Dark chocolate.",
-        330
-      ],
-      "candy": [
-        "🍬",
-        "糖果",
-        "can-dy / 砍低",
-        "Fruit candy.",
-        331
-      ],
-      "lollipop": [
-        "🍭",
-        "棒棒糖",
-        "lol-li-pop / 罗离跑普",
-        "Colorful lollipop.",
-        332
-      ],
-      "custard": [
-        "🍮",
-        "布丁",
-        "cus-tard / 咔死特得",
-        "Soft egg custard.",
-        333
-      ],
-      "popcorn": [
-        "🍿",
-        "爆米花",
-        "pop-corn / 跑普阔恩",
-        "Popcorn in the cinema.",
-        334
-      ],
-      "muffin": [
-        "🧁",
-        "玛芬/杯子蛋糕",
-        "muf-fin / 妈粉",
-        "Blueberry muffin.",
-        335
-      ],
-      "pie": [
-        "🥧",
-        "派",
-        "p-ie / 派",
-        "Sweet apple pie.",
-        336
-      ],
-      "shavedice": [
-        "🍧",
-        "刨冰",
-        "shaved-ice / 咻五得爱丝",
-        "Cool shaved ice.",
-        337
-      ],
-      "croissant": [
-        "🥐",
-        "牛角包",
-        "crois-sant / 亏伞特",
-        "Butter croissant.",
-        338
-      ],
-      "tart": [
-        "🥧",
-        "塔/挞",
-        "t-art / 踏特",
-        "Egg tart.",
-        339
-      ],
-      "syrup": [
-        "🍯",
-        "糖浆",
-        "syr-up / 希入破",
-        "Maple syrup.",
-        340
-      ],
-      "marshmallow": [
-        "🍡",
-        "棉花糖",
-        "marsh-mal-low / 吗湿美楼",
-        "Soft marshmallow.",
-        341
-      ],
-      "jelly": [
-        "🍮",
-        "果冻",
-        "jel-ly / 杰离",
-        "Fruit jelly.",
-        342
-      ],
-      "biscuit": [
-        "🍘",
-        "脆饼干",
-        "bis-cuit / 必死给特",
-        "Crunchy biscuit.",
-        343
-      ],
-      "gum": [
-        "./emoji/gum.webp",
-        "口香糖",
-        "g-um / 刚姆",
-        "Chewing gum.",
-        344
-      ],
-      "mousse": [
-        "./emoji/mousse.webp",
-        "慕斯",
-        "mous-se / 慕丝",
-        "Chocolate mousse.",
-        345
-      ],
-      "toffee": [
-        "🍬",
-        "太妃糖",
-        "tof-fee / 托飞",
-        "Sticky toffee.",
-        346
-      ],
-      "creme": [
-        "./emoji/cream.webp",
-        "奶油",
-        "cre-me / 亏姆",
-        "Ice creme.",
-        347
-      ],
-      "wafer": [
-        "🧇",
-        "威化饼",
-        "wa-fer / 威弗",
-        "Chocolate wafer.",
-        348
-      ],
-      "jam": [
-        "./emoji/jam.webp",
-        "果酱",
-        "j-am / 杰姆",
-        "Strawberry jam.",
-        349
-      ],
-      "honey": [
-        "🍯",
-        "蜂蜜",
-        "hon-ey / 汗泥",
-        "Sweet honey.",
-        350
-      ],
-      "coffee": [
-        "☕",
-        "咖啡",
-        "cof-fee / 考飞",
-        "Hot black coffee.",
-        351
-      ],
-      "tea": [
-        "🍵",
-        "绿茶",
-        "t-ea / 踢",
-        "Green tea.",
-        352
-      ],
-      "juice": [
-        "🍹",
-        "果汁",
-        "j-uice / 举丝",
-        "Orange juice.",
-        353
-      ],
-      "coke": [
-        "🥤",
-        "可乐",
-        "c-oke / 扣刻",
-        "Ice and coke.",
-        354
-      ],
-      "milk": [
-        "🥛",
-        "牛奶",
-        "m-ilk / 眯欧克",
-        "Fresh milk.",
-        355
-      ],
-      "water": [
-        "💧",
-        "纯净水",
-        "wa-ter / 窝特",
-        "Drink water.",
-        356
-      ],
-      "soda": [
-        "./emoji/soda.webp",
-        "苏打水",
-        "so-da / 搜打",
-        "Lemon soda.",
-        357
-      ],
-      "smoothie": [
-        "./emoji/smoothie.webp",
-        "奶昔/冰沙",
-        "smooth-ie / 斯木贼",
-        "Fruit smoothie.",
-        358
-      ],
-      "wine": [
-        "🍷",
-        "红酒",
-        "w-ine / 万",
-        "Red wine.",
-        359
-      ],
-      "beer": [
-        "🍺",
-        "啤酒",
-        "b-eer / 逼儿",
-        "Cold beer.",
-        360
-      ],
-      "cocktail": [
-        "🍸",
-        "鸡尾酒",
-        "cock-tail / 考克太欧",
-        "Fruit cocktail.",
-        361
-      ],
-      "champagne": [
-        "🍾",
-        "香槟",
-        "cham-pagne / 闪拼",
-        "Open the champagne.",
-        362
-      ],
-      "yogurt": [
-        "./emoji/yogurt.webp",
-        "酸奶",
-        "yo-gurt / 优格",
-        "Fruit yogurt.",
-        363
-      ],
-      "cocoa": [
-        "./emoji/cocoa.webp",
-        "可可",
-        "co-coa / 扣扣",
-        "Hot cocoa.",
-        364
-      ],
-      "cappuccino": [
-        "./emoji/cappuccino.webp",
-        "卡布奇诺",
-        "cap-puc-ci-no / 咔铺旗诺",
-        "Coffee with foam.",
-        365
-      ],
-      "latte": [
-        "./emoji/latte.webp",
-        "拿铁",
-        "lat-te / 拉忒",
-        "Milk coffee.",
-        366
-      ],
-      "lemonade": [
-        "./emoji/lemonade.webp",
-        "柠檬水",
-        "lem-on-ade / 勒门内得",
-        "Cold lemonade.",
-        367
-      ],
-      "vinegar": [
-        "🍶",
-        "醋",
-        "vin-e-gar / 微尼格",
-        "Sour vinegar.",
-        368
-      ],
-      "sauce": [
-        "🥫",
-        "酱汁",
-        "sau-ce / 扫丝",
-        "Tomato sauce.",
-        369
-      ],
-      "oil": [
-        "./emoji/oil.webp",
-        "食用油",
-        "o-il / 欧欧",
-        "Cooking oil.",
-        370
-      ],
-      "ketchup": [
-        "./emoji/ketchup.webp",
-        "番茄酱",
-        "ketch-up / 盖旗阿破",
-        "Fries and ketchup.",
-        371
-      ],
-      "mustard": [
-        "🌭",
-        "芥末",
-        "mus-tard / 骂死特得",
-        "Hot mustard.",
-        372
-      ],
-      "salt": [
-        "🧂",
-        "盐",
-        "s-alt / 扫特",
-        "Pass the salt.",
-        373
-      ],
-      "pepper": [
-        "🌶️",
-        "胡椒",
-        "pep-per / 派破",
-        "Black pepper.",
-        374
-      ],
-      "sugar": [
-        "🍬",
-        "糖",
-        "sug-ar / 咻格",
-        "No sugar.",
-        375
-      ],
-      "menu": [
-        "📋",
-        "菜单",
-        "men-u / 埋牛",
-        "Look at the menu.",
-        376
-      ],
-      "order": [
-        "📝",
-        "点餐",
-        "or-der / 欧德",
-        "Ready to order?",
-        377
-      ],
-      "bill": [
-        "🧾",
-        "账单",
-        "b-ill / 标",
-        "Pay the bill.",
-        378
-      ],
-      "waiter": [
-        "🤵",
-        "男服务员",
-        "wai-ter / 威特",
-        "The waiter is busy.",
-        379
-      ],
-      "waitress": [
-        "👩‍🍳",
-        "女服务员",
-        "wai-tress / 威吹丝",
-        "Ask the waitress.",
-        380
-      ],
-      "chef": [
-        "👨‍🍳",
-        "主厨",
-        "ch-ef / 谁夫",
-        "The chef cooks.",
-        381
-      ],
-      "reservation": [
-        "📅📞",
-        "预约/订位",
-        "re-ser-va-tion / 瑞惹威顺",
-        "I have a reservation.",
-        382
-      ],
-      "counter":
- ["./emoji/counter.webp", 
-"吧台/柜台",
- "coun-ter / 康特",
- "Sit at the counter.",
- 383],
-      "napkin": [
-        "./emoji/napkin.webp",
-        "餐巾纸",
-        "nap-kin / 拿普紧",
-        "Use a napkin.",
-        384
-      ],
-      "breakfast": [
-        "🌅🍽️",
-        "早餐",
-        "break-fast / 布瑞克佛斯特",
-        "Eat breakfast.",
-        385
-      ],
-      "lunch": [
-        "🏙️🍽️",
-        "午餐",
-        "l-unch / 烂旗",
-        "School lunch.",
-        386
-      ],
-      "dinner": [
-        "🌃🍽️",
-        "晚餐",
-        "din-ner / 盯呢",
-        "Family dinner.",
-        387
-      ],
-      "delicious": [
-        "😋",
-        "美味的",
-        "de-li-cious / 地里舍丝",
-        "So delicious!",
-        388
-      ],
-      "yummy": [
-        "😋",
-        "好吃的",
-        "yum-my / 呀眯",
-        "The food is yummy.",
-        389
-      ],
-      "hungry": [
-        "🤤",
-        "饿了",
-        "hun-gry / 汗格瑞",
-        "I am hungry.",
-        390
-      ],
-      "thirsty": [
-        "🥵",
-        "渴了",
-        "thirs-ty / 舍斯特",
-        "I am thirsty.",
-        391
-      ],
-      "full": [
-        "🤰",
-        "饱了",
-        "f-ull / 负哦",
-        "I am full.",
-        392
-      ],
-      "sour": [
-        "🍋",
-        "酸的",
-        "s-our / 萨屋儿",
-        "The lemon is sour.",
-        393
-      ],
-      "sweet": [
-        "🍭",
-        "甜的",
-        "sw-eet / 斯威特",
-        "Sweet candy.",
-        394
-      ],
-      "spicy": [
-        "🌶️",
-        "辣的",
-        "spi-cy / 斯派细",
-        "Very spicy taco.",
-        395
-      ],
-      "salty": [
-        "🧂",
-        "咸的",
-        "sal-ty / 扫体",
-        "The soup is salty.",
-        396
-      ],
-      "bitter": [
-        "☕",
-        "苦的",
-        "bit-ter / 必特",
-        "Bitter coffee.",
-        397
-      ],
-      "special": [
-	"⭐🍱", 
-	"特色菜", 
-	"spe-cial / 斯倍秀", 
-	"What's today's special?", 
-	398],
-      "dessert": ["🍰🍧", "甜点", "des-sert / 迪惹特", "I want some dessert.", 399],
-      "fresh": [
-        "🥗",
-        "新鲜的",
-        "fr-esh / 佛瑞湿",
-        "Fresh salad.",
-        400
-      ]
+      "pizza": ["🍕", "比萨", "piz-za / 披萨", "A big Italian pizza.", "bǐ sà", "一个大的意大利比萨。", 301],
+      "burger": ["🍔", "汉堡", "bur-ger / 播格", "I want a beef burger.", "hàn bǎo", "我想要一个牛肉汉堡。", 302],
+      "sandwich": ["🥪", "三明治", "sand-wich / 三得未旗", "A healthy sandwich.", "sān míng zhì", "一个健康的三明治。", 303],
+      "taco": ["🌮", "塔可", "ta-co / 踏口", "Mexican taco is spicy.", "tǎ kě", "墨西哥塔可是辣的。", 304],
+      "sushi": ["🍣", "寿司", "su-shi / 苏希", "Japanese sushi is fresh.", "shòu sī", "日本寿司很新鲜。", 305],
+      "spaghetti": ["🍝", "意大利面", "spa-ghet-ti / 斯巴给体", "Long spaghetti noodles.", "yì dà lì miàn", "长长的意大利面条。", 306],
+      "curry": ["🍛", "咖喱饭", "cur-ry / 咖瑞", "Spicy chicken curry.", "gā lí fàn", "辣鸡肉咖喱饭。", 307],
+      "bento": ["🍱", "便当", "ben-to / 本托", "A delicious bento box.", "biàn dāng", "一个美味的便当盒。", 308],
+      "steak": ["🥩", "牛排", "st-eak / 斯得刻", "The steak is medium.", "niú pái", "这块牛排是五分熟的。", 309],
+      "dumpling": ["🥟", "饺子", "dump-ling / 当铺令", "Make dumplings at New Year.", "jiǎo zi", "在新年包饺子。", 310],
+      "fries": ["🍟", "薯条", "fr-ies / 夫赖丝", "French fries with salt.", "shǔ tiáo", "加盐的炸薯条。", 311],
+      "hotdog": ["🌭", "热狗", "hot-dog / 耗特到格", "Hotdog with mustard.", "rè gǒu", "加芥末的热狗。", 312],
+      "burrito": ["🌯", "卷饼", "bur-ri-to / 捕瑞透", "Beef and bean burrito.", "juǎn bǐng", "牛肉豆子卷饼。", 313],
+      "stew": ["🥘", "炖菜", "st-ew / 斯丢", "A hot meat stew.", "dùn cài", "一道热腾腾的肉炖菜。", 314],
+      "kebab": ["🍢", "串烧/肉串", "ke-bab / 盖吧", "Grilled meat kebab.", "ròu chuàn", "烤肉串烧。", 315],
+      "falafel": ["🧆", "炸丸子", "fa-la-fel / 法拉佛", "Vegetable falafel.", "zhà wán zi", "蔬菜炸丸子。", 316],
+      "pretzel": ["🥨", "卷饼干", "pret-zel / 铺瑞奏", "A salty pretzel.", "juǎn bǐng gān", "一个咸味的卷饼干。", 317],
+      "waffle": ["🧇", "华夫饼", "waf-fle / 窝佛", "Honey on the waffle.", "huá fū bǐng", "华夫饼上的蜂蜜。", 318],
+      "pancake": ["🥞", "松饼", "pan-cake / 盼块刻", "Sweet breakfast pancake.", "sōng bǐng", "甜甜的早餐松饼。", 319],
+      "omelet": ["🍳", "煎蛋卷", "om-e-let / 阿姆类特", "Egg omelet for breakfast.", "jiān dàn juǎn", "早餐吃鸡蛋煎蛋卷。", 320],
+      "bagel": ["🥯", "贝果", "ba-gel / 贝勾", "Cream cheese bagel.", "bèi guǒ", "奶油芝士贝果。", 321],
+      "ramen": ["🍜", "拉面", "ra-men / 拉门", "Hot Japanese ramen.", "lā miàn", "热腾腾的日本拉面。", 322],
+      "dimsum": ["🥢", "点心", "dim-sum / 顶三", "Eat dim sum in morning.", "diǎn xin", "早上吃点心。", 323],
+      "paella": ["🥘", "海鲜饭", "pa-el-la / 啪爱拉", "Spanish seafood paella.", "hǎi xiān fàn", "西班牙海鲜饭。", 324],
+      "fondue": ["🫕", "火锅", "fon-due / 饭丢", "Cheese or meat fondue.", "huǒ guō", "芝士或肉类火锅。", 325],
+      "cake": ["🍰", "蛋糕", "c-ake / 块刻", "Chocolate cake.", "dàn gāo", "巧克力蛋糕。", 326],
+      "cookie": ["🍪", "曲奇", "coo-kie / 库ki", "Milk and cookies.", "qū qí", "牛奶和曲奇饼干。", 327],
+      "donut": ["🍩", "甜甜圈", "do-nut / 逗纳特", "Sweet pink donut.", "tián tián quān", "甜甜的粉色甜甜圈。", 328],
+      "icecream": ["🍦", "冰淇淋", "ice-cream / 爱丝亏姆", "Vanilla ice cream.", "bīng qí lín", "香草冰淇淋。", 329],
+      "chocolate": ["🍫", "巧克力", "choc-o-late / 巧克类特", "Dark chocolate.", "qiǎo kè lì", "黑巧克力。", 330],
+      "candy": ["🍬", "糖果", "can-dy / 砍低", "Fruit candy.", "táng guǒ", "水果糖果。", 331],
+      "lollipop": ["🍭", "棒棒糖", "lol-li-pop / 罗离跑普", "Colorful lollipop.", "bàng bàng táng", "五颜六色的棒棒糖。", 332],
+      "custard": ["🍮", "布丁", "cus-tard / 咔死特得", "Soft egg custard.", "bù dīng", "软软的鸡蛋布丁。", 333],
+      "popcorn": ["🍿", "爆米花", "pop-corn / 跑普阔恩", "Popcorn in the cinema.", "bào mǐ huā", "电影院里的爆米花。", 334],
+      "muffin": ["🧁", "玛芬/杯子蛋糕", "muf-fin / 妈粉", "Blueberry muffin.", "mǎ fēn", "蓝莓玛芬。", 335],
+      "pie": ["🥧", "派", "p-ie / 派", "Sweet apple pie.", "pài", "甜甜的苹果派。", 336],
+      "shavedice": ["🍧", "刨冰", "shaved-ice / 咻五得爱丝", "Cool shaved ice.", "bào bīng", "凉爽的刨冰。", 337],
+      "croissant": ["🥐", "牛角包", "crois-sant / 亏伞特", "Butter croissant.", "niú jiǎo bāo", "黄油牛角包。", 338],
+      "tart": ["🥧", "塔/挞", "t-art / 踏特", "Egg tart.", "tà", "蛋挞。", 339],
+      "syrup": ["🍯", "糖浆", "syr-up / 希入破", "Maple syrup.", "táng jiāng", "枫糖浆。", 340],
+      "marshmallow": ["🍡", "棉花糖", "marsh-mal-low / 吗湿美楼", "Soft marshmallow.", "mián huā táng", "软软的棉花糖。", 341],
+      "jelly": ["🍮", "果冻", "jel-ly / 杰离", "Fruit jelly.", "guǒ dòng", "水果果冻。", 342],
+      "biscuit": ["🍘", "脆饼干", "bis-cuit / 必死给特", "Crunchy biscuit.", "cuì bǐng gān", "脆脆的饼干。", 343],
+      "gum": ["./emoji/gum.webp", "口香糖", "g-um / 刚姆", "Chewing gum.", "kǒu xiāng táng", "嚼口香糖。", 344],
+      "mousse": ["./emoji/mousse.webp", "慕斯", "mous-se / 慕丝", "Chocolate mousse.", "mù sī", "巧克力慕斯。", 345],
+      "toffee": ["🍬", "太妃糖", "tof-fee / 托飞", "Sticky toffee.", "tài fēi táng", "黏黏的太妃糖。", 346],
+      "creme": ["./emoji/cream.webp", "奶油", "cre-me / 亏姆", "Ice creme.", "nǎi yóu", "冰奶油。", 347],
+      "wafer": ["🧇", "威化饼", "wa-fer / 威弗", "Chocolate wafer.", "wēi huà bǐng", "巧克力威化饼。", 348],
+      "jam": ["./emoji/jam.webp", "果酱", "j-am / 杰姆", "Strawberry jam.", "guǒ jiàng", "草莓果酱。", 349],
+      "honey": ["🍯", "蜂蜜", "hon-ey / 汗泥", "Sweet honey.", "fēng mì", "甜甜的蜂蜜。", 350],
+      "coffee": ["☕", "咖啡", "cof-fee / 考飞", "Hot black coffee.", "kā fēi", "热黑咖啡。", 351],
+      "tea": ["🍵", "绿茶", "t-ea / 踢", "Green tea.", "lǜ chá", "绿茶。", 352],
+      "juice": ["🍹", "果汁", "j-uice / 举丝", "Orange juice.", "guǒ zhī", "橙子果汁。", 353],
+      "coke": ["🥤", "可乐", "c-oke / 扣刻", "Ice and coke.", "kě lè", "冰块和可乐。", 354],
+      "milk": ["🥛", "牛奶", "m-ilk / 眯欧克", "Fresh milk.", "niú nǎi", "新鲜的牛奶。", 355],
+      "water": ["💧", "纯净水", "wa-ter / 窝特", "Drink water.", "chún jìng shuǐ", "喝水。", 356],
+      "soda": ["./emoji/soda.webp", "苏打水", "so-da / 搜打", "Lemon soda.", "sū dǎ shuǐ", "柠檬苏打水。", 357],
+      "smoothie": ["./emoji/smoothie.webp", "奶昔/冰沙", "smooth-ie / 斯木贼", "Fruit smoothie.", "nǎi xī", "水果奶昔。", 358],
+      "wine": ["🍷", "红酒", "w-ine / 万", "Red wine.", "hóng jiǔ", "红酒。", 359],
+      "beer": ["🍺", "啤酒", "b-eer / 逼儿", "Cold beer.", "pí jiǔ", "冰啤酒。", 360],
+      "cocktail": ["🍸", "鸡尾酒", "cock-tail / 考克太欧", "Fruit cocktail.", "jī wěi jiǔ", "水果鸡尾酒。", 361],
+      "champagne": ["🍾", "香槟", "cham-pagne / 闪拼", "Open the champagne.", "xiāng bīn", "打开香槟。", 362],
+      "yogurt": ["./emoji/yogurt.webp", "酸奶", "yo-gurt / 优格", "Fruit yogurt.", "suān nǎi", "水果酸奶。", 363],
+      "cocoa": ["./emoji/cocoa.webp", "可可", "co-coa / 扣扣", "Hot cocoa.", "kě kě", "热可可。", 364],
+      "cappuccino": ["./emoji/cappuccino.webp", "卡布奇诺", "cap-puc-ci-no / 咔铺旗诺", "Cappuccino means coffee with foam.", "kǎ bù qí nuò", "卡布奇诺就是带泡沫的咖啡。", 365],
+      "latte": ["./emoji/latte.webp", "拿铁", "lat-te / 拉忒", "Latte means milk coffee.", "ná tiě", "拿铁就是牛奶咖啡。", 366],
+      "lemonade": ["./emoji/lemonade.webp", "柠檬水", "lem-on-ade / 勒门内得", "Cold lemonade.", "níng méng shuǐ", "冰柠檬水。", 367],
+      "vinegar": ["🍶", "醋", "vin-e-gar / 微尼格", "Sour vinegar.", "cù", "酸醋。", 368],
+      "sauce": ["🥫", "酱汁", "sau-ce / 扫丝", "Tomato sauce.", "jiàng zhī", "番茄酱汁。", 369],
+      "oil": ["./emoji/oil.webp", "食用油", "o-il / 欧欧", "Cooking oil.", "shí yòng yóu", "烹饪食用油。", 370],
+      "ketchup": ["./emoji/ketchup.webp", "番茄酱", "ketch-up / 盖旗阿破", "Fries and ketchup.", "fān qié jiàng", "薯条和番茄酱。", 371],
+      "mustard": ["🌭", "芥末", "mus-tard / 骂死特得", "Hot mustard.", "jiè mo", "辣芥末。", 372],
+      "salt": ["🧂", "盐", "s-alt / 扫特", "Pass the salt.", "yán", "递一下盐。", 373],
+      "pepper": ["🌶️", "胡椒", "pep-per / 派破", "Black pepper.", "hú jiāo", "黑胡椒。", 374],
+      "sugar": ["🍬", "糖", "sug-ar / 咻格", "No sugar.", "táng", "不要糖。", 375],
+      "menu": ["📋", "菜单", "men-u / 埋牛", "Look at the menu.", "cài dān", "看菜单。", 376],
+      "order": ["📝", "点餐", "or-der / 欧德", "Ready to order?", "diǎn cān", "准备好点餐了吗？", 377],
+      "bill": ["🧾", "账单", "b-ill / 标", "Pay the bill.", "zhàng dān", "支付账单。", 378],
+      "waiter": ["🤵", "男服务员", "wai-ter / 威特", "The waiter is busy.", "nán fú wù yuán", "男服务员很忙。", 379],
+      "waitress": ["👩‍🍳", "女服务员", "wai-tress / 威吹丝", "Ask the waitress.", "nǚ fú wù yuán", "问问女服务员。", 380],
+      "chef": ["👨‍🍳", "主厨", "ch-ef / 谁夫", "The chef cooks.", "zhǔ chú", "主厨在做饭。", 381],
+      "reservation": ["📅📞", "预约/订位", "re-ser-va-tion / 瑞惹威顺", "I have a reservation.", "yù yuē", "我有一个预约。", 382],
+      "counter": ["./emoji/counter.webp", "吧台/柜台", "coun-ter / 康特", "Sit at the counter.", "guì tái", "坐在吧台旁。", 383],
+      "napkin": ["./emoji/napkin.webp", "餐巾纸", "nap-kin / 拿普紧", "Use a napkin.", "cān jīn zhǐ", "使用餐巾纸。", 384],
+      "breakfast": ["🌅🍽️", "早餐", "break-fast / 布瑞克佛斯特", "Eat breakfast.", "zǎo cān", "吃早餐。", 385],
+      "lunch": ["🏙️🍽️", "午餐", "l-unch / 烂旗", "School lunch.", "wǔ cān", "学校午餐。", 386],
+      "dinner": ["🌃🍽️", "晚餐", "din-ner / 盯呢", "Family dinner.", "wǎn cān", "家庭晚餐。", 387],
+      "delicious": ["😋", "美味的", "de-li-cious / 地里舍丝", "So delicious!", "měi wèi de", "太美味了！", 388],
+      "yummy": ["😋", "好吃的", "yum-my / 呀眯", "The food is yummy.", "hǎo chī de", "这食物很好吃。", 389],
+      "hungry": ["🤤", "饿了", "hun-gry / 汗格瑞", "I am hungry.", "è le", "我饿了。", 390],
+      "thirsty": ["🥵", "渴了", "thirs-ty / 舍斯特", "I am thirsty.", "kě le", "我渴了。", 391],
+      "full": ["🤰", "饱了", "f-ull / 负哦", "I am full.", "bǎo le", "我饱了。", 392],
+      "sour": ["🍋", "酸的", "s-our / 萨屋儿", "The lemon is sour.", "suān de", "柠檬是酸的。", 393],
+      "sweet": ["🍭", "甜的", "sw-eet / 斯威特", "Sweet candy.", "tián de", "甜的糖果。", 394],
+      "spicy": ["🌶️", "辣的", "spi-cy / 斯派细", "Very spicy taco.", "là de", "非常辣的塔可。", 395],
+      "salty": ["🧂", "咸的", "sal-ty / 扫体", "The soup is salty.", "xián de", "汤是咸的。", 396],
+      "bitter": ["☕", "苦的", "bit-ter / 必特", "Bitter coffee.", "kǔ de", "苦的咖啡。", 397],
+      "special": ["⭐🍱", "特色菜", "spe-cial / 斯倍秀", "What's today's special?", "tè sè cài", "今天的特色菜是什么？", 398],
+      "dessert": ["🍰🍧", "甜点", "des-sert / 迪惹特", "I want some dessert.", "tián diǎn", "我想要一些甜点。", 399],
+      "fresh": ["🥗", "新鲜的", "fr-esh / 佛瑞湿", "Fresh salad.", "xīn xiān de", "新鲜的沙拉。", 400]
     }
   },
+	
   "5": {
     "levelIndex": 5,
     "levelEmoji": "🚀",
     "levelName": "第5关: 城市交通",
     "words": {
-      "bus": [
-        "🚌",
-        "公交车",
-        "b-us / 拜丝",
-        "Wait for the bus.",
-        401
-      ],
-      "train": [
-        "🚆",
-        "火车",
-        "tr-ain / 吹恩",
-        "The train is fast.",
-        402
-      ],
-      "subway": [
-        "🚇",
-        "地铁",
-        "sub-way / 萨波微",
-        "Take the subway.",
-        403
-      ],
-      "taxi": [
-        "🚕",
-        "出租车",
-        "tax-i / 抬克细",
-        "Call a taxi.",
-        404
-      ],
-      "plane": [
-        "✈️",
-        "飞机",
-        "pl-ane / 铺勒恩",
-        "The plane is in the sky.",
-        405
-      ],
-      "ship": [
-        "🚢",
-        "大船",
-        "sh-ip / 谁铺",
-        "A big ship on the sea.",
-        406
-      ],
-      "boat": [
-        "⛵",
-        "小船",
-        "b-oat / 冒特",
-        "Row the boat.",
-        407
-      ],
-      "bike": [
-        "🚲",
-        "自行车",
-        "b-ike / 拜刻",
-        "Ride a bike.",
-        408
-      ],
-      "truck": [
-        "🚚",
-        "卡车",
-        "tr-uck / 抓刻",
-        "A big blue truck.",
-        409
-      ],
-      "jeep": [
-        "🚙",
-        "吉普车",
-        "j-eep / 极铺",
-        "A strong jeep.",
-        410
-      ],
-      "van": [
-        "🚐",
-        "面包车",
-        "v-an / 弯",
-        "A white van.",
-        411
-      ],
-      "tram": [
-        "🚃",
-        "有轨电车",
-        "tr-am / 吹姆",
-        "The city tram.",
-        412
-      ],
-      "rocket": [
-        "🚀",
-        "火箭",
-        "rock-et / 绕给特",
-        "Rocket to the moon.",
-        413
-      ],
-      "helicopter": [
-        "🚁",
-        "直升机",
-        "hel-i-cop-ter / 嘿里靠破特",
-        "Helicopter in the air.",
-        414
-      ],
-      "scooter": [
-        "🛴",
-        "滑板车",
-        "scoo-ter / 斯库特",
-        "My new scooter.",
-        415
-      ],
-
-      "motorcycle": [
-        "🏍️",
-        "摩托车",
-        "mo-tor-cycle / 冒特赛口",
-        "A loud motorcycle.",
-        416
-      ],
-
-      "ambulance": [
-        "🚑",
-        "救护车",
-        "am-bu-lance / 挨姆比兰丝",
-        "The ambulance is coming.",
-        417
-      ],
-      "firetruck": [
-        "🚒",
-        "消防车",
-        "fire-truck / 法儿抓刻",
-        "A red firetruck.",
-        418
-      ],
-      "policecar": [
-        "🚓",
-        "警车",
-        "po-lice-car / 婆利丝嘎",
-        "The police car is fast.",
-        419
-      ],
-      "tractor": [
-        "🚜",
-        "拖拉机",
-        "trac-tor / 抓克特",
-        "The tractor is on the farm.",
-        420
-      ],
-     "lane": ["🛣️", "车道", "l-ane / 累恩", "Stay in your lane.", 421],
-      "hospital": [
-        "🏥",
-        "医院",
-        "hos-pi-tal / 耗死皮套",
-        "Go to the hospital.",
-        422
-      ],
-      "bank": [
-        "🏦",
-        "银行",
-        "b-ank / 拜恩刻",
-        "Money in the bank.",
-        423
-      ],
-      "hotel": [
-        "🏨",
-        "酒店",
-        "ho-tel / 厚抬欧",
-        "Stay in a hotel.",
-        424
-      ],
-      "park": [
-        "🌳",
-        "公园",
-        "p-ark / 啪刻",
-        "Play in the park.",
-        425
-      ],
-      "seat": ["💺", "座位", "s-eat / 谁特", "This is my seat.", 426],
-      "shop": [
-        "🛍️",
-        "商店",
-        "sh-op / 咻普",
-        "Go to the shop.",
-        427
-      ],
-      "market": [
-        "🛒",
-        "市场",
-        "mar-ket / 妈给特",
-        "Supermarket.",
-        428
-      ],
-      "zoo": [
-        "🦓",
-        "动物园",
-        "z-oo / 祖",
-        "Visit the zoo.",
-        429
-      ],
-      "museum": [
-        "🏛️",
-        "博物馆",
-        "mu-se-um / 谬贼姆",
-        "Old things in museum.",
-        430
-      ],
-      "cinema": [
-        "🎬",
-        "电影院",
-        "cin-e-ma / 细内吗",
-        "Watch a movie.",
-        431
-      ],
-      "fuel": ["⛽", "汽油/燃料", "fu-el / 夫欧", "The car needs fuel.", 432],
-      "bridge": [
-        "🌉",
-        "桥",
-        "br-idge / 布瑞指",
-        "A long bridge.",
-        433
-      ],
-      "tower": [
-        "🗼",
-        "高塔",
-        "tow-er / 套儿",
-        "A tall tower.",
-        434
-      ],
-      "temple": [
-        "⛩️",
-        "庙宇",
-        "tem-ple / 抬姆跑",
-        "An old temple.",
-        435
-      ],
-      "church": [
-        "⛪",
-        "教堂",
-        "ch-urch / 扯旗",
-        "The church is white.",
-        436
-      ],
-      "airport": [
-        "🛫",
-        "机场",
-        "air-port / 挨儿跑特",
-        "Go to the airport.",
-        437
-      ],
-      "station": [
-        "🚉",
-        "车站/火车站",
-        "sta-tion / 斯忒玄",
-        "At the train station.",
-        438
-      ],
-     "building": ["🏢🏠", "建筑/大楼", "buil-ding / 必欧顶", "That is a tall building.", 439],
-      "factory": [
-        "🏭",
-        "工厂",
-        "fac-to-ry / 泛特瑞",
-        "A big factory.",
-        440
-      ],
-      "skyscraper": ["🏢🏨", "摩天大楼", "sky-scra-per / 斯盖斯奎泼", "Look at the skyscraper.",441],
-      "farm": [
-        "👨‍🌾",
-        "农场",
-        "f-arm / 法姆",
-        "Animals on the farm.",
-        442
-      ],
-      "platform": ["🚉", "站台", "plat-form / 铺莱特方", "Wait on platform one.", 443],
-      "passenger": ["👨‍👩‍👧‍👦", "乘客", "pas-sen-ger / 怕三惹", "All passengers are on board.", 444],
-     "signal": ["📶📡", "信号", "sig-nal / 希格喏", "No phone signal here.", 445],
-      "street": [
-        "🛣️",
-        "街道",
-        "str-eet / 斯吹特",
-        "Walk on the street.",
-        446
-      ],
-      "road": [
-        "🛤️",
-        "马路",
-        "r-oad / 肉得",
-        "Cross the road.",
-        447
-      ],
-      "corner": [
-        "./emoji/corner.webp",
-        "拐角",
-        "cor-ner / 阔呢",
-        "At the corner.",
-        448
-      ],
-      "stoplight": [
-        "🚦",
-        "红绿灯",
-        "stop-light / 斯道普赖特",
-        "Red stoplight.",
-        449
-      ],
-      "sign": [
-        "🪧",
-        "标志",
-        "s-ign / 赛恩",
-        "Read the sign.",
-        450
-      ],
-      "sidewalk": [
-        "👣",
-        "人行道",
-        "side-walk / 赛得窝刻",
-        "Walk on the sidewalk.",
-        451
-      ],
-      "gas": [
-        "⛽",
-        "加油站",
-        "g-as / 盖丝",
-        "Get gas for the car.",
-        452
-      ],
-      "compass": ["🧭🗺️", "指南针", "com-pass / 康帕斯", "Use a compass to find north.", 453],
-      "flag": [
-        "🚩",
-        "旗帜",
-        "fl-ag / 夫拉格",
-        "The red flag.",
-        454
-      ],
-      "gate": [
-        "⛩️",
-        "大门",
-        "g-ate / 盖特",
-        "Open the gate.",
-        455
-      ],
-      "ticket": [
-        "🎫",
-        "票",
-        "tick-et / 踢给特",
-        "Buy a ticket.",
-        456
-      ],
-      "passport": ["🎫🛂", "护照", "pass-port / 怕死跑特", "Show your passport, please.", 457],
-      "phone": [
-        "📱",
-        "手机",
-        "ph-one / 凤",
-        "Call me.",
-        458
-      ],
-      "radio": [
-        "📻",
-        "收音机",
-        "ra-di-o / 瑞低欧",
-        "Listen to the radio.",
-        459
-      ],
-      "money": [
-        "💵",
-        "钱",
-        "mon-ey / 吗泥",
-        "I have some money.",
-        460
-      ],
-      "card": [
-        "💳",
-        "卡片",
-        "c-ard / 嘎得",
-        "Credit card.",
-        461
-      ],
-      "baggage": [
-        "🧳👜",
-        "行李",
-        "bag-gage / 拜给指",
-        "Heavy baggage.",
-        462
-      ],
-      "backpack": [
-        "🎒",
-        "书包",
-        "back-pack / 拜克派刻",
-        "My school backpack.",
-        463
-      ],
-      "selfie": ["🤳📸", "自拍", "sel-fie / 赛欧非", "Take a selfie at the tower.", 464],
-      "suitcase": ["🧳", "行李箱", "suit-case / 苏特凯丝", "Pack your suitcase now.", 465],
-      "passcode": ["🚪🔐", "密码锁", "pass-code / 怕死扣得", "Enter the hotel passcode.", 466],
-      "tent": [
-        "⛺",
-        "帐篷",
-        "t-ent / 抬恩特",
-        "Sleep in a tent.",
-        467
-      ],
-      "destination": ["📍🎯", "目的地", "des-ti-na-tion / 戴丝特内顺", "Welcome to your destination.", 468],
-      "raincoat": ["🧥🌧️", "雨衣", "rain-coat / 瑞恩扣特", "Wear a raincoat in London.", 469],
-	"helmet": ["🪖🚲", "头盔", "hel-met / 海儿美特", "Always wear a helmet.", 470],
-      
-      "depart": ["🛫🚩", "出发/离港", "de-part / 迪怕特", "The train will depart soon.", 471],
-      "arrive": ["🛬🏁", "到达", "ar-rive / 阿莱五", "When will you arrive?", 472],
-      "explore": ["🔍🗺️", "探索", "ex-plore / 一克斯跑儿", "Explore the old street.", 473],
-      "wait": [
-        "⏳",
-        "等待",
-        "w-ait / 喂特",
-        "Wait for me.",
-        474
-      ],
-      "drive": [
-        "🚗",
-        "驾驶",
-        "dr-ive / 拽五",
-        "Drive a car.",
-        475
-      ],
-      "ride": [
-        "🚲",
-        "骑",
-        "r-ide / 赖得",
-        "Ride a bike.",
-        476
-      ],
-      "hike": ["🚶‍♂️🎒", "徒步旅行", "hike / 亥刻", "Hike up the green mountain.", 477],
-      "sail": [
-        "⛵",
-        "航行",
-        "s-ail / 谁欧",
-        "Sail a boat.",
-        478
-      ],
-     "shuttle": ["🚐🚌", "班车","shut-tle / 杀偷", "Take the airport shuttle.", 479],
-     "cable car": ["🏔️🚠", "缆车", "ca-ble car / 咳宝卡", "Ride the cable car to the top.",480],
-      "express": ["🚄", "特快", "ex-press / 一克斯普瑞斯", "Take the express train.", 481],
-     "itinerary": ["🎟️🛣️", "行程/路线", "i-te-ne-ra-ry / 挨听内瑞", "Show me your travel itinerary.", 482],
-      "visit": [
-        "🤝",
-        "拜访",
-        "vis-it / 微贼特",
-        "Visit grandma.",
-        483
-      ],
-      "travel": [
-        "🌍✈️🚗",
-        "旅行",
-        "trav-el / 抓五",
-        "Travel the world.",
-        484
-      ],
-      "move": [
-        "✋📦",
-        "移动",
-        "m-ove / 慕五",
-        "Move the box.",
-        485
-      ],
-      "push": [
-        "✋",
-        "推",
-        "p-ush / 铺湿",
-        "Push the door.",
-        486
-      ],
-      "pull": [
-        "🤝",
-        "拉",
-        "p-ull / 铺哦",
-        "Pull the rope.",
-        487
-      ],
-      "check-in": ["🏨🔑", "办理入住", "check-in / 切克硬", "Check-in at the front desk.", 488],
-      "check-out": ["🏨💼", "退房", "check-out / 切克袄特", "Check-out before eleven.", 489],
-      "buy": [
-        "💰",
-        "买",
-        "b-uy / 拜",
-        "Buy an apple.",
-        490
-      ],
-      "sell": [
-        "🏷️",
-        "卖",
-        "s-ell / 谁哦",
-        "Sell flowers.",
-        491
-      ],
-      "find": [
-        "🔍",
-        "发现",
-        "f-ind / 凡得",
-        "Find the key.",
-        492
-      ],
-      "lost": [
-        "❔",
-        "丢失/迷路",
-        "l-ost / 洛斯特",
-        "I am lost.",
-        493
-      ],
-      "far": [
-        "🔭",
-        "远的",
-        "f-ar / 法儿",
-        "The school is far.",
-        494
-      ],
-      "near": [
-        "🏠",
-        "近的",
-        "n-ear / 泥儿",
-        "The shop is near.",
-        495
-      ],
-      "tunnel": ["🚇", "隧道", "tun-nel / 唐喏", "The train goes through a tunnel.", 496],
-      "traffic": ["🚦🚗🚕", "交通/车流量", "traf-fic / 抓飞刻", "The traffic is heavy.", 497],
-      "left": [
-        "⬅️",
-        "左边",
-        "l-eft / 赖福特",
-        "Turn left.",
-        498
-      ],
-      "right": [
-        "➡️",
-        "右边",
-        "r-ight / 赖特",
-        "Turn right.",
-        499
-      ],
-      "city": [
-        "🏙️",
-        "城市",
-        "cit-y / 细体",
-        "A big city.",
-        500
-      ]
+      "bus": ["🚌", "公交车", "b-us / 拜丝", "Wait for the bus.", "gōng jiāo chē", "等公交车。", 401],
+      "train": ["🚆", "火车", "tr-ain / 吹恩", "The train is fast.", "huǒ chē", "火车很快。", 402],
+      "subway": ["🚇", "地铁", "sub-way / 萨波微", "Take the subway.", "dì tiě", "坐地铁。", 403],
+      "taxi": ["🚕", "出租车", "tax-i / 抬克细", "Call a taxi.", "chū zū chē", "叫一辆出租车。", 404],
+      "plane": ["✈️", "飞机", "pl-ane / 铺勒恩", "The plane is in the sky.", "fēi jī", "飞机在天空中。", 405],
+      "ship": ["🚢", "大船", "sh-ip / 谁铺", "A big ship on the sea.", "dà chuán", "海上的一艘大船。", 406],
+      "boat": ["⛵", "小船", "b-oat / 冒特", "Row the boat.", "xiǎo chuán", "划小船。", 407],
+      "bike": ["🚲", "自行车", "b-ike / 拜刻", "Ride a bike.", "zì xíng chē", "骑自行车。", 408],
+      "truck": ["🚚", "卡车", "tr-uck / 抓刻", "A big blue truck.", "kǎ chē", "一辆蓝色的大卡车。", 409],
+      "jeep": ["🚙", "吉普车", "j-eep / 极铺", "A strong jeep.", "jí pǔ chē", "一辆强壮的吉普车。", 410],
+      "van": ["🚐", "面包车", "v-an / 弯", "A white van.", "miàn bāo chē", "一辆白色的面包车。", 411],
+      "tram": ["🚃", "有轨电车", "tr-am / 吹姆", "The city tram.", "yǒu guǐ diàn chē", "城市有轨电车。", 412],
+      "rocket": ["🚀", "火箭", "rock-et / 绕给特", "Rocket to the moon.", "huǒ jiàn", "飞向月球的火箭。", 413],
+      "helicopter": ["🚁", "直升机", "hel-i-cop-ter / 嘿里靠破特", "Helicopter in the air.", "zhí shēng jī", "空中的直升机。", 414],
+      "scooter": ["🛴", "滑板车", "scoo-ter / 斯库特", "My new scooter.", "huá bǎn chē", "我的新滑板车。", 415],
+      "motorcycle": ["🏍️", "摩托车", "mo-tor-cycle / 冒特赛口", "A loud motorcycle.", "mó tuō chē", "一辆吵闹的摩托车。", 416],
+      "ambulance": ["🚑", "救护车", "am-bu-lance / 挨姆比兰丝", "The ambulance is coming.", "jiù hù chē", "救护车来了。", 417],
+      "firetruck": ["🚒", "消防车", "fire-truck / 法儿抓刻", "A red firetruck.", "xiāo fáng chē", "一辆红色的消防车。", 418],
+      "policecar": ["🚓", "警车", "po-lice-car / 婆利丝嘎", "The police car is fast.", "jǐng chē", "警车很快。", 419],
+      "tractor": ["🚜", "拖拉机", "trac-tor / 抓克特", "The tractor is on the farm.", "tuō lā jī", "拖拉机在农场里。", 420],
+      "lane": ["🛣️", "车道", "l-ane / 累恩", "Stay in your lane.", "chē dào", "待在你的车道里。", 421],
+      "hospital": ["🏥", "医院", "hos-pi-tal / 耗死皮套", "Go to the hospital.", "yī yuàn", "去医院。", 422],
+      "bank": ["🏦", "银行", "b-ank / 拜恩刻", "Money in the bank.", "yín háng", "钱在银行里。", 423],
+      "hotel": ["🏨", "酒店", "ho-tel / 厚抬欧", "Stay in a hotel.", "jiǔ diàn", "住在酒店里。", 424],
+      "park": ["🌳", "公园", "p-ark / 啪刻", "Play in the park.", "gōng yuán", "在公园里玩。", 425],
+      "seat": ["💺", "座位", "s-eat / 谁特", "This is my seat.", "zuò wèi", "这是我的座位。", 426],
+      "shop": ["🛍️", "商店", "sh-op / 咻普", "Go to the shop.", "shāng diàn", "去商店。", 427],
+      "market": ["🛒", "市场", "mar-ket / 妈给特", "Supermarket means super big market.", "shì chǎng", "超市就是超级大卖场。", 428],
+      "zoo": ["🦓", "动物园", "z-oo / 祖", "Visit the zoo.", "dòng wù yuán", "参观动物园。", 429],
+      "museum": ["🏛️", "博物馆", "mu-se-um / 谬贼姆", "Old things in museum.", "bó wù guǎn", "博物馆里的旧东西。", 430],
+      "cinema": ["🎬", "电影院", "cin-e-ma / 细内吗", "Watch a movie.", "diàn yǐng yuàn", "在电影院看电影。", 431],
+      "fuel": ["⛽", "汽油/燃料", "fu-el / 夫欧", "The car needs fuel.", "rán liào", "汽车需要燃料。", 432],
+      "bridge": ["🌉", "桥", "br-idge / 布瑞指", "A long bridge.", "qiáo", "一座长桥。", 433],
+      "tower": ["🗼", "高塔", "tow-er / 套儿", "A tall tower.", "gāo tǎ", "一座高塔。", 434],
+      "temple": ["⛩️", "庙宇", "tem-ple / 抬姆跑", "An old temple.", "miào yǔ", "一座古庙。", 435],
+      "church": ["⛪", "教堂", "ch-urch / 扯旗", "The church is white.", "jiào táng", "教堂是白色的。", 436],
+      "airport": ["🛫", "机场", "air-port / 挨儿跑特", "Go to the airport.", "jī chǎng", "去机场。", 437],
+      "station": ["🚉", "车站/火车站", "sta-tion / 斯忒玄", "At the train station.", "chē zhàn", "在火车站。", 438],
+      "building": ["🏢🏠", "建筑/大楼", "buil-ding / 必欧顶", "That is a tall building.", "jiàn zhù", "那是一栋高楼。", 439],
+      "factory": ["🏭", "工厂", "fac-to-ry / 泛特瑞", "A big factory.", "gōng chǎng", "一个大工厂。", 440],
+      "skyscraper": ["🏢🏨", "摩天大楼", "sky-scra-per / 斯盖斯奎泼", "Look at the skyscraper.", "mó tiān dà lóu", "看那座摩天大楼。", 441],
+      "farm": ["👨‍🌾", "农场", "f-arm / 法姆", "Animals on the farm.", "nóng chǎng", "农场里的动物。", 442],
+      "platform": ["🚉", "站台", "plat-form / 铺莱特方", "Wait on platform one.", "zhàn tái", "在一号站台等候。", 443],
+      "passenger": ["👨‍👩‍👧‍👦", "乘客", "pas-sen-ger / 怕三惹", "All passengers are on board.", "chéng kè", "所有乘客都上车了。", 444],
+      "signal": ["📶📡", "信号", "sig-nal / 希格喏", "No phone signal here.", "xìn hào", "这里没有手机信号。", 445],
+      "street": ["🛣️", "街道", "str-eet / 斯吹特", "Walk on the street.", "jiē dào", "在街道上走。", 446],
+      "road": ["🛤️", "马路", "r-oad / 肉得", "Cross the road.", "mǎ lù", "过马路。", 447],
+      "corner": ["./emoji/corner.webp", "拐角", "cor-ner / 阔呢", "At the corner.", "guǎi jiǎo", "在拐角处。", 448],
+      "stoplight": ["🚦", "红绿灯", "stop-light / 斯道普赖特", "Red stoplight.", "hóng lǜ dēng", "红色的交通灯。", 449],
+      "sign": ["🪧", "标志", "s-ign / 赛恩", "Read the sign.", "biāo zhì", "阅读标志。", 450],
+      "sidewalk": ["👣", "人行道", "side-walk / 赛得窝刻", "Walk on the sidewalk.", "rén xíng dào", "在人行道上走。", 451],
+      "gas": ["⛽", "加油站", "g-as / 盖丝", "Get gas for the car.", "jiā yóu zhàn", "给汽车加油。", 452],
+      "compass": ["🧭🗺️", "指南针", "com-pass / 康帕斯", "Use a compass to find north.", "zhǐ nán zhēn", "用指南针找北。", 453],
+      "flag": ["🚩", "旗帜", "fl-ag / 夫拉格", "The red flag.", "qí zhì", "红旗。", 454],
+      "gate": ["⛩️", "大门", "g-ate / 盖特", "Open the gate.", "dà mén", "打开大门。", 455],
+      "ticket": ["🎫", "票", "tick-et / 踢给特", "Buy a ticket.", "piào", "买票。", 456],
+      "passport": ["🎫🛂", "护照", "pass-port / 怕死跑特", "Show your passport, please.", "hù zhào", "请出示你的护照。", 457],
+      "phone": ["📱", "手机", "ph-one / 凤", "Call me.", "shǒu jī", "给我打电话。", 458],
+      "radio": ["📻", "收音机", "ra-di-o / 瑞低欧", "Listen to the radio.", "shōu yīn jī", "听收音机。", 459],
+      "money": ["💵", "钱", "mon-ey / 吗泥", "I have some money.", "qián", "我有一些钱。", 460],
+      "card": ["💳", "卡片", "c-ard / 嘎得", "Credit card.", "kǎ piàn", "信用卡。", 461],
+      "baggage": ["🧳👜", "行李", "bag-gage / 拜给指", "Heavy baggage.", "xíng li", "沉重的行李。", 462],
+      "backpack": ["🎒", "书包", "back-pack / 拜克派刻", "My school backpack.", "shū bāo", "我的书包。", 463],
+      "selfie": ["🤳📸", "自拍", "sel-fie / 赛欧非", "Take a selfie at the tower.", "zì pāi", "在塔那里自拍。", 464],
+      "suitcase": ["🧳", "行李箱", "suit-case / 苏特凯丝", "Pack your suitcase now.", "xíng li xiāng", "现在打包你的行李箱。", 465],
+      "passcode": ["🚪🔐", "密码锁", "pass-code / 怕死扣得", "Enter the hotel passcode.", "mì mǎ", "输入酒店密码。", 466],
+      "tent": ["⛺", "帐篷", "t-ent / 抬恩特", "Sleep in a tent.", "zhàng péng", "在帐篷里睡觉。", 467],
+      "destination": ["📍🎯", "目的地", "des-ti-na-tion / 戴丝特内顺", "Welcome to your destination.", "mù dì dì", "欢迎来到你的目的地。", 468],
+      "raincoat": ["🧥🌧️", "雨衣", "rain-coat / 瑞恩扣特", "Wear a raincoat in London.", "yǔ yī", "在伦敦穿雨衣。", 469],
+      "helmet": ["🪖🚲", "头盔", "hel-met / 海儿美特", "Always wear a helmet.", "tóu kuī", "总是戴上头盔。", 470],
+      "depart": ["🛫🚩", "出发/离港", "de-part / 迪怕特", "The train will depart soon.", "chū fā", "火车很快就要出发了。", 471],
+      "arrive": ["🛬🏁", "到达", "ar-rive / 阿莱五", "When will you arrive?", "dào dá", "你什么时候到达？", 472],
+      "explore": ["🔍🗺️", "探索", "ex-plore / 一克斯跑儿", "Explore the old street.", "tàn suǒ", "探索老街。", 473],
+      "wait": ["⏳", "等待", "w-ait / 喂特", "Wait for me.", "děng dài", "等等我。", 474],
+      "drive": ["🚗", "驾驶", "dr-ive / 拽五", "Drive a car.", "jià shǐ", "开车。", 475],
+      "ride": ["🚲", "骑", "r-ide / 赖得", "Ride a bike.", "qí", "骑自行车。", 476],
+      "hike": ["🚶‍♂️🎒", "徒步旅行", "hike / 亥刻", "Hike up the green mountain.", "tú bù", "徒步爬上青山。", 477],
+      "sail": ["⛵", "航行", "s-ail / 谁欧", "Sail a boat.", "háng xíng", "驾驶小船航行。", 478],
+      "shuttle": ["🚐🚌", "班车", "shut-tle / 杀偷", "Take the airport shuttle.", "bān chē", "乘坐机场班车。", 479],
+      "cable car": ["🏔️🚠", "缆车", "ca-ble car / 咳宝卡", "Ride the cable car to the top.", "lǎn chē", "坐缆车到山顶。", 480],
+      "express": ["🚄", "特快", "ex-press / 一克斯普瑞斯", "Take the express train.", "tè kuài", "乘坐特快列车。", 481],
+      "itinerary": ["🎟️🛣️", "行程/路线", "i-te-ne-ra-ry / 挨听内瑞", "Show me your travel itinerary.", "xíng chéng", "给我看你的旅行行程。", 482],
+      "visit": ["🤝", "拜访", "vis-it / 微贼特", "Visit grandma.", "bài fǎng", "看望奶奶。", 483],
+      "travel": ["🌍✈️🚗", "旅行", "trav-el / 抓五", "Travel the world.", "lǚ xíng", "环游世界。", 484],
+      "move": ["✋📦", "移动", "m-ove / 慕五", "Move the box.", "yí dòng", "移动箱子。", 485],
+      "push": ["✋", "推", "p-ush / 铺湿", "Push the door.", "tuī", "推门。", 486],
+      "pull": ["🤝", "拉", "p-ull / 铺哦", "Pull the rope.", "lā", "拉绳子。", 487],
+      "check-in": ["🏨🔑", "办理入住", "check-in / 切克硬", "Check-in at the front desk.", "bàn lǐ rù zhù", "在前台办理入住。", 488],
+      "check-out": ["🏨💼", "退房", "check-out / 切克袄特", "Check-out before eleven.", "tuì fáng", "十一点前退房。", 489],
+      "buy": ["💰", "买", "b-uy / 拜", "Buy an apple.", "mǎi", "买一个苹果。", 490],
+      "sell": ["🏷️", "卖", "s-ell / 谁哦", "Sell flowers.", "mài", "卖花。", 491],
+      "find": ["🔍", "发现", "f-ind / 凡得", "Find the key.", "fā xiàn", "找到钥匙。", 492],
+      "lost": ["❔", "丢失/迷路", "l-ost / 洛斯特", "I am lost.", "mí lù", "我迷路了。", 493],
+      "far": ["🔭", "远的", "f-ar / 法儿", "The school is far.", "yuǎn de", "学校很远。", 494],
+      "near": ["🏠", "近的", "n-ear / 泥儿", "The shop is near.", "jìn de", "商店很近。", 495],
+      "tunnel": ["🚇", "隧道", "tun-nel / 唐喏", "The train goes through a tunnel.", "suì dào", "火车穿过隧道。", 496],
+      "traffic": ["🚦🚗🚕", "交通/车流量", "traf-fic / 抓飞刻", "The traffic is heavy.", "jiāo tōng", "交通很拥堵。", 497],
+      "left": ["⬅️", "左边", "l-eft / 赖福特", "Turn left.", "zuǒ biān", "向左转。", 498],
+      "right": ["➡️", "右边", "r-ight / 赖特", "Turn right.", "yòu biān", "向右转。", 499],
+      "city": ["🏙️", "城市", "cit-y / 细体", "A big city.", "chéng shì", "一个大城市。", 500]
     }
   },
   "6": {
@@ -3241,3216 +540,537 @@ const DB = {
     "levelEmoji": "💪",
     "levelName": "第6关: 我的身体",
     "words": {
-		"face": [
-    "🧒",
-    "脸",
-    "feɪs",
-    "Wash your face every morning.",501
-], 
-		"eye": [
-    "👁️",
-    "眼睛",
-    "aɪ",
-    "Close your eyes and sleep.",502
-],
-      "Eyebrow": [
-        "〰️",
-        "眉毛",
-        "ˈaɪbraʊ",
-        "Wiggle your eyebrows.",
-        503
-      ],
-      "Eyelash": [
-        "./emoji/eyelash.webp",
-        "眼睫毛",
-        "ˈaɪlæʃ",
-        "Long eyelashes.",
-        504
-      ],
-
-		"ear": [
-    "👂",
-    "耳朵",
-    "ɪr",
-    "I listen with my ears.",505
-],
-"nose": [
-    "👃",
-    "鼻子",
-    "noʊz",
-    "The dog has a big nose.",506
-],
-"mouth": [
-    "👄",
-    "嘴巴",
-    "maʊθ",
-    "Open your mouth and say Ah.",507
-],
-"lip": [
-    "💄",
-    "嘴唇",
-    "lɪp",
-    "My lips are very dry.",508
-],
-		 "Tongue": [
-        "👅",
-        "舌头",
-        "tʌŋ",
-        "Show me your tongue.",
-        509
-      ],
-		
-		"Tooth": [
-        "🦷",
-        "牙齿",
-        "tuːθ",
-        "I lost a tooth today.",
-        510
-      ],
-		"Forehead": [
-        "./emoji/forehead.webp",
-        "额头",
-        "ˈfɔːrhed",
-        "My forehead is hot.",
-        511
-      ],
-      "Chin": [
-        "🤔",
-        "下巴",
-        "tʃɪn",
-        "Touch your chin.",
-        512
-      ],
-      "Cheek": [
-        "😊",
-        "脸颊",
-        "tʃiːk",
-        "Kiss on the cheek.",
-        513
-      ],
-      
-      "Neck": [
-        "🦒🧣",
-        "脖子",
-        "nek",
-        "Giraff has a long neck.",
-        514
-      ],
-"hair": [
-    "💇",
-    "头发",
-    "her",
-    "She has long black hair.",515
-],	"curly": [
-    "👩‍🦱",
-    "卷曲的",
-    "ˈkɜːrli",
-    "She has curly hair.",516
-],
-"straight": [
-    "👩‍🦰",
-    "笔直的",
-    "streɪt",
-    "My hair is long and straight.",517
-],
-"long": [
-    "💇‍♀️",
-    "长的",
-    "lɔːŋ",
-    "She has very long hair.",518
-],
-"short": [
-    "💇‍♂️",
-    "短的",
-    "ʃɔːrt",
-    "My brother has short hair.",519
-],
-"bangs": [
-    "💇‍♀️",
-    "刘海",
-    "bæŋz",
-    "She has short bangs.",520
-],
-"braid": [
-    "👧",
-    "辫子",
-    "breɪd",
-    "She wears her hair in a braid.",521
-],
-"ponytail": [
-    "👱‍♀️",
-    "马尾辫",
-    "ˈpoʊniteɪl",
-    "Tie your hair in a ponytail.",522
-],
-"pigtails": [
-    "👧",
-    "双马尾",
-    "ˈpɪɡteɪlz",
-    "The little girl has cute pigtails.",523
-],
-"bun": [
-    "👱‍♀️",
-    "发髻/丸子头",
-    "bʌn",
-    "She put her hair up in a bun.",524
-],
-"bald": [
-    "👨‍🦲",
-    "秃头的",
-    "bɔːld",
-    "My grandpa is bald.",525
-],
-
-      "body": [
-        "👤",
-        "身体",
-        "ˈbɑːdi",
-        "My body is strong.",
-        526
-      ],
-"tall": [
-    "🦒",
-    "高的",
-    "tɔːl",
-    "My father is very tall.",527
-],
-"fit": [
-    "🏃‍♂️",
-    "健壮的/合适的",
-    "fɪt",
-    "She exercises every day to stay fit.",528
-],
-"tiny": [
-    "🐜",
-    "极小的",
-    "ˈtaɪni",
-    "The baby has tiny fingers.",529
-],
-"fat": [
-    "🍔",
-    "胖的",
-    "fæt",
-    "The cat is a little fat.",530
-],
-"chubby": [
-    "👶",
-    "圆嘟嘟的",
-    "ˈtʃʌbi",
-    "The baby has chubby cheeks.",531
-],
-		 "shoulder": [
-        "./emoji/shoulder.webp",
-        "肩膀",
-        "ˈʃoʊldər",
-        "A parrot sits on the pirate's shoulder.",
-        532
-      ],
-      "chest": [
-        "./emoji/chest.webp",
-        "胸膛",
-        "tʃest",
-        "Take a deep breath in your chest.",
-        533
-      ],
-		"belly": ["🤰", "肚子", "ˈbeli", "My belly is full.",534],
-      "back": [
-        "🐢",
-        "背部",
-        "bæk",
-        "I have a small backpack on my back.",
-        535
-      ],
-      "waist": [
-        "./emoji/waist.webp",
-        "腰",
-        "weɪst",
-        "The belt is around my waist.",
-        536
-      ],
-      "hip": [
-        "./emoji/hip.webp",
-        "臀部",
-        "hɪp",
-        "Put your hands on your hips.",
-        537
-      ],
-  "thumb": [
-        "👍",
-        "大拇指",
-        "θʌm",
-        "Give a thumbs up.",
-        538
-      ],
-      "nail": [
-        "💅",
-        "指甲",
-        "neɪl",
-        "Clean your nails.",
-        539
-      ],
-      "palm": [
-        "🖐️",
-        "手掌",
-        "pɑːm",
-        "Put it in your palm.",
-        540
-      ],
-		"finger": ["🖐️", "手指", "ˈfɪŋɡər", "I have ten fingers.",541],
-		"fist": ["✊", "拳头", "fɪst", "Hold your fist tight.",542],
-
-	"arm": ["💪", "手臂", "ɑːrm", "He has strong arms.",543],
-		
-		"elbow": [
-        "./emoji/elbow.webp",
-        "手肘",
-        "ˈelboʊ",
-        "Touch your elbow.",
-        544
-      ],
-      "wrist": [
-        "./emoji/wrist.webp",
-        "手腕",
-        "rɪst",
-        "I wear a watch on my wrist.",
-        545
-      ],
-		"thigh": ["🍗", "大腿", "θaɪ", "My thighs hurt after running.",546],
-		"leg": ["🦵", "腿", "leɡ", "My legs are long.",547],
-      "knee": [
-        "🦵",
-        "膝盖",
-        "niː",
-        "I fell on my knee.",
-        548
-      ],
-      "ankle": [
-        "⛸️",
-        "脚踝",
-        "ˈæŋkl",
-        "I can turn my ankle.",
-        549
-      ],
-		"foot": ["🦶", "脚", "fʊt", "Wash your left foot.",550],
-      "heel": [
-        "👠",
-        "脚后跟",
-        "hiːl",
-        "My heel hurts.",
-        551
-      ],
-      "toe": [
-        "👣",
-        "脚趾",
-        "toʊ",
-        "I have ten toes.",
-        552
-      ],
-		
-      "skin": [
-        "./emoji/skin.webp",
-        "皮肤",
-        "skɪn",
-        "Sun is hot for my skin.",
-        553
-      ],
-      "bone": [
-        "🦴",
-        "骨头",
-        "boʊn",
-        "Milk makes bones strong.",
-        554
-      ],
-		
-      "muscle": [
-        "💪",
-        "肌肉",
-        "ˈmʌsl",
-        "I have small muscles.",
-        555
-      ],
-      "blood": [
-        "🩸",
-        "血液",
-        "blʌd",
-        "Blood is red.",
-        556
-      ],
-		"brain": [
-        "🧠",
-        "大脑",
-        "breɪn",
-        "My brain can think.",
-        557
-      ],
-      "heart": [
-        "❤️",
-        "心脏",
-        "hɑːrt",
-        "My heart beats fast.",
-        558
-      ],		
-		
-      "stomach": [
-        "./emoji/stomach.webp",
-        "肚子/胃",
-        "ˈstʌmək",
-        "My stomach is full.",
-        559
-      ],
-     
-		"lung": ["img/lung.webp", "肺", "lʌŋ", "We breathe with our lungs.",560],
-"liver": ["🤎", "肝脏", "ˈlɪvər", "The liver cleans the blood.",561],
-		"kidney": ["img/kidney.webp", "肾脏", "ˈkɪdni", "We have two kidneys.",562],
-		"vein": ["🧪", "血管", "veɪn", "You can see blue veins on my hand.",563],
-		"navel": ["🔘", "肚脐", "ˈneɪvl", "Everyone has a navel.",564],
-      "health": [
-        "🥗",
-        "健康",
-        "helθ",
-        "Health is important.",
-        565
-      ],
-    
-      "clean": [
-        "✨",
-        "干净",
-        "kliːn",
-        "My room is clean.",
-        566
-      ],
-      "dirty": [
-        "💩",
-        "脏",
-        "ˈdɜːrti",
-        "My shoes are dirty.",
-        567
-      ],
-		"pretty": [
-    "🎀",
-    "漂亮的",
-    "ˈprɪti",
-    "The little girl is very pretty.",568
-],
-"handsome": [
-    "🤴",
-    "英俊的",
-    "ˈhænsəm",
-    "The prince is tall and handsome.",569
-],
-     
-      "weak": [
-        "🥀",
-        "虚弱",
-        "wiːk",
-        "I feel a bit weak.",
-        570
-      ],
-      "sick": [
-        "🤒",
-        "生病",
-        "sɪk",
-        "I stayed home sick.",
-        571
-      ],
-     
-      "cough": [
-        "😷",
-        "咳嗽",
-        "kɔːf",
-        "Cover your cough.",
-        572
-      ],
-		"sneeze": ["🤧", "打喷嚏", "sniːz", "I sneeze when it's cold.",573],
-		"fever": ["🌡️", "发烧", "ˈfiːvər", "The baby has a fever.",574],
-		"dizzy": ["😵‍💫", "头晕", "ˈdɪzi", "I feel a bit dizzy.",575],
-		"shiver": ["🥶", "发抖", "ˈʃɪvər", "She shivered with cold.",576],
-		"sweat": [
-    "💦",
-    "流汗",
-    "swet",
-    "I sweat a lot in summer.",577
-],
-		"itchy": [
-    "🦟",
-    "发痒",
-    "ˈɪtʃi",
-    "My mosquito bite is itchy.",578
-],
-		"sleepy": [
-        "🥱",
-        "想睡",
-        "ˈsliːpi",
-        "I am sleepy.",
-        579
-      ],
-      "hurt": [
-        "🤕",
-        "疼/受伤",
-        "hɜːrt",
-        "My arm hurts.",
-        580
-      ],
-      "cut": [
-        "🩹",
-        "伤口/切",
-        "kʌt",
-        "I have a small cut.",
-        581
-      ],
-      "doctor": [
-        "👨‍⚕️",
-        "医生",
-        "ˈdɑːktər",
-        "The doctor is kind.",
-        582
-      ],
-      "nurse": [
-        "👩‍⚕️",
-        "护士",
-        "nɜːrs",
-        "The nurse helps me.",
-        583
-      ],
-      "pill": [
-        "💊",
-        "药丸",
-        "pɪl",
-        "Take the pill.",
-        584
-      ],
-		"shot": [
-    "💉",
-    "打针",
-    "ʃɑːt",
-    "The doctor gave me a shot.",585
-],
-"x-ray": [
-    "🩻",
-    "X光",
-    "ˈeks reɪ",
-    "The doctor took an x-ray of my leg.",586
-],
-"scan": [
-    "🏥",
-    "扫描",
-    "skæn",
-    "I need a brain scan.",587
-],
-		 "breath": [
-        "🌬️",
-        "呼吸(名)",
-        "breθ",
-        "Take a breath.",
-        588
-      ],
-      "sniff": [
-        "👃",
-        "闻一闻",
-        "snɪf",
-        "Sniff the flower.",
-        589
-      ],
-		"hear": [
-    "👂",
-    "听见",
-    "hɪr",
-    "I can hear your voice.",590
-],
-		 "touch": [
-        "🖐️",
-        "触碰",
-        "tʌtʃ",
-        "Touch your toes.",
-        591],
-		  
-      "cry": [
-        "😭",
-        "哭",
-        "kraɪ",
-        "Baby, don't cry.",
-        592
-      ],
-      "yawn": [
-        "🥱",
-        "打哈欠",
-        "jɔːn",
-        "I yawn when tired.",
-        593
-      ],
-      "chew": [
-        "🍬",
-        "咀嚼",
-        "tʃuː",
-        "Chew your food.",
-        594
-      ],
-      "taste": [
-        "👅",
-        "品尝",
-        "teɪst",
-        "Taste the cake.",
-        595
-      ],
-    
-      
-      
-      "fine": [
-        "🌈",
-        "还好",
-        "faɪn",
-        "I am doing fine.",
-        596
-      ],
-      "great": [
-        "🌟",
-        "棒极了",
-        "ɡreɪt",
-        "You look great!",
-        597
-      ],
-      "cool": [
-        "😎",
-        "酷",
-        "kuːl",
-        "He is very cool.",
-        598
-      ],
-     "better": [
-    "📈",
-    "更好的",
-    "ˈbetər",
-    "I feel much better today.",599
-],
-"well": [
-    "👌",
-    "健康的/好地",
-    "wel",
-    "I hope you get well soon.",600
-]      
-	}
+      "face": ["🧒", "脸", "feɪs", "Wash your face every morning.", "liǎn", "每天早上洗脸。", 501],
+      "eye": ["👁️", "眼睛", "aɪ", "Close your eyes and sleep.", "yǎn jing", "闭上眼睛睡觉。", 502],
+      "Eyebrow": ["〰️", "眉毛", "ˈaɪbraʊ", "Wiggle your eyebrows.", "méi mao", "动动你的眉毛。", 503],
+      "Eyelash": ["./emoji/eyelash.webp", "眼睫毛", "ˈaɪlæʃ", "Long eyelashes.", "yǎn jié máo", "长长的眼睫毛。", 504],
+      "ear": ["👂", "耳朵", "ɪr", "I listen with my ears.", "ěr duo", "我用耳朵听。", 505],
+      "nose": ["👃", "鼻子", "noʊz", "The dog has a big nose.", "bí zi", "这只狗有一个大鼻子。", 506],
+      "mouth": ["👄", "嘴巴", "maʊθ", "Open your mouth and say Ah.", "zuǐ ba", "张开嘴巴说啊。", 507],
+      "lip": ["💄", "嘴唇", "lɪp", "My lips are very dry.", "zuǐ chún", "我的嘴唇很干。", 508],
+      "Tongue": ["👅", "舌头", "tʌŋ", "Show me your tongue.", "shé tou", "给我看看你的舌头。", 509],
+      "Tooth": ["🦷", "牙齿", "tuːθ", "I lost a tooth today.", "yá chǐ", "我今天掉了一颗牙齿。", 510],
+      "Forehead": ["./emoji/forehead.webp", "额头", "ˈfɔːrhed", "My forehead is hot.", "é tóu", "我的额头很热。", 511],
+      "Chin": ["🤔", "下巴", "tʃɪn", "Touch your chin.", "xià ba", "摸摸你的下巴。", 512],
+      "Cheek": ["😊", "脸颊", "tʃiːk", "Kiss on the cheek.", "liǎn jiá", "亲吻脸颊。", 513],
+      "Neck": ["🦒🧣", "脖子", "nek", "Giraffe has a long neck.", "bó zi", "长颈鹿有长脖子。", 514],
+      "hair": ["💇", "头发", "her", "She has long black hair.", "tóu fa", "她有长长的黑头发。", 515],
+      "curly": ["👩‍🦱", "卷曲的", "ˈkɜːrli", "She has curly hair.", "juǎn qū de", "她有卷曲的头发。", 516],
+      "straight": ["👩‍🦰", "笔直的", "streɪt", "My hair is long and straight.", "bǐ zhí de", "我的头发又长又笔直。", 517],
+      "long": ["💇‍♀️", "长的", "lɔːŋ", "She has very long hair.", "cháng de", "她有很长的头发。", 518],
+      "short": ["💇‍♂️", "短的", "ʃɔːrt", "My brother has short hair.", "duǎn de", "我哥哥有短的头发。", 519],
+      "bangs": ["💇‍♀️", "刘海", "bæŋz", "She has short bangs.", "liú hǎi", "她有短刘海。", 520],
+      "braid": ["👧", "辫子", "breɪd", "She wears her hair in a braid.", "biàn zi", "她把头发梳成辫子。", 521],
+      "ponytail": ["👱‍♀️", "马尾辫", "ˈpoʊniteɪl", "Tie your hair in a ponytail.", "mǎ wěi biàn", "把头发扎成马尾辫。", 522],
+      "pigtails": ["👧", "双马尾", "ˈpɪɡteɪlz", "The little girl has cute pigtails.", "shuāng mǎ wěi", "小女孩有可爱的双马尾。", 523],
+      "bun": ["👱‍♀️", "发髻/丸子头", "bʌn", "She put her hair up in a bun.", "fà jì", "她把头发盘成发髻。", 524],
+      "bald": ["👨‍🦲", "秃头的", "bɔːld", "My grandpa is bald.", "tū tóu de", "我爷爷是秃头的。", 525],
+      "body": ["👤", "身体", "ˈbɑːdi", "My body is strong.", "shēn tǐ", "我的身体很强壮。", 526],
+      "tall": ["🦒", "高的", "tɔːl", "My father is very tall.", "gāo de", "我爸爸非常高。", 527],
+      "fit": ["🏃‍♂️", "健壮的/合适的", "fɪt", "She exercises every day to stay fit.", "jiàn zhuàng de", "她每天锻炼保持健壮。", 528],
+      "tiny": ["🐜", "极小的", "ˈtaɪni", "The baby has tiny fingers.", "jí xiǎo de", "宝宝有极小的手指。", 529],
+      "fat": ["🍔", "胖的", "fæt", "The cat is a little fat.", "pàng de", "这只猫有点胖。", 530],
+      "chubby": ["👶", "圆嘟嘟的", "ˈtʃʌbi", "The baby has chubby cheeks.", "yuán dū dū de", "宝宝有圆嘟嘟的脸颊。", 531],
+      "shoulder": ["./emoji/shoulder.webp", "肩膀", "ˈʃoʊldər", "A parrot sits on the pirate's shoulder.", "jiān bǎng", "一只鹦鹉坐在海盗的肩膀上。", 532],
+      "chest": ["./emoji/chest.webp", "胸膛", "tʃest", "Take a deep breath in your chest.", "xiōng táng", "用胸膛深吸一口气。", 533],
+      "belly": ["🤰", "肚子", "ˈbeli", "My belly is full.", "dù zi", "我的肚子饱了。", 534],
+      "back": ["🐢", "背部", "bæk", "I have a small backpack on my back.", "bèi bù", "我的背部有一个小书包。", 535],
+      "waist": ["./emoji/waist.webp", "腰", "weɪst", "The belt is around my waist.", "yāo", "腰带围在我的腰上。", 536],
+      "hip": ["./emoji/hip.webp", "臀部", "hɪp", "Put your hands on your hips.", "tún bù", "把手放在你的臀部上。", 537],
+      "thumb": ["👍", "大拇指", "θʌm", "Give a thumbs up.", "dà mǔ zhǐ", "竖起大拇指。", 538],
+      "nail": ["💅", "指甲", "neɪl", "Clean your nails.", "zhǐ jia", "清洁你的指甲。", 539],
+      "palm": ["🖐️", "手掌", "pɑːm", "Put it in your palm.", "shǒu zhǎng", "把它放在你的手掌里。", 540],
+      "finger": ["🖐️", "手指", "ˈfɪŋɡər", "I have ten fingers.", "shǒu zhǐ", "我有十根手指。", 541],
+      "fist": ["✊", "拳头", "fɪst", "Hold your fist tight.", "quán tóu", "紧握你的拳头。", 542],
+      "arm": ["💪", "手臂", "ɑːrm", "He has strong arms.", "shǒu bì", "他有强壮的手臂。", 543],
+      "elbow": ["./emoji/elbow.webp", "手肘", "ˈelboʊ", "Touch your elbow.", "shǒu zhǒu", "摸摸你的手肘。", 544],
+      "wrist": ["./emoji/wrist.webp", "手腕", "rɪst", "I wear a watch on my wrist.", "shǒu wàn", "我在手腕上戴手表。", 545],
+      "thigh": ["🍗", "大腿", "θaɪ", "My thighs hurt after running.", "dà tuǐ", "跑步后我的大腿疼。", 546],
+      "leg": ["🦵", "腿", "leɡ", "My legs are long.", "tuǐ", "我的腿很长。", 547],
+      "knee": ["🦵", "膝盖", "niː", "I fell on my knee.", "xī gài", "我摔到了膝盖。", 548],
+      "ankle": ["⛸️", "脚踝", "ˈæŋkl", "I can turn my ankle.", "jiǎo huái", "我可以转动我的脚踝。", 549],
+      "foot": ["🦶", "脚", "fʊt", "Wash your left foot.", "jiǎo", "洗你的左脚。", 550],
+      "heel": ["👠", "脚后跟", "hiːl", "My heel hurts.", "jiǎo hòu gēn", "我的脚后跟疼。", 551],
+      "toe": ["👣", "脚趾", "toʊ", "I have ten toes.", "jiǎo zhǐ", "我有十个脚趾。", 552],
+      "skin": ["./emoji/skin.webp", "皮肤", "skɪn", "Sun is hot for my skin.", "pí fū", "太阳晒得我的皮肤很热。", 553],
+      "bone": ["🦴", "骨头", "boʊn", "Milk makes bones strong.", "gǔ tou", "牛奶让骨头强壮。", 554],
+      "muscle": ["💪", "肌肉", "ˈmʌsl", "I have small muscles.", "jī ròu", "我有小肌肉。", 555],
+      "blood": ["🩸", "血液", "blʌd", "Blood is red.", "xuè yè", "血液是红色的。", 556],
+      "brain": ["🧠", "大脑", "breɪn", "My brain can think.", "dà nǎo", "我的大脑会思考。", 557],
+      "heart": ["❤️", "心脏", "hɑːrt", "My heart beats fast.", "xīn zàng", "我的心脏跳得快。", 558],
+      "stomach": ["./emoji/stomach.webp", "肚子/胃", "ˈstʌmək", "My stomach is full.", "dù zi / wèi", "我的肚子饱了。", 559],
+      "lung": ["./emoji/lung.webp", "肺", "lʌŋ", "We breathe with our lungs.", "fèi", "我们用肺呼吸。", 560],
+      "liver": ["🤎", "肝脏", "ˈlɪvər", "The liver cleans the blood.", "gān zàng", "肝脏清洁血液。", 561],
+      "kidney": ["./emoji/kidney.webp", "肾脏", "ˈkɪdni", "We have two kidneys.", "shèn zàng", "我们要两个肾脏。", 562],
+      "vein": ["🧪", "血管", "veɪn", "You can see blue veins on my hand.", "xuè guǎn", "你可以看到我手上的蓝色血管。", 563],
+      "navel": ["🔘", "肚脐", "ˈneɪvl", "Everyone has a navel.", "dù qí", "每个人都有肚脐。", 564],
+      "health": ["🥗", "健康", "helθ", "Health is important.", "jiàn kāng", "健康很重要。", 565],
+      "clean": ["✨", "干净", "kliːn", "My room is clean.", "gān jìng", "我的房间很干净。", 566],
+      "dirty": ["💩", "脏", "ˈdɜːrti", "My shoes are dirty.", "zāng", "我的鞋子很脏。", 567],
+      "pretty": ["🎀", "漂亮的", "ˈprɪti", "The little girl is very pretty.", "piào liang de", "小女孩非常漂亮。", 568],
+      "handsome": ["🤴", "英俊的", "ˈhænsəm", "The prince is tall and handsome.", "yīng jùn de", "王子又高又英俊。", 569],
+      "weak": ["🥀", "虚弱", "wiːk", "I feel a bit weak.", "xū ruò", "我感觉有点虚弱。", 570],
+      "sick": ["🤒", "生病", "sɪk", "I stayed home sick.", "shēng bìng", "我生病呆在家里。", 571],
+      "cough": ["😷", "咳嗽", "kɔːf", "Cover your cough.", "ké sou", "咳嗽时遮住口鼻。", 572],
+      "sneeze": ["🤧", "打喷嚏", "sniːz", "I sneeze when it's cold.", "dǎ pēn tì", "冷的时候我会打喷嚏。", 573],
+      "fever": ["🌡️", "发烧", "ˈfiːvər", "The baby has a fever.", "fā shāo", "宝宝发烧了。", 574],
+      "dizzy": ["😵‍💫", "头晕", "ˈdɪzi", "I feel a bit dizzy.", "tóu yūn", "我感觉有点头晕。", 575],
+      "shiver": ["🥶", "发抖", "ˈʃɪvər", "She shivered with cold.", "fā dǒu", "她冷得发抖。", 576],
+      "sweat": ["💦", "流汗", "swet", "I sweat a lot in summer.", "liú hàn", "夏天我流汗很多。", 577],
+      "itchy": ["🦟", "发痒", "ˈɪtʃi", "My mosquito bite is itchy.", "fā yǎng", "我的蚊子包发痒。", 578],
+      "sleepy": ["🥱", "想睡", "ˈsliːpi", "I am sleepy.", "xiǎng shuì", "我想睡了。", 579],
+      "hurt": ["🤕", "疼/受伤", "hɜːrt", "My arm hurts.", "téng / shòu shāng", "我的手臂疼。", 580],
+      "cut": ["🩹", "伤口/切", "kʌt", "I have a small cut.", "shāng kǒu", "我有一个小伤口。", 581],
+      "doctor": ["👨‍⚕️", "医生", "ˈdɑːktər", "The doctor is kind.", "yī shēng", "医生很和蔼。", 582],
+      "nurse": ["👩‍⚕️", "护士", "nɜːrs", "The nurse helps me.", "hù shi", "护士帮助我。", 583],
+      "pill": ["💊", "药丸", "pɪl", "Take the pill.", "yào wán", "吃这颗药丸。", 584],
+      "shot": ["💉", "打针", "ʃɑːt", "The doctor gave me a shot.", "dǎ zhēn", "医生给我打针。", 585],
+      "x-ray": ["🩻", "X光", "ˈeks reɪ", "The doctor took an x-ray of my leg.", "X guāng", "医生给我的腿拍了X光。", 586],
+      "scan": ["🏥", "扫描", "skæn", "I need a brain scan.", "sǎo miáo", "我需要做脑部扫描。", 587],
+      "breath": ["🌬️", "呼吸(名词)", "breθ", "Take a deep breath.", "hū xī", "深呼吸。", 588],
+      "sniff": ["👃", "闻一闻", "snɪf", "Sniff the flower.", "wén yī wén", "闻一闻这朵花。", 589],
+      "hear": ["👂", "听见", "hɪr", "I can hear your voice.", "tīng jiàn", "我能听见你的声音。", 590],
+      "touch": ["🖐️", "触碰", "tʌtʃ", "Touch your toes.", "chù pèng", "触碰你的脚趾。", 591],
+      "cry": ["😭", "哭", "kraɪ", "Baby, don't cry.", "kū", "宝贝，别哭。", 592],
+      "yawn": ["🥱", "打哈欠", "jɔːn", "I yawn when tired.", "dǎ hā qian", "累的时候我打哈欠。", 593],
+      "chew": ["🍬", "咀嚼", "tʃuː", "Chew your food.", "jǔ jué", "咀嚼你的食物。", 594],
+      "taste": ["👅", "品尝", "teɪst", "Taste the cake.", "pǐn cháng", "品尝蛋糕。", 595],
+      "fine": ["🌈", "还好", "faɪn", "I am doing fine.", "hái hǎo", "我过得还好。", 596],
+      "great": ["🌟", "棒极了", "ɡreɪt", "You look great!", "bàng jí le", "你看起来棒极了！", 597],
+      "cool": ["😎", "酷", "kuːl", "He is very cool.", "kù", "他很酷。", 598],
+      "better": ["📈", "更好的", "ˈbetər", "I feel much better today.", "gèng hǎo de", "我今天感觉好多了。", 599],
+      "well": ["👌", "健康的/好地", "wel", "I hope you get well soon.", "jiàn kāng de", "希望你早日恢复健康。", 600]
+    }
   },
-  "7": {
+	
+ "7": {
     "levelIndex": 7,
     "levelEmoji": "🌿",
     "levelName": "第7关: 奇妙自然",
     "words": {
-      "spring": [
-        "🌱",
-        "春天",
-        "spr-ing / 斯喷",
-        "Everything grows in spring.",
-        601
-      ],
-      "summer": [
-        "🌞",
-        "夏天",
-        "sum-mer / 萨么",
-        "Summer is very hot.",
-        602
-      ],
-      "autumn": [
-        "🍂",
-        "秋天",
-        "au-tumn / 欧特姆",
-        "Leaves turn yellow in autumn.",
-        603
-      ],
-      "winter": [
-        "❄️",
-        "冬天",
-        "win-ter / 温特",
-        "It is very cold in winter.",
-        604
-      ],
-      "season": [
-        "🌱🌞🍂❄️",
-        "季节",
-        "sea-son / 细真",
-        "I like the summer season.",
-        605
-      ],
-      "weather": [
-        "☁️",
-        "天气",
-        "weath-er / 喂惹",
-        "The weather is nice today.",
-        606
-      ],
-      "morning": [
-        "🌅",
-        "早晨",
-        "morn-ing / 冒宁",
-        "I get up in the morning.",
-        607
-      ],
-      "afternoon": [
-        "🌆",
-        "下午",
-        "af-ter-noon / 挨夫特怒恩",
-        "Drink tea in the afternoon.",
-        608
-      ],
-      "evening": [
-        "🌇",
-        "傍晚",
-        "eve-ning / 亿五宁",
-        "The sun sets in the evening.",
-        609
-      ],
-      "night": [
-        "🌌",
-        "夜晚",
-        "n-ight / 奈特",
-        "Stars shine at night.",
-        610
-      ],
-     "date": [
-        "📆",
-        "日期/日子",
-        "d-ate / 嘚特",
-        "What is the date today?",
-        611
-      ],
-      "yesterday": [
-        "⬅️📆",
-        "昨天",
-        "yes-ter-day / 也是特忒",
-        "It rained yesterday.",
-        612
-      ],
-      "tomorrow": [
-        "📆➡️",
-        "明天",
-        "to-mor-row / 特冒肉",
-        "See you tomorrow.",
-        613
-      ],
-      "week": [
-        "🗓️",
-        "星期",
-        "w-eek / 维刻",
-        "There are 7 days in a week.",
-        614
-      ],
-      "month": [
-        "🌙",
-        "月份",
-        "m-onth / 芒丝",
-        "A new month starts.",
-        615
-      ],
-      "year": [
-        "🎆",
-        "年份",
-        "y-ear / 亿儿",
-        "A happy new year.",
-        616
-      ],
-      "time": [
-        "⌛",
-        "时间",
-        "t-ime / 抬姆",
-        "Time flies.",
-        617
-      ],
-      "sky": [
-        "🌌",
-        "天空",
-        "sk-y / 斯盖",
-        "Look at the blue sky.",
-        618
-      ],
-      "nature": [
-        "🎋",
-        "自然",
-        "na-ture / 内切",
-        "Protect our nature.",
-        619
-      ],
-      "world": [
-        "🌍",
-        "世界",
-        "w-orld / 窝哦得",
-        "Travel around the world.",
-        620
-      ],
-      "sun": [
-        "☀️",
-        "太阳",
-        "s-un / 伞",
-        "The sun is very bright.",
-        621
-      ],
-      "moon": [
-        "🌙",
-        "月亮",
-        "m-oon / 冒嗯",
-        "The moon is round.",
-        622
-      ],
-      "star": [
-        "⭐",
-        "星星",
-        "st-ar / 斯答",
-        "Counting stars at night.",
-        623
-      ],
-      "rain": [
-        "🌧️",
-        "下雨",
-        "r-ain / 瑞恩",
-        "I like the sound of rain.",
-        624
-      ],
-      "snow": [
-        "🌨️",
-        "下雪",
-        "sn-ow / 斯搂",
-        "The snow is white and soft.",
-        625
-      ],
-      "wind": [
-        "🌬️",
-        "风",
-        "w-ind / 温得",
-        "The wind is blowing hard.",
-        626
-      ],
-      "cloud": [
-        "☁️",
-        "云",
-        "cl-oud / 亏奥得",
-        "A white cloud in the sky.",
-        627
-      ],
-      "storm": [
-        "⛈️",
-        "暴风雨",
-        "st-orm / 斯多姆",
-        "A big storm is coming.",
-        628
-      ],
-      "thunder": [
-        "⚡",
-        "雷声",
-        "thun-der / 散得",
-        "Thunder is very loud.",
-        629
-      ],
-      "lightning": [
-        "🌩️",
-        "闪电",
-        "light-ning / 赖特宁",
-        "Lightning is very fast.",
-        630
-      ],
-      "fog": [
-        "🌫️",
-        "雾",
-        "f-og / 佛格",
-        "I can't see in the fog.",
-        631
-      ],
-      "ice": [
-        "🧊",
-        "冰",
-        "i-ce / 爱丝",
-        "Don't walk on the ice.",
-        632
-      ],
-      "rainbow": [
-        "🌈",
-        "彩虹",
-        "rain-bow / 瑞恩波",
-        "Seven colors in a rainbow.",
-        633
-      ],
-      "sunny": [
-        "🌤️",
-        "晴朗的",
-        "sun-ny / 萨泥",
-        "It's a sunny day.",
-        634
-      ],
-      "cloudy": [
-        "🌥️",
-        "多云的",
-        "cloud-y / 亏奥低",
-        "It's a bit cloudy.",
-        635
-      ],
-      "windy": [
-        "🌬️🍃",
-        "刮风的",
-        "wind-y / 温低",
-        "It's very windy outside.",
-        636
-      ],
-      "rainy": [
-        "☔",
-        "下雨的",
-        "rain-y / 瑞泥",
-        "Bring an umbrella on rainy days.",
-        637
-      ],
-      "snowy": [
-        "⛄",
-        "下雪的",
-        "snow-y / 斯搂意",
-        "Let's play in the snowy woods.",
-        638
-      ],
-      "soft": ["☁️", "柔软的", "s-oft / 搜夫特", "Soft green grass.", 639],
-      "frost": ["❄️", "霜", "f-rost / 佛肉斯特", "Frost on the window.", 640],
-      "warm": [
-        "☀️🧥",
-        "温暖的",
-        "w-arm / 窝姆",
-        "A warm hug.",
-        641
-      ],
-        "dry": [
-        "🏜️",
-        "干燥的",
-        "dr-y / 拽",
-        "The desert is very dry.",
-        642
-      ],
-      "wet": [
-        "💦",
-        "潮湿的",
-        "w-et / 喂特",
-        "Your clothes are wet.",
-        643
-      ],
-      "heat": [
-        "♨️",
-        "热气/热量",
-        "h-eat / 希特",
-        "Summer heat.",
-        644
-      ],
-      "tree": [
-        "🌲",
-        "树木",
-        "tr-ee / 吹",
-        "Birds live in the tree.",
-        645
-      ],
-      "flower": [
-        "🌸",
-        "花朵",
-        "flow-er / 佛劳儿",
-        "A beautiful flower.",
-        646
-      ],
-      "leaf": [
-        "🍃",
-        "叶子",
-        "l-eaf / 离夫",
-        "The leaf is green.",
-        647
-      ],
-      "grass": [
-        "🌱",
-        "草地",
-        "gr-ass / 哥拉斯",
-        "Don't walk on the grass.",
-        648
-      ],
-      "forest": [
-        "🌳🌳🌳",
-        "森林",
-        "for-est / 佛瑞斯特",
-        "Many trees in the forest.",
-        649
-      ],
-      "mountain": [
-        "🏔️",
-        "高山",
-        "moun-tain / 忙藤",
-        "Climb the high mountain.",
-        650
-      ],
-      "hill": [
-        "⛰️",
-        "小山",
-        "h-ill / 嘿哦",
-        "Run down the hill.",
-        651
-      ],
-      "valley": [
-        "./emoji/valley.webp",
-        "山谷",
-        "val-ley / 哇离",
-        "A green valley.",
-        652
-      ],
-"stream": ["./emoji/stream.webp", "小溪/溪流", "s-tream / 斯垂姆", "The fish swims in the stream.", 653],
-
-      "river": [
-        "./emoji/river.webp",
-        "河流",
-        "riv-er / 瑞五儿",
-        "Fish swim in the river.",
-        654
-      ],
-      "lake": [
-        "./emoji/lake.webp",
-        "湖泊",
-        "l-ake / 累刻",
-        "The lake is quiet.",
-        655
-      ],
-      "ocean": [
-        "./emoji/ocean.webp",
-        "海洋",
-        "o-cean / 欧旬",
-        "The ocean is very deep.",
-        656
-      ],
-      "beach": [
-        "🏖️",
-        "海滩",
-        "b-each / 必旗",
-        "I love the sandy beach.",
-        657
-      ],
-      "island": [
-        "🏝️",
-        "岛屿",
-        "is-land / 艾蓝得",
-        "Live on a small island.",
-        658
-      ],
-      "desert": [
-        "./emoji/desert.webp",
-        "沙漠",
-        "des-ert / 呆热特",
-        "It is dry in the desert.",
-        659
-      ],
-      "cave": [
-        "./emoji/cave.webp",
-        "山洞",
-        "c-ave / 块五",
-        "A dark cave.",
-        660
-      ],
-      "rock": [
-        "🧗",
-        "岩石",
-        "r-ock / 绕刻",
-        "Sitting on a big rock.",
-        661
-      ],
-      "stone": [
-        "🪨",
-        "石头",
-        "st-one / 斯透嗯",
-        "A small stone.",
-        662
-      ],
-      "sand": [
-        "./emoji/sand.webp",
-        "沙子",
-        "s-and / 散得",
-        "Golden sand.",
-        663
-      ],
-      "fire": [
-        "🔥",
-        "火",
-        "f-ire / 法儿",
-        "Fire is dangerous.",
-        664
-      ],
-      "smoke": [
-        "🚬",
-        "烟",
-        "sm-oke / 斯帽刻",
-        "Smoke from the fire.",
-        665
-      ],
-      "dust": [
-        "💨",
-        "灰尘",
-        "d-ust / 答斯特",
-        "Too much dust here.",
-        666
-      ],
-      "waterfall": [
-        "./emoji/waterfall.webp",
-        "瀑布",
-        "wa-ter-fall / 窝特佛",
-        "A beautiful waterfall.",
-        667
-      ],
-      "field": [
-        "./emoji/field.webp",
-        "田野",
-        "f-ield / 费欧得",
-        "Green rice field.",
-        668
-      ],
-      "earth": [
-        "🌍",
-        "地球",
-        "e-arth / 饿丝",
-        "Earth is our home.",
-        669
-      ],
-      "space": [
-        "./emoji/space.webp",
-        "太空",
-        "sp-ace / 斯配丝",
-        "Travel to space.",
-        670
-      ],
-      "rose": [
-        "🌹",
-        "玫瑰",
-        "r-ose / 肉滋",
-        "A red rose.",
-        671
-      ],
-      "lily": [
-        "🌼",
-        "百合/花卉",
-        "li-ly / 离离",
-        "White lily flower.",
-        672
-      ],
-      "bamboo": [
-        "🎋",
-        "竹子",
-        "bam-boo / 班步",
-        "Bamboo is tall.",
-        673
-      ],
-      "mushroom": [
-        "🍄",
-        "蘑菇",
-        "mush-room / 骂死入姆",
-        "Red mushroom.",
-        674
-      ],
-      "wood": [
-        "🪵",
-        "木头",
-        "w-ood / 屋得",
-        "Made of wood.",
-        675
-      ],
-      "root": [
-        "🥕",
-        "根",
-        "r-oot / 入特",
-        "The root is long.",
-        676
-      ],
-      "seed": [
-        "🌰",
-        "种子",
-        "s-eed / 细得",
-        "Plant a seed.",
-        677
-      ],
-      "branch": [
-        "🌿",
-        "树枝",
-        "br-anch / 布软旗",
-        "A bird on the branch.",
-        678
-      ],
-      "jungle": [
-        "🌴🐯",
-        "丛林",
-        "jun-gle / 酱勾",
-        "Animals in the jungle.",
-        679
-      ],
-      "ground": [
-        "🟫",
-        "地面",
-        "gr-ound / 乖奥得",
-        "Sit on the ground.",
-        680
-      ],
-      "sunrise": [
-        "🌇",
-        "日出",
-        "sun-rise / 萨赖兹",
-        "See the sunrise.",
-        681
-      ],
-      "sunset": [
-        "🌆",
-        "日落",
-        "sun-set / 萨赛特",
-        "Beautiful sunset.",
-        682
-      ],
-      "shine": [
-        "✨",
-        "闪耀",
-        "sh-ine / 晒恩",
-        "The stars shine.",
-        683
-      ],
-      "dark": [
-        "🌑",
-        "黑暗",
-        "d-ark / 答刻",
-        "It's dark outside.",
-        684
-      ],
-      "bright": [
-        "🔆",
-        "明亮",
-        "br-ight / 布赖特",
-        "Bright light.",
-        685
-      ],
-     "steam": ["💨♨️", "蒸汽", "ste-am / 斯滴姆", "Hot steam from water.", 686],
-      "clear": [
-        "💎🌌",
-        "清晰/晴朗",
-        "cl-ear / 离儿",
-        "Clear sky.",
-        687
-      ],
-      "strong": [
-        "💪🌬️",
-        "强壮/强力",
-        "str-ong / 斯准恩",
-        "Strong wind.",
-        688
-      ],
-      "quiet": [
-        "🤫🌌",
-        "安静",
-        "qui-et / 块额特",
-        "A quiet night.",
-        689
-      ],
-      "loud": [
-        "📢⚡",
-        "响亮",
-        "l-oud / 牢得",
-        "Loud thunder.",
-        690
-      ],
-      "high": [
-        "👆🏔️",
-        "高的",
-        "h-igh / 亥",
-        "High mountain.",
-        691
-      ],
-      "low": [
-        "👇🟫",
-        "低的",
-        "l-ow / 搂",
-        "Low land.",
-        692
-      ],
-      "wide": ["↔️", "宽阔的", "w-ide / 歪得", "A wide river.", 693],
-      "thin": ["🦯", "细长的", "th-in / 寻", "A thin branch.", 694],
-      "beautiful": [
-        "🦋",
-        "美丽的",
-        "beau-ti-ful / 标体佛",
-        "Beautiful world.",
-        695
-      ],
-      "wild": [
-        "🐗",
-        "野生的",
-        "w-ild / 歪欧得",
-        "Wild flowers.",
-        696
-      ],
-      "deep": [
-        "🕳️",
-        "深的",
-        "d-eep / 递铺",
-        "Deep water.",
-        697
-      ],
-      "pure": [
-        "💎",
-        "纯净的",
-        "p-ure / 飘儿",
-        "Pure ice.",
-        698
-      ],
-      "natural": [
-        "🏞️",
-        "自然的",
-        "nat-u-ral / 奶切柔",
-        "Natural park.",
-        699
-      ],
-      "planet": [
-        "🪐",
-        "行星",
-        "plan-et / 普蓝内特",
-        "Saturn is a planet.",
-        700
-      ]
+      "spring": ["🌱", "春天", "spr-ing / 斯喷", "Everything grows in spring.", "chūn tiān", "春天万物生长。", 601],
+      "summer": ["🌞", "夏天", "sum-mer / 萨么", "Summer is very hot.", "xià tiān", "夏天非常热。", 602],
+      "autumn": ["🍂", "秋天", "au-tumn / 欧特姆", "Leaves turn yellow in autumn.", "qiū tiān", "秋天树叶变黄。", 603],
+      "winter": ["❄️", "冬天", "win-ter / 温特", "It is very cold in winter.", "dōng tiān", "冬天非常冷。", 604],
+      "season": ["🌱🌞🍂❄️", "季节", "sea-son / 细真", "I like the summer season.", "jì jié", "我喜欢夏天这个季节。", 605],
+      "weather": ["☁️", "天气", "weath-er / 喂惹", "The weather is nice today.", "tiān qì", "今天天气很好。", 606],
+      "morning": ["🌅", "早晨", "morn-ing / 冒宁", "I get up in the morning.", "zǎo chen", "我在早晨起床。", 607],
+      "afternoon": ["🌆", "下午", "af-ter-noon / 挨夫特怒恩", "Drink tea in the afternoon.", "xià wǔ", "下午喝茶。", 608],
+      "evening": ["🌇", "傍晚", "eve-ning / 亿五宁", "The sun sets in the evening.", "bàng wǎn", "太阳在傍晚落下。", 609],
+      "night": ["🌌", "夜晚", "n-ight / 奈特", "Stars shine at night.", "yè wǎn", "星星在夜晚闪耀。", 610],
+      "date": ["📆", "日期/日子", "d-ate / 嘚特", "What is the date today?", "rì qī", "今天的日期是什么？", 611],
+      "yesterday": ["⬅️📆", "昨天", "yes-ter-day / 也是特忒", "It rained yesterday.", "zuó tiān", "昨天通过下雨。", 612],
+      "tomorrow": ["📆➡️", "明天", "to-mor-row / 特冒肉", "See you tomorrow.", "míng tiān", "明天见。", 613],
+      "week": ["🗓️", "星期", "w-eek / 维刻", "There are 7 days in a week.", "xīng qī", "一个星期有七天。", 614],
+      "month": ["🌙", "月份", "m-onth / 芒丝", "A new month starts.", "yuè fèn", "新的月份开始了。", 615],
+      "year": ["🎆", "年份", "y-ear / 亿儿", "Happy new year.", "nián fèn", "新年快乐。", 616],
+      "time": ["⌛", "时间", "t-ime / 抬姆", "Time flies.", "shí jiān", "时间飞逝。", 617],
+      "sky": ["🌌", "天空", "sk-y / 斯盖", "Look at the blue sky.", "tiān kōng", "看蓝色的天空。", 618],
+      "nature": ["🎋", "自然", "na-ture / 内切", "Protect our nature.", "zì rán", "保护我们的自然。", 619],
+      "world": ["🌍", "世界", "w-orld / 窝哦得", "Travel around the world.", "shì jiè", "环游世界。", 620],
+      "sun": ["☀️", "太阳", "s-un / 伞", "The sun is very bright.", "tài yáng", "太阳非常明亮。", 621],
+      "moon": ["🌙", "月亮", "m-oon / 冒嗯", "The moon is round.", "yuè liang", "月亮是圆的。", 622],
+      "star": ["⭐", "星星", "st-ar / 斯答", "Counting stars at night.", "xīng xing", "在晚上数星星。", 623],
+      "rain": ["🌧️", "下雨", "r-ain / 瑞恩", "I like the sound of rain.", "xià yǔ", "我喜欢下雨的声音。", 624],
+      "snow": ["🌨️", "下雪", "sn-ow / 斯搂", "The snow is white and soft.", "xià xuě", "下雪是白而柔软的。", 625],
+      "wind": ["🌬️", "风", "w-ind / 温得", "The wind is blowing hard.", "fēng", "风吹得很大。", 626],
+      "cloud": ["☁️", "云", "cl-oud / 亏奥得", "A white cloud in the sky.", "yún", "天上的一朵白云。", 627],
+      "storm": ["⛈️", "暴风雨", "st-orm / 斯多姆", "A big storm is coming.", "bào fēng yǔ", "一场大的暴风雨要来了。", 628],
+      "thunder": ["⚡", "雷声", "thun-der / 散得", "Thunder is very loud.", "léi shēng", "雷声很大。", 629],
+      "lightning": ["🌩️", "闪电", "light-ning / 赖特宁", "Lightning is very fast.", "shǎn diàn", "闪电非常快。", 630],
+      "fog": ["🌫️", "雾", "f-og / 佛格", "I can't see in the fog.", "wù", "我在雾里看不见。", 631],
+      "ice": ["🧊", "冰", "i-ce / 爱丝", "Don't walk on the ice.", "bīng", "不要在冰上走。", 632],
+      "rainbow": ["🌈", "彩虹", "rain-bow / 瑞恩波", "Seven colors in a rainbow.", "cǎi hóng", "彩虹有七种颜色。", 633],
+      "sunny": ["🌤️", "晴朗的", "sun-ny / 萨泥", "It's a sunny day.", "qíng lǎng de", "这是一个晴朗的日子。", 634],
+      "cloudy": ["🌥️", "多云的", "cloud-y / 亏奥低", "It's a bit cloudy.", "duō yún de", "天有点多云。", 635],
+      "windy": ["🌬️🍃", "刮风的", "wind-y / 温低", "It's very windy outside.", "guā fēng de", "外面风很大。", 636],
+      "rainy": ["☔", "下雨的", "rain-y / 瑞泥", "Bring an umbrella on rainy days.", "xià yǔ de", "在下雨的日子带把伞。", 637],
+      "snowy": ["⛄", "下雪的", "snow-y / 斯搂意", "Let's play in the snowy woods.", "xià xuě de", "让我们在下雪的树林里玩。", 638],
+      "soft": ["☁️", "柔软的", "s-oft / 搜夫特", "Soft green grass.", "róu ruǎn de", "柔软的绿草。", 639],
+      "frost": ["❄️", "霜", "f-rost / 佛肉斯特", "Frost on the window.", "shuāng", "窗户上的霜。", 640],
+      "warm": ["☀️🧥", "温暖的", "w-arm / 窝姆", "A warm hug.", "wēn nuǎn de", "一个温暖的拥抱。", 641],
+      "dry": ["🏜️", "干燥的", "dr-y / 拽", "The desert is very dry.", "gān zào de", "沙漠非常干燥。", 642],
+      "wet": ["💦", "潮湿的", "w-et / 喂特", "Your clothes are wet.", "cháo shī de", "你的衣服是湿的。", 643],
+      "heat": ["♨️", "热气/热量", "h-eat / 希特", "Summer heat.", "rè qì", "夏天的热气。", 644],
+      "tree": ["🌲", "树木", "tr-ee / 吹", "Birds live in the tree.", "shù mù", "鸟儿住在树木里。", 645],
+      "flower": ["🌸", "花朵", "flow-er / 佛劳儿", "A beautiful flower.", "huā duǒ", "一朵美丽的花朵。", 646],
+      "leaf": ["🍃", "叶子", "l-eaf / 离夫", "The leaf is green.", "yè zi", "叶子是绿色的。", 647],
+      "grass": ["🌱", "草地", "gr-ass / 哥拉斯", "Don't walk on the grass.", "cǎo dì", "不要在草地上走。", 648],
+      "forest": ["🌳🌳🌳", "森林", "for-est / 佛瑞斯特", "Many trees in the forest.", "sēn lín", "森林里有很多树。", 649],
+      "mountain": ["🏔️", "高山", "moun-tain / 忙藤", "Climb the high mountain.", "gāo shān", "爬上高山。", 650],
+      "hill": ["⛰️", "小山", "h-ill / 嘿哦", "Run down the hill.", "xiǎo shān", "跑下小山。", 651],
+      "valley": ["./emoji/valley.webp", "山谷", "val-ley / 哇离", "A green valley.", "shān gǔ", "一个绿色的山谷。", 652],
+      "stream": ["./emoji/stream.webp", "小溪/溪流", "s-tream / 斯垂姆", "The fish swims in the stream.", "xiǎo xī", "鱼在小溪里游。", 653],
+      "river": ["./emoji/river.webp", "河流", "riv-er / 瑞五儿", "Fish swim in the river.", "hé liú", "鱼在河流里游。", 654],
+      "lake": ["./emoji/lake.webp", "湖泊", "l-ake / 累刻", "The lake is quiet.", "hú pō", "湖泊很安静。", 655],
+      "ocean": ["./emoji/ocean.webp", "海洋", "o-cean / 欧旬", "The ocean is very deep.", "hǎi yáng", "海洋非常深。", 656],
+      "beach": ["🏖️", "海滩", "b-each / 必旗", "I love the sandy beach.", "hǎi tān", "我爱沙滩。", 657],
+      "island": ["🏝️", "岛屿", "is-land / 艾蓝得", "Live on a small island.", "dǎo yǔ", "住在一个小岛屿上。", 658],
+      "desert": ["./emoji/desert.webp", "沙漠", "des-ert / 呆热特", "It is dry in the desert.", "shā mò", "沙漠里很干燥。", 659],
+      "cave": ["./emoji/cave.webp", "山洞", "c-ave / 块五", "A dark cave.", "shān dòng", "一个黑暗的山洞。", 660],
+      "rock": ["🧗", "岩石", "r-ock / 绕刻", "Sitting on a big rock.", "yán shí", "坐在一块大岩石上。", 661],
+      "stone": ["🪨", "石头", "st-one / 斯透嗯", "A small stone.", "shí tou", "一块小石头。", 662],
+      "sand": ["./emoji/sand.webp", "沙子", "s-and / 散得", "Golden sand.", "shā zi", "金色的沙子。", 663],
+      "fire": ["🔥", "火", "f-ire / 法儿", "Fire is dangerous.", "huǒ", "火是危险的。", 664],
+      "smoke": ["🚬", "烟", "sm-oke / 斯帽刻", "Smoke from the fire.", "yān", "火里冒出的烟。", 665],
+      "dust": ["💨", "灰尘", "d-ust / 答斯特", "Too much dust here.", "huī chén", "这里灰尘太多了。", 666],
+      "waterfall": ["./emoji/waterfall.webp", "瀑布", "wa-ter-fall / 窝特佛", "A beautiful waterfall.", "pù bù", "一个美丽的瀑布。", 667],
+      "field": ["./emoji/field.webp", "田野", "f-ield / 费欧得", "Green rice field.", "tián yě", "绿色的稻田。", 668],
+      "earth": ["🌍", "地球", "e-arth / 饿丝", "Earth is our home.", "dì qiú", "地球是我们的家。", 669],
+      "space": ["./emoji/space.webp", "太空", "sp-ace / 斯配丝", "Travel to space.", "tài kōng", "去太空旅行。", 670],
+      "rose": ["🌹", "玫瑰", "r-ose / 肉滋", "A red rose.", "méi gui", "一朵红玫瑰。", 671],
+      "lily": ["🌼", "百合/花卉", "li-ly / 离离", "White lily flower.", "bǎi hé", "白色的百合花。", 672],
+      "bamboo": ["🎋", "竹子", "bam-boo / 班步", "Bamboo is tall.", "zhú zi", "竹子很高。", 673],
+      "mushroom": ["🍄", "蘑菇", "mush-room / 骂死入姆", "Red mushroom.", "mó gu", "红色的蘑菇。", 674],
+      "wood": ["🪵", "木头", "w-ood / 屋得", "Made of wood.", "mù tou", "用木头做的。", 675],
+      "root": ["🥕", "根", "r-oot / 入特", "The root is long.", "gēn", "根很长。", 676],
+      "seed": ["🌰", "种子", "s-eed / 细得", "Plant a seed.", "zhǒng zi", "种下一颗种子。", 677],
+      "branch": ["🌿", "树枝", "br-anch / 布软旗", "A bird on the branch.", "shù zhī", "树枝上的一只鸟。", 678],
+      "jungle": ["🌴🐯", "丛林", "jun-gle / 酱勾", "Animals in the jungle.", "cóng lín", "丛林里的动物。", 679],
+      "ground": ["🟫", "地面", "gr-ound / 乖奥得", "Sit on the ground.", "dì miàn", "坐在地面上。", 680],
+      "sunrise": ["🌇", "日出", "sun-rise / 萨赖兹", "See the sunrise.", "rì chū", "看日出。", 681],
+      "sunset": ["🌆", "日落", "sun-set / 萨赛特", "Beautiful sunset.", "rì luò", "美丽的日落。", 682],
+      "shine": ["✨", "闪耀", "sh-ine / 晒恩", "The stars shine.", "shǎn yào", "星星闪耀。", 683],
+      "dark": ["🌑", "黑暗", "d-ark / 答刻", "It's dark outside.", "hēi àn", "外面很黑暗。", 684],
+      "bright": ["🔆", "明亮", "br-ight / 布赖特", "Bright light.", "míng liàng", "明亮的光。", 685],
+      "steam": ["💨♨️", "蒸汽", "ste-am / 斯滴姆", "Hot steam from water.", "zhēng qì", "水里冒出的热蒸汽。", 686],
+      "clear": ["💎🌌", "清晰/晴朗", "cl-ear / 离儿", "Clear sky.", "qīng xī", "晴朗的天空。", 687],
+      "strong": ["💪🌬️", "强壮/强力", "str-ong / 斯准恩", "Strong wind.", "qiáng zhuàng", "强力的风。", 688],
+      "quiet": ["🤫🌌", "安静", "qui-et / 块额特", "A quiet night.", "ān jìng", "一个安静的夜晚。", 689],
+      "loud": ["📢⚡", "响亮", "l-oud / 牢得", "Loud thunder.", "xiǎng liàng", "响亮的雷声。", 690],
+      "high": ["👆🏔️", "高的", "h-igh / 亥", "High mountain.", "gāo de", "高的山。", 691],
+      "low": ["👇🟫", "低的", "l-ow / 搂", "Low land.", "dī de", "低的地面。", 692],
+      "wide": ["↔️", "宽阔的", "w-ide / 歪得", "A wide river.", "kuān kuò de", "一条宽阔的河。", 693],
+      "thin": ["🦯", "细长的", "th-in / 寻", "A thin branch.", "xì cháng de", "一根细长的树枝。", 694],
+      "beautiful": ["🦋", "美丽的", "beau-ti-ful / 标体佛", "Beautiful world.", "měi lì de", "美丽的世界。", 695],
+      "wild": ["🐗", "野生的", "w-ild / 歪欧得", "Wild flowers.", "yě shēng de", "野生的花朵。", 696],
+      "deep": ["🕳️", "深的", "d-eep / 递铺", "Deep water.", "shēn de", "深的水。", 697],
+      "pure": ["💎", "纯净的", "p-ure / 飘儿", "Pure ice.", "chún jìng de", "纯净的冰。", 698],
+      "natural": ["🏞️", "自然的", "nat-u-ral / 奶切柔", "Natural park.", "zì rán de", "自然的公园。", 699],
+      "planet": ["🪐", "行星", "plan-et / 普蓝内特", "Saturn is a planet.", "xíng xīng", "土星是一颗行星。", 700]
     }
   },
-  "8": {
+ "8": {
     "levelIndex": 8,
     "levelEmoji": "🎒",
     "levelName": "第8关: 校园学习",
     "words": {
-      "school": [
-        "🏫",
-        "学校",
-        "sch-ool / 斯库哦",
-        "I go to school.",
-        701
-      ],
-      "class": [
-        "./emoji/class.webp",
-        "班级",
-        "cl-ass / 哥拉斯",
-        "My class is big.",
-        702
-      ],
-"principal": ["👨‍💼🏫", "校长", "prin-ci-pal / 拼谁剖", "Meet the school principal.", 703],
-      "teacher": [
-        "👨‍🏫",
-        "老师",
-        "teach-er / 踢切",
-        "The teacher is kind.",
-        704
-      ],
-      "student": [
-        "🧑‍🎓",
-        "学生",
-        "stu-dent / 斯丢等特",
-        "I am a student.",
-        705
-      ],
-"staff": ["👨‍🍳👨‍🏫", "教职工", "s-taff / 斯大夫", "The staff are kind.", 706],
-"coach": ["👨‍🏫👟", "教练", "c-oach / 扣起", "Our coach is great.", 707],
-
-"name": ["🧒🏷️", "名字", "n-ame / 内姆", "What is your name?", 708],
-      "friend": [
-        "🤝",
-        "朋友",
-        "fri-end / 夫瑞恩得",
-        "Play with friends.",
-        709
-      ],
-"classmate": ["🧑‍🤝‍🧑", "同班同学", "class-mate / 颗拉丝妹特", "He is my classmate.", 710],
-"club": ["🎷⚽🎨", "社团", "c-lub / 颗辣步", "The art club is fun.", 711],      
-"desk": [
-        "./emoji/desk.webp",
-        "课桌",
-        "d-esk / 代死刻",
-        "Sit at the desk.",
-        712
-      ],
-    "drawer": ["🗄️", "抽屉", "draw-er / 抓哦", "Put it in the drawer.", 713],
-        "board": [
-        "./emoji/board.webp",
-        "黑板/布告栏",
-        "b-oard / 波得",
-        "Look at the board.",
-        714
-      ],
-      
-       "light": [
-        "💡",
-        "电灯",
-        "l-ight / 赖特",
-        "Turn on the light.",
-        715
-      ],
-"lab": ["🧪", "实验室", "l-ab / 莱步", "We study in the lab.", 716],
-            "playground": [
-        "🎡",
-        "操场",
-        "play-ground / 铺勒乖奥得",
-        "Run on the playground.",
-        717
-      ],
-      "library": [
-        "./emoji/library.webp",
-        "图书馆",
-        "li-brar-y / 赖不瑞瑞",
-        "Books in library.",
-        718
-      ],
-      "office": [
-        "🏢",
-        "办公室",
-        "of-fice / 嗷飞丝",
-        "The teacher's office.",
-        719
-      ],
-      "gym": [
-        "🏋️",
-        "体育馆",
-        "g-ym / 极姆",
-        "Play ball in the gym.",
-        720
-      ],
-                 "lesson": [
-        "📖",
-        "课程",
-        "les-son / 勒森",
-        "English lesson.",
-        721
-      ],
-      "homework": [
-        "📝",
-        "家庭作业",
-        "home-work / 厚姆窝刻",
-        "Do my homework.",
-        722
-      ],
-"note": ["📒", "笔记", "n-ote / 诺特", "Take a short note.", 723],
-      "test": [
-        "💯",
-        "测试",
-        "t-est / 抬斯特",
-        "I got 100 on the test.",
-        724
-      ],
-"exam": ["✍️", "考试", "ex-am / 艾克赞姆", "I have a big exam.", 725],
-
-      "book": [
-        "📕",
-        "书",
-        "b-ook / 补刻",
-        "Read a book.",
-        725
-      ],
-      "pen": [
-        "🖊️",
-        "钢笔",
-        "p-en / 喷",
-        "Write with a pen.",
-        727
-      ],
-      "pencil": [
-        "✏️",
-        "铅笔",
-        "pen-cil / 喷搜",
-        "Draw with a pencil.",
-        728
-      ],
-      "ruler": [
-        "📏",
-        "尺子",
-        "ru-ler / 路勒",
-        "Measure with a ruler.",
-        729
-      ],
-      "eraser": [
-        "🧼",
-        "橡皮",
-        "e-ras-er / 亿瑞惹",
-        "Use an eraser.",
-        730
-      ],
-      "bag": [
-        "🎒",
-        "书包",
-        "b-ag / 拜格",
-        "My heavy school bag.",
-        731
-      ],
-      "paper": [
-        "📄",
-        "纸",
-        "pa-per / 陪破",
-        "Write on paper.",
-        732
-      ],
-      "map": [
-        "🗺️",
-        "地图",
-        "m-ap / 麦普",
-        "Find the city on map.",
-        733
-      ],
-      "globe": [
-        "./emoji/globe.webp",
-        "地球仪",
-        "gl-obe / 哥喽步",
-        "Spin the globe.",
-        734
-      ],
-"kit": ["🧰", "成套装备/箱", "k-it / 刻特", "The art kit is new.", 735],
-      "ink": [
-        "./emoji/ink.webp",
-        "墨水",
-        "i-nk / 硬刻",
-        "Blue ink.",
-        736
-      ],
-      "glue": [
-        "./emoji/glue.webp",
-        "胶水",
-        "gl-ue / 股路",
-        "Stick it with glue.",
-        737
-      ],
-      "scissors": [
-        "✂️",
-        "剪刀",
-        "scis-sors / 细惹丝",
-        "Cut with scissors.",
-        738
-      ],
-           "crayon": [
-        "🖍️",
-        "蜡笔",
-        "cray-on / 亏昂",
-        "Color with a crayon.",
-        739
-      ],
-      "notebook": [
-        "📓",
-        "笔记本",
-        "note-book / 搂特补刻",
-        "Write in notebook.",
-        740
-      ],
-      "folder": [
-        "📂",
-        "文件夹",
-        "fol-der / 佛勒得",
-        "Put paper in folder.",
-        741
-      ],
-      "clip": [
-        "📎",
-        "回形针",
-        "cl-ip / 颗粒铺",
-        "Use a clip.",
-        742
-      ],
-      "stamp": [
-        "💌",
-        "印章/邮票",
-        "st-amp / 斯单铺",
-        "Put a stamp.",
-        743
-      ],
-      "sharpener": [
-        "🔪✏️",
-        "卷笔刀",
-        "sharp-en-er / 夏喷勒",
-        "I use sharpener to sharp my pencil.",
-        744
-      ],
-      "calculator": [
-        "🧮",
-        "计算器",
-        "cal-cu-la-tor / 盖Q类特",
-        "Math calculator.",
-        745
-      ],
-      "tape": [
-        "./emoji/tape.webp",
-        "胶带",
-        "t-ape / 忒铺",
-        "Sticky tape.",
-        746
-      ],
-      "dictionary": [
-        "📖",
-        "字典",
-        "dic-tion-ar-y / 迪克夏内瑞",
-        "Check the word in the dictionary.",
-        747
-      ],
-      "chalk": [
-        "🖍️",
-        "粉笔",
-        "ch-alk / 抽刻",
-        "White chalk.",
-        748
-      ],
-            "laptop": [
-        "💻",
-        "电脑",
-        "lap-top / 拿铺掏破",
-        "Type on laptop.",
-        749
-      ],
-"prize": ["🏆", "奖品", "p-rize / 普来兹", "Win a school prize.", 750],
-      "math": [
-        "➕",
-        "数学",
-        "m-ath / 埋丝",
-        "I like math.",
-        751
-      ],
-      "english": [
-        "🔤",
-        "英语",
-        "Eng-lish / 硬个里湿",
-        "Speak English.",
-        752
-      ],
-      "chinese": [
-        "🇨🇳",
-        "语文",
-        "Chi-nese / 拆泥兹",
-        "Read Chinese.",
-        753
-      ],
-      "music": [
-        "🎵",
-        "音乐",
-        "mu-sic / 谬贼刻",
-        "Sing in music class.",
-        754
-      ],
-      "art": [
-        "🎨",
-        "美术",
-        "ar-t / 阿特",
-        "Paint in art class.",
-        755
-      ],
-      "science": [
-        "🔬",
-        "科学",
-        "sci-ence / 赛恩丝",
-        "Study science.",
-        756
-      ],
-      "history": [
-        "🏛️",
-        "历史",
-        "his-to-ry / 希斯特瑞",
-        "History teaches old stories.",
-        757
-      ],
-      "sport": [
-        "⚽",
-        "体育",
-        "sp-ort / 斯波特",
-        "I love sports.",
-        758
-      ],
-      "number": [
-        "1️⃣",
-        "数字",
-        "num-ber / 囊波",
-        "Count the numbers.",
-        759
-      ],
-      "letter": [
-        "🅰️",
-        "字母",
-        "let-ter / 勒特",
-        "ABC are letters.",
-        760
-      ],
-      "word": [
-        "📝",
-        "单词",
-        "w-ord / 窝得",
-        "Learn a new word.",
-        761
-      ],
-      "line": [
-        "➖",
-        "线",
-        "l-ine / 赖恩",
-        "Draw a line.",
-        762
-      ],
-      "circle": [
-        "⭕",
-        "圆",
-        "cir-cle / 瑟口",
-        "A red circle.",
-        763
-      ],
-      "square": [
-        "🟦",
-        "正方形",
-        "squ-are / 斯亏儿",
-        "A blue square.",
-        764
-      ],
-     "triangle": ["🔺", "三角形", "tri-an-gle / 揣昂勾", "Draw a red triangle.", 765],
-"oval": ["🥚", "椭圆形", "o-val / 欧沃", "An egg is oval.", 766],
-"rectangle": ["./emoji/rectangle.webp", "长方形", "rec-tan-gle / 瑞克贪勾", "The board is a rectangle.", 767],
-      "page": [
-        "📑",
-        "页码",
-        "p-age / 陪指",
-        "Turn to page 10.",
-        768
-      ],
-      "story": [
-        "📖",
-        "故事",
-        "sto-ry / 斯多瑞",
-        "Tell a story.",
-        769
-      ],
-      "song": [
-        "🎶",
-        "歌曲",
-        "s-ong / 诵",
-        "Sing a song.",
-        770
-      ],
-      "picture": [
-        "🖼️",
-        "图片",
-        "pic-ture / 披刻切",
-        "Draw a picture.",
-        771
-      ],
-      "game": [
-        "🎮",
-        "游戏",
-        "g-ame / 给姆",
-        "Play a game.",
-        772
-      ],
-      "quiz": [
-        "📄❓",
-        "小测验",
-        "qu-iz / 亏字",
-        "Quick quiz.",
-        773
-      ],
-      "answer": [
-        "✍️✅",
-        "回答",
-        "an-swer / 安色",
-        "Correct answer.",
-        774
-      ],
-      "question": [
-        "👨‍🏫❓",
-        "问题",
-        "ques-tion / 亏死陈",
-        "Ask a question.",
-        775
-      ],
-      "rule": [
-        "📏",
-        "规则",
-        "r-ule / 入欧",
-        "Follow the rules.",
-        776
-      ],
-      "point": [
-        "📍",
-        "点/得分",
-        "p-oint / 跑硬特",
-        "Get a point.",
-        777
-      ],
-      "idea": ["💡", "主意", "i-dea / 爱滴儿", "That is a good idea.", 778],
-     "mind": ["🧠", "头脑", "m-ind / 埋得", "Keep it in mind.", 779],
-      "draw": [
-        "🎨",
-        "绘画",
-        "dr-aw / 抓",
-        "Draw a tree.",
-        780
-      ],
-      "listen": [
-        "👂",
-        "听",
-        "lis-ten / 离森",
-        "Listen to me.",
-        781
-      ],
-      "speak": [
-        "🗣️",
-        "说",
-        "sp-eak / 斯必刻",
-        "Speak up.",
-        782
-      ],
-      
-      "learn": [
-        "💡",
-        "学习",
-        "l-earn / 勒恩",
-        "Learn every day.",
-        783
-      ],
-      "study": [
-        "🧠",
-        "研究/读书",
-        "stud-y / 斯塔低",
-        "Study hard.",
-        784
-      ],
-      "think": [
-        "🤔",
-        "思考",
-        "th-ink / 幸刻",
-        "Think about it.",
-        785
-      ],
-   
-      "spell": [
-        "🔠",
-        "拼写",
-        "sp-ell / 斯陪欧",
-        "Spell the word.",
-        786
-      ],
-      "count": [
-        "🔢",
-        "数数",
-        "c-ount / 康特",
-        "Count to ten.",
-        787
-      ],
-      "ask": [
-        "🙋",
-        "询问",
-        "a-sk / 阿死刻",
-        "Ask the teacher.",
-        788
-      ],
-      "tell": [
-        "🗣️",
-        "讲述",
-        "t-ell / 抬欧",
-        "Tell me.",
-        789
-      ],
-      "topic": ["💬", "话题", "t-opic / 掏披刻", "Today's topic is art.", 790],
-      "color": [
-        "🖍️🍎",
-        "涂色",
-        "col-or / 咯勒",
-        "Color the apple.",
-        791
-      ],
-      "cut": [
-        "✂️",
-        "剪",
-        "c-ut / 嘎特",
-        "Cut the paper.",
-        792
-      ],
-      "paste": [
-        "🧪",
-        "粘贴",
-        "p-aste / 陪斯特",
-        "Paste the picture.",
-        793
-      ],
-      "clean": [
-        "🧹",
-        "打扫",
-        "cl-ean / 颗粒恩",
-        "Clean the board.",
-        794
-      ],
-    "task": ["✅", "任务", "t-ask / 踏丝刻", "Finish the task now.", 795],
-      "form": ["📄", "表格", "f-orm / 佛姆", "Fill in the form.", 796],
-      "list": ["📋", "清单", "l-ist / 栗丝特", "Read the word list.", 797],
-"remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", 798],
-      "understand": [
-        "💡🙋",
-        "明白",
-        "un-der-stand / 安得斯单得",
-        "I understand.",
-        799
-      ],
-      "forget": [
-        "❔",
-        "忘记",
-        "for-get / 佛给特",
-        "Don't forget.",
-        800
-      ]
+      "school": ["🏫", "学校", "sch-ool / 斯库哦", "I go to school.", "xué xiào", "我去学校。", 701],
+      "class": ["./emoji/class.webp", "班级", "cl-ass / 哥拉斯", "My class is big.", "bān jí", "我的班级很大。", 702],
+      "principal": ["👨‍💼🏫", "校长", "prin-ci-pal / 拼谁剖", "Meet the school principal.", "xiào zhǎng", "见见学校校长。", 703],
+      "teacher": ["👨‍🏫", "老师", "teach-er / 踢切", "The teacher is kind.", "lǎo shī", "老师很和蔼。", 704],
+      "student": ["🧑‍🎓", "学生", "stu-dent / 斯丢等特", "I am a student.", "xué shēng", "我是一名学生。", 705],
+      "staff": ["👨‍🍳👨‍🏫", "教职工", "s-taff / 斯大夫", "The staff are kind.", "jiào zhí gōng", "教职工很友善。", 706],
+      "coach": ["👨‍🏫👟", "教练", "c-oach / 扣起", "Our coach is great.", "jiào liàn", "我们的教练很棒。", 707],
+      "name": ["🧒🏷️", "名字", "n-ame / 内姆", "What is your name?", "míng zi", "你的名字是什么？", 708],
+      "friend": ["🤝", "朋友", "fri-end / 夫瑞恩得", "Play with friends.", "péng you", "和朋友玩。", 709],
+      "classmate": ["🧑‍🤝‍🧑", "同班同学", "class-mate / 颗拉丝妹特", "He is my classmate.", "tóng bān tóng xué", "他是我的同班同学。", 710],
+      "club": ["🎷⚽🎨", "社团", "c-lub / 颗辣步", "The art club is fun.", "shè tuán", "美术社团很有趣。", 711],
+      "desk": ["./emoji/desk.webp", "课桌", "d-esk / 代死刻", "Sit at the desk.", "kè zhuō", "坐在课桌旁。", 712],
+      "drawer": ["🗄️", "抽屉", "draw-er / 抓哦", "Put it in the drawer.", "chōu ti", "把它放进抽屉里。", 713],
+      "board": ["./emoji/board.webp", "黑板/布告栏", "b-oard / 波得", "Look at the board.", "hēi bǎn", "看黑板。", 714],
+      "light": ["💡", "电灯", "l-ight / 赖特", "Turn on the light.", "diàn dēng", "打开电灯。", 715],
+      "lab": ["🧪", "实验室", "l-ab / 莱步", "We study in the lab.", "shí yàn shì", "我们在实验室学习。", 716],
+      "playground": ["🎡", "操场", "play-ground / 铺勒乖奥得", "Run on the playground.", "cāo chǎng", "在操场上跑。", 717],
+      "library": ["./emoji/library.webp", "图书馆", "li-brar-y / 赖不瑞瑞", "Books in library.", "tú shū guǎn", "图书馆里的书。", 718],
+      "office": ["🏢", "办公室", "of-fice / 嗷飞丝", "The teacher's office.", "bàn gōng shì", "老师的办公室。", 719],
+      "gym": ["🏋️", "体育馆", "g-ym / 极姆", "Play ball in the gym.", "tǐ yù guǎn", "在体育馆打球。", 720],
+      "lesson": ["📖", "课程", "les-son / 勒森", "English lesson.", "kè chéng", "英语课程。", 721],
+      "homework": ["📝", "家庭作业", "home-work / 厚姆窝刻", "Do my homework.", "jiā tíng zuò yè", "做我的家庭作业。", 722],
+      "note": ["📒", "笔记", "n-ote / 诺特", "Take a short note.", "bǐ jì", "记个简短的笔记。", 723],
+      "test": ["💯", "测试", "t-est / 抬斯特", "I got 100 on the test.", "cè shì", "我在测试中得了100分。", 724],
+      "exam": ["✍️", "考试", "ex-am / 艾克赞姆", "I have a big exam.", "kǎo shì", "我有一个大考试。", 725],
+      "book": ["📕", "书", "b-ook / 补刻", "Read a book.", "shū", "读一本书。", 726],
+      "pen": ["🖊️", "钢笔", "p-en / 喷", "Write with a pen.", "gāng bǐ", "用钢笔写字。", 727],
+      "pencil": ["✏️", "铅笔", "pen-cil / 喷搜", "Draw with a pencil.", "qiān bǐ", "用铅笔画画。", 728],
+      "ruler": ["📏", "尺子", "ru-ler / 路勒", "Measure with a ruler.", "chǐ zi", "用尺子测量。", 729],
+      "eraser": ["🧼", "橡皮", "e-ras-er / 亿瑞惹", "Use an eraser.", "xiàng pí", "使用橡皮。", 730],
+      "bag": ["🎒", "书包", "b-ag / 拜格", "My heavy school bag.", "shū bāo", "我沉重的书包。", 731],
+      "paper": ["📄", "纸", "pa-per / 陪破", "Write on paper.", "zhǐ", "在纸上写字。", 732],
+      "map": ["🗺️", "地图", "m-ap / 麦普", "Find the city on map.", "dì tú", "在地图上找到城市。", 733],
+      "globe": ["./emoji/globe.webp", "地球仪", "gl-obe / 哥喽步", "Spin the globe.", "dì qiú yí", "转动地球仪。", 734],
+      "kit": ["🧰", "成套装备/箱", "k-it / 刻特", "The art kit is new.", "gōng jù xiāng", "这套美术工具箱是新的。", 735],
+      "ink": ["./emoji/ink.webp", "墨水", "i-nk / 硬刻", "Blue ink.", "mò shuǐ", "蓝色墨水。", 736],
+      "glue": ["./emoji/glue.webp", "胶水", "gl-ue / 股路", "Stick it with glue.", "jiāo shuǐ", "用胶水粘住它。", 737],
+      "scissors": ["✂️", "剪刀", "scis-sors / 细惹丝", "Cut with scissors.", "jiǎn dāo", "用剪刀剪。", 738],
+      "crayon": ["🖍️", "蜡笔", "cray-on / 亏昂", "Color with a crayon.", "là bǐ", "用蜡笔涂色。", 739],
+      "notebook": ["📓", "笔记本", "note-book / 搂特补刻", "Write in notebook.", "bǐ jì běn", "写在笔记本上。", 740],
+      "folder": ["📂", "文件夹", "fol-der / 佛勒得", "Put paper in folder.", "wén jiàn jiā", "把纸放进文件夹。", 741],
+      "clip": ["📎", "回形针", "cl-ip / 颗粒铺", "Use a clip.", "huí xíng zhēn", "用一个回形针。", 742],
+      "stamp": ["💌", "印章/邮票", "st-amp / 斯单铺", "Put a stamp.", "yóu piào", "贴一张邮票。", 743],
+      "sharpener": ["🔪✏️", "卷笔刀", "sharp-en-er / 夏喷勒", "I use sharpener to sharp my pencil.", "juǎn bǐ dāo", "我用卷笔刀削铅笔。", 744],
+      "calculator": ["🧮", "计算器", "cal-cu-la-tor / 盖Q类特", "Math calculator.", "jì suàn qì", "数学计算器。", 745],
+      "tape": ["./emoji/tape.webp", "胶带", "t-ape / 忒铺", "Sticky tape.", "jiāo dài", "粘性胶带。", 746],
+      "dictionary": ["📖", "字典", "dic-tion-ar-y / 迪克夏内瑞", "Check the word in the dictionary.", "zì diǎn", "在字典里查这个词。", 747],
+      "chalk": ["🖍️", "粉笔", "ch-alk / 抽刻", "White chalk.", "fěn bǐ", "白色粉笔。", 748],
+      "laptop": ["💻", "电脑", "lap-top / 拿铺掏破", "Type on laptop.", "diàn nǎo", "在电脑上打字。", 749],
+      "prize": ["🏆", "奖品", "p-rize / 普来兹", "Win a school prize.", "jiǎng pǐn", "赢得学校奖品。", 750],
+      "math": ["➕", "数学", "m-ath / 埋丝", "I like math.", "shù xué", "我喜欢数学。", 751],
+      "english": ["🔤", "英语", "Eng-lish / 硬个里湿", "Speak English.", "yīng yǔ", "说英语。", 752],
+      "chinese": ["🇨🇳", "语文", "Chi-nese / 拆泥兹", "Read Chinese.", "yǔ wén", "读语文（读中文）。", 753],
+      "music": ["🎵", "音乐", "mu-sic / 谬贼刻", "Sing in music class.", "yīn yuè", "在音乐课上唱歌。", 754],
+      "art": ["🎨", "美术", "ar-t / 阿特", "Paint in art class.", "měi shù", "在美术课上画画。", 755],
+      "science": ["🔬", "科学", "sci-ence / 赛恩丝", "Study science.", "kē xué", "学习科学。", 756],
+      "history": ["🏛️", "历史", "his-to-ry / 希斯特瑞", "History teaches old stories.", "lì shǐ", "历史教我们过去的故事。", 757],
+      "sport": ["⚽", "体育", "sp-ort / 斯波特", "I love sports.", "tǐ yù", "我热爱体育。", 758],
+      "number": ["1️⃣", "数字", "num-ber / 囊波", "Count the numbers.", "shù zì", "数数字。", 759],
+      "letter": ["🅰️", "字母", "let-ter / 勒特", "ABC are letters.", "zì mǔ", "ABC是字母。", 760],
+      "word": ["📝", "单词", "w-ord / 窝得", "Learn a new word.", "dān cí", "学一个新单词。", 761],
+      "line": ["➖", "线", "l-ine / 赖恩", "Draw a line.", "xiàn", "画一条线。", 762],
+      "circle": ["⭕", "圆", "cir-cle / 瑟口", "A red circle.", "yuán", "一个红色的圆。", 763],
+      "square": ["🟦", "正方形", "squ-are / 斯亏儿", "A blue square.", "zhèng fāng xíng", "一个蓝色的正方形。", 764],
+      "triangle": ["🔺", "三角形", "tri-an-gle / 揣昂勾", "Draw a red triangle.", "sān jiǎo xíng", "画一个红色的三角形。", 765],
+      "oval": ["🥚", "椭圆形", "o-val / 欧沃", "An egg is oval.", "tuǒ yuán xíng", "鸡蛋是椭圆形的。", 766],
+      "rectangle": ["./emoji/rectangle.webp", "长方形", "rec-tan-gle / 瑞克贪勾", "The board is a rectangle.", "cháng fāng xíng", "黑板是长方形的。", 767],
+      "page": ["📑", "页码", "p-age / 陪指", "Turn to page 10.", "yè mǎ", "翻到第10页。", 768],
+      "story": ["📖", "故事", "sto-ry / 斯多瑞", "Tell a story.", "gù shi", "讲一个故事。", 769],
+      "song": ["🎶", "歌曲", "s-ong / 诵", "Sing a song.", "gē qǔ", "唱一首歌曲。", 770],
+      "picture": ["🖼️", "图片", "pic-ture / 披刻切", "Draw a picture.", "tú piàn", "画一张图片。", 771],
+      "game": ["🎮", "游戏", "g-ame / 给姆", "Play a game.", "yóu xì", "玩一个游戏。", 772],
+      "quiz": ["📄❓", "小测验", "qu-iz / 亏字", "Quick quiz.", "xiǎo cè yàn", "快速小测验。", 773],
+      "answer": ["✍️✅", "回答", "an-swer / 安色", "Correct answer.", "huí dá", "正确的回答。", 774],
+      "question": ["👨‍🏫❓", "问题", "ques-tion / 亏死陈", "Ask a question.", "wèn tí", "问一个问题。", 775],
+      "rule": ["📏", "规则", "r-ule / 入欧", "Follow the rules.", "guī zé", "遵守规则。", 776],
+      "point": ["📍", "点/得分", "p-oint / 跑硬特", "Get a point.", "dé fēn", "得一分。", 777],
+      "idea": ["💡", "主意", "i-dea / 爱滴儿", "That is a good idea.", "zhǔ yi", "那是个好主意。", 778],
+      "mind": ["🧠", "头脑", "m-ind / 埋得", "Keep it in mind.", "tóu nǎo", "记住它。", 779],
+      "draw": ["🎨", "绘画", "dr-aw / 抓", "Draw a tree.", "huì huà", "绘画一棵树。", 780],
+      "listen": ["👂", "听", "lis-ten / 离森", "Listen to me.", "tīng", "听我说。", 781],
+      "speak": ["🗣️", "说", "sp-eak / 斯必刻", "Speak up.", "shuō", "大声说。", 782],
+      "learn": ["💡", "学习", "l-earn / 勒恩", "Learn every day.", "xué xí", "每天学习。", 783],
+      "study": ["🧠", "研究/读书", "stud-y / 斯塔低", "Study hard.", "dú shū", "努力读书。", 784],
+      "think": ["🤔", "思考", "th-ink / 幸刻", "Think about it.", "sī kǎo", "思考一下。", 785],
+      "spell": ["🔠", "拼写", "sp-ell / 斯陪欧", "Spell the word.", "pīn xiě", "拼写这个单词。", 786],
+      "count": ["🔢", "数数", "c-ount / 康特", "Count to ten.", "shǔ shù", "从一数到十。", 787],
+      "ask": ["🙋", "询问", "a-sk / 阿死刻", "Ask the teacher.", "xún wèn", "询问老师。", 788],
+      "tell": ["🗣️", "讲述", "t-ell / 抬欧", "Tell me.", "jiǎng shù", "讲述给我听（告诉我）。", 789],
+      "topic": ["💬", "话题", "t-opic / 掏披刻", "Today's topic is art.", "huà tí", "今天的话题是艺术。", 790],
+      "color": ["🖍️🍎", "涂色", "col-or / 咯勒", "Color the apple.", "tú sè", "给苹果涂色。", 791],
+      "cut": ["✂️", "剪", "c-ut / 嘎特", "Cut the paper.", "jiǎn", "剪纸。", 792],
+      "paste": ["🧪", "粘贴", "p-aste / 陪斯特", "Paste the picture.", "zhān tiē", "粘贴图片。", 793],
+      "clean": ["🧹", "打扫", "cl-ean / 颗粒恩", "Clean the board.", "dǎ sǎo", "擦黑板。", 794],
+      "task": ["✅", "任务", "t-ask / 踏丝刻", "Finish the task now.", "rèn wu", "现在完成任务。", 795],
+      "form": ["📄", "表格", "f-orm / 佛姆", "Fill in the form.", "biǎo gé", "填写表格。", 796],
+      "list": ["📋", "清单", "l-ist / 栗丝特", "Read the word list.", "qīng dān", "阅读单词清单。", 797],
+      "remember": ["🧠✨", "记得/记住", "re-mem-ber / 瑞曼博", "Remember this word.", "jì de", "记得这个词。", 798],
+      "understand": ["💡🙋", "明白", "un-der-stand / 安得斯单得", "I understand.", "míng bai", "我明白。", 799],
+      "forget": ["❔", "忘记", "for-get / 佛给特", "Don't forget.", "wàng jì", "不要忘记。", 800]
     }
   },
-  "9": {
+ "9": {
     "levelIndex": 9,
-    "levelEmoji": "👨‍👩‍👧‍👦",
-    "levelName": "第9关: 家人情感",
+    "levelEmoji": "🎭",
+    "levelName": "第9关: 情感与运动",
     "words": {
-      "family": [
-        "👨‍👩‍👧‍👦",
-        "家庭",
-        "fam-i-ly / 泛木离",
-        "I love my family.",
-        801
-      ],
-      "father": [
-        "🧔",
-        "父亲",
-        "fa-ther / 法惹",
-        "My father is tall.",
-        802
-      ],
-      "mother": [
-        "👩",
-        "母亲",
-        "moth-er / 妈惹",
-        "My mother is kind.",
-        803
-      ],
-      "parent": [
-        "👫",
-        "父母",
-        "par-ent / 派润特",
-        "Listen to parents.",
-        804
-      ],
-      "brother": [
-        "👦",
-        "兄弟",
-        "broth-er / 补啰惹",
-        "My big brother.",
-        805
-      ],
-      "sister": [
-        "👧",
-        "姐妹",
-        "sis-ter / 细斯特",
-        "My little sister.",
-        806
-      ],
-      "grandpa": [
-        "👴",
-        "爷爷/外公",
-        "grand-pa / 哥软啪",
-        "Grandpa is old.",
-        807
-      ],
-      "grandma": [
-        "👵",
-        "奶奶/外婆",
-        "grand-ma / 哥软妈",
-        "Grandma is nice.",
-        808
-      ],
-      "uncle": [
-        "👨",
-        "叔叔/舅舅",
-        "un-cle / 安扣",
-        "Uncle is funny.",
-        809
-      ],
-      "aunt": [
-        "👩‍🦳",
-        "阿姨/姑姑",
-        "a-unt / 安特",
-        "Aunt is a teacher.",
-        810
-      ],
-      "cousin": [
-        "🧒",
-        "堂/表兄弟姐妹",
-        "cou-sin / 咔近",
-        "Play with cousins.",
-        811
-      ],
-      "baby": [
-        "👶",
-        "婴儿",
-        "ba-by / 贝比",
-        "The baby is sleeping.",
-        812
-      ],
-      "son": [
-        "👦",
-        "儿子",
-        "s-on / 伞",
-        "He is my son.",
-        813
-      ],
-      "daughter": [
-        "👧",
-        "女儿",
-        "daugh-ter / 剁特",
-        "She is my daughter.",
-        814
-      ],
-      "child": [
-        "🧒",
-        "孩子",
-        "ch-ild / 拆欧得",
-        "A happy child.",
-        815
-      ],
-      "man": [
-        "👨‍🦱",
-        "男人",
-        "m-an / 慢",
-        "A strong man.",
-        816
-      ],
-      "woman": [
-        "👩‍🦰",
-        "女人",
-        "wom-an / 乌门",
-        "A beautiful woman.",
-        817
-      ],
-      "boy": [
-        "👦",
-        "男孩",
-        "b-oy / 波一",
-        "A brave boy.",
-        818
-      ],
-      "girl": [
-        "👧",
-        "女孩",
-        "g-irl / 勾儿",
-        "A pretty girl.",
-        819
-      ],
-      "stranger": ["👤❓", "陌生人", "s-tran-ger / 斯揣引者", "Do not talk to a stranger.", 820],
-      "neighbor": [
-        "🏡",
-        "邻居",
-        "neigh-bor / 内波",
-        "A kind neighbor.",
-        821
-      ],
-      "guest": [
-        "🙋",
-        "客人",
-        "gu-est / 给斯特",
-        "Welcome guest.",
-        822
-      ],
-      "adult": [
-        "🧔",
-        "大人",
-        "a-dult / 额当特",
-        "I am an adult.",
-        823
-      ],
-      "twin": [
-        "👬",
-        "双胞胎",
-        "t-win / 推恩",
-        "They are twins.",
-        824
-      ],
-      "sir": [
-        "🎩",
-        "先生",
-        "s-ir / 舍",
-        "Yes, sir.",
-        825
-      ],
-      "lady": [
-        "👗",
-        "女士",
-        "la-dy / 累低",
-        "A nice lady.",
-        826
-      ],
-      "king": [
-        "👑",
-        "国王",
-        "k-ing / 坑",
-        "The king is rich.",
-        827
-      ],
-      "queen": [
-        "👸",
-        "女王",
-        "qu-een / 亏恩",
-        "The queen is pretty.",
-        828
-      ],
-      "people": [
-        "👥",
-        "人们",
-        "peo-ple / 披跑",
-        "Many people here.",
-        829
-      ],
-      "person": [
-        "👤",
-        "人",
-        "per-son / 婆森",
-        "A good person.",
-        830
-      ],
-      "happy": [
-        "😊",
-        "开心的",
-        "hap-py / 嗨披",
-        "I am so happy.",
-        831
-      ],
-      "glad": [
-        "😄",
-        "高兴的",
-        "gl-ad / 哥莱得",
-        "Glad to see you.",
-        832
-      ],
-      "excited": [
-        "🤩",
-        "兴奋的",
-        "ex-cit-ed / 亿客赛体得",
-        "So excited!",
-        833
-      ],
-      "brave": [
-        "🦁",
-        "勇敢的",
-        "br-ave / 布瑞五",
-        "Be a brave boy.",
-        834
-      ],
-      "kind": [
-        "😇",
-        "善良的",
-        "k-ind / 砍得",
-        "A kind heart.",
-        835
-      ],
-      "smart": [
-        "💡",
-        "聪明的",
-        "sm-art / 斯马特",
-        "A smart girl.",
-        836
-      ],
-      "proud": [
-        "🏅",
-        "自豪的",
-        "pr-oud / 普饶得",
-        "Proud of you.",
-        837
-      ],
-      "friendly": [
-        "👋",
-        "友好的",
-        "friend-ly / 夫瑞恩得离",
-        "He is friendly.",
-        838
-      ],
-      "honest": [
-        "💯",
-        "诚实的",
-        "hon-est / 昂内斯特",
-        "An honest child.",
-        839
-      ],
-      "polite": [
-        "🙇",
-        "礼貌的",
-        "po-lite / 婆赖特",
-        "Be polite.",
-        840
-      ],
-      "funny": [
-        "🤡",
-        "有趣的",
-        "fun-ny / 泛泥",
-        "A funny story.",
-        841
-      ],
-      "gentle": [
-        "🐑",
-        "温和的",
-        "gen-tle / 沾透",
-        "A gentle lamb.",
-        842
-      ],
-      "cheerful": ["☀️😊", "快乐的/兴高采烈的", "cheer-ful / 其儿夫欧", "She is a cheerful girl.", 843],
-     "careful":[
-        "⚠️",
-        "小心的",
-        "care-ful / 给予佛",
-        "Be careful.",
-        844
-      ],
-      "lucky": [
-        "🍀",
-        "幸运的",
-        "luck-y / 拉ki",
-        "Lucky day.",
-        845
-      ],
-      "dream": ["☁️", "梦想", "d-ream / 捉一姆", "I have a big dream.", 846],
-      "calm": [
-        "🧘",
-        "冷静的",
-        "c-alm / 咔姆",
-        "Keep calm.",
-        847
-      ],
-      "peace": [
-        "🕊️",
-        "和平",
-        "pe-ace / 披丝",
-        "Love and peace.",
-        848
-      ],
-      "love": [
-        "❤️",
-        "爱",
-        "l-ove / 辣五",
-        "I love you.",
-        849
-      ],
-      "like": [
-        "👍",
-        "喜欢",
-        "l-ike / 赖刻",
-        "I like apples.",
-        850
-      ],
-      "hug": [
-        "🫂",
-        "拥抱",
-        "h-ug / 哈格",
-        "Give me a hug.",
-        851
-      ],
-      "kiss": [
-        "💋",
-        "亲吻",
-        "k-iss / 亏丝",
-        "A sweet kiss.",
-        852
-      ],
-      "smile": [
-        "🙂",
-        "微笑",
-        "sm-ile / 斯卖欧",
-        "Keep smiling.",
-        853
-      ],
-      "laugh": [
-        "😆",
-        "大笑",
-        "l-augh / 辣夫",
-        "Laugh out loud.",
-        854
-      ],
-      "hope": [
-        "🌟",
-        "希望",
-        "h-ope / 厚铺",
-        "I hope so.",
-        855
-      ],
-      "sad": [
-        "😢",
-        "难过的",
-        "s-ad / 赛得",
-        "Don't be sad.",
-        856
-      ],
-      "angry": [
-        "💢",
-        "生气的",
-        "an-gry / 安格瑞",
-        "He is angry.",
-        857
-      ],
-      "scared": [
-        "😨",
-        "害怕的",
-        "sca-red / 斯给儿得",
-        "Scared of dark.",
-        858
-      ],
-      "afraid": [
-        "😱",
-        "惊恐的",
-        "a-fraid / 额夫瑞得",
-        "I am afraid.",
-        859
-      ],
-      "bored": [
-        "🥱",
-        "无聊的",
-        "bo-red / 波得",
-        "Feeling bored.",
-        860
-      ],
-      "lonely": [
-        "🏚️",
-        "孤独的",
-        "lone-ly / 搂泥",
-        "A lonely house.",
-        861
-      ],
-      "tired": [
-        "😫",
-        "累的",
-        "ti-red / 抬儿得",
-        "I am so tired.",
-        862
-      ],
-      "lazy": [
-        "🦥",
-        "懒惰的",
-        "la-zy / 累基",
-        "Don't be lazy.",
-        863
-      ],
-      "shy": [
-        "😳",
-        "害羞的",
-        "sh-y / 晒",
-        "A shy girl.",
-        864
-      ],
-      "sorry": [
-        "🙏",
-        "抱歉的",
-        "sor-ry / 扫瑞",
-        "I am sorry.",
-        865
-      ],
-      "shame": [
-        "🙈",
-        "羞愧",
-        "sh-ame / 谁姆",
-        "What a shame!",
-        866
-      ],
-      "worry": [
-        "😟",
-        "担心",
-        "wor-ry / 窝瑞",
-        "Don't worry.",
-        867
-      ],
-      "surprise": [
-        "😲",
-        "惊讶",
-        "sur-prise / 舍普赖丝",
-        "A big surprise.",
-        868
-      ],
-      "hate": [
-        "👎",
-        "讨厌",
-        "h-ate / 嘿特",
-        "I hate bugs.",
-        869
-      ],
-      "mad": [
-        "👿",
-        "疯狂/大怒",
-        "m-ad / 麦得",
-        "Are you mad?",
-        870
-      ],
-      "pain": [
-        "⚡",
-        "痛苦",
-        "p-ain / 喷",
-        "Stop the pain.",
-        871
-      ],
-      "trouble": [
-        "❌",
-        "麻烦",
-        "trou-ble / 抓波",
-        "In trouble.",
-        872
-      ],
-      "wrong": [
-        "🚫",
-        "错误的",
-        "wr-ong / 绕恩",
-        "It is wrong.",
-        873
-      ],
-      "noisy": [
-        "📢",
-        "吵闹的",
-        "noi-sy / 搂意基",
-        "Too noisy.",
-        874
-      ],
-     "fair": ["⚖️", "公平的", "f-air / 飞儿", "That is not fair.", 875],
-      "serious": [
-        "😐",
-        "严肃的",
-        "se-ri-ous / 细瑞儿丝",
-        "Serious man.",
-        876
-      ],
-      "strict": [
-        "📏",
-        "严厉的",
-        "str-ict / 斯垂刻",
-        "Strict teacher.",
-        877
-      ],
-      "silly": [
-        "🤪",
-        "傻傻的",
-        "sil-ly / 细离",
-        "A silly face.",
-        878
-      ],
-      "strange": [
-        "👽",
-        "奇怪的",
-        "str-ange / 斯吹硬指",
-        "Strange sound.",
-        879
-      ],
-      "ugly": [
-        "👺",
-        "丑陋的",
-        "ug-ly / 阿格离",
-        "Ugly monster.",
-        880
-      ],
-      "talk": [
-        "💬",
-        "谈话",
-        "t-alk / 掏刻",
-        "Talk to me.",
-        881
-      ],
-      "call": [
-        "📞",
-        "呼唤/打电话",
-        "c-all / 靠",
-        "Call my name.",
-        882
-      ],
-      "meet": [
-        "🤝",
-        "遇见",
-        "m-eet / 密特",
-        "Nice to meet you.",
-        883
-      ],
-      "grow": ["🌱", "成长", "g-row / 勾肉", "Kids grow up fast.", 884],
-      "help": [
-        "🆘",
-        "帮助",
-        "h-elp / 嘿欧铺",
-        "Help me, please.",
-        885
-      ],
-      "share": [
-        "🍰",
-        "分享",
-        "sh-are / 歇儿",
-        "Share the cake.",
-        886
-      ],
-      "gift": [
-        "🎁",
-        "礼物",
-        "g-ift / 归夫特",
-        "A birthday gift.",
-        887
-      ],
-      "party": [
-        "🥳",
-        "聚会",
-        "par-ty / 啪体",
-        "A fun party.",
-        888
-      ],
-      "wedding": [
-        "👰",
-        "婚礼",
-        "wed-ding / 喂丁",
-        "A beautiful wedding.",
-        889
-      ],
-      "birthday": ["🎂🎉", "生日", "birth-day / 波丝带", "Happy birthday to you!", 890],
-      "trust": [
-        "🛡️",
-        "信任",
-        "tr-ust / 抓斯特",
-        "Trust each other.",
-        891
-      ],
-      "care": [
-        "💖",
-        "关心",
-        "c-are / 给予",
-        "Take care.",
-        892
-      ],
-      "agree": [
-        "🆗",
-        "同意",
-        "a-gree / 额哥瑞",
-        "I agree.",
-        893
-      ],
-      "obey": [
-        "🫡",
-        "服从",
-        "o-bey / 欧杯",
-        "Obey the rules.",
-        894
-      ],
-      "promise": [
-        "🤙",
-        "承诺/拉钩",
-        "prom-ise / 婆若密丝",
-        "Keep your promise.",
-        895
-      ],
-      "secret": [
-        "🤐",
-        "秘密",
-        "se-cret / 细亏特",
-        "Tell you a secret.",
-        896
-      ],
-      "together": [
-        "👩‍👩‍👧‍👦",
-        "在一起",
-        "to-geth-er / 特给惹",
-        "Always together.",
-        897
-      ],
-      "alone": [
-        "🚶",
-        "独自",
-        "a-lone / 额搂恩",
-        "Leave me alone.",
-        898
-      ],
-      "ready": [
-        "🏁",
-        "准备好",
-        "rea-dy / 瑞低",
-        "Are you ready?",
-        899
-      ],
-      "welcome": [
-        "🚪",
-        "欢迎",
-        "wel-come / 喂儿砍",
-        "Welcome home.",
-        900
-      ]
+      "laugh": ["😄", "大笑", "l-augh / 拉夫", "Laugh out loud.", "dà xiào", "大声笑。", 801],
+      "hope": ["🙏", "希望", "h-ope / 厚普", "I hope so.", "xī wàng", "我希望如此。", 802],
+      "sad": ["😢", "悲伤", "s-ad / 赛得", "Don't be sad.", "bēi shāng", "不要悲伤。", 803],
+      "angry": ["😠", "生气的", "an-gry / 安格瑞", "Why are you angry?", "shēng qì de", "你为什么生气？", 804],
+      "scared": ["😨", "害怕的", "sc-ared / 斯盖儿得", "I am scared of ghosts.", "hài pà de", "我害怕鬼。", 805],
+      "afraid": ["😰", "害怕/畏惧", "a-fraid / 阿夫瑞得", "Don't be afraid.", "wèi jù", "别害怕。", 806],
+      "bored": ["😑", "无聊的", "b-ored / 波儿得", "I feel bored.", "wú liáo de", "我感到无聊。", 807],
+      "lonely": ["😔", "孤独的", "lone-ly / 龙离", "He feels lonely.", "gū dú de", "他感到孤独。", 808],
+      "tired": ["😫", "累的", "t-ired / 太儿得", "I am very tired.", "lèi de", "我非常累。", 809],
+      "lazy": ["😪", "懒惰的", "la-zy / 雷贼", "Don't be lazy.", "lǎn duò de", "别懒惰。", 810],
+      "shy": ["😳", "害羞的", "sh-y / 晒", "The girl is shy.", "hài xiū de", "这个女孩很害羞。", 811],
+      "sorry": ["🙇", "抱歉", "sor-ry / 骚瑞", "I am sorry.", "bào qiàn", "我很抱歉。", 812],
+      "shame": ["🫣", "羞愧", "sh-ame / 谁姆", "Shame on you.", "xiū kuì", "你应该感到羞愧。", 813],
+      "worry": ["😟", "担心", "wor-ry / 窝瑞", "Don't worry.", "dān xīn", "别担心。", 814],
+      "surprise": ["🎉", "惊喜", "sur-prise / 色普赖兹", "A big surprise.", "jīng xǐ", "一个大惊喜。", 815],
+      "hate": ["😡", "讨厌", "h-ate / 黑特", "I hate onions.", "tǎo yàn", "我讨厌洋葱。", 816],
+      "mad": ["👿", "发疯/生气", "m-ad / 卖得", "He is mad at me.", "fā fēng / qì fèn", "他生我的气。", 817],
+      "pain": ["🤕", "痛苦/疼痛", "p-ain / 配恩", "I feel pain.", "tòng kǔ", "我感到疼痛。", 818],
+      "trouble": ["⚠️", "麻烦", "trou-ble / 查剥", "Keep out of trouble.", "má fan", "远离麻烦。", 819],
+      "wrong": ["❌", "错误的", "wr-ong / 让", "That is wrong.", "cuò wù de", "那是错误的。", 820],
+      "noisy": ["📢", "吵闹的", "noi-sy / 闹一贼", "It is too noisy.", "chǎo nào de", "太吵闹了。", 821],
+      "fair": ["⚖️", "公平的", "f-air / 费儿", "It's not fair.", "gōng píng de", "这不公平。", 822],
+      "serious": ["😐", "严肃的", "se-ri-ous / 希瑞阿丝", "Be serious.", "yán sù de", "严肃点。", 823],
+      "strict": ["📏", "严厉的", "str-ict / 斯吹克特", "A strict teacher.", "yán lì de", "一位严厉的老师。", 824],
+      "silly": ["🤪", "傻的", "sil-ly / 希离", "Don't be silly.", "shǎ de", "别傻了。", 825],
+      "strange": ["👽", "奇怪的", "str-ange / 斯吹恩指", "A strange sound.", "qí guài de", "一个奇怪的声音。", 826],
+      "ugly": ["👹", "丑陋的", "ug-ly / 阿格离", "The monster is ugly.", "chǒu lòu de", "怪物很丑陋。", 827],
+      "talk": ["🗣️", "交谈", "t-alk / 套刻", "Talk to me.", "jiāo tán", "和我交谈。", 828],
+      "call": ["📞", "呼叫/打电话", "c-all / 靠", "Call the police.", "hū jiào", "呼叫警察。", 829],
+      "meet": ["🤝", "遇见", "m-eet / 密特", "Nice to meet you.", "yù jiàn", "很高兴遇见你。", 830],
+      "grow": ["🌱", "生长", "gr-ow / 格肉", "Plants grow fast.", "shēng zhǎng", "植物生长得很快。", 831],
+      "help": ["🆘", "帮助", "h-elp / 害欧普", "Can you help me?", "bāng zhù", "你能帮助我吗？", 832],
+      "share": ["🍰", "分享", "sh-are / 谁儿", "Share your toys.", "fēn xiǎng", "分享你的玩具。", 833],
+      "gift": ["🎁", "礼物", "g-ift / 给夫特", "A birthday gift.", "lǐ wù", "一份生日礼物。", 834],
+      "party": ["🎉", "派对", "par-ty / 怕体", "Let's have a party.", "pài duì", "我们开个派对吧。", 835],
+      "wedding": ["💍💒", "婚礼", "wed-ding / 威定", "A beautiful wedding.", "hūn lǐ", "一场美丽的婚礼。", 836],
+      "birthday": ["🎂", "生日", "birth-day / 波丝忒", "Happy birthday.", "shēng rì", "生日快乐。", 837],
+      "trust": ["🤝", "信任", "tr-ust / 抓斯特", "Trust me.", "xìn rèn", "信任我。", 838],
+      "care": ["❤️", "关心/照顾", "c-are / 开儿", "Take care.", "guān xīn", "保重（照顾好自己）。", 839],
+      "agree": ["✅", "同意", "a-gree / 阿格瑞", "I agree with you.", "tóng yì", "我同意你。", 840],
+      "obey": ["🙇", "服从", "o-bey / 欧贝", "Obey the rules.", "fú cóng", "服从规则。", 841],
+      "promise": ["🤙", "承诺", "prom-ise / 普拉密丝", "I promise.", "chéng nuò", "我承诺。", 842],
+      "secret": ["🤫", "秘密", "se-cret / 希亏特", "Keep a secret.", "mì mì", "保守秘密。", 843],
+      "together": ["👫", "一起", "to-geth-er / 特盖惹", "Play together.", "yī qǐ", "一起玩。", 844],
+      "alone": ["👤", "独自", "a-lone / 阿龙", "Home alone.", "dú zì", "独自在家。", 845],
+      "ready": ["🏁", "准备好的", "read-y / 瑞地", "Are you ready?", "zhǔn bèi hǎo de", "你准备好了吗？", 846],
+      "welcome": ["👋", "欢迎", "wel-come / 歪欧康", "Welcome home.", "huān yíng", "欢迎回家。", 847],
+      "soccer": ["⚽", "足球", "soc-cer / 骚克", "Play soccer.", "zú qiú", "踢足球。", 848],
+      "basketball": ["🏀", "篮球", "bas-ket-ball / 拜斯给特播", "Shoot the basketball.", "lán qiú", "投篮球。", 849],
+      "tennis": ["🎾", "网球", "ten-nis / 忒尼丝", "Tennis match.", "wǎng qiú", "网球比赛。", 850],
+      "baseball": ["⚾", "棒球", "base-ball / 贝丝播", "Hit the baseball.", "bàng qiú", "击打棒球。", 851],
+      "golf": ["⛳", "高尔夫", "g-olf / 高夫", "Play golf.", "gāo ěr fū", "打高尔夫。", 852],
+      "badminton": ["🏸", "羽毛球", "bad-min-ton / 拜的民腾", "Badminton racket.", "yǔ máo qiú", "羽毛球拍。", 853],
+      "volleyball": ["🏐", "排球", "vol-ley-ball / 沃离播", "Beach volleyball.", "pái qiú", "沙滩排球。", 854],
+      "ping-pong": ["🏓", "乒乓球", "ping-pong / 聘胖", "Ping-pong table.", "pīng pāng qiú", "乒乓球桌。", 855],
+      "rugby": ["🏉", "橄榄球", "rug-by / 瑞格比", "Rugby is rough.", "gǎn lǎn qiú", "橄榄球很激烈。", 856],
+      "skating": ["⛸️", "滑冰", "ska-ting / 斯给亭", "Ice skating.", "huá bīng", "滑冰。", 857],
+      "skiing": ["🎿", "滑雪", "ski-ing / 斯记硬", "Go skiing.", "huá xuě", "去滑雪。", 858],
+      "surfing": ["🏄", "冲浪", "sur-fing / 色芬", "Surfing in the sea.", "chōng làng", "在海里冲浪。", 859],
+      "swimming": ["🏊", "游泳", "swim-ming / 斯微明", "Swimming pool.", "yóu yǒng", "游泳池。", 860],
+      "boxing": ["🥊", "拳击", "box-ing / 暴克斯硬", "Boxing gloves.", "quán jī", "拳击手套。", 861],
+      "judo": ["🥋", "柔道", "ju-do / 猪兜", "Learn judo.", "róu dào", "学习柔道。", 862],
+      "bowling": ["🎳", "保龄球", "bowl-ing / 煲令", "Go bowling.", "bǎo líng qiú", "去打保龄球。", 863],
+      "hockey": ["🏒", "曲棍球", "hock-ey / 浩ki", "Ice hockey.", "qū gùn qiú", "冰球。", 864],
+      "billiard": ["🎱", "台球", "bil-liard / 必离也得", "Play billiard.", "tái qiú", "打台球。", 865],
+      "cycling": ["🚴", "骑行", "cy-cling / 赛克令", "Cycling is fun.", "qí xíng", "骑行很有趣。", 866],
+      "climbing": ["🧗", "攀岩", "climb-ing / 克莱明", "Rock climbing.", "pān yán", "攀岩。", 867],
+      "archery": ["🏹", "射箭", "ar-cher-y / 阿车瑞", "Practice archery.", "shè jiàn", "练习射箭。", 868],
+      "fencing": ["🤺", "击剑", "fen-cing / 饭信", "Fencing match.", "jī jiàn", "击剑比赛。", 869],
+      "skateboarding": ["🛹", "滑板", "skate-board-ing / 斯给特暴定", "Skateboarding park.", "huá bǎn", "滑板公园。", 870],
+      "diving": ["🤿", "潜水/跳水", "di-ving / 戴闻", "Deep diving.", "qián shuǐ", "深潜。", 871],
+      "gymnastics": ["🤸", "体操", "gym-nas-tics / 极姆那斯提克斯", "Do gymnastics.", "tǐ cāo", "做体操。", 872],
+      "rowing": ["🚣", "划船", "row-ing / 肉硬", "Rowing boat.", "huá chuán", "划船。", 873],
+      "medals": ["🥇", "奖牌", "med-als / 麦兜丝", "Gold medals.", "jiǎng pái", "金牌。", 874],
+      "stadium": ["🏟️", "体育场", "sta-di-um / 斯带低阿姆", "Big stadium.", "tǐ yù chǎng", "大体育场。", 875],
+      "trophy": ["🏆", "奖杯", "tro-phy / 戳非", "Win a trophy.", "jiǎng bēi", "赢得奖杯。", 876],
+      "whistle": ["🌬️", "哨子", "whis-tle / 喂搜", "Blow the whistle.", "shào zi", "吹哨子。", 877],
+      "goal": ["🥅", "进球/目标", "g-oal / 够", "Score a goal.", "jìn qiú", "进球。", 878],
+      "runner": ["🏃", "跑步者", "run-ner / 软呢", "Fast runner.", "pǎo bù zhě", "快速的跑步者。", 879],
+      "jumper": ["🕴️", "跳跃者", "jum-per / 酱泼", "High jumper.", "tiào yuè zhě", "跳高者。", 880],
+      "score": ["💯", "比分", "sc-ore / 斯过", "Check the score.", "bǐ fēn", "查看比分。", 881],
+      "team": ["👥", "队伍", "t-eam / 替姆", "Join the team.", "duì wǔ", "加入队伍。", 882],
+      "piano": ["🎹", "钢琴", "pi-an-o / 皮安诺", "Play the piano.", "gāng qín", "弹钢琴。", 883],
+      "guitar": ["🎸", "吉他", "gui-tar / 给他", "Strum the guitar.", "jí tā", "弹吉他。", 884],
+      "violin": ["🎻", "小提琴", "vi-o-lin / 歪欧林", "Play the violin.", "xiǎo tí qín", "拉小提琴。", 885],
+      "drum": ["🥁", "鼓", "dr-um / 拽姆", "Beat the drum.", "gǔ", "击鼓。", 886],
+      "trumpet": ["🎺", "小号", "trum-pet / 窗佩特", "Blow the trumpet.", "xiǎo hào", "吹小号。", 887],
+      "harp": ["🎵", "竖琴", "h-arp / 哈普", "Angel's harp.", "shù qín", "天使的竖琴。", 888],
+      "flute": ["🪈", "长笛", "fl-ute / 夫路特", "Play the flute.", "cháng dí", "吹长笛。", 889],
+      "saxophone": ["🎷", "萨克斯", "sax-o-phone / 赛克斯凤", "Jazz saxophone.", "sà kè sī", "爵士萨克斯。", 890],
+      "accordion": ["🪗", "手风琴", "ac-cor-di-on / 阿扩地恩", "Play accordion.", "shǒu fēng qín", "拉手风琴。", 891],
+      "microphone": ["🎤", "麦克风", "mi-cro-phone / 麦克若凤", "Sing into microphone.", "mài kè fēng", "对着麦克风唱歌。", 892],
+      "headphones": ["🎧", "耳机", "head-phones / 害得凤丝", "Wear headphones.", "ěr jī", "戴耳机。", 893],
+      "speaker": ["🔈", "扬声器/音箱", "speak-er / 斯逼克", "Loud speaker.", "yáng shēng qì", "大声的扬声器。", 894],
+      "painting": ["🖼️", "绘画", "paint-ing / 喷听", "Oil painting.", "huì huà", "油画。", 895],
+      "palette": ["🎨", "调色板", "pal-ette / 派类特", "Colorful palette.", "tiáo sè bǎn", "五颜六色的调色板。", 896],
+      "easel": ["🎨", "画架", "ea-sel / 亿走", "Canvas on easel.", "huà jià", "画架上的画布。", 897],
+      "sculpture": ["🗿", "雕塑", "sculp-ture / 斯高普切", "Stone sculpture.", "diāo sù", "石雕。", 898],
+      "mask": ["🎭", "面具", "m-ask / 马丝克", "Wear a mask.", "miàn jù", "戴面具。", 899],
+      "ballet": ["🩰", "芭蕾", "bal-let / 拜雷", "Ballet dancer.", "bā lěi", "芭蕾舞者。", 900]
     }
   },
-  "10": {
+ "10": {
     "levelIndex": 10,
-    "levelEmoji": "🏆",
-    "levelName": "第10关: 运动艺术",
+    "levelEmoji": "✨",
+    "levelName": "第10关: 娱乐与梦想",
     "words": {
-      "soccer": [
-        "⚽",
-        "足球",
-        "soc-cer / 扫客",
-        "Play soccer.",
-        901
-      ],
-      "basketball": [
-        "🏀",
-        "篮球",
-        "bas-ket-ball / 巴士给特波",
-        "I like basketball.",
-        902
-      ],
-      "tennis": [
-        "🎾",
-        "网球",
-        "ten-nis / 贪妮丝",
-        "Play tennis.",
-        903
-      ],
-      "baseball": [
-        "⚾",
-        "棒球",
-        "base-ball / 贝死波",
-        "Watch baseball.",
-        904
-      ],
-      "golf": [
-        "⛳",
-        "高尔夫",
-        "g-olf / 够哦夫",
-        "Play golf.",
-        905
-      ],
-      "badminton": [
-        "🏸",
-        "羽毛球",
-        "bad-min-ton / 拜得面疼",
-        "Play badminton.",
-        906
-      ],
-      "volleyball": [
-        "🏐",
-        "排球",
-        "vol-ley-ball / 窝离波",
-        "Women's volleyball.",
-        907
-      ],
-      "ping-pong": [
-        "🏓",
-        "乒乓球",
-        "ping-pong / 拼胖",
-        "China's ping-pong.",
-        908
-      ],
-      "rugby": [
-        "🏉",
-        "橄榄球",
-        "rug-by / 瑞格笔",
-        "Rugby is hard.",
-        909
-      ],
-      "skating": [
-        "⛸️",
-        "滑冰",
-        "ska-ting / 斯给厅",
-        "Go skating.",
-        910
-      ],
-      "skiing": [
-        "⛷️",
-        "滑雪",
-        "skii-ng / 斯给硬",
-        "I love skiing.",
-        911
-      ],
-      "surfing": [
-        "🏄",
-        "冲浪",
-        "surf-ing / 色粉",
-        "Go surfing.",
-        912
-      ],
-      "swimming": [
-        "🏊",
-        "游泳",
-        "swim-ming / 虽面",
-        "Swimming pool.",
-        913
-      ],
-      "boxing": [
-        "🥊",
-        "拳击",
-        "box-ing / 爸克森",
-        "Boxing match.",
-        914
-      ],
-      "judo": [
-        "🥋",
-        "柔道",
-        "ju-do / 举逗",
-        "Learn judo.",
-        915
-      ],
-      "bowling": [
-        "🎳",
-        "保龄球",
-        "bowl-ing / 波林",
-        "Go bowling.",
-        916
-      ],
-      "hockey": [
-        "🏒",
-        "冰球",
-        "hock-ey / 浩ki",
-        "Ice hockey.",
-        917
-      ],
-      "billiard": [
-        "🎱",
-        "台球",
-        "bil-liard / 必里儿得",
-        "Play billiard.",
-        918
-      ],
-      "cycling": [
-        "🚴",
-        "骑行",
-        "cy-cling / 赛扣林",
-        "Go cycling.",
-        919
-      ],
-      "climbing": [
-        "🧗",
-        "攀岩",
-        "climb-ing / 亏赖面",
-        "Rock climbing.",
-        920
-      ],
-      "archery": [
-        "🏹",
-        "射箭",
-        "ar-cher-y / 阿切瑞",
-        "Practice archery.",
-        921
-      ],
-      "fencing": [
-        "🤺",
-        "击剑",
-        "fen-cing / 芬僧",
-        "Cool fencing.",
-        922
-      ],
-      "skateboarding": [
-        "🛹",
-        "滑板",
-        "skate-board-ing / 斯给波丁",
-        "I like skateboarding.",
-        923
-      ],
-      "diving": [
-        "🤿",
-        "潜水",
-        "div-ing / 待五应",
-        "Deep sea diving.",
-        924
-      ],
-      "gymnastics": [
-        "🤸",
-        "体操",
-        "gym-nas-tics / 锦内斯题客",
-        "Do gymnastics.",
-        925
-      ],
-      "rowing": [
-        "🚣",
-        "划船",
-        "row-ing / 肉应",
-        "Rowing a boat.",
-        926
-      ],
-      "medals": [
-        "🥇",
-        "金牌",
-        "med-als / 卖逗丝",
-        "Win gold medals.",
-        927
-      ],
-      "stadium": [
-        "🏟️",
-        "体育馆",
-        "sta-di-um / 斯忒低姆",
-        "Big stadium.",
-        928
-      ],
-      "trophy": [
-        "🏆",
-        "奖杯",
-        "tro-phy / 戳飞",
-        "Hold the trophy.",
-        929
-      ],
-      "whistle": [
-        "./emoji/whistle.webp",
-        "哨子",
-        "whis-tle / 为搜",
-        "The coach has a whistle.",
-        930
-      ],
-      "goal": [
-        "🥅",
-        "球门",
-        "g-oal / 够欧",
-        "Kick into the goal.",
-        931
-      ],
-      "runner": [
-        "🏃",
-        "跑者",
-        "run-ner / 浪呢",
-        "Fast runner.",
-        932
-      ],
-      "jumper": [
-        "🦘",
-        "跳跃者",
-        "jump-er / 酱破",
-        "High jumper.",
-        933
-      ],
-      "score": [
-        "💯",
-        "得分",
-        "sc-ore / 斯多",
-        "Look at the score.",
-        934
-      ],
-      "team": [
-        "👨‍👩‍👦‍👦",
-        "团队",
-        "t-eam / 踢姆",
-        "Win as a team.",
-        935
-      ],
-      "piano": [
-        "🎹",
-        "钢琴",
-        "pi-an-o / 披安肉",
-        "Play the piano.",
-        936
-      ],
-      "guitar": [
-        "🎸",
-        "吉他",
-        "gui-tar / 给塔",
-        "Strum the guitar.",
-        937
-      ],
-      "violin": [
-        "🎻",
-        "小提琴",
-        "vi-o-lin / 歪哦林",
-        "Beautiful violin.",
-        938
-      ],
-      "drum": [
-        "🥁",
-        "鼓",
-        "dr-um / 抓姆",
-        "Beat the drum.",
-        939
-      ],
-      "trumpet": [
-        "🎺",
-        "小号",
-        "trum-pet / 传喷特",
-        "Blow the trumpet.",
-        940
-      ],
-      "harp": [
-        "🪕",
-        "竖琴",
-        "h-arp / 哈普",
-        "Harp sound.",
-        941
-      ],
-      "flute": [
-        "🪈",
-        "笛子",
-        "fl-ute / 夫路特",
-        "Play the flute.",
-        942
-      ],
-      "saxophone": [
-        "🎷",
-        "萨克斯",
-        "sax-o-phone / 萨克丝风",
-        "Jazz music.",
-        943
-      ],
-      "accordion": [
-        "🪗",
-        "手风琴",
-        "ac-cor-di-on / 额扣低恩",
-        "Old accordion.",
-        944
-      ],
-      "microphone": [
-        "🎤",
-        "麦克风",
-        "mi-cro-phone / 麦克风",
-        "Sing with microphone.",
-        945
-      ],
-      "headphones": [
-        "🎧",
-        "耳机",
-        "head-phones / 嘿得风丝",
-        "Wear headphones.",
-        946
-      ],
-      "speaker": [
-        "🔊",
-        "音箱",
-        "speak-er / 斯必刻",
-        "Loud speaker.",
-        947
-      ],
-      "painting": [
-        "🖼️",
-        "绘画",
-        "paint-ing / 喷厅",
-        "A famous painting.",
-        948
-      ],
-      "palette": [
-        "🎨",
-        "调色盘",
-        "pal-ette / 啪类特",
-        "Painter's palette.",
-        949
-      ],
-      "easel": [
-        "🖼️",
-        "画架",
-        "ea-sel / 亿奏",
-        "Set up the easel.",
-        950
-      ],
-      "sculpture": [
-        "🗿",
-        "雕塑",
-        "sculp-ture / 斯当普切",
-        "Stone sculpture.",
-        951
-      ],
-      "mask": [
-        "🎭",
-        "面具/戏剧",
-        "m-ask / 吗死刻",
-        "Drama mask.",
-        952
-      ],
-      "ballet": [
-        "🩰",
-        "芭蕾",
-        "bal-let / 芭类",
-        "Dance ballet.",
-        953
-      ],
-      "magic": [
-        "🪄",
-        "魔术",
-        "mag-ic / 埋贼刻",
-        "Do magic.",
-        954
-      ],
-      "movie": [
-        "🎬",
-        "电影",
-        "mov-ie / 姥五意",
-        "Watch a movie.",
-        955
-      ],
-      "camera": [
-        "📷",
-        "相机",
-        "cam-er-a / 盖麦肉",
-        "Digital camera.",
-        956
-      ],
-      "video": [
-        "📹",
-        "视频",
-        "vid-e-o / 为低欧",
-        "Record a video.",
-        957
-      ],
-      "puzzle": [
-        "🧩",
-        "拼图",
-        "puz-zle / 啪奏",
-        "Solve the puzzle.",
-        958
-      ],
-      "talent": [
-        "🌟",
-        "天赋/才艺",
-        "tal-ent / 贪伦特",
-        "You have talent.",
-        959
-      ],
-      "show": [
-        "🎡",
-        "表演",
-        "sh-ow / 秀",
-        "Magic show.",
-        960
-      ],
-      "circus": [
-        "🎪",
-        "马戏团",
-        "cir-cus / 瑟客丝",
-        "Funny circus.",
-        961
-      ],
-      "concert": [
-        "🎸",
-        "音乐会",
-        "con-cert / 康色特",
-        "Go to a concert.",
-        962
-      ],
-      "hobby": [
-        "🪁",
-        "爱好",
-        "hob-by / 耗必",
-        "My hobby is flying kites.",
-        963
-      ],
-      "design": [
-        "📐",
-        "设计",
-        "de-sign / 低在恩",
-        "Fashion design.",
-        964
-      ],
-      "fashion": [
-        "👗",
-        "时尚",
-        "fash-ion / 泛旬",
-        "Fashion dress.",
-        965
-      ],
-      "creative": [
-        "💡",
-        "有创意的",
-        "cre-a-tive / 亏哎提五",
-        "Creative idea.",
-        966
-      ],
-      "master": [
-        "👨‍🎨",
-        "大师",
-        "mas-ter / 吗斯特",
-        "Art master.",
-        967
-      ],
-      "model": [
-        "🏎️",
-        "模型",
-        "mod-el / 冒逗",
-        "Toy car model.",
-        968
-      ],
-      "activity": [
-    "🏃",
-    "活动",
-    "ækˈtɪvəti",
-    "We have many outdoor activities at school.",969
-],
-      "pop": [
-        "🍿",
-        "流行/爆破",
-        "p-op / 跑普",
-        "Pop music.",
-        970
-      ],
-      "fishing": [
-        "🎣",
-        "钓鱼",
-        "fish-ing / 费森",
-        "Go fishing.",
-        971
-      ],
-      "camping": [
-        "🏕️",
-        "露营",
-        "camp-ing / 盖喷",
-        "Summer camping.",
-        972
-      ],
-      "hiking": [
-        "🥾",
-        "徒步",
-        "hik-ing / 亥京",
-        "Hiking boots.",
-        973
-      ],
-      "chess": [
-        "♟️",
-        "象棋",
-        "ch-ess / 拆丝",
-        "Play chess.",
-        974
-      ],
-      "cards": [
-        "🃏",
-        "纸牌",
-        "c-ards / 嘎得丝",
-        "Play cards.",
-        975
-      ],
-      "origami": [
-        "📑",
-        "折纸",
-        "o-ri-ga-mi / 欧瑞嘎眯",
-        "Japanese origami.",
-        976
-      ],
-      "gardening": [
-        "🌻",
-        "园艺",
-        "gar-den-ing / 嘎等宁",
-        "Home gardening.",
-        977
-      ],
-      "cooking": [
-        "🍳",
-        "烹饪",
-        "cook-ing / 枯京",
-        "Cooking dinner.",
-        978
-      ],
-      "band": ["🎸", "乐队", "b-and / 搬得", "Join a school band.", 979],
-      "singing": [
-        "🎶",
-        "唱歌",
-        "sing-ing / 胜宁",
-        "I like singing.",
-        980
-      ],
-      "race": ["🏃‍♂️", "比赛/赛跑", "r-ace / 瑞丝", "Run a fast race.", 981],
-      "yoga": [
-        "🧘",
-        "瑜伽",
-        "yo-ga / 尤嘎",
-        "Quiet yoga.",
-        982
-      ],
-      "workout": [
-        "🏋️",
-        "锻炼",
-        "work-out / 窝靠特",
-        "Evening workout.",
-        983
-      ],
-      "practice": [
-        "🔄",
-        "练习",
-        "prac-tice / 普软体丝",
-        "Piano practice.",
-        984
-      ],
-      "collect": [
-        "📂",
-        "收集",
-        "col-lect / 咯来克特",
-        "Collect cards.",
-        985
-      ],
-      "win": [
-        "✌️",
-        "赢",
-        "w-in / 温",
-        "We win!",
-        986
-      ],
-      "lose": [
-        "🥀",
-        "输",
-        "l-ose / 路兹",
-        "Lose the game.",
-        987
-      ],
-      "kick": [
-        "🦶",
-        "踢",
-        "k-ick / 踢刻",
-        "Kick the ball.",
-        988
-      ],
-      "throw": [
-        "☄️",
-        "投掷",
-        "thr-ow / 斯肉",
-        "Throw the ball.",
-        989
-      ],
-      "catch": [
-        "🧤",
-        "接住",
-        "c-atch / 盖旗",
-        "Catch the ball.",
-        990
-      ],
-     
-       "climb": [
-        "🧗",
-        "爬",
-        "cl-imb / 亏赖姆",
-        "Climb mountains.",
-        991
-      ],
-
-"net": ["🥅", "网", "n-et / 奶特", "The ball hits the net.", 992],
-
-
-      "relax": [
-        "🛀",
-        "放松",
-        "re-lax / 瑞拉克丝",
-        "Take a relax.",
-        993
-      ],
-      "fun": [
-        "🎈",
-        "有趣",
-        "f-un / 泛",
-        "Have fun.",
-        994
-      ],
-        "popular": [
-        "🔥",
-        "受欢迎",
-        "pop-u-lar / 啪飘勒",
-        "Popular game.",
-        995
-      ],
-      "champion": [
-        "👑",
-        "冠军",
-        "cham-pi-on / 产片",
-        "Be a champion.",
-        996
-      ],
-
-
-"record": ["🏆", "记录", "re-cord / 瑞阔得", "Break a world record.", 997],
-"top": ["🔝", "顶部", "t-op / 掏普", "On top of the box.", 998],
-"next": ["🔜", "下一个", "n-ext / 奶克斯特", "Next time, please.", 999],
-
-      "finish": [
-        "🏁",
-        "结束/终点",
-        "fin-ish / 飞你湿",
-        "Finish the race.",
-        1000
-      ]
+      "magic": ["🎩", "魔术", "mag-ic / 麦极克", "I like magic tricks.", "mó shù", "我喜欢魔术戏法。", 901],
+      "movie": ["🎬", "电影", "mov-ie / 慕微", "Watch a funny movie.", "diàn yǐng", "看一部有趣的电影。", 902],
+      "camera": ["📷", "相机", "cam-era / 凯么若", "Take a photo with camera.", "xiàng jī", "用相机拍张照。", 903],
+      "video": ["📹", "视频", "vid-e-o / 威低欧", "Record a video.", "shì pín", "录制一个视频。", 904],
+      "puzzle": ["🧩", "拼图/谜题", "puz-zle / 趴走", "Solve the puzzle.", "pīn tú", "解开这个谜题。", 905],
+      "talent": ["🌟", "天赋", "tal-ent / 胎伦特", "She has great talent.", "tiān fù", "她有很棒的天赋。", 906],
+      "show": ["🎪", "表演/秀", "sh-ow / 秀", "Enjoy the show.", "biǎo yǎn", "享受这场表演。", 907],
+      "circus": ["🤡", "马戏团", "cir-cus / 色克斯", "Clowns in the circus.", "mǎ xì tuán", "马戏团里的小丑。", 908],
+      "concert": ["🎤", "音乐会", "con-cert / 康瑟特", "Go to a concert.", "yīn yuè huì", "去听音乐会。", 909],
+      "hobby": ["🧶", "爱好", "hob-by / 浩比", "My hobby is reading.", "ài hào", "我的爱好是读书。", 910],
+      "design": ["📐", "设计", "de-sign / 帝赞", "Design a dress.", "shè jì", "设计一件连衣裙。", 911],
+      "fashion": ["👗", "时尚", "fash-ion / 凡顺", "I love fashion.", "shí shàng", "我热爱时尚。", 912],
+      "style": ["🕶️", "风格", "st-yle / 斯呆欧", "Cool style.", "fēng gé", "酷酷的风格。", 913],
+      "model": ["💃", "模特", "mod-el / 妈兜", "She is a model.", "mó tè", "她是一名模特。", 914],
+      "photo": ["🖼️", "照片", "pho-to / 佛头", "Look at this photo.", "zhào piàn", "看这张照片。", 915],
+      "news": ["📰", "新闻", "n-ews / 纽丝", "Read the news.", "xīn wén", "阅读新闻。", 916],
+      "internet": ["🌐", "互联网", "in-ter-net / 因特网", "Surf the internet.", "hù lián wǎng", "上网冲浪。", 917],
+      "chess": ["♟️", "国际象棋", "ch-ess / 拆丝", "Play chess.", "guó jì xiàng qí", "下国际象棋。", 918],
+      "robot": ["🤖", "机器人", "ro-bot / 肉鲍特", "Smart robot.", "jī qì rén", "聪明的机器人。", 919],
+      "computer": ["🖥️", "计算机", "com-pu-ter / 康皮尤特", "Use the computer.", "jì suàn jī", "使用计算机。", 920],
+      "pilot": ["👨‍✈️", "飞行员", "pi-lot / 派勒特", "The pilot flies the plane.", "fēi xíng yuán", "飞行员驾驶飞机。", 921],
+      "captain": ["🚢", "船长/队长", "cap-tain / 开普藤", "Captain of the ship.", "chuán zhǎng", "这艘船的船长。", 922],
+      "soldier": ["🪖", "士兵", "sol-dier / 搜哲", "Brave soldier.", "shì bīng", "勇敢的士兵。", 923],
+      "king": ["🤴", "国王", "k-ing / King", "The king lives in a castle.", "guó wáng", "国王住在城堡里。", 924],
+      "queen": ["👸", "王后", "qu-een / 昆", "The queen is beautiful.", "wáng hòu", "王后很美丽。", 925],
+      "prince": ["🤴", "王子", "pr-ince / 普润丝", "The prince rides a horse.", "wáng zǐ", "王子骑着马。", 926],
+      "princess": ["👸", "公主", "prin-cess / 普润赛丝", "The princess wears a dress.", "gōng zhǔ", "公主穿着裙子。", 927],
+      "castle": ["🏰", "城堡", "cas-tle / 卡搜", "A big stone castle.", "chéng bǎo", "一座大石堡。", 928],
+      "dragon": ["🐉", "龙", "drag-on / 抓根", "The dragon breathes fire.", "lóng", "龙喷火。", 929],
+      "ghost": ["👻", "鬼魂", "gh-ost / 够斯特", "A spooky ghost.", "guǐ hún", "一个阴森的鬼魂。", 930],
+      "monster": ["👹", "怪物", "mon-ster / 芒斯特", "A scary monster.", "guài wu", "一个可怕的怪物。", 931],
+      "alien": ["👽", "外星人", "a-lien / 诶离恩", "Alien from space.", "wài xīng rén", "来自太空的外星人。", 932],
+      "angel": ["👼", "天使", "an-gel / 安哲", "You are an angel.", "tiān shǐ", "你是个天使。", 933],
+      "fairy": ["🧚‍♀️", "仙子", "fair-y / 费瑞", "Tooth fairy.", "xiān zǐ", "牙仙子。", 934],
+      "hero": ["🦸", "英雄", "he-ro / 希肉", "Super hero.", "yīng xióng", "超级英雄。", 935],
+      "legend": ["📜", "传说", "leg-end / 来震得", "An old legend.", "chuán shuō", "一个古老的传说。", 936],
+      "dream": ["💭", "梦想/梦", "dr-eam / 追姆", "I have a dream.", "mèng xiǎng", "我有一个梦想。", 937],
+      "future": ["🔮", "未来", "fu-ture / 飞尤切", "Look into the future.", "wèi lái", "展望未来。", 938],
+      "universe": ["🌌", "宇宙", "u-ni-verse / 尤尼我丝", "The universe is big.", "yǔ zhòu", "宇宙很大。", 939],
+      "peace": ["🕊️", "和平", "p-eace / 皮丝", "We want peace.", "hé píng", "我们想要和平。", 940],
+      "kiss": ["💋", "亲吻", "k-iss / 给丝", "Give a kiss.", "qīn wěn", "给一个吻。", 941],
+      "hug": ["🫂", "拥抱", "h-ug / 哈格", "A warm hug.", "yōng bào", "一个温暖的拥抱。", 942],
+      "smile": ["😊", "微笑", "s-mile / 斯卖欧", "Keep a smile.", "wēi xiào", "保持微笑。", 943],
+      "tear": ["💧", "眼泪", "t-ear / 替儿", "Wipe the tear.", "yǎn lèi", "擦干眼泪。", 944],
+      "shout": ["📢", "喊叫", "sh-out / 少特", "Don't shout.", "hǎn jiào", "不要喊叫。", 945],
+      "whisper": ["🤫", "耳语", "whis-per / 喂斯破", "Whisper in ear.", "ěr yǔ", "在耳边低语。", 946],
+      "voice": ["🗣️", "声音", "v-oice / 沃伊斯", "Loud voice.", "shēng yīn", "大声的声音。", 947],
+      "sound": ["🔊", "声响", "s-ound / 桑得", "Hear a sound.", "shēng xiǎng", "听见一个声响。", 948],
+      "festival": ["🏮", "节日", "fes-ti-val / 饭斯提我", "Spring festival.", "jié rì", "春节。", 949],
+      "holiday": ["🏖️", "假期", "hol-i-day / 浩离忒", "Summer holiday.", "jià qī", "暑假。", 950],
+      "trip": ["🧳", "旅行", "tr-ip / 吹普", "A school trip.", "lǚ xíng", "一次学校旅行。", 951],
+      "country": ["🏳️", "国家", "coun-try / 刊吹", "My country.", "guó jiā", "我的国家。", 952],
+      "town": ["🏘️", "城镇", "t-own / 套嗯", "Small town.", "chéng zhèn", "小城镇。", 953],
+      "village": ["🏡", "村庄", "vil-lage / 威力指", "Live in a village.", "cūn zhuāng", "住在村庄里。", 954],
+      "way": ["🛣️", "道路/方式", "w-ay / 喂", "This way, please.", "dào lù", "请走这条路。", 955],
+      "life": ["🌱", "生活/生命", "l-ife / 来夫", "Happy life.", "shēng huó", "幸福的生活。", 956],
+      "birth": ["👶", "出生", "b-irth / 波丝", "Date of birth.", "chū shēng", "出生日期。", 957],
+      "death": ["🪦", "死亡", "d-eath / 呆死", "Life and death.", "sǐ wáng", "生与死。", 958],
+      "born": ["🐣", "诞生", "b-orn / 波嗯", "I was born here.", "dàn shēng", "我诞生在这里。", 959],
+      "live": ["🏠", "居住/活着", "l-ive / 利五", "I live in China.", "jū zhù", "我居住在中国。", 960],
+      "die": ["🥀", "枯萎/死", "d-ie / 呆", "Flowers die without water.", "kū wěi", "花没有水会枯萎。", 961],
+      "save": ["💾", "保存/拯救", "s-ave / 赛五", "Save the file.", "bǎo cún", "保存文件。", 962],
+      "win": ["🏆", "赢", "w-in / 问", "We will win.", "yíng", "我们会赢。", 963],
+      "lose": ["😞", "输/丢失", "l-ose / 路滋", "Don't lose it.", "shū", "别把它弄丢了。", 964],
+      "succeed": ["✌️", "成功", "suc-ceed / 萨克戏得", "Work hard to succeed.", "chéng gōng", "努力工作以获得成功。", 965],
+      "fail": ["❌", "失败", "f-ail / 飞欧", "Don't fear to fail.", "shī bài", "不要害怕失败。", 966],
+      "busy": ["🐝", "忙碌的", "bu-sy / 逼贼", "I am very busy.", "máng lù de", "我非常忙。", 967],
+      "free": ["🆓", "免费的/自由的", "fr-ee / 夫瑞", "Are you free?", "zì yóu de", "你有空吗？", 968],
+      "rich": ["💰", "富有的", "r-ich / 瑞旗", "Rich man.", "fù yǒu de", "富有的人。", 969],
+      "poor": ["🥣", "贫穷的", "p-oor / 破", "Help the poor.", "pín qióng de", "帮助穷人。", 970],
+      "lucky": ["🍀", "幸运的", "luck-y / 拉ki", "Lucky boy.", "xìng yùn de", "幸运的男孩。", 971],
+      "smart": ["🤓", "聪明的", "sm-art / 斯骂特", "You are smart.", "cōng ming de", "你很聪明。", 972],
+      "brave": ["🦁", "勇敢的", "br-ave / 不瑞五", "Be brave.", "yǒng gǎn de", "要勇敢。", 973],
+      "lovely": ["🥰", "可爱的", "love-ly / 拉五离", "Lovely day.", "kě ài de", "美好的一天。", 974],
+      "kind": ["❤️", "善良的", "k-ind / 开恩得", "She is kind.", "shàn liáng de", "她是善良的。", 975],
+      "polite": ["🙇", "有礼貌的", "po-lite / 婆赖特", "Be polite.", "yǒu lǐ mào de", "要有礼貌。", 976],
+      "rude": ["😡", "粗鲁的", "r-ude / 入得", "Don't be rude.", "cū lǔ de", "不要粗鲁。", 977],
+      "honest": ["🤞", "诚实的", "hon-est / 奥内斯特", "Be honest.", "chéng shí de", "要诚实。", 978],
+      "wise": ["🦉", "睿智的", "w-ise / 哇以滋", "Wise owl.", "ruì zhì de", "睿智的猫头鹰。", 979],
+      "careful": ["⚠️", "小心的", "care-ful / 开儿佛", "Be careful.", "xiǎo xīn de", "要小心。", 980],
+      "danger": ["☠️", "危险", "dan-ger / 丹哲", "In danger.", "wēi xiǎn", "处于危险中。", 981],
+      "safe": ["🔒", "安全的", "s-afe / 赛夫", "Safe place.", "ān quán de", "安全的地方。", 982],
+      "easy": ["👌", "容易的", "ea-sy / 意贼", "It is easy.", "róng yì de", "这很容易。", 983],
+      "hard": ["🧱", "困难的/硬的", "h-ard / 哈得", "Work hard.", "kùn nán de", "努力工作。", 984],
+      "true": ["✅", "真的", "tr-ue / 处", "Is it true?", "zhēn de", "这是真的吗？", 985],
+      "false": ["❎", "假的", "fal-se / 否丝", "True or false.", "jiǎ de", "真还是假。", 986],
+      "same": ["♊", "相同的", "s-ame / 赛姆", "We are the same.", "xiāng tóng de", "我们是相同的。", 987],
+      "different": ["🔀", "不同的", "dif-fer-ent / 帝夫认特", "Different colors.", "bù tóng de", "不同的颜色。", 988],
+      "all": ["💯", "全部", "a-ll / 奥", "All of us.", "quán bù", "我们所有人。", 989],
+      "nothing": ["⭕", "没得", "noth-ing / 纳醒", "I have nothing.", "méi de", "我什么都没有。", 990],
+      "start": ["▶️", "开始", "st-art / 斯大特", "Start the game.", "kāi shǐ", "开始游戏。", 991],
+      "finish": ["🏁", "完成", "fin-ish / 费内湿", "Finish your work.", "wán chéng", "完成你的工作。", 992],
+      "first": ["🥇", "第一", "f-irst / 佛斯特", "First place.", "dì yī", "第一名。", 993],
+      "last": ["🔚", "最后", "l-ast / 拉斯特", "Last one.", "zuì hòu", "最后一个。", 994],
+      "next": ["⏭️", "下一个", "n-ext / 耐克斯特", "Next page.", "xià yí gè", "下一页。", 995],
+      "other": ["👥", "其他的", "o-ther / 阿惹", "Other people.", "qí tā de", "其他人。", 996],
+      "another": ["➕1️⃣", "另一个", "an-oth-er / 安那惹", "Try another way.", "lìng yí gè", "尝试另一种方法。", 997],
+      "group": ["👥", "小组", "gr-oup / 咕肉普", "Work in a group.", "xiǎo zǔ", "在小组里工作。", 998],
+      "member": ["👤", "成员", "mem-ber / 曼博", "Team member.", "chéng yuán", "团队成员。", 999],
+      "champion": ["🏆", "冠军", "cham-pi-on / 昌皮恩", "You are the champion!", "guàn jūn", "你是冠军！", 1000]
     }
   }
 };
 
 const FULL_LIST = ["I", "you", "he", "she", "it", "me", "us", "we", "they", "am", "is", "are", "each", "both", "else", "yes", "no", "hello", "thanks", "please", "good", "bad", "big", "small", "hot", "cold", "begin", "end", "go", "come", "eat", "drink", "see", "look", "add", "try", "can", "do", "get", "give", "know", "keep", "play", "run", "jump", "walk", "stop", "open", "close", "sit", "stand", "read", "write", "sing", "dance", "sleep", "wake", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "red", "blue", "green", "yellow", "black", "white", "what", "who", "where", "when", "how", "any", "some", "this", "that", "here", "there", "now", "today", "and", "but", "with", "for", "from", "in", "on", "under", "up", "down", "fast", "slow", "new", "old", "house", "home", "room", "door", "window", "wall", "floor", "ceiling", "stairs", "roof", "garden", "garage", "living-room", "balcony", "kitchen", "bathroom", "toilet", "bedroom", "mailbox", "fence", "sofa", "table", "chair", "carpet", "lamp", "clock", "mirror", "vase", "frame", "shelf", "tv", "curtain", "fan", "heater", "key", "lock", "remote", "plug", "socket", "battery", "fridge", "stove", "oven", "kettle", "sink", "tap", "pot", "pan", "cup", "mug", "glass", "plate", "bowl", "spoon", "fork", "knife", "bottle", "trash", "apron", "towel", "bed", "pillow", "sheet", "blanket", "closet", "hanger", "comb", "brush", "perfume", "mat", "wallet", "purse", "shoes", "socks", "hat", "cap", "watch", "ring", "umbrella", "glasses", "soap", "shampoo", "sponge", "mop", "broom", "bucket", "iron", "tissue", "hook", "yard", "bell", "bin", "step", "tub", "rug", "toy", "doll", "ball", "dish", "box", "lion", "tiger", "elephant", "monkey", "giraffe", "zebra", "bear", "panda", "wolf", "fox", "deer", "rabbit", "squirrel", "kangaroo", "hippo", "rhinoceros", "gorilla", "koala", "hedgehog", "leopard", "raccoon", "skunk", "otter", "sloth", "badger", "dog", "cat", "cow", "pig", "sheep", "goat", "horse", "donkey", "chicken", "duck", "mouse", "rat", "hamster", "ox", "camel", "llama", "bull", "ram", "rooster", "turkey", "bird", "eagle", "owl", "parrot", "peacock", "swan", "flamingo", "penguin", "dove", "goose", "crow", "chick", "bat", "vulture", "stork", "falcon", "pigeon", "dodo", "mallard", "canary", "fish", "shark", "whale", "dolphin", "turtle", "crab", "shrimp", "octopus", "squid", "lobster", "seal", "frog", "crocodile", "snake", "lizard", "seahorse", "jellyfish", "shell", "coral", "blowfish", "bee", "ant", "butterfly", "spider", "mosquito", "fly", "ladybug", "caterpillar", "worm", "snail", "cricket", "scorpion", "beetle", "mantis", "microbe", "pizza", "burger", "sandwich", "taco", "sushi", "spaghetti", "curry", "bento", "steak", "dumpling", "fries", "hotdog", "burrito", "stew", "kebab", "falafel", "pretzel", "waffle", "pancake", "omelet", "bagel", "ramen", "dimsum", "paella", "fondue", "cake", "cookie", "donut", "icecream", "chocolate", "candy", "lollipop", "custard", "popcorn", "muffin", "pie", "shavedice", "croissant", "tart", "syrup", "marshmallow", "jelly", "biscuit", "gum", "mousse", "toffee", "creme", "wafer", "jam", "honey", "coffee", "tea", "juice", "coke", "milk", "water", "soda", "smoothie", "wine", "beer", "cocktail", "champagne", "yogurt", "cocoa", "cappuccino", "latte", "lemonade", "vinegar", "sauce", "oil", "ketchup", "mustard", "salt", "pepper", "sugar", "menu", "order", "bill", "waiter", "waitress", "chef", "reservation", "counter", "napkin", "breakfast", "lunch", "dinner", "delicious", "yummy", "hungry", "thirsty", "full", "sour", "sweet", "spicy", "salty", "bitter", "special", "dessert", "fresh", "bus", "train", "subway", "taxi", "plane", "ship", "boat", "bike", "truck", "jeep", "van", "tram", "rocket", "helicopter", "scooter", "motorcycle", "ambulance", "firetruck", "policecar", "tractor", "lane", "hospital", "bank", "hotel", "park", "seat", "shop", "market", "zoo", "museum", "cinema", "fuel", "bridge", "tower", "temple", "church", "airport", "station", "building", "factory", "skyscraper", "farm", "platform", "passenger", "signal", "street", "road", "corner", "stoplight", "sign", "sidewalk", "gas", "compass", "flag", "gate", "ticket", "passport", "phone", "radio", "money", "card", "baggage", "backpack", "selfie", "suitcase", "passcode", "tent", "destination", "raincoat", "helmet", "depart", "arrive", "explore", "wait", "drive", "ride", "hike", "sail", "shuttle", "cable car", "express", "itinerary", "visit", "travel", "move", "push", "pull", "check-in", "check-out", "buy", "sell", "find", "lost", "far", "near", "tunnel", "traffic", "left", "right", "city", "face", "eye", "Eyebrow", "Eyelash", "ear", "nose", "mouth", "lip", "Tongue", "Tooth", "Forehead", "Chin", "Cheek", "Neck", "hair", "curly", "straight", "long", "short", "bangs", "braid", "ponytail", "pigtails", "bun", "bald", "body", "tall", "fit", "tiny", "fat", "chubby", "shoulder", "chest", "belly", "back", "waist", "hip", "thumb", "nail", "palm", "finger", "fist", "arm", "elbow", "wrist", "thigh", "leg", "knee", "ankle", "foot", "heel", "toe", "skin", "bone", "muscle", "blood", "brain", "heart", "stomach", "lung", "liver", "kidney", "vein", "navel", "health", "clean", "dirty", "pretty", "handsome", "weak", "sick", "cough", "sneeze", "fever", "dizzy", "shiver", "sweat", "itchy", "sleepy", "hurt", "cut", "doctor", "nurse", "pill", "shot", "x-ray", "scan", "breath", "sniff", "hear", "touch", "cry", "yawn", "chew", "taste", "fine", "great", "cool", "better", "well", "spring", "summer", "autumn", "winter", "season", "weather", "morning", "afternoon", "evening", "night", "date", "yesterday", "tomorrow", "week", "month", "year", "time", "sky", "nature", "world", "sun", "moon", "star", "rain", "snow", "wind", "cloud", "storm", "thunder", "lightning", "fog", "ice", "rainbow", "sunny", "cloudy", "windy", "rainy", "snowy", "soft", "frost", "warm", "dry", "wet", "heat", "tree", "flower", "leaf", "grass", "forest", "mountain", "hill", "valley", "stream", "river", "lake", "ocean", "beach", "island", "desert", "cave", "rock", "stone", "sand", "fire", "smoke", "dust", "waterfall", "field", "earth", "space", "rose", "lily", "bamboo", "mushroom", "wood", "root", "seed", "branch", "jungle", "ground", "sunrise", "sunset", "shine", "dark", "bright", "steam", "clear", "strong", "quiet", "loud", "high", "low", "wide", "thin", "beautiful", "wild", "deep", "pure", "natural", "planet", "school", "class", "principal", "teacher", "student", "staff", "coach", "name", "friend", "classmate", "club", "desk", "drawer", "board", "light", "lab", "playground", "library", "office", "gym", "lesson", "homework", "note", "test", "exam", "book", "pen", "pencil", "ruler", "eraser", "bag", "paper", "map", "globe", "kit", "ink", "glue", "scissors", "crayon", "notebook", "folder", "clip", "stamp", "sharpener", "calculator", "tape", "dictionary", "chalk", "laptop", "prize", "math", "english", "chinese", "music", "art", "science", "history", "sport", "number", "letter", "word", "line", "circle", "square", "triangle", "oval", "rectangle", "page", "story", "song", "picture", "game", "quiz", "answer", "question", "rule", "point", "idea", "mind", "draw", "listen", "speak", "learn", "study", "think", "spell", "count", "ask", "tell", "topic", "color", "cut", "paste", "clean", "task", "form", "list", "remember", "understand", "forget", "family", "father", "mother", "parent", "brother", "sister", "grandpa", "grandma", "uncle", "aunt", "cousin", "baby", "son", "daughter", "child", "man", "woman", "boy", "girl", "stranger", "neighbor", "guest", "adult", "twin", "sir", "lady", "king", "queen", "people", "person", "happy", "glad", "excited", "brave", "kind", "smart", "proud", "friendly", "honest", "polite", "funny", "gentle", "cheerful", "careful", "lucky", "dream", "calm", "peace", "love", "like", "hug", "kiss", "smile", "laugh", "hope", "sad", "angry", "scared", "afraid", "bored", "lonely", "tired", "lazy", "shy", "sorry", "shame", "worry", "surprise", "hate", "mad", "pain", "trouble", "wrong", "noisy", "fair", "serious", "strict", "silly", "strange", "ugly", "talk", "call", "meet", "grow", "help", "share", "gift", "party", "wedding", "birthday", "trust", "care", "agree", "obey", "promise", "secret", "together", "alone", "ready", "welcome", "soccer", "basketball", "tennis", "baseball", "golf", "badminton", "volleyball", "ping-pong", "rugby", "skating", "skiing", "surfing", "swimming", "boxing", "judo", "bowling", "hockey", "billiard", "cycling", "climbing", "archery", "fencing", "skateboarding", "diving", "gymnastics", "rowing", "medals", "stadium", "trophy", "whistle", "goal", "runner", "jumper", "score", "team", "piano", "guitar", "violin", "drum", "trumpet", "harp", "flute", "saxophone", "accordion", "microphone", "headphones", "speaker", "painting", "palette", "easel", "sculpture", "mask", "ballet", "magic", "movie", "camera", "video", "puzzle", "talent", "show", "circus", "concert", "hobby", "design", "fashion", "creative", "master", "model", "activity", "pop", "fishing", "camping", "hiking", "chess", "cards", "origami", "gardening", "cooking", "band", "singing", "race", "yoga", "workout", "practice", "collect", "win", "lose", "kick", "throw", "catch", "climb", "net", "relax", "fun", "popular", "champion", "record", "top", "next", "finish"];
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1424,12 +1424,8 @@ if (view === 'medals') {
                 return (
 
 <div className="h-screen flex flex-col bg-slate-50 overflow-hidden">
-            
-            {/* --- 第一部分：锁定的顶部 (Header + 四个方块) --- */}
-            <div className="flex-none bg-white/80 backdrop-blur-lg z-30 px-6 pt-4 pb-2 border-b border-slate-100 shadow-sm">
-                <div className="max-w-md mx-auto">
 
-			{/* 名字模态框*/}
+{/* 名字模态框*/}
 
                         {showNameModal && (
     /* 1. 外层容器：保持 fixed 全屏和滚动能力 */
@@ -1479,6 +1475,12 @@ if (view === 'medals') {
     </div>
 )}
 
+            
+            {/* --- 第一部分：锁定的顶部 (Header + 四个方块) --- */}
+            <div className="flex-none bg-white/80 backdrop-blur-lg z-30 px-6 pt-4 pb-2 border-b border-slate-100 shadow-sm">
+                <div className="max-w-md mx-auto">
+
+			
 			{/* 顶部标题栏 (原 header 内容) */}
                         <header className="flex justify-between items-center mb-6">
                             <div>

@@ -1432,11 +1432,15 @@ if (view === 'medals') {
 			{/* 名字模态框*/}
 
                         {showNameModal && (
-    /* 修复 1: 外层改为 overflow-y-auto，允许整个遮罩层滚动 */
+    /* 1. 外层容器：保持 fixed 全屏和滚动能力 */
     <div className="fixed inset-0 z-[500] bg-slate-900/70 backdrop-blur-sm overflow-y-auto">
-        {/* 使用 min-h-full 确保在内容较少时居中，内容较多时可滚动 */}
-        <div className="min-h-full flex items-center justify-center p-4">
-            <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl relative">
+        
+        {/* 2. 布局容器：移除 items-center，只保留 flex 和 justify-center (水平居中) */}
+        <div className="min-h-full flex justify-center p-4">
+            
+            {/* 3. 内容卡片：新增 my-auto 实现安全的垂直居中 */}
+            <div className="bg-white p-6 rounded-[48px] text-center w-full max-w-[340px] shadow-2xl relative my-auto">
+                
                 <h2 className="text-[22px] font-black mb-6 whitespace-nowrap tracking-tight">Hello! What's your name?</h2>
 
                 {/* 头像选择区 */}
@@ -1460,6 +1464,7 @@ if (view === 'medals') {
                     placeholder="Steve..." 
                     className="w-full bg-slate-50 border-2 border-slate-100 rounded-3xl py-4 px-6 mb-6 font-black text-center outline-none focus:border-indigo-200" 
                 />
+                
                 <button onClick={() => { 
                     setUserName(tempName); 
                     localStorage.setItem('steve_name', tempName); 

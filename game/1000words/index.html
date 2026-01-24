@@ -962,28 +962,30 @@ const getMyRank = (isLoading) => {
 // 自动识别并渲染 Emoji 或 图片
 // 渲染媒体 (图片或Emoji) - 字体大小优化版
       // 渲染媒体 (图片或Emoji) - Grid 终极放大版
+   // 渲染媒体 (图片或Emoji) - 防重叠适配版
     const renderMedia = (content) => {
         if (!content) return null;
 
-        // 1. 图片处理 (保持不变)
         if (content.startsWith('./') || content.startsWith('http')) {
             return <img src={content} alt="word" className="w-full h-full object-contain drop-shadow-sm" />;
         }
         
-        // 2. Emoji/文本处理 (核心修复)
-        // 使用 CSS Grid 进行绝对居中，这比 Flex 在处理大字号时更稳定。
+        const count = Array.from(content).length;
+        
+        // 动态字号调整 (比之前稍微收敛一点，防止撑破容器)
+        const textSizeClass = count === 1 ? 'text-[130px]' :   // 单个: 130px
+                              count === 2 ? 'text-[100px]' :   // 两个: 100px (并排)
+                              'text-[70px]';                   // 多个: 70px
+
         return (
-            <div className="w-full h-full grid place-items-center drop-shadow-sm select-none">
-                {/* - text-[160px]: 进一步加大字号到 160px，确保单个图标也能撑满空间。
-                   - leading-[0]: 强制行高为 0。这是关键！防止大字号自带的上下空白导致图标看起来偏小或不居中。
-                */}
-                <span className="text-[160px] leading-[0] filter">
+            <div className="w-full h-full grid place-items-center drop-shadow-sm select-none p-1">
+                {/* whitespace-nowrap 是防止多个 Emoji 换行重叠的关键 */}
+                <span className={`${textSizeClass} leading-none filter transition-all duration-300 whitespace-nowrap`}>
                     {content}
                 </span>
             </div>
         );
     };
-
    
 
 // --- ✅ 新增：勋章墙的滚动 Ref 和自动回顶逻辑 ---
@@ -1791,34 +1793,40 @@ if (view === 'medals') {
             <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                 
                 {/* --- 卡片正面 (Front) --- */}
-                <div className="card-face bg-white border-slate-50 flex flex-col items-center justify-between py-10">
+               {/* --- 卡片正面 (Front) - 布局防挤压优化版 --- */}
+                <div className="card-face bg-white border-slate-50 flex flex-col items-center justify-between py-6 gap-2">
                     
-                    {/* ✅ 修复核心：
-                        1. h-56: 给图片一个固定的、足够大的高度 (约 224px)。
-                        2. shrink-0: 无论屏幕多小，或者下方文字多大，绝对不允许压缩这个高度。
-                        3. mt-auto/mb-auto: 让内容在垂直方向更自然地分布。
+                    {/* 1. Emoji/图片区域 
+                        修复：高度减小为 h-48 (约192px)，腾出垂直空间
                     */}
                     <div 
-                        className="h-56 shrink-0 w-full flex items-center justify-center select-none cursor-pointer mt-4"
+                        className="h-48 shrink-0 w-full flex items-center justify-center select-none cursor-pointer mt-2"
                         onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
                     >
-                        {/* 保持 renderMedia 内部的 text-[85px] 不变 */}
                         <div className="w-full h-full flex items-center justify-center transition-transform active:scale-95">
                             {renderMedia(wordInfo[0])}
                         </div>
                     </div>
 
-                    {/* 单词文本区域 */}
-                    <div className="flex-1 flex flex-col items-center justify-center w-full min-h-0">
-                        <div className="text-[64px] font-black text-slate-800 uppercase tracking-tighter leading-none text-center px-2 drop-shadow-sm">
+                    {/* 2. 单词文本区域 
+                        修复：最大字号降为 56px，防止压住下方按钮
+                    */}
+                    <div className="flex-1 flex flex-col items-center justify-center w-full min-h-0 px-4">
+                        <div className={`font-black text-slate-800 uppercase tracking-tighter text-center break-words w-full drop-shadow-sm leading-none ${
+                            currentKey.length > 12 ? 'text-[36px]' :   // 超长词缩小
+                            currentKey.length > 8 ? 'text-[46px]' :    // 长词适中
+                            'text-[56px]'                              // 短词 (原64px -> 现56px)
+                        }`}>
                             {currentKey}
                         </div>
                     </div>
 
-                    {/* 喇叭按钮 */}
+                    {/* 3. 喇叭按钮 
+                        保持原样，但现在上方有了足够的呼吸空间
+                    */}
                     <button 
                         onClick={(e) => { e.stopPropagation(); speak(currentKey); }} 
-                        className="mb-4 w-16 h-16 shrink-0 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100 shadow-sm text-indigo-500"
+                        className="mb-2 w-16 h-16 shrink-0 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100 shadow-sm text-indigo-500"
                     >
                         🔊
                     </button>
@@ -2095,6 +2103,7 @@ if (view === 'medals') {
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

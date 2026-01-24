@@ -961,52 +961,30 @@ const getMyRank = (isLoading) => {
 
 // 自动识别并渲染 Emoji 或 图片
 // 渲染媒体 (图片或Emoji) - 字体大小优化版
-        const renderMedia = (content) => {
-            if (!content) return null;
+      // 渲染媒体 (图片或Emoji) - Grid 终极放大版
+    const renderMedia = (content) => {
+        if (!content) return null;
 
-            // 1. 如果是图片路径，使用 img 标签
-            if (content.startsWith('./') || content.startsWith('http')) {
-                return <img src={content} alt="word" className="w-full h-full object-contain drop-shadow-sm" />;
-            }
-            
-            // 2. 如果是 Emoji/文本
-            // ✅ 修复：将字号从 85px 提升到 140px
-            // 配合 h-56 (224px) 的容器，140px 能产生很好的视觉填充感，不再显小
-            return (
-                <div className="text-[140px] leading-none filter drop-shadow-sm select-none flex items-center justify-center w-full h-full overflow-visible">
+        // 1. 图片处理 (保持不变)
+        if (content.startsWith('./') || content.startsWith('http')) {
+            return <img src={content} alt="word" className="w-full h-full object-contain drop-shadow-sm" />;
+        }
+        
+        // 2. Emoji/文本处理 (核心修复)
+        // 使用 CSS Grid 进行绝对居中，这比 Flex 在处理大字号时更稳定。
+        return (
+            <div className="w-full h-full grid place-items-center drop-shadow-sm select-none">
+                {/* - text-[160px]: 进一步加大字号到 160px，确保单个图标也能撑满空间。
+                   - leading-[0]: 强制行高为 0。这是关键！防止大字号自带的上下空白导致图标看起来偏小或不居中。
+                */}
+                <span className="text-[160px] leading-[0] filter">
                     {content}
-                </div>
-            );
-        };
+                </span>
+            </div>
+        );
+    };
 
-    // --- Emoji 逻辑优化 ---
-    // 使用 Array.from 准确计算视觉 Emoji 数量
-    const emojiCount = Array.from(strSource).length;    
-    
-    // 细化字号阶梯：
-    // 1-2个: 120px
-    // 3个: 80px
-    // 4个: 65px
-    // 5个及以上: 50px
-    let fontSize = '120px';
-    if (emojiCount === 3) fontSize = '80px';
-    else if (emojiCount === 4) fontSize = '65px';
-    else if (emojiCount > 4) fontSize = '50px';
-
-    return (
-        <span 
-            className="animate-float transition-all duration-300 inline-block whitespace-nowrap" 
-            style={{ 
-                fontSize, 
-                lineHeight: '1',
-                textAlign: 'center',
-                maxWidth: '100%' // 确保不会超出卡片边界
-            }}
-        >
-            {strSource}
-        </span>
-    );
-};
+   
 
 // --- ✅ 新增：勋章墙的滚动 Ref 和自动回顶逻辑 ---
    const medalsListRef = React.useRef(null);
@@ -2117,6 +2095,7 @@ if (view === 'medals') {
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

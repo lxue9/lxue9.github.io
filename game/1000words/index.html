@@ -1801,194 +1801,157 @@ if (view === 'medals') {
 <div className="flex-1 flex flex-col relative w-full overflow-hidden">
     {wordInfo && (
         view === 'card' ? (
-            /* ==========================================
-               1. 卡片模式 (Card Mode)
-               ========================================== */
-            <div className="flex-1 flex flex-col w-full h-full">
+    /* ==========================================
+       1. 卡片模式 (Card Mode - 终极修复版)
+       ========================================== */
+    <div className="flex-1 flex flex-col w-full h-full">
+        
+        {/* A. 卡片区域：自动撑满剩余空间 */}
+        <div className="flex-1 flex flex-col items-center justify-center w-full min-h-0">
+            <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
                 
-                {/* A. 卡片区域：使用 flex-1 自动撑满剩余空间，实现垂直居中 */}
-                <div className="flex-1 flex flex-col items-center justify-center w-full min-h-0">
-                    <div className={`card-inner ${flipped ? 'flipped' : ''}`} onClick={() => setFlipped(!flipped)}>
-                        
-                        {/* 正面 */}
-                        <div className="card-face bg-white border-slate-50">
-                            <div 
-                                className="h-32 mb-4 flex items-end justify-center select-none cursor-pointer"
-                                onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
-                            >
-                                {renderMedia(wordInfo[0])}
-                            </div>
-                            <div className="text-5xl font-black text-slate-800 uppercase tracking-tighter">
-                                {currentKey}
-                            </div>
-                            <button onClick={(e) => { e.stopPropagation(); speak(currentKey); }} className="mt-8 w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100">🔊</button>
-                        </div>
-
-                        {/* 反面 */}
-                        {/* --- 卡片背面 (发音自然优化版) --- */}
-            <div className="card-face card-back flex flex-col items-center justify-between py-8 px-4">
-                
-                {/* 上半部分：核心词汇展示 */}
-                <div className="flex-1 flex flex-col items-center justify-center w-full gap-1">
+                {/* --- 卡片正面 (Front) --- */}
+                <div className="card-face bg-white border-slate-50 flex flex-col items-center justify-between py-10">
                     
-                    {/* 1. 汉语拼音 */}
-                    {wordInfo[4] && (
-                        <div className="text-2xl font-bold text-indigo-300 font-mono tracking-widest opacity-90">
-                            {wordInfo[4]}
+                    {/* ✅ 修复核心：
+                        1. h-56: 给图片一个固定的、足够大的高度 (约 224px)。
+                        2. shrink-0: 无论屏幕多小，或者下方文字多大，绝对不允许压缩这个高度。
+                        3. mt-auto/mb-auto: 让内容在垂直方向更自然地分布。
+                    */}
+                    <div 
+                        className="h-56 shrink-0 w-full flex items-center justify-center select-none cursor-pointer mt-4"
+                        onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+                    >
+                        {/* 保持 renderMedia 内部的 text-[85px] 不变 */}
+                        <div className="w-full h-full flex items-center justify-center transition-transform active:scale-95">
+                            {renderMedia(wordInfo[0])}
                         </div>
-                    )}
-
-                    {/* 2. 中文汉字 (动态字号) */}
-                    <div className={`font-black text-white leading-tight drop-shadow-md select-none whitespace-nowrap transition-all duration-300 ${
-                        wordInfo[1].length > 4 ? 'text-[42px]' : 
-                        wordInfo[1].length === 4 ? 'text-[54px]' : 
-                        wordInfo[1].length === 3 ? 'text-[64px]' : 
-                        'text-[72px]'
-                    }`}>
-                        {wordInfo[1]}
                     </div>
-                    
-                    {/* 3. 自然拼读/谐音 (保持无背景样式) */}
-                    {wordInfo[2] && (
-                        <div className="text-indigo-200 text-sm font-bold tracking-wider mt-1 opacity-80">
-                            {wordInfo[2]}
+
+                    {/* 单词文本区域 */}
+                    <div className="flex-1 flex flex-col items-center justify-center w-full min-h-0">
+                        <div className="text-[64px] font-black text-slate-800 uppercase tracking-tighter leading-none text-center px-2 drop-shadow-sm">
+                            {currentKey}
                         </div>
-                    )}
+                    </div>
+
+                    {/* 喇叭按钮 */}
+                    <button 
+                        onClick={(e) => { e.stopPropagation(); speak(currentKey); }} 
+                        className="mb-4 w-16 h-16 shrink-0 bg-slate-50 rounded-full flex items-center justify-center text-2xl btn-active border border-slate-100 shadow-sm text-indigo-500"
+                    >
+                        🔊
+                    </button>
                 </div>
 
-                {/* 中间部分：双语例句 (发音优化) */}
-                <div 
-                    onClick={(e) => { 
+                {/* --- 卡片背面 (Back) --- */}
+                <div className="card-face card-back flex flex-col items-center justify-between py-8 px-4">
+                    {/* 上半部分：词汇 */}
+                    <div className="flex-1 flex flex-col items-center justify-center w-full gap-1">
+                        {wordInfo[4] && (
+                            <div className="text-2xl font-bold text-indigo-300 font-mono tracking-widest opacity-90">
+                                {wordInfo[4]}
+                            </div>
+                        )}
+                        <div className={`font-black text-white leading-tight drop-shadow-md select-none whitespace-nowrap transition-all duration-300 ${
+                            wordInfo[1].length > 4 ? 'text-[42px]' : 
+                            wordInfo[1].length === 4 ? 'text-[54px]' : 
+                            wordInfo[1].length === 3 ? 'text-[64px]' : 
+                            'text-[72px]'
+                        }`}>
+                            {wordInfo[1]}
+                        </div>
+                        {wordInfo[2] && (
+                            <div className="text-indigo-200 text-sm font-bold tracking-wider mt-1 opacity-80">
+                                {wordInfo[2]}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* 中间部分：例句 */}
+                    <div 
+                        onClick={(e) => { 
+                            e.stopPropagation(); 
+                            const synth = window.speechSynthesis;
+                            synth.cancel(); 
+                            const uEn = new SpeechSynthesisUtterance(wordInfo[3]); uEn.lang = 'en-US'; uEn.rate = 0.85; 
+                            const uCn = new SpeechSynthesisUtterance(wordInfo[5] || wordInfo[1]); uCn.lang = 'zh-CN'; uCn.rate = 0.85; 
+                            const voices = synth.getVoices();
+                            const mandarinVoice = voices.find(v => v.name.includes('Google') && v.lang.includes('zh-CN')) || voices.find(v => v.name.includes('Microsoft') && v.lang.includes('zh-CN')) || voices.find(v => (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name));
+                            if (mandarinVoice) uCn.voice = mandarinVoice;
+                            synth.speak(uEn); synth.speak(uCn);
+                        }} 
+                        className="w-full bg-white/10 rounded-[24px] p-4 my-4 cursor-pointer active:scale-95 transition-all border border-white/20 hover:bg-white/20 group flex flex-col items-center gap-1.5 shrink-0"
+                    >
+                        <p className="text-white font-bold text-[15px] leading-snug text-center opacity-95 group-hover:opacity-100">"{wordInfo[3]}"</p>
+                        {wordInfo[5] && <p className="text-indigo-200 text-xs font-bold text-center opacity-80">{wordInfo[5]}</p>}
+                    </div>
+
+                    {/* 底部按钮 */}
+                    <button onClick={(e) => { 
                         e.stopPropagation(); 
-                        const synth = window.speechSynthesis;
-                        synth.cancel(); 
-
-                        // 1. 英文例句
-                        const uEn = new SpeechSynthesisUtterance(wordInfo[3]);
-                        uEn.lang = 'en-US';
-                        uEn.rate = 0.85; // 英文慢读
-                        
-                        // 2. 中文翻译 (自然语音优化)
-                        const uCn = new SpeechSynthesisUtterance(wordInfo[5] || wordInfo[1]); 
-                        uCn.lang = 'zh-CN';
-                        uCn.rate = 0.85; // ✅ 中文慢读，更清晰
-
-                        // 智能选择最佳语音包
-                        const voices = synth.getVoices();
-                        const mandarinVoice = 
-                            voices.find(v => v.name.includes('Google') && v.lang.includes('zh-CN')) || 
-                            voices.find(v => v.name.includes('Microsoft') && v.lang.includes('zh-CN')) || 
-                            voices.find(v => v.name.includes('Tingting') && v.lang.includes('zh-CN')) ||
-                            voices.find(v => (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name));
-
-                        if (mandarinVoice) { uCn.voice = mandarinVoice; }
-
-                        synth.speak(uEn);
-                        synth.speak(uCn);
-                    }} 
-                    className="w-full bg-white/10 rounded-[24px] p-4 my-4 cursor-pointer active:scale-95 transition-all border border-white/20 hover:bg-white/20 group flex flex-col items-center gap-1.5"
-                >
-                    <p className="text-white font-bold text-[15px] leading-snug text-center opacity-95 group-hover:opacity-100">
-                        "{wordInfo[3]}"
-                    </p>
-                    {wordInfo[5] && (
-                        <p className="text-indigo-200 text-xs font-bold text-center opacity-80">
-                            {wordInfo[5]}
-                        </p>
-                    )}
-                </div>
-
-                {/* 底部按钮 (保持打勾逻辑) */}
-                <button onClick={(e) => { 
-                    e.stopPropagation(); 
-                    setIsChecking(true); 
-                    playSound('correct');
-                    
-                    setTimeout(() => { 
-                        const isNewWord = !learnedWords.includes(currentKey);
-                        if (isNewWord) {
-                            const newTotalLearned = [...learnedWords, currentKey];
-                            setLearnedWords(newTotalLearned);
-                            
-                            const levelWords = Object.keys(dbData[currentLevel].words);
-                            const lvlCount = newTotalLearned.filter(w => levelWords.includes(w)).length;
-                            if (lvlCount > 0 && lvlCount % 20 === 0) {
-                                const quoteIdx = (parseInt(currentLevel) - 1) * 5 + (Math.floor(idx / 20) - 1);
-                                const quote = MOTIVATIONAL_QUOTES[quoteIdx] || "Keep it up!";
-                                setCurrentQuote(quote);
-                                playSound('star');
-                                triggerStars();
-                                setShowStageClear(true);
-                                setTimeout(() => speak(quote), 500);
+                        setIsChecking(true); playSound('correct');
+                        setTimeout(() => { 
+                            const isNewWord = !learnedWords.includes(currentKey);
+                            if (isNewWord) {
+                                const newTotalLearned = [...learnedWords, currentKey];
+                                setLearnedWords(newTotalLearned);
+                                const lvlCount = newTotalLearned.filter(w => Object.keys(dbData[currentLevel].words).includes(w)).length;
+                                if (lvlCount > 0 && lvlCount % 20 === 0) {
+                                    const quoteIdx = (parseInt(currentLevel) - 1) * 5 + (Math.floor(idx / 20) - 1);
+                                    const quote = MOTIVATIONAL_QUOTES[quoteIdx] || "Keep it up!";
+                                    setCurrentQuote(quote); playSound('star'); triggerStars(); setShowStageClear(true); setTimeout(() => speak(quote), 500);
+                                }
                             }
-                        }
-                        setFlipped(false); 
-                        setIsChecking(false); 
-                        handleNext();
-                    }, 800);
-                }} 
-                className={`w-16 h-16 rounded-full border-4 flex items-center justify-center transition-all shadow-lg ${
-                    (learnedWords.includes(currentKey))
-                        ? 'bg-slate-100 border-slate-300 text-slate-400 hover:bg-emerald-100 hover:border-emerald-200 hover:text-emerald-500' 
-                        : (isChecking ? 'bg-emerald-400 border-emerald-400 scale-110 btn-active' : 'bg-white/20 border-white btn-active') 
-                }`}>
-                    <svg className={`w-8 h-8 ${learnedWords.includes(currentKey) ? 'text-current' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/>
-                    </svg>
-                </button>
-            </div>
-                    </div>
-                    <div className="swipe-hint"><span>← 滑動下個</span><span>回看上個 →</span></div>
-                </div>
-                
-                {/* B. 底部操作栏：固定在底部 */}
-                <div className="w-full flex justify-between px-8 pb-6 mt-4 select-none z-10">
-                    <button 
-                        onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                        className="text-slate-400 hover:text-indigo-600 font-black text-xs uppercase tracking-widest transition-colors py-4 flex items-center gap-1 cursor-pointer active:scale-95"
-                    >
-                        ← PREV
-                    </button>
-                    <button 
-                        onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                        className="text-slate-400 hover:text-indigo-600 font-black text-xs uppercase tracking-widest transition-colors py-4 flex items-center gap-1 cursor-pointer active:scale-95"
-                    >
-                        NEXT →
+                            setFlipped(false); setIsChecking(false); handleNext();
+                        }, 800);
+                    }} className={`w-16 h-16 shrink-0 rounded-full border-4 flex items-center justify-center transition-all shadow-lg ${(learnedWords.includes(currentKey)) ? 'bg-slate-100 border-slate-300 text-slate-400 hover:bg-emerald-100 hover:border-emerald-200 hover:text-emerald-500' : (isChecking ? 'bg-emerald-400 border-emerald-400 scale-110 btn-active' : 'bg-white/20 border-white btn-active')}`}>
+                        <svg className={`w-8 h-8 ${learnedWords.includes(currentKey) ? 'text-current' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/></svg>
                     </button>
                 </div>
             </div>
-        ) : (
-            /* ==========================================
-               2. 测试模式 (Test Mode)
-               ========================================== */
-            <div className="flex-1 flex flex-col w-full h-full px-4">
-                
-                {/* A. 图像区域：flex-1 占据上半部分所有空间，保持居中 */}
-                <div 
-                    className="flex-1 flex items-center justify-center w-full min-h-0 mb-4 select-none cursor-pointer"
-                    onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
-                >
-                    <div className="transform scale-125 transition-transform active:scale-110">
-                        {renderMedia(wordInfo[0])}
-                    </div>
-                </div>
+            <div className="swipe-hint"><span>← 滑動下個</span><span>回看上個 →</span></div>
+        </div>
+        
+        {/* B. 底部操作栏 */}
+        <div className="w-full flex justify-between px-8 pb-6 mt-4 select-none z-10">
+            <button onClick={(e) => { e.stopPropagation(); handlePrev(); }} className="text-slate-400 hover:text-indigo-600 font-black text-xs uppercase tracking-widest transition-colors py-4 flex items-center gap-1 cursor-pointer active:scale-95">← PREV</button>
+            <button onClick={(e) => { e.stopPropagation(); handleNext(); }} className="text-slate-400 hover:text-indigo-600 font-black text-xs uppercase tracking-widest transition-colors py-4 flex items-center gap-1 cursor-pointer active:scale-95">NEXT →</button>
+        </div>
+    </div>
+) : (
+    /* ==========================================
+       2. 测试模式 (Test Mode - 终极防挤压版)
+       ========================================== */
+    <div className="flex-1 flex flex-col w-full h-full px-4 overflow-hidden">
+        {/* A. 图像区域：固定高度 + 禁止压缩 */}
+        <div 
+            className="h-56 shrink-0 flex items-center justify-center w-full mb-4 mt-2 select-none cursor-pointer"
+            onClick={(e) => { e.stopPropagation(); speak(currentKey); }}
+        >
+            <div className="w-full h-full flex items-center justify-center transition-transform active:scale-95">
+                {renderMedia(wordInfo[0])}
+            </div>
+        </div>
 
-                {/* B. 选项区域：固定在底部，不再悬浮在中间 */}
-                <div className="w-full pb-8">
-                    <div className="grid grid-cols-2 gap-4">
-                        {shuffledOptions.map((opt, i) => (
-                            <button key={`${currentKey}-${opt}-${i}`} onClick={() => handleChoice(opt)}
-                                className={`h-20 rounded-[28px] font-black text-lg border-b-[6px] transition-all btn-active shadow-sm flex items-center justify-center ${
-                                    testFeedback === 'correct' && opt === currentKey ? 'bg-emerald-500 text-white border-emerald-700' :
-                                    testFeedback === 'wrong' && opt !== currentKey ? 'bg-rose-50 text-rose-300 border-rose-100' : 
-                                    (testFeedback === 'wrong' && opt === currentKey ? 'bg-emerald-100 text-emerald-500 border-emerald-200' : 'bg-white text-slate-600 border-slate-100')
-                                }`}
-                            >{opt}</button>
-                        ))}
-                    </div>
-                </div>
+        {/* B. 选项区域：flex-1 占据剩余空间 */}
+        <div className="flex-1 w-full pb-6 flex flex-col justify-end">
+            <div className="grid grid-cols-2 gap-4">
+                {shuffledOptions.map((opt, i) => (
+                    <button key={`${currentKey}-${opt}-${i}`} onClick={() => handleChoice(opt)}
+                        className={`min-h-[5rem] p-4 rounded-[28px] font-black text-lg border-b-[6px] transition-all btn-active shadow-sm flex items-center justify-center break-words leading-tight ${
+                            testFeedback === 'correct' && opt === currentKey ? 'bg-emerald-500 text-white border-emerald-700' :
+                            testFeedback === 'wrong' && opt !== currentKey ? 'bg-rose-50 text-rose-300 border-rose-100' : 
+                            (testFeedback === 'wrong' && opt === currentKey ? 'bg-emerald-100 text-emerald-500 border-emerald-200' : 'bg-white text-slate-600 border-slate-100')
+                        }`}
+                    >
+                        <span className="line-clamp-3">{opt}</span>
+                    </button>
+                ))}
             </div>
-        )
+        </div>
+    </div>
+)
     )}
 </div>
 
@@ -2152,5 +2115,6 @@ if (view === 'medals') {
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 

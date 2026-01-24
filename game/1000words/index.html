@@ -960,22 +960,24 @@ const getMyRank = (isLoading) => {
 };
 
 // 自动识别并渲染 Emoji 或 图片
-const renderMedia = (source, sizeClass = "text-[120px]") => {
-    if (!source) return null;
-    const strSource = String(source).trim();
-    const isImage = strSource.includes('/') || strSource.includes('.');
+// 渲染媒体 (图片或Emoji) - 字体大小优化版
+        const renderMedia = (content) => {
+            if (!content) return null;
 
-    if (isImage) {
-        return (
-            <div className="w-[120px] h-[120px] flex items-center justify-center animate-float">
-                <img 
-                    src={strSource} 
-                    className="max-w-full max-h-full object-contain pointer-events-none" 
-                    style={{ filter: 'drop-shadow(0 4px 6px rgba(0,0,0,0.1))' }} 
-                />
-            </div>
-        );
-    }
+            // 1. 如果是图片路径，使用 img 标签
+            if (content.startsWith('./') || content.startsWith('http')) {
+                return <img src={content} alt="word" className="w-full h-full object-contain drop-shadow-sm" />;
+            }
+            
+            // 2. 如果是 Emoji/文本
+            // ✅ 修复：将字号从 85px 提升到 140px
+            // 配合 h-56 (224px) 的容器，140px 能产生很好的视觉填充感，不再显小
+            return (
+                <div className="text-[140px] leading-none filter drop-shadow-sm select-none flex items-center justify-center w-full h-full overflow-visible">
+                    {content}
+                </div>
+            );
+        };
 
     // --- Emoji 逻辑优化 ---
     // 使用 Array.from 准确计算视觉 Emoji 数量
@@ -2115,6 +2117,7 @@ if (view === 'medals') {
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

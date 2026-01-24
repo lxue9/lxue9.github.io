@@ -963,6 +963,7 @@ const getMyRank = (isLoading) => {
 // 渲染媒体 (图片或Emoji) - 字体大小优化版
       // 渲染媒体 (图片或Emoji) - Grid 终极放大版
    // 渲染媒体 (图片或Emoji) - 防重叠适配版
+   / 渲染媒体 (图片或Emoji) - 智能视觉计数版
     const renderMedia = (content) => {
         if (!content) return null;
 
@@ -970,23 +971,35 @@ const getMyRank = (isLoading) => {
             return <img src={content} alt="word" className="w-full h-full object-contain drop-shadow-sm" />;
         }
         
-        const count = Array.from(content).length;
+        // ✅ 核心修复：使用 Intl.Segmenter 获取真实的“视觉字符数”
+        let count = 1;
+        try {
+            // "grapheme" 模式能把 🧑‍🤝‍🧑 这种组合 Emoji 识别为 1 个单位
+            const segmenter = new Intl.Segmenter('en', { granularity: 'grapheme' });
+            count = [...segmenter.segment(content)].length;
+        } catch (e) {
+            // 如果浏览器太老不支持，回退到简单计算 (但做个保底，只要总长度短就当成 1 个)
+            const rawLength = Array.from(content).length;
+            count = rawLength > 4 ? 3 : 1; // 简单粗暴的 fallback
+        }
         
-        // 动态字号调整 (比之前稍微收敛一点，防止撑破容器)
-        const textSizeClass = count === 1 ? 'text-[130px]' :   // 单个: 130px
-                              count === 2 ? 'text-[100px]' :   // 两个: 100px (并排)
-                              'text-[70px]';                   // 多个: 70px
+        // 动态字号调整：
+        // 1 个视觉图标 (ME, US): 给到 150px (巨大)
+        // 2 个视觉图标 (EACH): 给到 110px (并排)
+        // 3 个及以上: 70px
+        const textSizeClass = count === 1 ? 'text-[150px]' : 
+                              count === 2 ? 'text-[110px]' : 
+                              'text-[70px]';
 
         return (
-            <div className="w-full h-full grid place-items-center drop-shadow-sm select-none p-1">
-                {/* whitespace-nowrap 是防止多个 Emoji 换行重叠的关键 */}
+            <div className="w-full h-full grid place-items-center drop-shadow-sm select-none p-1 overflow-visible">
+                {/* overflow-visible 确保大图标边缘不被切掉 */}
                 <span className={`${textSizeClass} leading-none filter transition-all duration-300 whitespace-nowrap`}>
                     {content}
                 </span>
             </div>
         );
     };
-   
 
 // --- ✅ 新增：勋章墙的滚动 Ref 和自动回顶逻辑 ---
    const medalsListRef = React.useRef(null);
@@ -2103,6 +2116,7 @@ if (view === 'medals') {
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 
 
 

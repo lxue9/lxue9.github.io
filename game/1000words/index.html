@@ -714,21 +714,28 @@ React.useEffect(() => {
 
 
 // --- ✅ 新增：监听翻面动作，自动播放中文汉字 ---
+   // --- ✅ 修复：翻面发音优化 (自然语音优先 + 降速) ---
    useEffect(() => {
        if (view === 'card' && flipped && wordInfo) {
            const synth = window.speechSynthesis;
-           // 1. 创建发音对象
+           
+           // 1. 建立发音对象
            const u = new SpeechSynthesisUtterance(wordInfo[1]);
            u.lang = 'zh-CN';
-           
-           // 2. 核心修复：在所有可用语音中，强制找到普通话，排除 HK/TW/Cantonese
+           u.rate = 0.85; // ✅ 语速微降，更像教学发音
+           u.pitch = 1.0; // 音调保持自然
+
+           // 2. 核心修复：更智能的语音包选择逻辑
            const voices = synth.getVoices();
-           const mandarinVoice = voices.find(v => 
-               (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && 
-               !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name) // 排除粤语关键词
-           );
            
-           // 3. 如果找到了普通话包，强制指定
+           // 优先顺序：Google > Microsoft > Apple (Tingting) > 任意普通话
+           // 这样可以避开某些系统默认的低质量语音
+           const mandarinVoice = 
+               voices.find(v => v.name.includes('Google') && v.lang.includes('zh-CN')) || 
+               voices.find(v => v.name.includes('Microsoft') && v.lang.includes('zh-CN')) || 
+               voices.find(v => v.name.includes('Tingting') && v.lang.includes('zh-CN')) ||
+               voices.find(v => (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name));
+           
            if (mandarinVoice) {
                u.voice = mandarinVoice;
            }
@@ -737,7 +744,6 @@ React.useEffect(() => {
            synth.speak(u);
        }
    }, [flipped]);
-
 
 
    const [wrongWords, setWrongWords] = useState(() => JSON.parse(localStorage.getItem('steve_wrong') || '[]'));
@@ -1819,104 +1825,118 @@ if (view === 'medals') {
                         </div>
 
                         {/* 反面 */}
-                        <div className="card-face card-back flex flex-col items-center justify-between py-8 px-4">
-                            {/* 上半部分：词汇 */}
-                            <div className="flex-1 flex flex-col items-center justify-center w-full gap-1">
-                                {wordInfo[4] && (
-                                    <div className="text-2xl font-bold text-indigo-300 font-mono tracking-widest opacity-90">
-                                        {wordInfo[4]}
-                                    </div>
-                                )}
-                                {/* 2. 中文汉字 (WordInfo[1]) - 动态字号适配 + 强制不换行 */}
-<div className={`font-black text-white leading-tight drop-shadow-md select-none whitespace-nowrap transition-all duration-300 ${
-    // 根据汉字长度动态调整字号，确保始终只有一行
-    wordInfo[1].length > 4 ? 'text-[42px]' :  // 5个字及以上 (极少数情况)
-    wordInfo[1].length === 4 ? 'text-[54px]' : // 4个字 (如: 同班同学)
-    wordInfo[1].length === 3 ? 'text-[64px]' : // 3个字 (如: 博物馆)
-    'text-[72px]'                              // 1-2个字 (标准大小)
-}`}>
-    {wordInfo[1]}
-</div>
-                                {wordInfo[2] && (
-                                    <div className="text-indigo-200 text-sm font-bold tracking-wider mt-1 opacity-80">
-                                        {wordInfo[2]}
-                                    </div>
-                                )}
-                            </div>
-
-                            {/* 中间部分：例句 */}
-                            <div 
-                                onClick={(e) => { 
-                                    e.stopPropagation(); 
-                                    const synth = window.speechSynthesis;
-                                    synth.cancel(); 
-                                    const uEn = new SpeechSynthesisUtterance(wordInfo[3]); uEn.lang = 'en-US'; uEn.rate = 0.85; 
-                                    const uCn = new SpeechSynthesisUtterance(wordInfo[5] || wordInfo[1]); uCn.lang = 'zh-CN'; uCn.rate = 0.95; 
-                                    const voices = synth.getVoices();
-                                    const mandarinVoice = voices.find(v => (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name));
-                                    if (mandarinVoice) uCn.voice = mandarinVoice;
-                                    synth.speak(uEn); synth.speak(uCn);
-                                }} 
-                                className="w-full bg-white/10 rounded-[24px] p-4 my-4 cursor-pointer active:scale-95 transition-all border border-white/20 hover:bg-white/20 group flex flex-col items-center gap-1.5"
-                            >
-                                <p className="text-white font-bold text-[15px] leading-snug text-center opacity-95 group-hover:opacity-100">"{wordInfo[3]}"</p>
-                                {wordInfo[5] && <p className="text-indigo-200 text-xs font-bold text-center opacity-80">{wordInfo[5]}</p>}
-                            </div>
-
-                            {/* 底部按钮 */}
-                            <button onClick={(e) => { 
-    e.stopPropagation(); 
-    
-    // 1. 立即触发视觉和听觉反馈 (无论是否已学过)
-    setIsChecking(true); 
-    playSound('correct');
-    
-    setTimeout(() => { 
-        // 2. 核心逻辑判断
-        const isNewWord = !learnedWords.includes(currentKey);
-        
-        if (isNewWord) {
-            // --- 情况 A: 是新词 (没学过) ---
-            const newTotalLearned = [...learnedWords, currentKey];
-            setLearnedWords(newTotalLearned);
-            
-            // 检查里程碑 (仅在新词时触发)
-            const levelWords = Object.keys(dbData[currentLevel].words);
-            const lvlCount = newTotalLearned.filter(w => levelWords.includes(w)).length;
-            
-            // 只有当真正触发了新的进度节点 (20, 40...100) 时才弹窗
-            if (lvlCount > 0 && lvlCount % 20 === 0) {
-                const quoteIdx = (parseInt(currentLevel) - 1) * 5 + (Math.floor(idx / 20) - 1);
-                const quote = MOTIVATIONAL_QUOTES[quoteIdx] || "Keep it up!";
-                setCurrentQuote(quote);
-                playSound('star');
-                triggerStars();
-                setShowStageClear(true);
-                setTimeout(() => speak(quote), 500);
-            }
-        } else {
-            // --- 情况 B: 是旧词 (复习模式) ---
-            // 仅仅是为了过一遍卡片，不更新数据，也不触发弹窗
-            // 保持静默，让用户顺畅进入下一张
-        }
-
-        // 3. 统一收尾动作
-        setFlipped(false); 
-        setIsChecking(false); 
-        handleNext(); // 进入下一张
-    }, 800); // 保持 0.8秒 的动画延迟，体验更丝滑
-}} 
-className={`w-16 h-16 rounded-full border-4 flex items-center justify-center transition-all shadow-lg ${
-    // 样式逻辑：如果已学过(复习模式)，按钮显示灰色但仍可点击；如果是新词，显示绿色
-    (learnedWords.includes(currentKey))
-        ? 'bg-slate-100 border-slate-300 text-slate-400 hover:bg-emerald-100 hover:border-emerald-200 hover:text-emerald-500' // 复习模式样式：默认灰，悬停变绿
-        : (isChecking ? 'bg-emerald-400 border-emerald-400 scale-110 btn-active' : 'bg-white/20 border-white btn-active') 
-}`}>
-    <svg className={`w-8 h-8 ${learnedWords.includes(currentKey) ? 'text-current' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/>
-    </svg>
-</button>
+                        {/* --- 卡片背面 (发音自然优化版) --- */}
+            <div className="card-face card-back flex flex-col items-center justify-between py-8 px-4">
+                
+                {/* 上半部分：核心词汇展示 */}
+                <div className="flex-1 flex flex-col items-center justify-center w-full gap-1">
+                    
+                    {/* 1. 汉语拼音 */}
+                    {wordInfo[4] && (
+                        <div className="text-2xl font-bold text-indigo-300 font-mono tracking-widest opacity-90">
+                            {wordInfo[4]}
                         </div>
+                    )}
+
+                    {/* 2. 中文汉字 (动态字号) */}
+                    <div className={`font-black text-white leading-tight drop-shadow-md select-none whitespace-nowrap transition-all duration-300 ${
+                        wordInfo[1].length > 4 ? 'text-[42px]' : 
+                        wordInfo[1].length === 4 ? 'text-[54px]' : 
+                        wordInfo[1].length === 3 ? 'text-[64px]' : 
+                        'text-[72px]'
+                    }`}>
+                        {wordInfo[1]}
+                    </div>
+                    
+                    {/* 3. 自然拼读/谐音 (保持无背景样式) */}
+                    {wordInfo[2] && (
+                        <div className="text-indigo-200 text-sm font-bold tracking-wider mt-1 opacity-80">
+                            {wordInfo[2]}
+                        </div>
+                    )}
+                </div>
+
+                {/* 中间部分：双语例句 (发音优化) */}
+                <div 
+                    onClick={(e) => { 
+                        e.stopPropagation(); 
+                        const synth = window.speechSynthesis;
+                        synth.cancel(); 
+
+                        // 1. 英文例句
+                        const uEn = new SpeechSynthesisUtterance(wordInfo[3]);
+                        uEn.lang = 'en-US';
+                        uEn.rate = 0.85; // 英文慢读
+                        
+                        // 2. 中文翻译 (自然语音优化)
+                        const uCn = new SpeechSynthesisUtterance(wordInfo[5] || wordInfo[1]); 
+                        uCn.lang = 'zh-CN';
+                        uCn.rate = 0.85; // ✅ 中文慢读，更清晰
+
+                        // 智能选择最佳语音包
+                        const voices = synth.getVoices();
+                        const mandarinVoice = 
+                            voices.find(v => v.name.includes('Google') && v.lang.includes('zh-CN')) || 
+                            voices.find(v => v.name.includes('Microsoft') && v.lang.includes('zh-CN')) || 
+                            voices.find(v => v.name.includes('Tingting') && v.lang.includes('zh-CN')) ||
+                            voices.find(v => (v.lang === 'zh-CN' || v.lang === 'zh-Hans-CN') && !/HK|TW|Cantonese|Sin-ji|Yue/i.test(v.name));
+
+                        if (mandarinVoice) { uCn.voice = mandarinVoice; }
+
+                        synth.speak(uEn);
+                        synth.speak(uCn);
+                    }} 
+                    className="w-full bg-white/10 rounded-[24px] p-4 my-4 cursor-pointer active:scale-95 transition-all border border-white/20 hover:bg-white/20 group flex flex-col items-center gap-1.5"
+                >
+                    <p className="text-white font-bold text-[15px] leading-snug text-center opacity-95 group-hover:opacity-100">
+                        "{wordInfo[3]}"
+                    </p>
+                    {wordInfo[5] && (
+                        <p className="text-indigo-200 text-xs font-bold text-center opacity-80">
+                            {wordInfo[5]}
+                        </p>
+                    )}
+                </div>
+
+                {/* 底部按钮 (保持打勾逻辑) */}
+                <button onClick={(e) => { 
+                    e.stopPropagation(); 
+                    setIsChecking(true); 
+                    playSound('correct');
+                    
+                    setTimeout(() => { 
+                        const isNewWord = !learnedWords.includes(currentKey);
+                        if (isNewWord) {
+                            const newTotalLearned = [...learnedWords, currentKey];
+                            setLearnedWords(newTotalLearned);
+                            
+                            const levelWords = Object.keys(dbData[currentLevel].words);
+                            const lvlCount = newTotalLearned.filter(w => levelWords.includes(w)).length;
+                            if (lvlCount > 0 && lvlCount % 20 === 0) {
+                                const quoteIdx = (parseInt(currentLevel) - 1) * 5 + (Math.floor(idx / 20) - 1);
+                                const quote = MOTIVATIONAL_QUOTES[quoteIdx] || "Keep it up!";
+                                setCurrentQuote(quote);
+                                playSound('star');
+                                triggerStars();
+                                setShowStageClear(true);
+                                setTimeout(() => speak(quote), 500);
+                            }
+                        }
+                        setFlipped(false); 
+                        setIsChecking(false); 
+                        handleNext();
+                    }, 800);
+                }} 
+                className={`w-16 h-16 rounded-full border-4 flex items-center justify-center transition-all shadow-lg ${
+                    (learnedWords.includes(currentKey))
+                        ? 'bg-slate-100 border-slate-300 text-slate-400 hover:bg-emerald-100 hover:border-emerald-200 hover:text-emerald-500' 
+                        : (isChecking ? 'bg-emerald-400 border-emerald-400 scale-110 btn-active' : 'bg-white/20 border-white btn-active') 
+                }`}>
+                    <svg className={`w-8 h-8 ${learnedWords.includes(currentKey) ? 'text-current' : 'text-white'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="4" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </button>
+            </div>
                     </div>
                     <div className="swipe-hint"><span>← 滑動下個</span><span>回看上個 →</span></div>
                 </div>
@@ -2132,4 +2152,5 @@ className={`w-16 h-16 rounded-full border-4 flex items-center justify-center tra
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+
 

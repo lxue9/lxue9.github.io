@@ -1012,15 +1012,22 @@ const renderMedia = (source, sizeClass = "text-[120px]") => {
    const menuListRef = useRef(null);
 
    // --- ✅ 新增：进入菜单页时，自动滚动到顶部 ---
-   React.useEffect(() => {
+ React.useEffect(() => {
        if (view === 'menu') {
-           // 1. 强制整个网页窗口回顶（关键修复：解决标题需要上滑才显示的问题）
-           window.scrollTo(0, 0);
-           
-           // 2. 强制内部列表回顶
-           if (menuListRef.current) {
-               menuListRef.current.scrollTop = 0;
-           }
+           // 使用 setTimeout 增加 100ms 延迟
+           // 这能确保在浏览器渲染完、甚至尝试恢复滚动位置之后，我们再强制把它拉回来
+           setTimeout(() => {
+               // 1. 强制整个网页窗口回顶 (解决标题需上滑才显示的问题)
+               window.scrollTo(0, 0);
+               document.body.scrollTop = 0;
+               document.documentElement.scrollTop = 0;
+               
+               // 2. 强制关卡列表回到最左侧 (因为现在是横向滑动的)
+               if (menuListRef.current) {
+                   menuListRef.current.scrollLeft = 0;
+                   menuListRef.current.scrollTop = 0;
+               }
+           }, 100); 
        }
    }, [view]);
 
@@ -2125,3 +2132,4 @@ className={`w-16 h-16 rounded-full border-4 flex items-center justify-center tra
 <script src="https://fastly.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>
+

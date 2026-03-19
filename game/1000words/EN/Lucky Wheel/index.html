@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Word Quest</title>
+    <title>单词大冒险 - 霓虹灯牌回归版</title>
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -31,31 +31,39 @@
             flex-shrink: 0;
         }
 
-        /* --- 灯牌 --- */
+        /* --- 核心修复：拉斯维加斯三段式灯牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 10px 25px; border-radius: 12px;
+            align-self: center; background: #111; padding: 12px 35px; border-radius: 15px;
             border: 2px solid #333; position: relative; margin-bottom: 5px;
-            display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+            display: flex; flex-direction: column; align-items: center; 
+            box-shadow: 0 5px 25px rgba(0,0,0,0.7); flex-shrink: 0;
         }
-        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 92%; left: 4%; }
-        .bulbs-top { top: 4px; } .bulbs-bottom { bottom: 4px; }
+        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 94%; left: 3%; }
+        .bulbs-top { top: 5px; } .bulbs-bottom { bottom: 5px; }
         .bulb { width: 4px; height: 4px; background: var(--bulb-off); border-radius: 50%; }
         .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
         .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
+        
         @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
         @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .vegas-label { color: var(--vegas-gold); font-size: 9px; font-weight: bold; letter-spacing: 2px; margin-bottom: 2px; }
-        .vegas-number { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 30px; text-shadow: 0 0 12px var(--neon-green); line-height: 1; }
+        .vegas-label { 
+            color: var(--vegas-gold); font-size: 10px; font-weight: 900; 
+            letter-spacing: 2px; text-transform: uppercase; line-height: 1.2;
+        }
+        .vegas-number { 
+            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 34px; 
+            text-shadow: 0 0 15px var(--neon-green); margin: 2px 0; line-height: 1;
+        }
 
         /* --- 容器 --- */
         #menu-screen, #game-screen { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
         #game-screen { display: none; background: var(--bg-dark); }
 
-        /* --- 关卡展示框：位置调高防止挡住 SPIN --- */
+        /* --- 预览框 --- */
         #level-preview { 
-            position: absolute; top: 5%; /* 从18%上移至5% */
-            width: 260px; background: white; border-radius: 20px; padding: 15px; text-align: center; 
+            position: absolute; top: 5%; width: 260px; background: white; 
+            border-radius: 20px; padding: 15px; text-align: center; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.5); 
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1500; pointer-events: none;
         }
@@ -63,8 +71,7 @@
 
         /* --- 转盘 --- */
         .wheel-section { 
-            margin-top: 100px; /* 为上方预览框留出位置 */
-            position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
+            margin-top: 110px; position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
             background: #000; padding: 5px; border-radius: 50%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -118,13 +125,14 @@
         <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
         <div class="vegas-label">ALL MASTERED</div>
         <div class="vegas-number" id="total-known-count">000</div>
+        <div class="vegas-label">WORDS</div>
         <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
     </div>
 
     <div id="menu-screen">
         <div id="level-preview" onclick="enterSelectedLevel()">
             <div style="font-size: 40px;" id="pre-emoji">🧒</div>
-            <div id="pre-name" style="font-weight:900; color:#333; margin:5px 0;">JACKPOT!</div>
+            <div id="pre-name" style="font-weight:900; color:#333; margin:2px 0;">JACKPOT!</div>
             <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/0</div>
             <div style="color:var(--neon-red); font-size:10px; margin-top:5px; font-weight:bold;">TAP TO PLAY</div>
         </div>
@@ -154,16 +162,16 @@
     </div>
 
     <script>
+        let levelKeys = Object.keys(DB);
+        let currentRotation = 0, isSpinning = false, selectedLevelId = null;
+        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
+        let reviewModeType = null;
+
         function createBulbs() {
             const t = document.getElementById('bulbs-t'), b = document.getElementById('bulbs-b');
             for(let i=0; i<8; i++) { t.innerHTML += '<div class="bulb"></div>'; b.innerHTML += '<div class="bulb"></div>'; }
         }
         createBulbs();
-
-        let levelKeys = Object.keys(DB);
-        let currentRotation = 0, isSpinning = false, selectedLevelId = null;
-        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
-        let reviewModeType = null; // null, 'unknown', 'known'
 
         function updateGlobalTotal() {
             let total = 0;
@@ -208,11 +216,23 @@
         }
 
         function showPreview(id) {
-            const level = DB[id], prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index: 0};
+            if(!id) return;
+            const level = DB[id];
+            const prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {known: []};
+            const totalWords = Object.keys(level.words).length;
+            const knownCount = prog.known ? prog.known.length : 0;
+            
             document.getElementById('pre-emoji').innerText = level.levelEmoji;
             document.getElementById('pre-name').innerText = level.levelName.split(': ')[1];
-            document.getElementById('pre-progress').innerText = `${prog.index}/${Object.keys(level.words).length}`;
+            document.getElementById('pre-progress').innerText = `${knownCount}/${totalWords}`;
             document.getElementById('level-preview').classList.add('show');
+        }
+
+        function exitGame() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'flex';
+            updateGlobalTotal();
+            if (currentLevelId) showPreview(currentLevelId);
         }
 
         function startGame(id) {
@@ -237,7 +257,7 @@
             const container = document.getElementById('card-container');
             container.innerHTML = '';
             if (currentIndex >= levelData.length) { 
-                container.innerHTML = `<div style="color:white; font-size:24px;">LEVEL CLEAR! 🏆</div>`;
+                container.innerHTML = `<div style="color:white; font-size:24px; font-family:Monoton;">FINISHED! 🏆</div>`;
                 return; 
             }
             const word = levelData[currentIndex];
@@ -283,17 +303,15 @@
         }
 
         function swipeAction(type, word) {
-            // 核心逻辑：根据当前模式处理单词归类
             if (reviewModeType === 'unknown' && type === 'known') {
-                // 温故模式：向右滑（学会了），移出未知，加入已知
                 listUnknown = listUnknown.filter(w => w.en !== word.en);
                 if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
+                currentIndex++;
             } else if (reviewModeType === 'known' && type === 'unknown') {
-                // 知新模式：向左滑（忘了），移出已知，加入未知
                 listKnown = listKnown.filter(w => w.en !== word.en);
                 if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
+                currentIndex++;
             } else if (reviewModeType === null) {
-                // 正常闯关模式
                 if (type === 'known') {
                     if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
                     listUnknown = listUnknown.filter(w => w.en !== word.en);
@@ -302,26 +320,20 @@
                 }
                 currentIndex++;
             } else {
-                // 复习模式下，如果不符合“转化”条件，仅切换下一张
                 currentIndex++;
             }
 
-            // 保存进度并刷新
-            if (reviewModeType !== null) currentIndex++; // 复习模式也推进索引
-            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: (reviewModeType === null ? currentIndex : JSON.parse(localStorage.getItem(`progress_${currentLevelId}`)).index), unknown: listUnknown, known: listKnown }));
-            updateCounters(); updateGlobalTotal();
+            const currentProg = JSON.parse(localStorage.getItem(`progress_${currentLevelId}`)) || {};
+            const finalIndex = (reviewModeType === null) ? currentIndex : (currentProg.index || 0);
+            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: finalIndex, unknown: listUnknown, known: listKnown }));
+            
+            updateCounters();
             setTimeout(renderNextCard, 200);
         }
 
         function updateCounters() {
             document.getElementById('count-unknown').innerText = listUnknown.length;
             document.getElementById('count-known').innerText = listKnown.length;
-        }
-
-        function exitGame() {
-            document.getElementById('game-screen').style.display = 'none';
-            document.getElementById('menu-screen').style.display = 'flex';
-            updateGlobalTotal();
         }
 
         function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }

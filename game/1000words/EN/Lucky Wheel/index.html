@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>单词大冒险 - 增强版</title>
+    <title>Word Quest</title>
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -30,33 +30,28 @@
             font-family: 'Monoton', cursive; font-size: clamp(24px, 8vw, 34px);
         }
 
-        /* --- 灯牌 --- */
+        /* --- 顶部成绩牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 12px 35px; border-radius: 12px;
-            border: 2px solid #444; position: relative; margin-bottom: 10px;
+            align-self: center; background: #111; padding: 10px 30px; border-radius: 12px;
+            border: 1px solid #444; position: relative; margin-bottom: 5px;
         }
-        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 92%; }
+        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 90%; left: 5%; }
         .bulbs-top { top: 4px; } .bulbs-bottom { bottom: 4px; }
-        .bulb { width: 6px; height: 6px; background: var(--bulb-off); border-radius: 50%; }
+        .bulb { width: 5px; height: 5px; background: var(--bulb-off); border-radius: 50%; }
         .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
         .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
         @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
         @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
-        
-        .vegas-number {
-            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 36px;
-            text-shadow: 0 0 15px var(--neon-green); text-align: center;
-        }
+        .vegas-number { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 32px; text-shadow: 0 0 15px var(--neon-green); }
 
-        /* --- 转盘区 --- */
+        /* --- 主菜单 --- */
         #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .wheel-section { 
             position: relative; width: min(85vw, 380px); aspect-ratio: 1/1;
-            background: linear-gradient(135deg, #222, #000); padding: 8px; border-radius: 50%;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+            background: #000; padding: 8px; border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px #333;
         }
-        .wheel-container { width: 100%; height: 100%; border: 4px solid #111; border-radius: 50%; overflow: hidden; position: relative; }
-        #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
+        #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); border-radius: 50%; }
         .spin-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             width: 70px; height: 70px; background: #000; border-radius: 50%; 
@@ -65,50 +60,50 @@
             box-shadow: 0 0 20px var(--neon-red);
         }
 
-        /* --- 闪卡页面：恢复正方形大尺寸 --- */
-        #game-screen { display: none; flex: 1; flex-direction: column; background: var(--bg-dark); position: relative; }
+        /* --- 闪卡页面 --- */
+        #game-screen { display: none; flex: 1; flex-direction: column; position: relative; }
+        #card-container { flex: 1; display: flex; align-items: center; justify-content: center; perspective: 2000px; padding: 10px; }
         
-        #card-container { 
-            flex: 1; display: flex; align-items: center; justify-content: center; 
-            padding: 10px; perspective: 2000px; 
-        }
-
+        /* 恢复正方形大尺寸 */
         .card-wrapper { 
-            width: min(90vw, 400px); /* 恢复正方形宽度 */
-            aspect-ratio: 1/1;        /* 强制 1:1 正方形 */
+            width: min(88vw, 380px); aspect-ratio: 1/1;
             position: relative; transform-style: preserve-3d;
             transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        
         .card-wrapper.is-flipped { transform: rotateY(180deg); }
 
         .card-face { 
-            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
+            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 35px; 
             backface-visibility: hidden; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            align-items: center; justify-content: center; padding: 25px;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.7);
             border: 8px solid #333;
         }
         .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
 
-        /* --- 底部按钮美化 --- */
+        /* --- 按钮 UI 设计 (温故 & 知新) --- */
         #footer-ui { 
-            height: 100px; display: flex; justify-content: center; gap: 60px;
+            height: 120px; display: flex; justify-content: center; gap: 50px;
             align-items: center; padding-bottom: env(safe-area-inset-bottom);
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
         }
         .collection-btn { 
-            width: 70px; height: 70px; background: rgba(255,255,255,0.1); 
-            border-radius: 50%; display: flex; justify-content: center; align-items: center; 
-            position: relative; backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
+            width: 75px; height: 75px; background: rgba(255,255,255,0.08); 
+            border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            position: relative; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s; cursor: pointer;
         }
-        .btn-unknown { box-shadow: 0 0 15px var(--neon-red); }
-        .btn-known { box-shadow: 0 0 15px var(--vegas-gold); }
+        .btn-unknown { box-shadow: 0 0 15px rgba(255, 0, 60, 0.4); }
+        .btn-known { box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+        .collection-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.2); }
         
+        .btn-label { font-size: 10px; color: #fff; font-weight: bold; margin-top: 2px; letter-spacing: 1px; }
+
         .badge { 
-            position: absolute; top: -5px; right: -5px; background: #fff; color: #000; 
-            min-width: 20px; height: 20px; border-radius: 10px; 
-            display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; 
+            position: absolute; top: -8px; right: -8px; background: #fff; color: #000; 
+            min-width: 24px; height: 24px; border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         #level-preview { 
@@ -118,6 +113,12 @@
             transition: 0.4s; z-index: 500; pointer-events: none;
         }
         #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
+        
+        .exit-btn {
+            position: absolute; top: 15px; left: 15px; z-index: 1000; padding: 8px 15px; 
+            border-radius: 15px; background: rgba(0,0,0,0.4); color: #fff; 
+            border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(5px);
+        }
     </style>
 </head>
 <body>
@@ -135,7 +136,7 @@
             <div style="font-size: 50px;" id="pre-emoji">🧒</div>
             <div id="pre-name" style="font-weight:900; color:#333; margin:10px 0;">JACKPOT!</div>
             <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/0</div>
-            <div style="color:var(--neon-red); font-size:12px; margin-top:15px; font-weight:bold;">CLICK TO START</div>
+            <div style="color:var(--neon-red); font-size:12px; margin-top:10px; font-weight:bold;">START ADVENTURE</div>
         </div>
 
         <div class="wheel-section">
@@ -147,15 +148,24 @@
     </div>
 
     <div id="game-screen">
-        <button onclick="exitGame()" style="position:absolute; top:15px; left:15px; z-index:1000; padding:10px 20px; border-radius:20px; background:rgba(0,0,0,0.5); color:#fff; border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px);">🏠 EXIT</button>
+        <button class="exit-btn" onclick="exitGame()">🏠 EXIT</button>
         <div id="card-container"></div>
         <div id="footer-ui">
-            <div class="collection-btn btn-unknown" onclick="startReview('unknown')"><span style="font-size:30px;">🎒</span><div class="badge" id="count-unknown">0</div></div>
-            <div class="collection-btn btn-known" onclick="startReview('known')"><span style="font-size:30px;">⭐</span><div class="badge" id="count-known">0</div></div>
+            <div class="collection-btn btn-unknown" onclick="startReview('unknown')">
+                <span style="font-size:28px;">🎒</span>
+                <div class="btn-label">温故</div>
+                <div class="badge" id="count-unknown">0</div>
+            </div>
+            <div class="collection-btn btn-known" onclick="startReview('known')">
+                <span style="font-size:28px;">⭐</span>
+                <div class="btn-label">知新</div>
+                <div class="badge" id="count-known">0</div>
+            </div>
         </div>
     </div>
 
     <script>
+        // 基础初始化
         function createBulbs() {
             const t = document.getElementById('bulbs-t'), b = document.getElementById('bulbs-b');
             for(let i=0; i<8; i++) { t.innerHTML += '<div class="bulb"></div>'; b.innerHTML += '<div class="bulb"></div>'; }
@@ -164,6 +174,8 @@
 
         let levelKeys = Object.keys(DB);
         let currentRotation = 0, isSpinning = false, selectedLevelId = null;
+        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
+        let isReviewMode = false; // 复习模式标记
 
         function updateGlobalTotal() {
             let total = 0;
@@ -177,6 +189,7 @@
             document.getElementById('total-known-count').innerText = total.toString().padStart(3, '0');
         }
 
+        // 绘制转盘
         function drawWheel() {
             const canvas = document.getElementById('wheel');
             const ctx = canvas.getContext('2d');
@@ -188,7 +201,7 @@
                 const angle = i * arc - Math.PI/2;
                 ctx.beginPath(); ctx.fillStyle = colors[i % colors.length];
                 ctx.moveTo(0, 0); ctx.arc(0, 0, size/2, angle, angle + arc); ctx.fill();
-                ctx.strokeStyle = "rgba(255,204,0,0.2)"; ctx.lineWidth = 2; ctx.stroke();
+                ctx.strokeStyle = "rgba(255,204,0,0.15)"; ctx.lineWidth = 1; ctx.stroke();
                 ctx.save(); ctx.rotate(angle + arc/2);
                 ctx.font = "80px Apple Color Emoji, Segoe UI Emoji"; ctx.textAlign = "center";
                 ctx.fillText(DB[key].levelEmoji, size/2 * 0.7, 25); ctx.restore();
@@ -217,25 +230,40 @@
             document.getElementById('level-preview').classList.add('show');
         }
 
-        // --- 闪卡核心修复逻辑 ---
-        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
+        // --- 核心逻辑 ---
 
         function startGame(id) {
             currentLevelId = id;
+            isReviewMode = false;
             const wordsObj = DB[id].words;
             levelData = Object.keys(wordsObj).map(key => ({ en: key, emoji: wordsObj[key][0], cn: wordsObj[key][1], py: wordsObj[key][4] }));
             const saved = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index:0, unknown:[], known:[]};
             currentIndex = saved.index; listUnknown = saved.unknown; listKnown = saved.known;
+            
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'flex';
             renderNextCard(); updateCounters();
+        }
+
+        // 【功能】温故 & 知新
+        function startReview(type) {
+            const list = (type === 'unknown') ? listUnknown : listKnown;
+            if (list.length === 0) {
+                alert(type === 'unknown' ? "书包空空的，继续闯关吧！" : "还没有获得星星哦！");
+                return;
+            }
+            isReviewMode = true;
+            levelData = [...list];
+            currentIndex = 0;
+            renderNextCard();
         }
 
         function renderNextCard() {
             const container = document.getElementById('card-container');
             container.innerHTML = '';
             if (currentIndex >= levelData.length) { 
-                container.innerHTML = '<div style="color:white; font-size:32px; font-family:Monoton;">JACKPOT! 🏆</div>'; 
+                container.innerHTML = `<div style="text-align:center;"><div style="color:white; font-size:32px; font-family:Monoton;">${isReviewMode ? 'REVIEW DONE!' : 'JACKPOT!'} 🏆</div>
+                <button onclick="exitGame()" style="margin-top:20px; padding:10px 20px; border-radius:10px;">BACK TO MENU</button></div>`; 
                 return; 
             }
             const word = levelData[currentIndex];
@@ -243,34 +271,26 @@
             wrapper.className = 'card-wrapper';
             wrapper.innerHTML = `
                 <div class="card-face card-front"><div style="font-size:52px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
-                <div class="card-face card-back"><div style="font-size:80px;">${word.emoji}</div><div style="font-size:36px; font-weight:900; color:#333; margin:15px 0;">${word.cn}</div><div style="color:#888; font-size:20px;">${word.py}</div></div>`;
+                <div class="card-face card-back"><div style="font-size:85px;">${word.emoji}</div><div style="font-size:36px; font-weight:900; color:#333; margin:15px 0;">${word.cn}</div><div style="color:#888; font-size:20px;">${word.py}</div></div>`;
             
             container.appendChild(wrapper);
             speak(word.en, 'en-US');
 
-            // 翻面逻辑：独立 onclick 确保 100% 成功
-            wrapper.onclick = function(e) {
-                // 如果当前没有在滑动，则翻面
+            wrapper.onclick = function() {
                 if (this.dataset.dragging !== 'true') {
                     this.classList.toggle('is-flipped');
                     if (this.classList.contains('is-flipped')) speak(word.cn, 'zh-CN');
                 }
             };
-
-            // 滑动逻辑
             initSwipe(wrapper, word);
         }
 
         function initSwipe(el, word) {
             let startX = 0, currentX = 0, startTime = 0;
-
             const onStart = (e) => {
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-                startTime = Date.now();
-                el.dataset.dragging = 'false';
-                el.style.transition = 'none';
+                startTime = Date.now(); el.dataset.dragging = 'false'; el.style.transition = 'none';
             };
-
             const onMove = (e) => {
                 if (startTime === 0) return;
                 let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
@@ -281,42 +301,39 @@
                     el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${currentX * 0.05}deg)`;
                 }
             };
-
             const onEnd = () => {
                 if (startTime === 0) return;
-                el.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                
-                if (currentX > 120) {
-                    swipeFinish('known', word);
-                } else if (currentX < -120) {
-                    swipeFinish('unknown', word);
-                } else {
+                el.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                if (currentX > 120) swipeFinish('known', word);
+                else if (currentX < -120) swipeFinish('unknown', word);
+                else {
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
                     el.style.transform = `rotateY(${rotY}deg)`;
                 }
-                
-                // 延迟重置拖拽标记，防止触发 onclick
                 setTimeout(() => { el.dataset.dragging = 'false'; }, 50);
                 startTime = 0; currentX = 0;
             };
-
             el.addEventListener('mousedown', onStart); el.addEventListener('touchstart', onStart);
             window.addEventListener('mousemove', onMove); window.addEventListener('touchmove', onMove);
             window.addEventListener('mouseup', onEnd); window.addEventListener('touchend', onEnd);
         }
 
         function swipeFinish(type, word) {
-            if (type === 'known') { 
-                if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
-                listUnknown = listUnknown.filter(i => i.en !== word.en); 
-            } else { 
-                if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
+            // 如果是非复习模式，更新进度
+            if (!isReviewMode) {
+                if (type === 'known') { 
+                    if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
+                    listUnknown = listUnknown.filter(i => i.en !== word.en); 
+                } else { 
+                    if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
+                }
+                currentIndex++;
+                localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
+            } else {
+                // 复习模式仅切换下一张
+                currentIndex++;
             }
-            currentIndex++;
-            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
-            updateCounters(); 
-            setTimeout(renderNextCard, 200);
-            updateGlobalTotal();
+            updateCounters(); setTimeout(renderNextCard, 200); updateGlobalTotal();
         }
 
         function updateCounters() {
@@ -332,6 +349,7 @@
 
         function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
         function speak(t, l) { window.speechSynthesis.cancel(); const m = new SpeechSynthesisUtterance(t); m.lang = l; window.speechSynthesis.speak(m); }
+        
         window.onload = () => { drawWheel(); updateGlobalTotal(); };
     </script>
 </body>

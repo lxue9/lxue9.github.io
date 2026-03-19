@@ -25,58 +25,55 @@
         }
 
         header {
-            text-align: center; padding: 5px 0; color: white;
+            text-align: center; padding: 10px 0; color: white;
             text-shadow: 0 0 10px var(--neon-red);
-            font-family: 'Monoton', cursive; font-size: clamp(16px, 4vw, 22px);
+            font-family: 'Monoton', cursive; font-size: clamp(18px, 5vw, 24px);
             flex-shrink: 0;
         }
 
-        /* --- 恢复：拉斯维加斯 UI 效果 --- */
+        /* --- 恢复：并排式 Vegas 灯牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 10px 40px; border-radius: 15px;
-            border: 3px solid #222; position: relative; margin-bottom: 5px;
+            align-self: center; background: #111; padding: 15px 30px; border-radius: 15px;
+            border: 2px solid #333; position: relative; margin-bottom: 5px;
             display: flex; flex-direction: column; align-items: center; 
-            box-shadow: 0 0 30px rgba(0,0,0,0.8), inset 0 0 10px #000; flex-shrink: 0;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.8); flex-shrink: 0;
         }
         .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 94%; left: 3%; }
-        .bulbs-top { top: 4px; } .bulbs-bottom { bottom: 4px; }
-        .bulb { width: 5px; height: 5px; background: var(--bulb-off); border-radius: 50%; }
-        .bulb:nth-child(odd) { animation: flash-1 0.5s infinite alternate; }
-        .bulb:nth-child(even) { animation: flash-2 0.5s infinite alternate-reverse; }
+        .bulbs-top { top: 6px; } .bulbs-bottom { bottom: 6px; }
+        .bulb { width: 4px; height: 4px; background: var(--bulb-off); border-radius: 50%; }
+        .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
+        .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
         
-        @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 10px var(--vegas-gold); } }
-        @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 10px var(--vegas-gold); } to { background: var(--bulb-off); } }
+        @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
+        @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .label-top { 
+        .vegas-label { 
             color: var(--vegas-gold); font-size: 11px; font-weight: 900; 
-            letter-spacing: 3px; text-transform: uppercase; margin-bottom: 2px;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
         }
         .vegas-number { 
-            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 38px; 
-            text-shadow: 0 0 20px var(--neon-green), 0 0 5px #fff; line-height: 1; margin: 4px 0;
+            display: flex; align-items: baseline; /* 确保数字和单位对齐底线 */
+            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; 
+            text-shadow: 0 0 15px var(--neon-green); line-height: 1;
         }
-        /* WORDS 恢复之前的 UI：金色窄边框风格 */
-        .label-bottom { 
-            color: var(--vegas-gold); font-size: 10px; font-weight: bold;
-            border: 1px solid var(--vegas-gold); padding: 1px 12px; border-radius: 10px;
-            letter-spacing: 5px; text-transform: uppercase; margin-top: 2px;
-            box-shadow: inset 0 0 5px rgba(255,204,0,0.3), 0 0 5px rgba(255,204,0,0.3);
+        .vegas-unit {
+            font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One';
         }
 
-        /* --- 容器布局 --- */
+        /* --- 布局容器 --- */
         #menu-screen, #game-screen { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
         #game-screen { display: none; background: var(--bg-dark); }
 
         #level-preview { 
-            position: absolute; top: 4%; width: 260px; background: white; 
+            position: absolute; top: 5%; width: 260px; background: white; 
             border-radius: 20px; padding: 15px; text-align: center; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.9); opacity: 0; transform: scale(0.5); 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.5); 
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1500; pointer-events: none;
         }
         #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
 
         .wheel-section { 
-            margin-top: 105px; position: relative; width: min(78vw, 330px); aspect-ratio: 1/1;
+            margin-top: 110px; position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
             background: #000; padding: 5px; border-radius: 50%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
@@ -90,34 +87,34 @@
         }
 
         /* --- 闪卡 --- */
-        #card-container { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; perspective: 2000px; padding: 15px; margin-bottom: 90px; }
+        #card-container { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; perspective: 2000px; padding: 15px; margin-bottom: 100px; }
         .card-wrapper { width: min(85vw, 360px); aspect-ratio: 1/1; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
         .card-wrapper.is-flipped { transform: rotateY(180deg); }
         .card-face { 
             position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
             backface-visibility: hidden; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; padding: 25px;
-            border: 6px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border: 6px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
         .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
 
         /* --- 底部 UI --- */
         #footer-ui { 
             position: fixed; bottom: 0; left: 0; right: 0; height: 100px;
-            display: flex; justify-content: center; gap: 45px; align-items: center; z-index: 2000;
+            display: flex; justify-content: center; gap: 40px; align-items: center; z-index: 2000;
             padding-bottom: max(15px, env(safe-area-inset-bottom));
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
             pointer-events: none;
         }
         .collection-btn { 
-            pointer-events: auto; width: 72px; height: 72px; background: rgba(255,255,255,0.08); 
-            border-radius: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            pointer-events: auto; width: 70px; height: 70px; background: rgba(255,255,255,0.08); 
+            border-radius: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: 0.2s; position: relative;
         }
-        .btn-unknown { box-shadow: 0 0 15px var(--neon-red); }
-        .btn-known { box-shadow: 0 0 15px var(--vegas-gold); }
+        .btn-unknown { box-shadow: 0 0 12px var(--neon-red); }
+        .btn-known { box-shadow: 0 0 12px var(--vegas-gold); }
         .btn-label { font-size: 10px; color: #fff; font-weight: bold; margin-top: 2px; }
-        .badge { position: absolute; top: -6px; right: -6px; background: #fff; color: #000; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
+        .badge { position: absolute; top: -6px; right: -6px; background: #fff; color: #000; min-width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
         .exit-btn { position: absolute; top: 15px; left: 15px; z-index: 2500; padding: 6px 12px; border-radius: 10px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #444; font-size: 12px; }
     </style>
@@ -128,9 +125,11 @@
 
     <div class="vegas-sign">
         <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
-        <div class="label-top">ALL MASTERED</div>
-        <div class="vegas-number" id="total-known-count">000</div>
-        <div class="label-bottom">WORDS</div>
+        <div class="vegas-label">ALL MASTERED</div>
+        <div class="vegas-number">
+            <span id="total-known-count">000</span>
+            <span class="vegas-unit">WORDS</span>
+        </div>
         <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
     </div>
 
@@ -154,12 +153,12 @@
         <div id="card-container"></div>
         <div id="footer-ui">
             <div class="collection-btn btn-unknown" onclick="startReview('unknown')">
-                <span style="font-size:26px;">🎒</span>
+                <span style="font-size:24px;">🎒</span>
                 <div class="btn-label">温故</div>
                 <div class="badge" id="count-unknown">0</div>
             </div>
             <div class="collection-btn btn-known" onclick="startReview('known')">
-                <span style="font-size:26px;">⭐</span>
+                <span style="font-size:24px;">⭐</span>
                 <div class="btn-label">知新</div>
                 <div class="badge" id="count-known">0</div>
             </div>
@@ -178,7 +177,6 @@
         }
         createBulbs();
 
-        // --- 核心：实时计算全关卡已认识总数 ---
         function updateGlobalTotal() {
             let total = 0;
             for (let i = 0; i < localStorage.length; i++) {
@@ -190,9 +188,7 @@
                     } catch(e) {}
                 }
             }
-            // 带有动画感的数字更新
-            const display = document.getElementById('total-known-count');
-            display.innerText = total.toString().padStart(3, '0');
+            document.getElementById('total-known-count').innerText = total.toString().padStart(3, '0');
         }
 
         function drawWheel() {
@@ -292,7 +288,7 @@
                 if (startTime === 0) return;
                 let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 currentX = x - startX;
-                if (Math.abs(currentX) > 10) {
+                if (Math.abs(currentX) > 5) {
                     el.dataset.dragging = 'true';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
                     el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${currentX * 0.05}deg)`;
@@ -301,8 +297,8 @@
             const onEnd = () => {
                 if (startTime === 0) return;
                 el.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                if (currentX > 110) swipeAction('known', word);
-                else if (currentX < -110) swipeAction('unknown', word);
+                if (currentX > 60) swipeAction('known', word);
+                else if (currentX < -60) swipeAction('unknown', word);
                 else { let rotY = el.classList.contains('is-flipped') ? 180 : 0; el.style.transform = `rotateY(${rotY}deg)`; }
                 setTimeout(() => { el.dataset.dragging = 'false'; }, 50);
                 startTime = 0; currentX = 0;
@@ -338,7 +334,7 @@
             localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: finalIndex, unknown: listUnknown, known: listKnown }));
             
             updateCounters();
-            updateGlobalTotal(); // 这里是关键：实时更新顶部大奖数字
+            updateGlobalTotal();
             setTimeout(renderNextCard, 200);
         }
 

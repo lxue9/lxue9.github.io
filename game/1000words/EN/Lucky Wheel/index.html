@@ -3,126 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Flash Card Challenge</title>
+    <title>Word Quest</title>
+    <!-- 修正路径 -->
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0a0a12;
             --vegas-gold: #ffcc00;
-            --neon-red: #ff003c; /* 强烈的红外霓虹感 */
+            --neon-red: #ff003c;
             --neon-green: #2ecc71;
             --bulb-off: #443300;
             --metal-gloss: linear-gradient(135deg, #333 0%, #000 50%, #222 100%);
         }
 
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
         
         body {
             margin: 0; padding: 0;
             font-family: 'Nunito', sans-serif;
             background: radial-gradient(circle at center, #1e1e30 0%, var(--bg-dark) 100%);
-            height: 100vh; overflow: hidden;
+            height: 100vh; height: -webkit-fill-available;
+            overflow: hidden;
             display: flex; flex-direction: column;
         }
 
         header {
-            text-align: center; padding: 15px 0 5px 0; color: white;
-            text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
-            font-family: 'Monoton', cursive; font-size: 34px; letter-spacing: 4px;
+            text-align: center; padding: 10px 0; color: white;
+            text-shadow: 0 0 10px var(--neon-red);
+            font-family: 'Monoton', cursive; font-size: clamp(24px, 8vw, 34px);
         }
 
-        /* --- 经典点阵灯牌 (已回退) --- */
+        /* --- 拉斯维加斯灯牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 15px 40px; border-radius: 10px;
-            border: 4px solid #333; position: relative;
-            box-shadow: 0 0 0 4px #222, 0 0 20px rgba(255, 204, 0, 0.3), 0 10px 30px rgba(0,0,0,0.8);
-            margin-bottom: 25px; display: flex; flex-direction: column; align-items: center;
+            align-self: center; background: #111; padding: 10px 30px; border-radius: 10px;
+            border: 3px solid #333; position: relative;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+            margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;
+            width: fit-content;
         }
-        .bulbs-row { position: absolute; display: flex; justify-content: space-between; width: calc(100% - 10px); }
-        .bulbs-top { top: 4px; }
-        .bulbs-bottom { bottom: 4px; }
-        .bulb { width: 8px; height: 8px; background: var(--bulb-off); border-radius: 50%; transition: all 0.2s; }
+        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 95%; }
+        .bulbs-top { top: 3px; } .bulbs-bottom { bottom: 3px; }
+        .bulb { width: 6px; height: 6px; background: var(--bulb-off); border-radius: 50%; }
         .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
         .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
-        @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px #fff, 0 0 15px var(--vegas-gold); } }
-        @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px #fff, 0 0 15px var(--vegas-gold); } to { background: var(--bulb-off); } }
+        @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
+        @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .vegas-label { color: var(--vegas-gold); font-family: 'Fredoka One'; font-size: 13px; letter-spacing: 2px; margin-bottom: 5px; opacity: 0.9; }
+        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: bold; margin-bottom: 2px; }
         .vegas-number {
-            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; letter-spacing: 2px;
-            text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
-            display: flex; align-items: baseline;
+            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 32px;
+            text-shadow: 0 0 10px var(--neon-green);
         }
 
-        /* --- 优化：金属+霓虹转盘 --- */
-        #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+        /* --- 适配：圆润且完整的转盘 --- */
+        #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 20px; }
         
         .wheel-section { 
-            position: relative; width: 400px; height: 400px; max-width: 92vw;
-            background: var(--metal-gloss); /* 金属感外壳 */
-            padding: 10px; border-radius: 50%;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.8), inset 0 2px 5px rgba(255,255,255,0.2);
+            position: relative; 
+            width: min(85vw, 400px); /* 宽度取屏幕85%或最大400px */
+            aspect-ratio: 1/1; /* 强制锁定正圆比例 */
+            background: var(--metal-gloss);
+            padding: 8px; border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            flex-shrink: 0; /* 防止被压缩 */
         }
 
         .wheel-container { 
-            width: 100%; height: 100%; border: 8px solid #111; border-radius: 50%; 
+            width: 100%; height: 100%; border: 6px solid #111; border-radius: 50%; 
             background: #000; overflow: hidden; position: relative; 
-            box-shadow: inset 0 0 20px #000;
         }
 
-        #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
+        #wheel { width: 100%; height: 100%; display: block; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
 
-        /* 红外霓虹射灯按钮 */
         .spin-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 85px; height: 85px; background: #111; border-radius: 50%; 
+            width: 70px; height: 70px; background: #111; border-radius: 50%; 
             border: 3px solid var(--neon-red); z-index: 40; 
             display: flex; align-items: center; justify-content: center; 
-            font-size: 28px; font-weight: 900; color: #fff; cursor: pointer;
-            font-family: 'Fredoka One';
-            /* 模拟强烈红外射灯效果 */
-            box-shadow: 
-                0 0 15px var(--neon-red), 
-                0 0 30px var(--neon-red),
-                inset 0 0 12px var(--neon-red);
-            text-shadow: 0 0 10px #fff;
-            animation: infrared-glow 1.5s infinite;
-        }
-        @keyframes infrared-glow {
-            0% { box-shadow: 0 0 15px var(--neon-red), 0 0 30px var(--neon-red), inset 0 0 12px var(--neon-red); transform: translate(-50%, -50%) scale(1); }
-            50% { box-shadow: 0 0 25px var(--neon-red), 0 0 50px var(--neon-red), inset 0 0 20px var(--neon-red); transform: translate(-50%, -50%) scale(1.05); }
-            100% { box-shadow: 0 0 15px var(--neon-red), 0 0 30px var(--neon-red), inset 0 0 12px var(--neon-red); transform: translate(-50%, -50%) scale(1); }
+            font-size: 22px; color: #fff; cursor: pointer; font-family: 'Fredoka One';
+            box-shadow: 0 0 20px var(--neon-red);
         }
 
         .pointer { 
-            position: absolute; top: -20px; left: 50%; transform: translateX(-50%); 
-            width: 40px; height: 50px; background: #fff; 
-            clip-path: polygon(50% 100%, 0 0, 100% 0); z-index: 30; 
-            filter: drop-shadow(0 0 10px var(--neon-red));
+            position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
+            width: 30px; height: 40px; background: #fff; z-index: 30;
+            clip-path: polygon(50% 100%, 0 0, 100% 0); filter: drop-shadow(0 0 5px var(--neon-red));
         }
 
-        /* 预览卡片 (Jackpot 风格) */
-        #level-preview { 
-            position: absolute; top: -30px; width: 280px; background: white; 
-            border: 6px solid var(--vegas-gold); border-radius: 25px; padding: 15px; 
-            text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); 
-            opacity: 0; transform: scale(0.5); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            pointer-events: none; z-index: 100; 
+        /* --- 适配：闪卡与底部 UI --- */
+        #game-screen { display: none; flex: 1; flex-direction: column; position: relative; background: #f4f4f4; height: 100%; }
+        
+        #card-container { 
+            flex: 1; /* 自动占据剩余空间 */
+            display: flex; align-items: center; justify-content: center;
+            width: 100%; padding: 20px; perspective: 1200px;
         }
-        #level-preview.show { opacity: 1; transform: scale(1) translateY(-20px); pointer-events: auto; }
 
-        /* 游戏界面 */
-        #game-screen { display: none; flex: 1; position: relative; width: 100%; background: #f4f4f4; }
-        .back-btn { position: absolute; top: 15px; left: 15px; z-index: 110; background: #333; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; }
-        #card-container { position: absolute; top: 10%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 380px; height: 60%; perspective: 1200px; }
-        .card-wrapper { position: absolute; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; }
-        .card-face { position: absolute; width: 100%; height: 100%; background: white; border-radius: 30px; border: 6px solid #333; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; box-shadow: 0 10px 0 #ddd; }
-        .card-front .word-text { font-size: 52px; font-family: 'Fredoka One'; color: #333; }
+        .card-wrapper { 
+            width: 100%; max-width: 340px; height: 100%; max-height: 450px;
+            position: relative; transform-style: preserve-3d; transition: transform 0.4s; 
+        }
+        .card-face { 
+            position: absolute; width: 100%; height: 100%; background: white; border-radius: 25px; 
+            border: 5px solid #333; backface-visibility: hidden; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+        }
         .card-back { transform: rotateY(180deg); }
-        #footer-ui { position: absolute; bottom: 30px; width: 100%; display: flex; justify-content: space-between; padding: 0 45px; }
-        .collection-btn { width: 80px; height: 80px; background: white; border: 5px solid #333; border-radius: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
-        .badge { position: absolute; top: -12px; right: -12px; background: var(--neon-red); color: white; min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: 3px solid white; font-weight: 900; }
+
+        #footer-ui { 
+            height: 120px; width: 100%; display: flex; justify-content: space-around; 
+            align-items: center; background: rgba(0,0,0,0.05); padding-bottom: env(safe-area-inset-bottom);
+        }
+        .collection-btn { 
+            width: 70px; height: 70px; background: white; border: 4px solid #333; 
+            border-radius: 18px; display: flex; justify-content: center; align-items: center; position: relative; 
+        }
+
+        #level-preview { 
+            position: absolute; top: 10%; width: 260px; background: white; 
+            border: 5px solid var(--vegas-gold); border-radius: 20px; padding: 15px; 
+            text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); 
+            opacity: 0; transform: scale(0.5); transition: 0.4s; z-index: 100;
+        }
+        #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
     </style>
 </head>
 <body>
@@ -132,19 +136,16 @@
     <div class="vegas-sign">
         <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
         <div class="vegas-label">ALL MASTERED</div>
-        <div class="vegas-number">
-            <span id="total-known-count">000</span>
-            <span class="vegas-unit" style="font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One';">WORDS</span>
-        </div>
+        <div class="vegas-number" id="total-known-count">000</div>
         <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
     </div>
 
     <div id="menu-screen">
         <div id="level-preview" onclick="enterSelectedLevel()">
-            <div style="font-size: 50px; margin-bottom: 5px;" id="pre-emoji">🧒</div>
-            <div style="font-size: 22px; font-weight: 900; color: #333;" id="pre-name">JACKPOT!</div>
-            <div style="font-size: 18px; color: #666; font-family: 'Orbitron';" id="pre-progress">0/100</div>
-            <div style="font-size: 14px; color: var(--neon-red); font-weight: 900; margin-top: 10px; letter-spacing: 1px;">TAP TO START</div>
+            <div style="font-size: 40px;" id="pre-emoji">🧒</div>
+            <div id="pre-name" style="font-weight:900;">JACKPOT!</div>
+            <div id="pre-progress" style="font-family:'Orbitron';">0/100</div>
+            <div style="color:var(--neon-red); font-size:12px; margin-top:5px;">TAP TO START</div>
         </div>
 
         <div class="wheel-section">
@@ -157,7 +158,7 @@
     </div>
 
     <div id="game-screen">
-        <button class="back-btn" onclick="exitGame()">🏠 EXIT</button>
+        <button class="back-btn" onclick="exitGame()" style="position:absolute; top:10px; left:10px; z-index:200; padding:8px 15px; border-radius:15px; background:#333; color:#fff; border:none;">🏠 EXIT</button>
         <div id="card-container"></div>
         <div id="footer-ui">
             <div class="collection-btn" onclick="startReview('unknown')"><span>🎒</span><div class="badge" id="count-unknown">0</div></div>
@@ -166,14 +167,9 @@
     </div>
 
     <script>
-        // 生成灯泡
         function createBulbs() {
-            const topRow = document.getElementById('bulbs-t');
-            const botRow = document.getElementById('bulbs-b');
-            for(let i=0; i<10; i++) {
-                topRow.innerHTML += '<div class="bulb"></div>';
-                botRow.innerHTML += '<div class="bulb"></div>';
-            }
+            const t = document.getElementById('bulbs-t'), b = document.getElementById('bulbs-b');
+            for(let i=0; i<8; i++) { t.innerHTML += '<div class="bulb"></div>'; b.innerHTML += '<div class="bulb"></div>'; }
         }
         createBulbs();
 
@@ -186,48 +182,32 @@
                 const key = localStorage.key(i);
                 if (key.startsWith('progress_')) {
                     const data = JSON.parse(localStorage.getItem(key));
-                    if (data && data.known) total += data.known.length;
+                    if (data?.known) total += data.known.length;
                 }
             }
             document.getElementById('total-known-count').innerText = total.toString().padStart(3, '0');
         }
 
-        // 优化转盘：金属配色+黄金边框
         function drawWheel() {
             const canvas = document.getElementById('wheel');
             const ctx = canvas.getContext('2d');
-            const size = 400; canvas.width = size; canvas.height = size;
-            const num = levelKeys.length;
-            const arc = (2 * Math.PI) / num;
-            
-            // 深色系金属扇区配色
+            const size = 800; // 使用高倍率绘制防止模糊
+            canvas.width = size; canvas.height = size;
+            const arc = (2 * Math.PI) / levelKeys.length;
             const metalColors = ["#1a1a1a", "#262626", "#0f0f0f", "#333333", "#111111"];
             
             ctx.translate(size/2, size/2);
             levelKeys.forEach((key, i) => {
                 const angle = i * arc - Math.PI/2;
-                
-                // 绘制扇区
                 ctx.beginPath();
                 ctx.fillStyle = metalColors[i % metalColors.length];
-                ctx.moveTo(0, 0);
-                ctx.arc(0, 0, size/2, angle, angle + arc);
+                ctx.moveTo(0, 0); ctx.arc(0, 0, size/2, angle, angle + arc);
                 ctx.fill();
-                
-                // 绘制分割金线
-                ctx.strokeStyle = "rgba(255, 204, 0, 0.4)";
-                ctx.lineWidth = 2;
-                ctx.stroke();
-
-                // 绘制 Emoji
+                ctx.strokeStyle = "rgba(255,204,0,0.3)"; ctx.lineWidth = 4; ctx.stroke();
                 ctx.save();
                 ctx.rotate(angle + arc/2);
-                ctx.font = "42px Apple Color Emoji, Segoe UI Emoji";
-                ctx.textAlign = "center";
-                ctx.textBaseline = "middle";
-                ctx.shadowColor = "rgba(0,0,0,0.8)";
-                ctx.shadowBlur = 10;
-                ctx.fillText(DB[key].levelEmoji, size/2 * 0.72, 0);
+                ctx.font = "80px Apple Color Emoji, Segoe UI Emoji";
+                ctx.textAlign = "center"; ctx.fillText(DB[key].levelEmoji, size/2 * 0.7, 25);
                 ctx.restore();
             });
         }
@@ -236,114 +216,104 @@
             if (isSpinning) return;
             isSpinning = true;
             document.getElementById('level-preview').classList.remove('show');
-            const rand = 1800 + Math.floor(Math.random() * 360);
-            currentRotation += rand;
+            currentRotation += 1800 + Math.floor(Math.random() * 360);
             document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
             setTimeout(() => {
                 isSpinning = false;
                 const deg = (360 - (currentRotation % 360)) % 360;
-                const idx = Math.floor(deg / (360 / levelKeys.length)) % levelKeys.length;
-                selectedLevelId = levelKeys[idx];
+                selectedLevelId = levelKeys[Math.floor(deg / (360/levelKeys.length)) % levelKeys.length];
                 showPreview(selectedLevelId);
             }, 4000);
         }
 
         function showPreview(id) {
-            const level = DB[id];
-            const prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index: 0};
+            const level = DB[id], prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index: 0};
             document.getElementById('pre-emoji').innerText = level.levelEmoji;
             document.getElementById('pre-name').innerText = level.levelName.split(': ')[1];
-            document.getElementById('pre-progress').innerText = `${prog.index} / ${Object.keys(level.words).length}`;
+            document.getElementById('pre-progress').innerText = `${prog.index}/${Object.keys(level.words).length}`;
             document.getElementById('level-preview').classList.add('show');
         }
 
-        // --- 游戏核心逻辑 (保持不变) ---
-        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [];
-        let currentLevelId = null, isFlipped = false;
-        let isReviewMode = false, reviewQueue = [], currentReviewType = null;
-
-        function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
+        // --- 闪卡核心修复版 ---
+        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null, isFlipped = false;
 
         function startGame(id) {
-            currentLevelId = id; isReviewMode = false;
+            currentLevelId = id;
             const wordsObj = DB[id].words;
-            levelData = Object.keys(wordsObj).map(key => ({
-                en: key, emoji: wordsObj[key][0], cn: wordsObj[key][1],
-                mnemonic: wordsObj[key][2], exEn: wordsObj[key][3], py: wordsObj[key][4], exCn: wordsObj[key][5]
-            }));
+            levelData = Object.keys(wordsObj).map(key => ({ en: key, emoji: wordsObj[key][0], cn: wordsObj[key][1], py: wordsObj[key][4] }));
             const saved = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index:0, unknown:[], known:[]};
             currentIndex = saved.index; listUnknown = saved.unknown; listKnown = saved.known;
             document.getElementById('menu-screen').style.display = 'none';
             document.getElementById('game-screen').style.display = 'flex';
-            updateCounters(); renderNextCard();
+            renderNextCard(); updateCounters();
         }
 
         function renderNextCard() {
             const container = document.getElementById('card-container');
             container.innerHTML = ''; isFlipped = false;
-            let word;
-            if (isReviewMode) {
-                if (reviewQueue.length === 0) { isReviewMode = false; renderNextCard(); return; }
-                word = reviewQueue.shift();
-            } else {
-                if (currentIndex >= levelData.length) {
-                    container.innerHTML = `<div class="card-face card-front" style="font-size:20px; text-align:center;">🏆 YOU WIN!</div>`;
-                    return;
-                }
-                word = levelData[currentIndex];
-            }
+            if (currentIndex >= levelData.length) { container.innerHTML = '🏆 FINISH!'; return; }
+            const word = levelData[currentIndex];
             const wrapper = document.createElement('div');
             wrapper.className = 'card-wrapper';
-            wrapper.innerHTML = `<div class="card-face card-front"><div class="word-text">${word.en}</div></div><div class="card-face card-back"><div style="font-size:60px">${word.emoji}</div><div style="font-size:32px; font-weight:900">${word.cn}</div><div style="color:#666">${word.py}</div><div style="background:#f0f7ff; padding:10px; border-radius:10px; font-size:14px">💡 ${word.mnemonic}</div></div>`;
+            wrapper.innerHTML = `
+                <div class="card-face card-front"><div style="font-size:45px; font-family:'Fredoka One'">${word.en}</div></div>
+                <div class="card-face card-back"><div style="font-size:60px">${word.emoji}</div><div style="font-size:30px; font-weight:900">${word.cn}</div><div>${word.py}</div></div>`;
             container.appendChild(wrapper);
             speak(word.en, 'en-US');
-            bindSwipeEvents(wrapper, word);
+            bindTouchEvents(wrapper, word);
         }
 
-        function bindSwipeEvents(el, word) {
-            let startX = 0, currentX = 0, startTime = 0, dragging = false;
-            const onStart = (e) => { dragging = true; startX = e.pageX || e.touches[0].pageX; startTime = Date.now(); };
-            const onMove = (e) => {
-                if (!dragging) return;
-                currentX = (e.pageX || e.touches[0].pageX) - startX;
-                el.style.transform = `translateX(${currentX}px) rotateY(${isFlipped ? 180 : 0}deg) rotateZ(${currentX * 0.08}deg)`;
+        function bindTouchEvents(el, word) {
+            let startX = 0, currentX = 0, startTime = 0, moved = false;
+            
+            const handleStart = (e) => {
+                startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+                startTime = Date.now();
+                moved = false;
+                el.style.transition = 'none';
             };
-            const onEnd = () => {
-                if (!dragging) return; dragging = false;
-                if (Math.abs(currentX) < 15 && (Date.now() - startTime) < 250) {
-                    isFlipped = !isFlipped; el.classList.toggle('flipped');
-                    isFlipped ? speak(word.cn, 'zh-CN') : speak(word.en, 'en-US');
-                    el.style.transform = isFlipped ? `rotateY(180deg)` : `rotateY(0deg)`;
-                } else if (currentX > 110) { handleSwipeResult(el, 'known', word); }
-                else if (currentX < -110) { handleSwipeResult(el, 'unknown', word); }
-                else { el.style.transform = isFlipped ? `rotateY(180deg)` : `rotateY(0deg)`; }
-                currentX = 0;
-            };
-            el.addEventListener('touchstart', onStart, {passive: true}); window.addEventListener('touchmove', onMove, {passive: true}); window.addEventListener('touchend', onEnd);
-            el.addEventListener('mousedown', onStart); window.addEventListener('mousemove', onMove); window.addEventListener('mouseup', onEnd);
-        }
 
-        function handleSwipeResult(el, type, word) {
-            el.style.transition = 'transform 0.4s ease-in, opacity 0.4s';
-            el.style.transform = `translateX(${type === 'known' ? 800 : -800}px) opacity(0)`;
-            if (!isReviewMode) {
-                if (type === 'known') {
-                    if (!listKnown.find(i => i.en === word.en)) listKnown.push(word);
-                    listUnknown = listUnknown.filter(i => i.en !== word.en);
-                } else {
-                    if (!listUnknown.find(i => i.en === word.en)) listUnknown.push(word);
-                    listKnown = listKnown.filter(i => i.en !== word.en);
+            const handleMove = (e) => {
+                if (startTime === 0) return;
+                currentX = (e.type.includes('mouse') ? e.pageX : e.touches[0].pageX) - startX;
+                if (Math.abs(currentX) > 10) {
+                    moved = true;
+                    el.style.transform = `translateX(${currentX}px) rotateY(${isFlipped ? 180 : 0}deg) rotateZ(${currentX * 0.05}deg)`;
                 }
-                currentIndex++;
-            }
-            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
-            setTimeout(() => { updateCounters(); renderNextCard(); updateGlobalTotal(); }, 300);
+            };
+
+            const handleEnd = () => {
+                if (startTime === 0) return;
+                const duration = Date.now() - startTime;
+                el.style.transition = 'transform 0.4s';
+
+                if (!moved && duration < 300) { // 精准 Tap 判定
+                    isFlipped = !isFlipped;
+                    el.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
+                } else if (currentX > 100) { swipeDone('known', word); }
+                else if (currentX < -100) { swipeDone('unknown', word); }
+                else { el.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'; }
+                
+                startTime = 0; currentX = 0;
+            };
+
+            el.addEventListener('mousedown', handleStart); el.addEventListener('touchstart', handleStart);
+            window.addEventListener('mousemove', handleMove); window.addEventListener('touchmove', handleMove);
+            window.addEventListener('mouseup', handleEnd); window.addEventListener('touchend', handleEnd);
         }
 
-        function startReview(type) { currentReviewType = type; reviewQueue = type === 'unknown' ? [...listUnknown] : [...listKnown]; if (!reviewQueue.length) return; isReviewMode = true; renderNextCard(); }
+        function swipeDone(type, word) {
+            if (type === 'known') { listKnown.push(word); listUnknown = listUnknown.filter(i => i.en !== word.en); }
+            else { listUnknown.push(word); }
+            currentIndex++;
+            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
+            updateCounters(); renderNextCard(); updateGlobalTotal();
+        }
+
+        function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
         function updateCounters() { document.getElementById('count-unknown').innerText = listUnknown.length; document.getElementById('count-known').innerText = listKnown.length; }
+        function exitGame() { document.getElementById('game-screen').style.display = 'none'; document.getElementById('menu-screen').style.display = 'flex'; updateGlobalTotal(); }
         function speak(t, l) { window.speechSynthesis.cancel(); const m = new SpeechSynthesisUtterance(t); m.lang = l; window.speechSynthesis.speak(m); }
-        function exitGame() { document.getElementById('game-screen').style.display = 'none'; document.getElementById('menu-screen').style.display = 'flex'; updateGlobalTotal(); if(selectedLevelId) showPreview(selectedLevelId); }
         
         window.onload = () => { drawWheel(); updateGlobalTotal(); };
     </script>

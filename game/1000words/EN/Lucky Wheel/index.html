@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Word Quest</title>
-    <!-- 修正路径 -->
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -14,18 +13,18 @@
             --neon-red: #ff003c;
             --neon-green: #2ecc71;
             --bulb-off: #443300;
-            --metal-gloss: linear-gradient(135deg, #333 0%, #000 50%, #222 100%);
+            --metal-gloss: linear-gradient(135deg, #222 0%, #000 50%, #111 100%);
+            --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; touch-action: pan-y; }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         body {
             margin: 0; padding: 0;
             font-family: 'Nunito', sans-serif;
             background: radial-gradient(circle at center, #1e1e30 0%, var(--bg-dark) 100%);
             height: 100vh; height: -webkit-fill-available;
-            overflow: hidden;
-            display: flex; flex-direction: column;
+            overflow: hidden; display: flex; flex-direction: column;
         }
 
         header {
@@ -36,95 +35,94 @@
 
         /* --- 拉斯维加斯灯牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 10px 30px; border-radius: 10px;
-            border: 3px solid #333; position: relative;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
+            align-self: center; background: #111; padding: 12px 35px; border-radius: 12px;
+            border: 2px solid #444; position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 204, 0, 0.1);
             margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;
-            width: fit-content;
         }
-        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 95%; }
-        .bulbs-top { top: 3px; } .bulbs-bottom { bottom: 3px; }
+        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 92%; }
+        .bulbs-top { top: 4px; } .bulbs-bottom { bottom: 4px; }
         .bulb { width: 6px; height: 6px; background: var(--bulb-off); border-radius: 50%; }
         .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
         .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
         @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
         @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: bold; margin-bottom: 2px; }
+        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; }
         .vegas-number {
-            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 32px;
-            text-shadow: 0 0 10px var(--neon-green);
+            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 36px;
+            text-shadow: 0 0 15px var(--neon-green);
         }
 
-        /* --- 适配：圆润且完整的转盘 --- */
-        #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-bottom: 20px; }
-        
+        /* --- 转盘区 --- */
+        #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .wheel-section { 
-            position: relative; 
-            width: min(85vw, 400px); /* 宽度取屏幕85%或最大400px */
-            aspect-ratio: 1/1; /* 强制锁定正圆比例 */
-            background: var(--metal-gloss);
-            padding: 8px; border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            flex-shrink: 0; /* 防止被压缩 */
+            position: relative; width: min(82vw, 380px); aspect-ratio: 1/1;
+            background: var(--metal-gloss); padding: 8px; border-radius: 50%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
-
-        .wheel-container { 
-            width: 100%; height: 100%; border: 6px solid #111; border-radius: 50%; 
-            background: #000; overflow: hidden; position: relative; 
-        }
-
-        #wheel { width: 100%; height: 100%; display: block; transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); }
-
+        .wheel-container { width: 100%; height: 100%; border: 4px solid #111; border-radius: 50%; overflow: hidden; position: relative; }
+        #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
         .spin-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 70px; height: 70px; background: #111; border-radius: 50%; 
-            border: 3px solid var(--neon-red); z-index: 40; 
+            width: 75px; height: 75px; background: #000; border-radius: 50%; 
+            border: 2px solid var(--neon-red); z-index: 40; 
             display: flex; align-items: center; justify-content: center; 
             font-size: 22px; color: #fff; cursor: pointer; font-family: 'Fredoka One';
-            box-shadow: 0 0 20px var(--neon-red);
+            box-shadow: 0 0 20px var(--neon-red), inset 0 0 10px var(--neon-red);
+            animation: breathe 2s infinite;
         }
+        @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; box-shadow: 0 0 30px var(--neon-red); } }
 
-        .pointer { 
-            position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
-            width: 30px; height: 40px; background: #fff; z-index: 30;
-            clip-path: polygon(50% 100%, 0 0, 100% 0); filter: drop-shadow(0 0 5px var(--neon-red));
-        }
-
-        /* --- 适配：闪卡与底部 UI --- */
-        #game-screen { display: none; flex: 1; flex-direction: column; position: relative; background: #f4f4f4; height: 100%; }
+        /* --- 闪卡页面适配 --- */
+        #game-screen { display: none; flex: 1; flex-direction: column; background: var(--bg-dark); }
+        #card-container { flex: 1; display: flex; align-items: center; justify-content: center; perspective: 1500px; padding: 20px; }
         
-        #card-container { 
-            flex: 1; /* 自动占据剩余空间 */
-            display: flex; align-items: center; justify-content: center;
-            width: 100%; padding: 20px; perspective: 1200px;
-        }
-
         .card-wrapper { 
-            width: 100%; max-width: 340px; height: 100%; max-height: 450px;
-            position: relative; transform-style: preserve-3d; transition: transform 0.4s; 
+            width: 100%; max-width: 320px; height: 80%; max-height: 480px;
+            position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
         }
-        .card-face { 
-            position: absolute; width: 100%; height: 100%; background: white; border-radius: 25px; 
-            border: 5px solid #333; backface-visibility: hidden; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
-        }
-        .card-back { transform: rotateY(180deg); }
+        /* 翻面状态类 */
+        .card-wrapper.is-flipped { transform: rotateY(180deg); }
 
+        .card-face { 
+            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 25px; 
+            backface-visibility: hidden; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .card-front { border: 4px solid #444; }
+        .card-back { border: 4px solid var(--vegas-gold); transform: rotateY(180deg); }
+
+        /* --- 美化后的底部按钮 (无黑边) --- */
         #footer-ui { 
-            height: 120px; width: 100%; display: flex; justify-content: space-around; 
-            align-items: center; background: rgba(0,0,0,0.05); padding-bottom: env(safe-area-inset-bottom);
+            height: 120px; width: 100%; display: flex; justify-content: center; gap: 50px;
+            align-items: center; padding-bottom: env(safe-area-inset-bottom);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
         .collection-btn { 
-            width: 70px; height: 70px; background: white; border: 4px solid #333; 
-            border-radius: 18px; display: flex; justify-content: center; align-items: center; position: relative; 
+            width: 75px; height: 75px; background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; position: relative;
+            backdrop-filter: blur(5px); transition: 0.3s;
+        }
+        /* 红外发光风格按钮 */
+        .collection-btn.btn-unknown { box-shadow: 0 0 15px var(--neon-red); }
+        .collection-btn.btn-known { box-shadow: 0 0 15px var(--vegas-gold); }
+        
+        .badge { 
+            position: absolute; top: -5px; right: -5px; background: #fff; color: #000; 
+            min-width: 22px; height: 22px; border-radius: 11px; 
+            display: flex; align-items: center; justify-content: center; 
+            font-size: 12px; font-weight: 900; 
         }
 
         #level-preview { 
-            position: absolute; top: 10%; width: 260px; background: white; 
-            border: 5px solid var(--vegas-gold); border-radius: 20px; padding: 15px; 
-            text-align: center; box-shadow: 0 0 30px rgba(0,0,0,0.5); 
-            opacity: 0; transform: scale(0.5); transition: 0.4s; z-index: 100;
+            position: absolute; top: 12%; width: 260px; background: white; 
+            border-radius: 20px; padding: 20px; text-align: center; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.8); 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100;
         }
         #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
     </style>
@@ -135,21 +133,20 @@
 
     <div class="vegas-sign">
         <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
-        <div class="vegas-label">ALL MASTERED</div>
+        <div class="vegas-label">MASTERED</div>
         <div class="vegas-number" id="total-known-count">000</div>
         <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
     </div>
 
     <div id="menu-screen">
         <div id="level-preview" onclick="enterSelectedLevel()">
-            <div style="font-size: 40px;" id="pre-emoji">🧒</div>
-            <div id="pre-name" style="font-weight:900;">JACKPOT!</div>
-            <div id="pre-progress" style="font-family:'Orbitron';">0/100</div>
-            <div style="color:var(--neon-red); font-size:12px; margin-top:5px;">TAP TO START</div>
+            <div style="font-size: 45px;" id="pre-emoji">🧒</div>
+            <div id="pre-name" style="font-size: 20px; font-weight:900; color:#333; margin:5px 0;">JACKPOT!</div>
+            <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/100</div>
+            <div style="color:var(--neon-red); font-size:12px; margin-top:10px; font-weight:bold;">TAP TO START</div>
         </div>
 
         <div class="wheel-section">
-            <div class="pointer"></div>
             <div class="wheel-container">
                 <canvas id="wheel"></canvas>
             </div>
@@ -158,11 +155,11 @@
     </div>
 
     <div id="game-screen">
-        <button class="back-btn" onclick="exitGame()" style="position:absolute; top:10px; left:10px; z-index:200; padding:8px 15px; border-radius:15px; background:#333; color:#fff; border:none;">🏠 EXIT</button>
+        <button onclick="exitGame()" style="position:absolute; top:15px; left:15px; z-index:200; padding:10px 20px; border-radius:25px; background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.3); backdrop-filter:blur(5px);">🏠 EXIT</button>
         <div id="card-container"></div>
         <div id="footer-ui">
-            <div class="collection-btn" onclick="startReview('unknown')"><span>🎒</span><div class="badge" id="count-unknown">0</div></div>
-            <div class="collection-btn" onclick="startReview('known')"><span>⭐</span><div class="badge" id="count-known">0</div></div>
+            <div class="collection-btn btn-unknown" onclick="startReview('unknown')"><span style="font-size:30px;">🎒</span><div class="badge" id="count-unknown">0</div></div>
+            <div class="collection-btn btn-known" onclick="startReview('known')"><span style="font-size:30px;">⭐</span><div class="badge" id="count-known">0</div></div>
         </div>
     </div>
 
@@ -191,24 +188,18 @@
         function drawWheel() {
             const canvas = document.getElementById('wheel');
             const ctx = canvas.getContext('2d');
-            const size = 800; // 使用高倍率绘制防止模糊
-            canvas.width = size; canvas.height = size;
+            const size = 800; canvas.width = size; canvas.height = size;
             const arc = (2 * Math.PI) / levelKeys.length;
-            const metalColors = ["#1a1a1a", "#262626", "#0f0f0f", "#333333", "#111111"];
-            
+            const colors = ["#1a1a1a", "#262626", "#0f0f0f", "#333333", "#111111"];
             ctx.translate(size/2, size/2);
             levelKeys.forEach((key, i) => {
                 const angle = i * arc - Math.PI/2;
-                ctx.beginPath();
-                ctx.fillStyle = metalColors[i % metalColors.length];
-                ctx.moveTo(0, 0); ctx.arc(0, 0, size/2, angle, angle + arc);
-                ctx.fill();
-                ctx.strokeStyle = "rgba(255,204,0,0.3)"; ctx.lineWidth = 4; ctx.stroke();
-                ctx.save();
-                ctx.rotate(angle + arc/2);
-                ctx.font = "80px Apple Color Emoji, Segoe UI Emoji";
-                ctx.textAlign = "center"; ctx.fillText(DB[key].levelEmoji, size/2 * 0.7, 25);
-                ctx.restore();
+                ctx.beginPath(); ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(0, 0); ctx.arc(0, 0, size/2, angle, angle + arc); ctx.fill();
+                ctx.strokeStyle = "rgba(255,204,0,0.2)"; ctx.lineWidth = 2; ctx.stroke();
+                ctx.save(); ctx.rotate(angle + arc/2);
+                ctx.font = "80px Apple Color Emoji, Segoe UI Emoji"; ctx.textAlign = "center";
+                ctx.fillText(DB[key].levelEmoji, size/2 * 0.7, 25); ctx.restore();
             });
         }
 
@@ -234,8 +225,8 @@
             document.getElementById('level-preview').classList.add('show');
         }
 
-        // --- 闪卡核心修复版 ---
-        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null, isFlipped = false;
+        // --- 闪卡翻面逻辑修复 ---
+        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
 
         function startGame(id) {
             currentLevelId = id;
@@ -250,64 +241,80 @@
 
         function renderNextCard() {
             const container = document.getElementById('card-container');
-            container.innerHTML = ''; isFlipped = false;
-            if (currentIndex >= levelData.length) { container.innerHTML = '🏆 FINISH!'; return; }
+            container.innerHTML = '';
+            if (currentIndex >= levelData.length) { 
+                container.innerHTML = '<div style="color:white; font-size:30px; font-family:Monoton;">JACKPOT! 🏆</div>'; 
+                return; 
+            }
             const word = levelData[currentIndex];
             const wrapper = document.createElement('div');
             wrapper.className = 'card-wrapper';
             wrapper.innerHTML = `
-                <div class="card-face card-front"><div style="font-size:45px; font-family:'Fredoka One'">${word.en}</div></div>
-                <div class="card-face card-back"><div style="font-size:60px">${word.emoji}</div><div style="font-size:30px; font-weight:900">${word.cn}</div><div>${word.py}</div></div>`;
+                <div class="card-face card-front"><div style="font-size:48px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
+                <div class="card-face card-back"><div style="font-size:70px;">${word.emoji}</div><div style="font-size:32px; font-weight:900; color:#333; margin:10px 0;">${word.cn}</div><div style="color:#888;">${word.py}</div></div>`;
+            
             container.appendChild(wrapper);
             speak(word.en, 'en-US');
-            bindTouchEvents(wrapper, word);
+            
+            // 绑定交互逻辑
+            initCardInteraction(wrapper, word);
         }
 
-        function bindTouchEvents(el, word) {
-            let startX = 0, currentX = 0, startTime = 0, moved = false;
-            
-            const handleStart = (e) => {
+        function initCardInteraction(el, word) {
+            let startX = 0, currentX = 0, startTime = 0, isDragging = false;
+
+            const onStart = (e) => {
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 startTime = Date.now();
-                moved = false;
+                isDragging = false;
                 el.style.transition = 'none';
             };
 
-            const handleMove = (e) => {
+            const onMove = (e) => {
                 if (startTime === 0) return;
-                currentX = (e.type.includes('mouse') ? e.pageX : e.touches[0].pageX) - startX;
+                let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+                currentX = x - startX;
                 if (Math.abs(currentX) > 10) {
-                    moved = true;
-                    el.style.transform = `translateX(${currentX}px) rotateY(${isFlipped ? 180 : 0}deg) rotateZ(${currentX * 0.05}deg)`;
+                    isDragging = true;
+                    // 拖拽时保持当前的旋转状态
+                    let rotation = el.classList.contains('is-flipped') ? 180 : 0;
+                    el.style.transform = `translateX(${currentX}px) rotateY(${rotation}deg) rotateZ(${currentX * 0.05}deg)`;
                 }
             };
 
-            const handleEnd = () => {
+            const onEnd = () => {
                 if (startTime === 0) return;
-                const duration = Date.now() - startTime;
-                el.style.transition = 'transform 0.4s';
-
-                if (!moved && duration < 300) { // 精准 Tap 判定
-                    isFlipped = !isFlipped;
-                    el.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)';
-                } else if (currentX > 100) { swipeDone('known', word); }
-                else if (currentX < -100) { swipeDone('unknown', word); }
-                else { el.style.transform = isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'; }
+                el.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 
+                if (!isDragging && (Date.now() - startTime < 250)) {
+                    // 点击翻面
+                    el.classList.toggle('is-flipped');
+                    if (el.classList.contains('is-flipped')) speak(word.cn, 'zh-CN');
+                } else if (currentX > 120) {
+                    swipeAction('known', word);
+                } else if (currentX < -120) {
+                    swipeAction('unknown', word);
+                } else {
+                    // 回弹
+                    let rotation = el.classList.contains('is-flipped') ? 180 : 0;
+                    el.style.transform = `rotateY(${rotation}deg)`;
+                }
                 startTime = 0; currentX = 0;
             };
 
-            el.addEventListener('mousedown', handleStart); el.addEventListener('touchstart', handleStart);
-            window.addEventListener('mousemove', handleMove); window.addEventListener('touchmove', handleMove);
-            window.addEventListener('mouseup', handleEnd); window.addEventListener('touchend', handleEnd);
+            el.addEventListener('mousedown', onStart); el.addEventListener('touchstart', onStart);
+            window.addEventListener('mousemove', onMove); window.addEventListener('touchmove', onMove);
+            window.addEventListener('mouseup', onEnd); window.addEventListener('touchend', onEnd);
         }
 
-        function swipeDone(type, word) {
+        function swipeAction(type, word) {
             if (type === 'known') { listKnown.push(word); listUnknown = listUnknown.filter(i => i.en !== word.en); }
             else { listUnknown.push(word); }
             currentIndex++;
             localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
-            updateCounters(); renderNextCard(); updateGlobalTotal();
+            updateCounters(); 
+            setTimeout(renderNextCard, 200);
+            updateGlobalTotal();
         }
 
         function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }

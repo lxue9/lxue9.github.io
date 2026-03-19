@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Word Quest</title>
+    <title>单词大冒险 - 增强版</title>
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -13,8 +13,6 @@
             --neon-red: #ff003c;
             --neon-green: #2ecc71;
             --bulb-off: #443300;
-            --metal-gloss: linear-gradient(135deg, #222 0%, #000 50%, #111 100%);
-            --btn-bg: rgba(255, 255, 255, 0.05);
         }
 
         * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
@@ -23,8 +21,7 @@
             margin: 0; padding: 0;
             font-family: 'Nunito', sans-serif;
             background: radial-gradient(circle at center, #1e1e30 0%, var(--bg-dark) 100%);
-            height: 100vh; height: -webkit-fill-available;
-            overflow: hidden; display: flex; flex-direction: column;
+            height: 100vh; overflow: hidden; display: flex; flex-direction: column;
         }
 
         header {
@@ -33,12 +30,10 @@
             font-family: 'Monoton', cursive; font-size: clamp(24px, 8vw, 34px);
         }
 
-        /* --- 拉斯维加斯灯牌 --- */
+        /* --- 灯牌 --- */
         .vegas-sign {
             align-self: center; background: #111; padding: 12px 35px; border-radius: 12px;
-            border: 2px solid #444; position: relative;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 204, 0, 0.1);
-            margin-bottom: 15px; display: flex; flex-direction: column; align-items: center;
+            border: 2px solid #444; position: relative; margin-bottom: 10px;
         }
         .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 92%; }
         .bulbs-top { top: 4px; } .bulbs-bottom { bottom: 4px; }
@@ -48,81 +43,79 @@
         @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
         @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: bold; letter-spacing: 1px; }
         .vegas-number {
             color: #fff; font-family: 'Orbitron', sans-serif; font-size: 36px;
-            text-shadow: 0 0 15px var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green); text-align: center;
         }
 
         /* --- 转盘区 --- */
         #menu-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .wheel-section { 
-            position: relative; width: min(82vw, 380px); aspect-ratio: 1/1;
-            background: var(--metal-gloss); padding: 8px; border-radius: 50%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            position: relative; width: min(85vw, 380px); aspect-ratio: 1/1;
+            background: linear-gradient(135deg, #222, #000); padding: 8px; border-radius: 50%;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
         }
         .wheel-container { width: 100%; height: 100%; border: 4px solid #111; border-radius: 50%; overflow: hidden; position: relative; }
         #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); }
         .spin-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 75px; height: 75px; background: #000; border-radius: 50%; 
-            border: 2px solid var(--neon-red); z-index: 40; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 22px; color: #fff; cursor: pointer; font-family: 'Fredoka One';
-            box-shadow: 0 0 20px var(--neon-red), inset 0 0 10px var(--neon-red);
-            animation: breathe 2s infinite;
+            width: 70px; height: 70px; background: #000; border-radius: 50%; 
+            border: 2px solid var(--neon-red); z-index: 40; color: #fff;
+            display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One';
+            box-shadow: 0 0 20px var(--neon-red);
         }
-        @keyframes breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; box-shadow: 0 0 30px var(--neon-red); } }
 
-        /* --- 闪卡页面适配 --- */
-        #game-screen { display: none; flex: 1; flex-direction: column; background: var(--bg-dark); }
-        #card-container { flex: 1; display: flex; align-items: center; justify-content: center; perspective: 1500px; padding: 20px; }
+        /* --- 闪卡页面：恢复正方形大尺寸 --- */
+        #game-screen { display: none; flex: 1; flex-direction: column; background: var(--bg-dark); position: relative; }
         
-        .card-wrapper { 
-            width: 100%; max-width: 320px; height: 80%; max-height: 480px;
-            position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+        #card-container { 
+            flex: 1; display: flex; align-items: center; justify-content: center; 
+            padding: 10px; perspective: 2000px; 
         }
-        /* 翻面状态类 */
+
+        .card-wrapper { 
+            width: min(90vw, 400px); /* 恢复正方形宽度 */
+            aspect-ratio: 1/1;        /* 强制 1:1 正方形 */
+            position: relative; transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
         .card-wrapper.is-flipped { transform: rotateY(180deg); }
 
         .card-face { 
-            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 25px; 
+            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
             backface-visibility: hidden; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            align-items: center; justify-content: center; padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 8px solid #333;
         }
-        .card-front { border: 4px solid #444; }
-        .card-back { border: 4px solid var(--vegas-gold); transform: rotateY(180deg); }
+        .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
 
-        /* --- 美化后的底部按钮 (无黑边) --- */
+        /* --- 底部按钮美化 --- */
         #footer-ui { 
-            height: 120px; width: 100%; display: flex; justify-content: center; gap: 50px;
+            height: 100px; display: flex; justify-content: center; gap: 60px;
             align-items: center; padding-bottom: env(safe-area-inset-bottom);
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
         .collection-btn { 
-            width: 75px; height: 75px; background: rgba(255,255,255,0.1); 
-            border: 1px solid rgba(255,255,255,0.2); border-radius: 50%; 
-            display: flex; justify-content: center; align-items: center; position: relative;
-            backdrop-filter: blur(5px); transition: 0.3s;
+            width: 70px; height: 70px; background: rgba(255,255,255,0.1); 
+            border-radius: 50%; display: flex; justify-content: center; align-items: center; 
+            position: relative; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        /* 红外发光风格按钮 */
-        .collection-btn.btn-unknown { box-shadow: 0 0 15px var(--neon-red); }
-        .collection-btn.btn-known { box-shadow: 0 0 15px var(--vegas-gold); }
+        .btn-unknown { box-shadow: 0 0 15px var(--neon-red); }
+        .btn-known { box-shadow: 0 0 15px var(--vegas-gold); }
         
         .badge { 
             position: absolute; top: -5px; right: -5px; background: #fff; color: #000; 
-            min-width: 22px; height: 22px; border-radius: 11px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-size: 12px; font-weight: 900; 
+            min-width: 20px; height: 20px; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; 
         }
 
         #level-preview { 
-            position: absolute; top: 12%; width: 260px; background: white; 
-            border-radius: 20px; padding: 20px; text-align: center; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.8); 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 100;
+            position: absolute; top: 15%; width: 280px; background: white; 
+            border-radius: 25px; padding: 20px; text-align: center; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.5); 
+            transition: 0.4s; z-index: 500; pointer-events: none;
         }
         #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
     </style>
@@ -133,17 +126,16 @@
 
     <div class="vegas-sign">
         <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
-        <div class="vegas-label">MASTERED</div>
         <div class="vegas-number" id="total-known-count">000</div>
         <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
     </div>
 
     <div id="menu-screen">
         <div id="level-preview" onclick="enterSelectedLevel()">
-            <div style="font-size: 45px;" id="pre-emoji">🧒</div>
-            <div id="pre-name" style="font-size: 20px; font-weight:900; color:#333; margin:5px 0;">JACKPOT!</div>
-            <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/100</div>
-            <div style="color:var(--neon-red); font-size:12px; margin-top:10px; font-weight:bold;">TAP TO START</div>
+            <div style="font-size: 50px;" id="pre-emoji">🧒</div>
+            <div id="pre-name" style="font-weight:900; color:#333; margin:10px 0;">JACKPOT!</div>
+            <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/0</div>
+            <div style="color:var(--neon-red); font-size:12px; margin-top:15px; font-weight:bold;">CLICK TO START</div>
         </div>
 
         <div class="wheel-section">
@@ -155,7 +147,7 @@
     </div>
 
     <div id="game-screen">
-        <button onclick="exitGame()" style="position:absolute; top:15px; left:15px; z-index:200; padding:10px 20px; border-radius:25px; background:rgba(255,255,255,0.1); color:#fff; border:1px solid rgba(255,255,255,0.3); backdrop-filter:blur(5px);">🏠 EXIT</button>
+        <button onclick="exitGame()" style="position:absolute; top:15px; left:15px; z-index:1000; padding:10px 20px; border-radius:20px; background:rgba(0,0,0,0.5); color:#fff; border:1px solid rgba(255,255,255,0.2); backdrop-filter:blur(5px);">🏠 EXIT</button>
         <div id="card-container"></div>
         <div id="footer-ui">
             <div class="collection-btn btn-unknown" onclick="startReview('unknown')"><span style="font-size:30px;">🎒</span><div class="badge" id="count-unknown">0</div></div>
@@ -225,7 +217,7 @@
             document.getElementById('level-preview').classList.add('show');
         }
 
-        // --- 闪卡翻面逻辑修复 ---
+        // --- 闪卡核心修复逻辑 ---
         let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
 
         function startGame(id) {
@@ -243,30 +235,39 @@
             const container = document.getElementById('card-container');
             container.innerHTML = '';
             if (currentIndex >= levelData.length) { 
-                container.innerHTML = '<div style="color:white; font-size:30px; font-family:Monoton;">JACKPOT! 🏆</div>'; 
+                container.innerHTML = '<div style="color:white; font-size:32px; font-family:Monoton;">JACKPOT! 🏆</div>'; 
                 return; 
             }
             const word = levelData[currentIndex];
             const wrapper = document.createElement('div');
             wrapper.className = 'card-wrapper';
             wrapper.innerHTML = `
-                <div class="card-face card-front"><div style="font-size:48px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
-                <div class="card-face card-back"><div style="font-size:70px;">${word.emoji}</div><div style="font-size:32px; font-weight:900; color:#333; margin:10px 0;">${word.cn}</div><div style="color:#888;">${word.py}</div></div>`;
+                <div class="card-face card-front"><div style="font-size:52px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
+                <div class="card-face card-back"><div style="font-size:80px;">${word.emoji}</div><div style="font-size:36px; font-weight:900; color:#333; margin:15px 0;">${word.cn}</div><div style="color:#888; font-size:20px;">${word.py}</div></div>`;
             
             container.appendChild(wrapper);
             speak(word.en, 'en-US');
-            
-            // 绑定交互逻辑
-            initCardInteraction(wrapper, word);
+
+            // 翻面逻辑：独立 onclick 确保 100% 成功
+            wrapper.onclick = function(e) {
+                // 如果当前没有在滑动，则翻面
+                if (this.dataset.dragging !== 'true') {
+                    this.classList.toggle('is-flipped');
+                    if (this.classList.contains('is-flipped')) speak(word.cn, 'zh-CN');
+                }
+            };
+
+            // 滑动逻辑
+            initSwipe(wrapper, word);
         }
 
-        function initCardInteraction(el, word) {
-            let startX = 0, currentX = 0, startTime = 0, isDragging = false;
+        function initSwipe(el, word) {
+            let startX = 0, currentX = 0, startTime = 0;
 
             const onStart = (e) => {
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 startTime = Date.now();
-                isDragging = false;
+                el.dataset.dragging = 'false';
                 el.style.transition = 'none';
             };
 
@@ -274,11 +275,10 @@
                 if (startTime === 0) return;
                 let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 currentX = x - startX;
-                if (Math.abs(currentX) > 10) {
-                    isDragging = true;
-                    // 拖拽时保持当前的旋转状态
-                    let rotation = el.classList.contains('is-flipped') ? 180 : 0;
-                    el.style.transform = `translateX(${currentX}px) rotateY(${rotation}deg) rotateZ(${currentX * 0.05}deg)`;
+                if (Math.abs(currentX) > 15) {
+                    el.dataset.dragging = 'true';
+                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
+                    el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${currentX * 0.05}deg)`;
                 }
             };
 
@@ -286,19 +286,17 @@
                 if (startTime === 0) return;
                 el.style.transition = 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
                 
-                if (!isDragging && (Date.now() - startTime < 250)) {
-                    // 点击翻面
-                    el.classList.toggle('is-flipped');
-                    if (el.classList.contains('is-flipped')) speak(word.cn, 'zh-CN');
-                } else if (currentX > 120) {
-                    swipeAction('known', word);
+                if (currentX > 120) {
+                    swipeFinish('known', word);
                 } else if (currentX < -120) {
-                    swipeAction('unknown', word);
+                    swipeFinish('unknown', word);
                 } else {
-                    // 回弹
-                    let rotation = el.classList.contains('is-flipped') ? 180 : 0;
-                    el.style.transform = `rotateY(${rotation}deg)`;
+                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
+                    el.style.transform = `rotateY(${rotY}deg)`;
                 }
+                
+                // 延迟重置拖拽标记，防止触发 onclick
+                setTimeout(() => { el.dataset.dragging = 'false'; }, 50);
                 startTime = 0; currentX = 0;
             };
 
@@ -307,9 +305,13 @@
             window.addEventListener('mouseup', onEnd); window.addEventListener('touchend', onEnd);
         }
 
-        function swipeAction(type, word) {
-            if (type === 'known') { listKnown.push(word); listUnknown = listUnknown.filter(i => i.en !== word.en); }
-            else { listUnknown.push(word); }
+        function swipeFinish(type, word) {
+            if (type === 'known') { 
+                if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
+                listUnknown = listUnknown.filter(i => i.en !== word.en); 
+            } else { 
+                if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
+            }
             currentIndex++;
             localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: currentIndex, unknown: listUnknown, known: listKnown }));
             updateCounters(); 
@@ -317,11 +319,19 @@
             updateGlobalTotal();
         }
 
+        function updateCounters() {
+            document.getElementById('count-unknown').innerText = listUnknown.length;
+            document.getElementById('count-known').innerText = listKnown.length;
+        }
+
+        function exitGame() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'flex';
+            updateGlobalTotal();
+        }
+
         function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
-        function updateCounters() { document.getElementById('count-unknown').innerText = listUnknown.length; document.getElementById('count-known').innerText = listKnown.length; }
-        function exitGame() { document.getElementById('game-screen').style.display = 'none'; document.getElementById('menu-screen').style.display = 'flex'; updateGlobalTotal(); }
         function speak(t, l) { window.speechSynthesis.cancel(); const m = new SpeechSynthesisUtterance(t); m.lang = l; window.speechSynthesis.speak(m); }
-        
         window.onload = () => { drawWheel(); updateGlobalTotal(); };
     </script>
 </body>

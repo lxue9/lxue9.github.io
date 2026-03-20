@@ -152,12 +152,12 @@
         <div id="footer-ui">
             <div class="collection-btn btn-unknown" onclick="startReview('unknown')">
                 <span style="font-size:24px;">🎒</span>
-                <div class="btn-label">知新</div>
+                <div class="btn-label">温故</div>
                 <div class="badge" id="count-unknown">0</div>
             </div>
             <div class="collection-btn btn-known" onclick="startReview('known')">
                 <span style="font-size:24px;">⭐</span>
-                <div class="btn-label">温故</div>
+                <div class="btn-label">知新</div>
                 <div class="badge" id="count-known">0</div>
             </div>
         </div>
@@ -169,7 +169,7 @@
         let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
         let reviewModeType = null;
 
-        // --- 语音引擎：高质量美式真人发音 ---
+        // --- 语音引擎 ---
         let americanVoice = null;
         function loadVoices() {
             const voices = window.speechSynthesis.getVoices();
@@ -184,7 +184,7 @@
             const msg = new SpeechSynthesisUtterance(text);
             if (americanVoice) msg.voice = americanVoice;
             msg.lang = 'en-US';
-            msg.rate = 0.95; // 稍微沉稳的语速，更像真人
+            msg.rate = 0.95;
             msg.pitch = 1.0;
             window.speechSynthesis.speak(msg);
         }
@@ -260,10 +260,20 @@
             renderNextCard(); updateCounters();
         }
 
+        // --- 核心优化点：退出时强制保存进度 ---
         function exitGame() {
+            if (currentLevelId && reviewModeType === null) {
+                // 保存当前索引和学习列表
+                localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ 
+                    index: currentIndex, 
+                    unknown: listUnknown, 
+                    known: listKnown 
+                }));
+            }
             document.getElementById('game-screen').style.display = 'none';
             document.getElementById('menu-screen').style.display = 'flex';
-            updateGlobalTotal();
+            updateGlobalTotal(); // 更新主灯牌总数
+            if (currentLevelId) showPreview(currentLevelId); // 更新预览面板数字
         }
 
         function startReview(type) {
@@ -299,7 +309,6 @@
             initSwipe(wrapper, word);
         }
 
-        // --- 核心逻辑：Tinder 平移划出 + 震动 ---
         function initSwipe(el, word) {
             let startX = 0, currentX = 0, startTime = 0;
             let hapticTriggered = false;
@@ -321,14 +330,10 @@
                 if (Math.abs(currentX) > 5) {
                     el.dataset.dragging = 'true';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
-                    
-                    // Tinder 倾斜逻辑：最大旋转 15 度，不随滑动无限旋转
                     let tilt = currentX * 0.1;
                     tilt = Math.max(Math.min(tilt, 15), -15); 
-                    
                     el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${tilt}deg)`;
                     
-                    // 判定震动 (Haptic Click)
                     if (Math.abs(currentX) > 90 && !hapticTriggered) {
                         if (window.navigator.vibrate) window.navigator.vibrate(10);
                         hapticTriggered = true;
@@ -349,11 +354,8 @@
                 if (Math.abs(currentX) > threshold) {
                     const direction = currentX > 0 ? 1 : -1;
                     const type = currentX > 0 ? 'known' : 'unknown';
-                    
-                    // 脱手震动 (Haptic Success)
                     if (window.navigator.vibrate) window.navigator.vibrate(20);
 
-                    // Tinder 飞出效果：纯平移划出，不旋转
                     el.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
                     let finalTilt = direction * 15;

@@ -24,6 +24,7 @@
             height: 100dvh; overflow: hidden; display: flex; flex-direction: column;
         }
 
+        /* --- 顶部灯牌 --- */
         header {
             text-align: center; padding: 10px 0; color: white;
             text-shadow: 0 0 10px var(--neon-red);
@@ -31,7 +32,6 @@
             flex-shrink: 0;
         }
 
-        /* --- Vegas 灯牌 --- */
         .vegas-sign {
             align-self: center; background: #111; padding: 15px 35px; border-radius: 15px;
             border: 2px solid #333; position: relative; margin-bottom: 5px;
@@ -51,11 +51,11 @@
         .vegas-number { display: flex; align-items: baseline; color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; text-shadow: 0 0 15px var(--neon-green); line-height: 1; }
         .vegas-unit { font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One'; }
 
-        /* --- 容器 --- */
+        /* --- 容器逻辑 --- */
         #menu-screen, #game-screen { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
         #game-screen { display: none; background: var(--bg-dark); overflow: hidden; }
 
-        /* --- 转盘与预览 --- */
+        /* --- 轮盘 --- */
         #level-preview { 
             position: absolute; top: 5%; width: 260px; background: white; 
             border-radius: 20px; padding: 15px; text-align: center; 
@@ -78,22 +78,21 @@
             box-shadow: 0 0 15px var(--neon-red); font-size: 16px;
         }
 
-        /* --- 闪卡：Tinder 式飞出效果 --- */
+        /* --- 核心：Tinder 卡片 --- */
         #card-container { 
             flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; 
-            perspective: 2000px; padding: 15px; margin-bottom: 90px; position: relative;
+            perspective: 1500px; padding: 15px; margin-bottom: 90px; position: relative;
         }
         .card-wrapper { 
             width: min(85vw, 360px); aspect-ratio: 1/1; position: relative; 
             transform-style: preserve-3d; will-change: transform;
-            transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
         }
         .card-face { 
             position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
             backface-visibility: hidden; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; padding: 25px;
             border: 6px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-            transition: border-color 0.2s;
         }
         .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
 
@@ -170,6 +169,27 @@
         let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
         let reviewModeType = null;
 
+        // --- 语音引擎：高质量美式真人发音 ---
+        let americanVoice = null;
+        function loadVoices() {
+            const voices = window.speechSynthesis.getVoices();
+            americanVoice = voices.find(v => v.lang === 'en-US' && (v.name.includes('Google') || v.name.includes('Samantha'))) || 
+                            voices.find(v => v.lang.startsWith('en-US')) || voices[0];
+        }
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+        loadVoices();
+
+        function speak(text) {
+            window.speechSynthesis.cancel();
+            const msg = new SpeechSynthesisUtterance(text);
+            if (americanVoice) msg.voice = americanVoice;
+            msg.lang = 'en-US';
+            msg.rate = 0.95; // 稍微沉稳的语速，更像真人
+            msg.pitch = 1.0;
+            window.speechSynthesis.speak(msg);
+        }
+
+        // --- 基础初始化 ---
         function createBulbs() {
             const t = document.getElementById('bulbs-t'), b = document.getElementById('bulbs-b');
             for(let i=0; i<8; i++) { t.innerHTML += '<div class="bulb"></div>'; b.innerHTML += '<div class="bulb"></div>'; }
@@ -221,22 +241,12 @@
         }
 
         function showPreview(id) {
-            if(!id) return;
             const level = DB[id];
             const prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {known: []};
-            const totalWords = Object.keys(level.words).length;
-            const knownCount = prog.known ? prog.known.length : 0;
             document.getElementById('pre-emoji').innerText = level.levelEmoji;
             document.getElementById('pre-name').innerText = level.levelName.split(': ')[1];
-            document.getElementById('pre-progress').innerText = `${knownCount}/${totalWords}`;
+            document.getElementById('pre-progress').innerText = `${prog.known.length}/${Object.keys(level.words).length}`;
             document.getElementById('level-preview').classList.add('show');
-        }
-
-        function exitGame() {
-            document.getElementById('game-screen').style.display = 'none';
-            document.getElementById('menu-screen').style.display = 'flex';
-            updateGlobalTotal();
-            if (currentLevelId) showPreview(currentLevelId);
         }
 
         function startGame(id) {
@@ -250,6 +260,12 @@
             renderNextCard(); updateCounters();
         }
 
+        function exitGame() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('menu-screen').style.display = 'flex';
+            updateGlobalTotal();
+        }
+
         function startReview(type) {
             const list = (type === 'unknown') ? listUnknown : listKnown;
             if (list.length === 0) return;
@@ -261,7 +277,7 @@
             const container = document.getElementById('card-container');
             container.innerHTML = '';
             if (currentIndex >= levelData.length) { 
-                container.innerHTML = `<div style="color:white; font-size:24px; font-family:Monoton;">FINISHED! 🏆</div>`;
+                container.innerHTML = `<div style="color:white; font-size:24px; font-family:Orbitron;">STAGE CLEAR! 🏆</div>`;
                 return; 
             }
             const word = levelData[currentIndex];
@@ -271,23 +287,30 @@
                 <div class="card-face card-front"><div style="font-size:45px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
                 <div class="card-face card-back"><div style="font-size:75px;">${word.emoji}</div><div style="font-size:32px; font-weight:900; color:#333; margin:10px 0;">${word.cn}</div><div style="color:#888;">${word.py}</div></div>`;
             container.appendChild(wrapper);
-            speak(word.en, 'en-US');
-            wrapper.onclick = function() { if (this.dataset.dragging !== 'true') this.classList.toggle('is-flipped'); };
+            
+            setTimeout(() => speak(word.en), 200);
+
+            wrapper.onclick = function() { 
+                if (this.dataset.dragging !== 'true') {
+                    this.classList.toggle('is-flipped');
+                    if (!this.classList.contains('is-flipped')) speak(word.en);
+                }
+            };
             initSwipe(wrapper, word);
         }
 
-        // --- Tinder 式飞出效果 ---
+        // --- 核心逻辑：Tinder 平移划出 + 震动 ---
         function initSwipe(el, word) {
             let startX = 0, currentX = 0, startTime = 0;
-            let hapticReady = false; 
-            const front = el.querySelector('.card-face');
+            let hapticTriggered = false;
+            const front = el.querySelector('.card-front');
             
             const onStart = (e) => {
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 startTime = Date.now();
                 el.style.transition = 'none';
                 el.dataset.dragging = 'false';
-                hapticReady = true; 
+                hapticTriggered = false;
             };
 
             const onMove = (e) => {
@@ -299,15 +322,18 @@
                     el.dataset.dragging = 'true';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
                     
-                    // Tinder 核心：偏转角度 rotateZ 随位移变化，但保持在小范围内 (max 15deg)
-                    let tilt = currentX * 0.05; 
+                    // Tinder 倾斜逻辑：最大旋转 15 度，不随滑动无限旋转
+                    let tilt = currentX * 0.1;
+                    tilt = Math.max(Math.min(tilt, 15), -15); 
+                    
                     el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${tilt}deg)`;
                     
-                    if (Math.abs(currentX) > 85 && hapticReady) {
-                        if (window.navigator.vibrate) window.navigator.vibrate(10); 
-                        hapticReady = false; 
+                    // 判定震动 (Haptic Click)
+                    if (Math.abs(currentX) > 90 && !hapticTriggered) {
+                        if (window.navigator.vibrate) window.navigator.vibrate(10);
+                        hapticTriggered = true;
                     } else if (Math.abs(currentX) < 70) {
-                        hapticReady = true; 
+                        hapticTriggered = false;
                     }
 
                     if (currentX > 80) front.style.borderColor = 'var(--neon-green)';
@@ -318,20 +344,20 @@
 
             const onEnd = () => {
                 if (startTime === 0) return;
-                const threshold = 90; 
+                const threshold = 90;
                 
                 if (Math.abs(currentX) > threshold) {
                     const direction = currentX > 0 ? 1 : -1;
                     const type = currentX > 0 ? 'known' : 'unknown';
                     
-                    if (window.navigator.vibrate) window.navigator.vibrate(25);
+                    // 脱手震动 (Haptic Success)
+                    if (window.navigator.vibrate) window.navigator.vibrate(20);
 
-                    // Tinder 效果：平移出屏，tilt 角度固定在 15-20 度左右，不再持续旋转
-                    el.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+                    // Tinder 飞出效果：纯平移划出，不旋转
+                    el.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
                     let finalTilt = direction * 15;
-                    // 平移 1000px 确保划出页面
-                    el.style.transform = `translateX(${direction * 1000}px) rotateY(${rotY}deg) rotateZ(${finalTilt}deg)`;
+                    el.style.transform = `translateX(${direction * 1200}px) rotateY(${rotY}deg) rotateZ(${finalTilt}deg)`;
                     
                     setTimeout(() => swipeAction(type, word), 150);
                 } else {
@@ -352,33 +378,17 @@
         }
 
         function swipeAction(type, word) {
-            if (reviewModeType === 'unknown' && type === 'known') {
-                listUnknown = listUnknown.filter(w => w.en !== word.en);
+            if (type === 'known') {
                 if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
-                currentIndex++;
-            } else if (reviewModeType === 'known' && type === 'unknown') {
-                listKnown = listKnown.filter(w => w.en !== word.en);
-                if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
-                currentIndex++;
-            } else if (reviewModeType === null) {
-                if (type === 'known') {
-                    if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
-                    listUnknown = listUnknown.filter(w => w.en !== word.en);
-                } else {
-                    if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
-                }
-                currentIndex++;
+                listUnknown = listUnknown.filter(w => w.en !== word.en);
             } else {
-                currentIndex++;
+                if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
             }
+            if (reviewModeType === null) currentIndex++;
+            else currentIndex++;
 
-            const currentProg = JSON.parse(localStorage.getItem(`progress_${currentLevelId}`)) || {};
-            const finalIndex = (reviewModeType === null) ? currentIndex : (currentProg.index || 0);
-            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: finalIndex, unknown: listUnknown, known: listKnown }));
-            
-            updateCounters();
-            updateGlobalTotal();
-            renderNextCard();
+            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: (reviewModeType? 0:currentIndex), unknown: listUnknown, known: listKnown }));
+            updateCounters(); updateGlobalTotal(); renderNextCard();
         }
 
         function updateCounters() {
@@ -387,7 +397,6 @@
         }
 
         function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
-        function speak(t, l) { window.speechSynthesis.cancel(); const m = new SpeechSynthesisUtterance(t); m.lang = l; window.speechSynthesis.speak(m); }
         window.onload = () => { drawWheel(); updateGlobalTotal(); };
     </script>
 </body>

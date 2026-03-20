@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Word Quest</title>
+    <title>WORD QUEST</title>
     <script src="../../vocabulary.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
     <style>
@@ -31,9 +31,9 @@
             flex-shrink: 0;
         }
 
-        /* --- 恢复：并排式 Vegas 灯牌 --- */
+        /* --- Vegas 灯牌 --- */
         .vegas-sign {
-            align-self: center; background: #111; padding: 15px 30px; border-radius: 15px;
+            align-self: center; background: #111; padding: 15px 35px; border-radius: 15px;
             border: 2px solid #333; position: relative; margin-bottom: 5px;
             display: flex; flex-direction: column; align-items: center; 
             box-shadow: 0 8px 30px rgba(0,0,0,0.8); flex-shrink: 0;
@@ -47,23 +47,15 @@
         @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
         @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
         
-        .vegas-label { 
-            color: var(--vegas-gold); font-size: 11px; font-weight: 900; 
-            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px;
-        }
-        .vegas-number { 
-            display: flex; align-items: baseline; /* 确保数字和单位对齐底线 */
-            color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; 
-            text-shadow: 0 0 15px var(--neon-green); line-height: 1;
-        }
-        .vegas-unit {
-            font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One';
-        }
+        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+        .vegas-number { display: flex; align-items: baseline; color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; text-shadow: 0 0 15px var(--neon-green); line-height: 1; }
+        .vegas-unit { font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One'; }
 
-        /* --- 布局容器 --- */
+        /* --- 容器 --- */
         #menu-screen, #game-screen { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
-        #game-screen { display: none; background: var(--bg-dark); }
+        #game-screen { display: none; background: var(--bg-dark); overflow: hidden; }
 
+        /* --- 转盘与预览 --- */
         #level-preview { 
             position: absolute; top: 5%; width: 260px; background: white; 
             border-radius: 20px; padding: 15px; text-align: center; 
@@ -73,28 +65,35 @@
         #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
 
         .wheel-section { 
-            margin-top: 110px; position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
+            margin-top: 100px; position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
             background: #000; padding: 5px; border-radius: 50%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
         #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); border-radius: 50%; }
         .spin-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 60px; height: 60px; background: #000; border-radius: 50%; 
+            width: 62px; height: 62px; background: #000; border-radius: 50%; 
             border: 2px solid var(--neon-red); z-index: 100; color: #fff;
             display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One';
             box-shadow: 0 0 15px var(--neon-red); font-size: 16px;
         }
 
-        /* --- 闪卡 --- */
-        #card-container { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; perspective: 2000px; padding: 15px; margin-bottom: 100px; }
-        .card-wrapper { width: min(85vw, 360px); aspect-ratio: 1/1; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
-        .card-wrapper.is-flipped { transform: rotateY(180deg); }
+        /* --- 闪卡：Tinder 式飞出效果 --- */
+        #card-container { 
+            flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; 
+            perspective: 2000px; padding: 15px; margin-bottom: 90px; position: relative;
+        }
+        .card-wrapper { 
+            width: min(85vw, 360px); aspect-ratio: 1/1; position: relative; 
+            transform-style: preserve-3d; will-change: transform;
+            transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
         .card-face { 
             position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
             backface-visibility: hidden; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; padding: 25px;
             border: 6px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            transition: border-color 0.2s;
         }
         .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
 
@@ -107,14 +106,14 @@
             pointer-events: none;
         }
         .collection-btn { 
-            pointer-events: auto; width: 70px; height: 70px; background: rgba(255,255,255,0.08); 
+            pointer-events: auto; width: 72px; height: 72px; background: rgba(255,255,255,0.08); 
             border-radius: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
             backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: 0.2s; position: relative;
         }
         .btn-unknown { box-shadow: 0 0 12px var(--neon-red); }
         .btn-known { box-shadow: 0 0 12px var(--vegas-gold); }
         .btn-label { font-size: 10px; color: #fff; font-weight: bold; margin-top: 2px; }
-        .badge { position: absolute; top: -6px; right: -6px; background: #fff; color: #000; min-width: 20px; height: 20px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
+        .badge { position: absolute; top: -6px; right: -6px; background: #fff; color: #000; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
 
         .exit-btn { position: absolute; top: 15px; left: 15px; z-index: 2500; padding: 6px 12px; border-radius: 10px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #444; font-size: 12px; }
     </style>
@@ -154,12 +153,12 @@
         <div id="footer-ui">
             <div class="collection-btn btn-unknown" onclick="startReview('unknown')">
                 <span style="font-size:24px;">🎒</span>
-                <div class="btn-label">温故</div>
+                <div class="btn-label">知新</div>
                 <div class="badge" id="count-unknown">0</div>
             </div>
             <div class="collection-btn btn-known" onclick="startReview('known')">
                 <span style="font-size:24px;">⭐</span>
-                <div class="btn-label">知新</div>
+                <div class="btn-label">温故</div>
                 <div class="badge" id="count-known">0</div>
             </div>
         </div>
@@ -227,7 +226,6 @@
             const prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {known: []};
             const totalWords = Object.keys(level.words).length;
             const knownCount = prog.known ? prog.known.length : 0;
-            
             document.getElementById('pre-emoji').innerText = level.levelEmoji;
             document.getElementById('pre-name').innerText = level.levelName.split(': ')[1];
             document.getElementById('pre-progress').innerText = `${knownCount}/${totalWords}`;
@@ -278,34 +276,79 @@
             initSwipe(wrapper, word);
         }
 
+        // --- Tinder 式飞出效果 ---
         function initSwipe(el, word) {
             let startX = 0, currentX = 0, startTime = 0;
+            let hapticReady = false; 
+            const front = el.querySelector('.card-face');
+            
             const onStart = (e) => {
                 startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-                startTime = Date.now(); el.dataset.dragging = 'false'; el.style.transition = 'none';
+                startTime = Date.now();
+                el.style.transition = 'none';
+                el.dataset.dragging = 'false';
+                hapticReady = true; 
             };
+
             const onMove = (e) => {
                 if (startTime === 0) return;
                 let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
                 currentX = x - startX;
+
                 if (Math.abs(currentX) > 5) {
                     el.dataset.dragging = 'true';
                     let rotY = el.classList.contains('is-flipped') ? 180 : 0;
-                    el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${currentX * 0.05}deg)`;
+                    
+                    // Tinder 核心：偏转角度 rotateZ 随位移变化，但保持在小范围内 (max 15deg)
+                    let tilt = currentX * 0.05; 
+                    el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${tilt}deg)`;
+                    
+                    if (Math.abs(currentX) > 85 && hapticReady) {
+                        if (window.navigator.vibrate) window.navigator.vibrate(10); 
+                        hapticReady = false; 
+                    } else if (Math.abs(currentX) < 70) {
+                        hapticReady = true; 
+                    }
+
+                    if (currentX > 80) front.style.borderColor = 'var(--neon-green)';
+                    else if (currentX < -80) front.style.borderColor = 'var(--neon-red)';
+                    else front.style.borderColor = '#333';
                 }
             };
+
             const onEnd = () => {
                 if (startTime === 0) return;
-                el.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                if (currentX > 60) swipeAction('known', word);
-                else if (currentX < -60) swipeAction('unknown', word);
-                else { let rotY = el.classList.contains('is-flipped') ? 180 : 0; el.style.transform = `rotateY(${rotY}deg)`; }
-                setTimeout(() => { el.dataset.dragging = 'false'; }, 50);
-                startTime = 0; currentX = 0;
+                const threshold = 90; 
+                
+                if (Math.abs(currentX) > threshold) {
+                    const direction = currentX > 0 ? 1 : -1;
+                    const type = currentX > 0 ? 'known' : 'unknown';
+                    
+                    if (window.navigator.vibrate) window.navigator.vibrate(25);
+
+                    // Tinder 效果：平移出屏，tilt 角度固定在 15-20 度左右，不再持续旋转
+                    el.style.transition = 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)';
+                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
+                    let finalTilt = direction * 15;
+                    // 平移 1000px 确保划出页面
+                    el.style.transform = `translateX(${direction * 1000}px) rotateY(${rotY}deg) rotateZ(${finalTilt}deg)`;
+                    
+                    setTimeout(() => swipeAction(type, word), 150);
+                } else {
+                    el.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
+                    el.style.transform = `rotateY(${rotY}deg)`;
+                    front.style.borderColor = '#333';
+                }
+                startTime = 0;
             };
-            el.addEventListener('mousedown', onStart); el.addEventListener('touchstart', onStart, {passive:false});
-            window.addEventListener('mousemove', onMove); window.addEventListener('touchmove', onMove, {passive:false});
-            window.addEventListener('mouseup', onEnd); window.addEventListener('touchend', onEnd);
+
+            el.addEventListener('mousedown', onStart);
+            el.addEventListener('touchstart', onStart, {passive: false});
+            window.addEventListener('mousemove', onMove);
+            window.addEventListener('touchmove', onMove, {passive: false});
+            window.addEventListener('mouseup', onEnd);
+            window.addEventListener('touchend', onEnd);
         }
 
         function swipeAction(type, word) {
@@ -335,7 +378,7 @@
             
             updateCounters();
             updateGlobalTotal();
-            setTimeout(renderNextCard, 200);
+            renderNextCard();
         }
 
         function updateCounters() {

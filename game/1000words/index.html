@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>汉字达人 - 本地运行版</title>
+    <script src="hanzi-writer.js"></script>
+    <style>
+        :root { --primary: #2c3e50; --accent: #e74c3c; --success: #27ae60; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, sans-serif; background: #f4f7f9; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        #app { width: 100%; max-width: 420px; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; }
+        .page { display: none; width: 100%; }
+        .page.active { display: block !important; }
+        .btn-main { background: var(--primary); color: white; width: 100%; padding: 16px; margin-bottom: 12px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; box-shadow: 0 4px 0 #1a252f; }
+        .btn-main:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a252f; }
+        #target-container { width: 210px; height: 210px; margin: 15px auto; border: 2px solid #ccc; position: relative; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E"); background-size: 100% 100%; touch-action: none; }
+        #text-overlay { font-size: 100px; line-height: 210px; color: #333; position: absolute; width: 100%; z-index: 1; pointer-events: none; }
+        #writer-canvas { position: absolute; top: 0; left: 0; z-index: 5; width: 100%; height: 100%; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .btn-opt { background: #fff; border: 2px solid #eee; border-radius: 10px; min-height: 90px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .nav-row { margin-top: 20px; display: flex; gap: 10px; }
+        .btn-nav { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .stroke-svg { width: 45px; height: 45px; stroke: #333; stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .correct { background: var(--success) !important; color: white !important; }
+        .wrong { background: var(--accent) !important; color: white !important; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <div id="menu" class="page active">
+        <h2 style="margin-bottom: 25px; color: var(--primary);">🏮 汉字练习系统</h2>
+        <button class="btn-main" onclick="initGame(1)">1. 看字选音</button>
+        <button class="btn-main" onclick="initGame(2)">2. 看音选字</button>
+        <button class="btn-main" onclick="initGame(3)">3. 笔画形状识别</button>
+        <button class="btn-main" onclick="initGame(4)">4. 练习模式 (描红)</button>
+        <button class="btn-main" onclick="initGame(5)">5. 测试模式 (默写)</button>
+    </div>
+
+    <div id="stage" class="page">
+        <h3 id="quest-title" style="min-height:1.2em; color:var(--primary);">题目加载中...</h3>
+        <div id="target-container">
+            <div id="text-overlay"></div>
+            <div id="writer-canvas"></div>
+        </div>
+        <div id="options-area" class="options-grid"></div>
+        <div class="nav-row">
+            <button class="btn-nav" style="background:#bdc3c7; color:white;" onclick="goBack()">返回菜单</button>
+            <button class="btn-nav" style="background:var(--accent); color:white;" onclick="refreshQuest()">下一题</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const STROKE_PATHS = {
+        '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
+        '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
+        '横折': 'M 10,20 L 35,20 L 35,45', '横钩': 'M 10,20 L 40,20 L 30,35', '竖钩': 'M 25,10 L 25,40 L 15,30',
+        '竖弯钩': 'M 20,10 L 20,35 Q 20,45 40,45 L 40,35'
+    };
+
+    const wordData = [
+        { char: '鬼', py: 'guǐ', strokes: ['撇', '竖', '横折', '横', '横', '撇', '竖弯钩', '撇', '点'] },
+        { char: '永', py: 'yǒng', strokes: ['点', '横折钩', '横撇', '撇', '捺'] },
+        { char: '测', py: 'cè', strokes: ['点', '点', '提', '竖', '横折钩', '撇', '点', '竖', '竖钩'] }
+    ];
+
+    let mode = 0, current = {}, writer = null;
+
+    // 检查库是否加载
+    function checkLibrary() {
+        if (typeof HanziWriter === 'undefined') {
+            alert("错误：未找到 hanzi-writer.js 文件。请确保该文件与本 HTML 处于同一文件夹内。");
+            return false;
+        }
+        return true;
+    }
+
+    window.initGame = function(m) {
+        if (!checkLibrary()) return;
+        mode = m;
+        document.getElementById('menu').classList.remove('active');
+        document.getElementById('stage').classList.add('active');
+        refreshQuest();
+    };
+
+    window.goBack = function() {
+        if (writer) { writer.cancelQuiz(); writer.destroy(); writer = null; }
+        document.getElementById('stage').classList.remove('active');
+        document.getElementById('menu').classList.add('active');
+    };
+
+    window.refreshQuest = function() {
+        if (writer) { writer.cancelQuiz(); writer.destroy(); writer = null; }
+        document.getElementById('writer-canvas').innerHTML = '';
+        document.getElementById('options-area').innerHTML = '';
+        
+        current = wordData[Math.floor(Math.random() * wordData.length)];
+        const title = document.getElementById('quest-title');
+        const text = document.getElementById('text-overlay');
+        text.innerText = '';
+
+        if (mode === 1) { title.innerText = "这个字的拼音是？"; text.innerText = current.char; renderStandardQuiz('py'); }
+        else if (mode === 2) { title.innerText = `拼音 [ ${current.py} ] 是哪个字？`; renderStandardQuiz('char'); }
+        else if (mode === 3) {
+            let idx = Math.floor(Math.random() * current.strokes.length);
+            title.innerText = `"${current.char}" 的第 ${idx+1} 笔形状？`;
+            text.innerText = current.char;
+            renderStrokeQuiz(current.strokes[idx]);
+        } else {
+            title.innerText = (mode === 4 ? "练习：临摹 " : "测试：默写 ") + current.char;
+            startWriting();
+        }
+    };
+
+    function startWriting() {
+        writer = HanziWriter.create('writer-canvas', current.char, {
+            width: 210, height: 210, padding: 5,
+            showCharacter: false,
+            showOutline: (mode === 4),
+            strokeColor: '#333', drawingColor: '#e74c3c', leniency: 2.0
+        });
+        writer.quiz();
+    }
+
+    function renderStandardQuiz(key) {
+        let ans = current[key];
+        let choices = [ans];
+        while(choices.length < 4) {
+            let r = wordData[Math.floor(Math.random() * wordData.length)][key];
+            if(!choices.includes(r)) choices.push(r);
+        }
+        choices.sort(() => Math.random() - 0.5).forEach(val => {
+            const b = document.createElement('button');
+            b.className = 'btn-opt'; b.innerText = val;
+            b.onclick = () => { if(val === ans) { b.classList.add('correct'); setTimeout(refreshQuest, 600); } else b.classList.add('wrong'); };
+            document.getElementById('options-area').appendChild(b);
+        });
+    }
+
+    function renderStrokeQuiz(ans) {
+        let choices = [ans];
+        let keys = Object.keys(STROKE_PATHS);
+        while(choices.length < 4) {
+            let r = keys[Math.floor(Math.random() * keys.length)];
+            if(!choices.includes(r)) choices.push(r);
+        }
+        choices.sort(() => Math.random() - 0.5).forEach(name => {
+            const b = document.createElement('button');
+            b.className = 'btn-opt';
+            b.innerHTML = `<svg class="stroke-svg" viewBox="0 0 50 50"><path d="${STROKE_PATHS[name]}" /></svg><span style="font-size:0.8rem; color:#666;">${name}</span>`;
+            b.onclick = () => { if(name === ans) { b.classList.add('correct'); setTimeout(refreshQuest, 600); } else b.classList.add('wrong'); };
+            document.getElementById('options-area').appendChild(b);
+        });
+    }
+</script>
+</body>
+</html>

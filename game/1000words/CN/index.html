@@ -4,26 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>汉字达人 - 本地运行版</title>
-    <script src=""https://cdn.jsdelivr.net/npm/hanzi-writer@3.0/dist/hanzi-writer.min.js"></script>
+    <!-- 引入本地 JS 文件 -->
+    <script src="hanzi-writer.js"></script>
     <style>
         :root { --primary: #2c3e50; --accent: #e74c3c; --success: #27ae60; }
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: -apple-system, sans-serif; background: #f4f7f9; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
         #app { width: 100%; max-width: 420px; background: white; border-radius: 15px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; position: relative; }
+        
+        /* 页面切换逻辑 */
         .page { display: none; width: 100%; }
         .page.active { display: block !important; }
-        .btn-main { background: var(--primary); color: white; width: 100%; padding: 16px; margin-bottom: 12px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; box-shadow: 0 4px 0 #1a252f; }
+        
+        /* 按钮样式 */
+        .btn-main { background: var(--primary); color: white; width: 100%; padding: 16px; margin-bottom: 12px; border: none; border-radius: 12px; cursor: pointer; font-size: 1.1rem; font-weight: bold; box-shadow: 0 4px 0 #1a252f; transition: transform 0.1s; }
         .btn-main:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a252f; }
+        
         #target-container { width: 210px; height: 210px; margin: 15px auto; border: 2px solid #ccc; position: relative; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E"); background-size: 100% 100%; touch-action: none; }
         #text-overlay { font-size: 100px; line-height: 210px; color: #333; position: absolute; width: 100%; z-index: 1; pointer-events: none; }
         #writer-canvas { position: absolute; top: 0; left: 0; z-index: 5; width: 100%; height: 100%; }
+        
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .btn-opt { background: #fff; border: 2px solid #eee; border-radius: 10px; min-height: 90px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .btn-opt { background: #fff; border: 2px solid #eee; border-radius: 10px; min-height: 90px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.2s; }
+        .btn-opt:active { background: #f0f0f0; }
+        
         .nav-row { margin-top: 20px; display: flex; gap: 10px; }
         .btn-nav { flex: 1; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        
         .stroke-svg { width: 45px; height: 45px; stroke: #333; stroke-width: 6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .correct { background: var(--success) !important; color: white !important; }
         .wrong { background: var(--accent) !important; color: white !important; }
+        
+        /* 错误提示文字 */
+        .error-msg { color: #e74c3c !important; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -68,49 +81,69 @@
 
     let mode = 0, current = {}, writer = null;
 
-    // 检查库是否加载
-    function checkLibrary() {
-        if (typeof HanziWriter === 'undefined') {
-            alert("错误：未找到 hanzi-writer.js 文件。请确保该文件与本 HTML 处于同一文件夹内。");
-            return false;
-        }
-        return true;
-    }
-
+    // 进入游戏主函数
     window.initGame = function(m) {
-        if (!checkLibrary()) return;
-        mode = m;
-        document.getElementById('menu').classList.remove('active');
-        document.getElementById('stage').classList.add('active');
-        refreshQuest();
+        try {
+            // 【核心修复】：无论发生什么，第一步先把页面跳过去！
+            document.getElementById('menu').classList.remove('active');
+            document.getElementById('stage').classList.add('active');
+            
+            mode = m;
+            
+            // 第二步：检查本地库是否正确加载
+            if (typeof HanziWriter === 'undefined') {
+                const title = document.getElementById('quest-title');
+                title.innerHTML = "⚠️ 错误：未找到 hanzi-writer.js<br><span style='font-size:14px;color:#666;'>请确认它与此网页放在同一文件夹</span>";
+                title.className = "error-msg";
+                return; // 库没加载就停在这里，但页面已经跳过来了
+            }
+            
+            // 第三步：加载题目
+            refreshQuest();
+            
+        } catch (e) {
+            // 如果发生意外报错，直接印在屏幕上
+            document.getElementById('quest-title').innerHTML = "⚠️ 发生系统错误：<br>" + e.message;
+            document.getElementById('quest-title').className = "error-msg";
+        }
     };
 
+    // 返回菜单
     window.goBack = function() {
         if (writer) { writer.cancelQuiz(); writer.destroy(); writer = null; }
         document.getElementById('stage').classList.remove('active');
         document.getElementById('menu').classList.add('active');
     };
 
+    // 刷新题目
     window.refreshQuest = function() {
-        if (writer) { writer.cancelQuiz(); writer.destroy(); writer = null; }
-        document.getElementById('writer-canvas').innerHTML = '';
-        document.getElementById('options-area').innerHTML = '';
-        
-        current = wordData[Math.floor(Math.random() * wordData.length)];
-        const title = document.getElementById('quest-title');
-        const text = document.getElementById('text-overlay');
-        text.innerText = '';
+        try {
+            if (writer) { writer.cancelQuiz(); writer.destroy(); writer = null; }
+            document.getElementById('writer-canvas').innerHTML = '';
+            document.getElementById('options-area').innerHTML = '';
+            
+            // 恢复标题颜色
+            const title = document.getElementById('quest-title');
+            title.className = ""; 
+            
+            current = wordData[Math.floor(Math.random() * wordData.length)];
+            const text = document.getElementById('text-overlay');
+            text.innerText = '';
 
-        if (mode === 1) { title.innerText = "这个字的拼音是？"; text.innerText = current.char; renderStandardQuiz('py'); }
-        else if (mode === 2) { title.innerText = `拼音 [ ${current.py} ] 是哪个字？`; renderStandardQuiz('char'); }
-        else if (mode === 3) {
-            let idx = Math.floor(Math.random() * current.strokes.length);
-            title.innerText = `"${current.char}" 的第 ${idx+1} 笔形状？`;
-            text.innerText = current.char;
-            renderStrokeQuiz(current.strokes[idx]);
-        } else {
-            title.innerText = (mode === 4 ? "练习：临摹 " : "测试：默写 ") + current.char;
-            startWriting();
+            if (mode === 1) { title.innerText = "这个字的拼音是？"; text.innerText = current.char; renderStandardQuiz('py'); }
+            else if (mode === 2) { title.innerText = `拼音 [ ${current.py} ] 是哪个字？`; renderStandardQuiz('char'); }
+            else if (mode === 3) {
+                let idx = Math.floor(Math.random() * current.strokes.length);
+                title.innerText = `"${current.char}" 的第 ${idx+1} 笔形状？`;
+                text.innerText = current.char;
+                renderStrokeQuiz(current.strokes[idx]);
+            } else {
+                title.innerText = (mode === 4 ? "练习：临摹 " : "测试：默写 ") + current.char;
+                startWriting();
+            }
+        } catch (e) {
+            document.getElementById('quest-title').innerHTML = "⚠️ 渲染题目失败：<br>" + e.message;
+            document.getElementById('quest-title').className = "error-msg";
         }
     };
 

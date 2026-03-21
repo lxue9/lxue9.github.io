@@ -34,7 +34,6 @@
         }
         h1 { font-size: 1.4rem; margin-bottom: 20px; color: var(--primary-color); }
         
-        /* 菜单按钮 */
         .menu-btn {
             display: block;
             width: 100%;
@@ -52,11 +51,9 @@
         }
         .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; opacity: 0.9; }
 
-        /* 游戏区域 */
         #game-area { display: none; }
         #question-title { font-size: 1.1rem; margin-bottom: 15px; min-height: 40px; font-weight: 600; }
         
-        /* 米字格容器 */
         #hanzi-target {
             width: 240px;
             height: 240px;
@@ -67,13 +64,12 @@
             align-items: center;
             justify-content: center;
             background-color: white;
-            /* 米字格背景 SVG */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23EEEEEE' stroke-width='1'/%3E%3C/svg%3E");
             background-size: 100% 100%;
-            touch-action: none; /* 防止移动端书写时页面滚动 */
+            touch-action: none;
+            font-size: 120px; /* 默认汉字大小 */
         }
         
-        /* 选项网格 */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -129,7 +125,6 @@
 </div>
 
 <script>
-    // --- 1. 数据配置 ---
     const STROKE_PATHS = {
         '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
         '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
@@ -149,7 +144,6 @@
     let currentWord = null;
     let currentMode = 0;
 
-    // --- 2. 路由控制 ---
     function startGame(mode) {
         currentMode = mode;
         document.getElementById('main-menu').style.display = 'none';
@@ -165,15 +159,17 @@
 
     function cleanup() {
         if (currentWriter) { currentWriter.destroy(); currentWriter = null; }
-        document.getElementById('hanzi-target').innerHTML = '';
+        const target = document.getElementById('hanzi-target');
+        target.innerHTML = '';
+        target.innerText = ''; // 清除模式1,2留下的文本
         document.getElementById('options-area').innerHTML = '';
-        document.getElementById('hanzi-target').style.fontSize = '80px';
     }
 
     function refreshGame() {
         cleanup();
         currentWord = wordList[Math.floor(Math.random() * wordList.length)];
         
+        // 根据模式初始化界面显示
         switch(currentMode) {
             case 1: playMode1(); break;
             case 2: playMode2(); break;
@@ -182,8 +178,6 @@
             case 5: playMode5(); break;
         }
     }
-
-    // --- 3. 模式实现 ---
 
     function playMode1() {
         document.getElementById('question-title').innerText = "这个字的拼音是？";
@@ -201,7 +195,9 @@
         let idx = Math.floor(Math.random() * currentWord.strokeNames.length);
         let correctStroke = currentWord.strokeNames[idx];
         document.getElementById('question-title').innerText = `"${currentWord.char}" 的第 ${idx+1} 笔形状是？`;
-        initWriter(currentWord.char, { showOutline: true });
+        
+        // 初始化小动画展示汉字轮廓
+        initWriter(currentWord.char, { showOutline: true, showCharacter: false });
         
         let allKeys = Object.keys(STROKE_PATHS);
         let options = generateRandomArray(allKeys, correctStroke, 4);
@@ -214,8 +210,7 @@
             showCharacter: false,
             showOutline: true,
             outlineColor: '#EEEEEE',
-            drawingColor: '#e74c3c',
-            padding: 5
+            drawingColor: '#e74c3c'
         });
         currentWriter.quiz({ onComplete: () => { setTimeout(() => { alert("真棒！"); refreshGame(); }, 300); }});
     }
@@ -226,16 +221,13 @@
             showCharacter: false,
             showOutline: false,
             showHintAfterMisses: 1,
-            drawingColor: '#333',
-            padding: 5
+            drawingColor: '#333'
         });
         currentWriter.quiz({ onComplete: () => { setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); }});
     }
 
-    // --- 4. 核心渲染组件 ---
-
     function initWriter(char, config) {
-        let size = document.getElementById('hanzi-target').clientWidth - 10;
+        let size = document.getElementById('hanzi-target').clientWidth - 20;
         const base = { width: size, height: size, padding: 5, strokeColor: '#333' };
         currentWriter = HanziWriter.create('hanzi-target', char, Object.assign(base, config));
     }
@@ -250,8 +242,14 @@
             btn.className = 'option-btn';
             btn.innerText = opt;
             btn.onclick = () => {
-                if(opt === correct) { btn.style.background = '#4CAF50'; btn.style.color='white'; setTimeout(refreshGame, 500); }
-                else { btn.style.background = '#f44336'; btn.style.color='white'; }
+                if(opt === correct) { 
+                    btn.style.background = '#4CAF50'; 
+                    btn.style.color='white'; 
+                    setTimeout(refreshGame, 500); 
+                } else { 
+                    btn.style.background = '#f44336'; 
+                    btn.style.color='white'; 
+                }
             };
             area.appendChild(btn);
         });
@@ -270,8 +268,14 @@
                 <span style="font-size:0.8rem; margin-top:4px;">${name}</span>
             `;
             btn.onclick = () => {
-                if(name === correct) { btn.style.background = '#4CAF50'; btn.style.color='white'; setTimeout(refreshGame, 500); }
-                else { btn.style.background = '#f44336'; btn.style.color='white'; }
+                if(name === correct) { 
+                    btn.style.background = '#4CAF50'; 
+                    btn.style.color='white'; 
+                    setTimeout(refreshGame, 500); // 确保跳转下一题
+                } else { 
+                    btn.style.background = '#f44336'; 
+                    btn.style.color='white'; 
+                }
             };
             area.appendChild(btn);
         });
@@ -279,7 +283,7 @@
 
     function generateRandomArray(source, correct, count) {
         let set = new Set([correct]);
-        while(set.size < count) {
+        while(set.size < Math.min(count, source.length)) {
             set.add(source[Math.floor(Math.random() * source.length)]);
         }
         return Array.from(set).sort(() => Math.random() - 0.5);

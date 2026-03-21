@@ -67,7 +67,8 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23EEEEEE' stroke-width='1'/%3E%3C/svg%3E");
             background-size: 100% 100%;
             touch-action: none;
-            font-size: 120px; /* 默认汉字大小 */
+            font-size: 120px;
+            line-height: 1;
         }
         
         .option-grid {
@@ -125,6 +126,7 @@
 </div>
 
 <script>
+    // --- 1. 配置与数据 ---
     const STROKE_PATHS = {
         '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
         '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
@@ -144,6 +146,7 @@
     let currentWord = null;
     let currentMode = 0;
 
+    // --- 2. 路由控制 ---
     function startGame(mode) {
         currentMode = mode;
         document.getElementById('main-menu').style.display = 'none';
@@ -152,16 +155,22 @@
     }
 
     function returnToMenu() {
+        cleanup(); // 必须先清理
         document.getElementById('main-menu').style.display = 'block';
         document.getElementById('game-area').style.display = 'none';
-        cleanup();
     }
 
     function cleanup() {
-        if (currentWriter) { currentWriter.destroy(); currentWriter = null; }
+        // 彻底销毁渲染实例
+        if (currentWriter) {
+            try { currentWriter.destroy(); } catch(e) {}
+            currentWriter = null;
+        }
         const target = document.getElementById('hanzi-target');
         target.innerHTML = '';
-        target.innerText = ''; // 清除模式1,2留下的文本
+        target.innerText = '';
+        // 恢复文字默认大小（防止笔画模式的小字体残留）
+        target.style.fontSize = '120px'; 
         document.getElementById('options-area').innerHTML = '';
     }
 
@@ -169,7 +178,6 @@
         cleanup();
         currentWord = wordList[Math.floor(Math.random() * wordList.length)];
         
-        // 根据模式初始化界面显示
         switch(currentMode) {
             case 1: playMode1(); break;
             case 2: playMode2(); break;
@@ -179,6 +187,7 @@
         }
     }
 
+    // --- 3. 游戏模式 ---
     function playMode1() {
         document.getElementById('question-title').innerText = "这个字的拼音是？";
         document.getElementById('hanzi-target').innerText = currentWord.char;
@@ -196,8 +205,12 @@
         let correctStroke = currentWord.strokeNames[idx];
         document.getElementById('question-title').innerText = `"${currentWord.char}" 的第 ${idx+1} 笔形状是？`;
         
-        // 初始化小动画展示汉字轮廓
-        initWriter(currentWord.char, { showOutline: true, showCharacter: false });
+        // 模式3：显示轮廓引导
+        initWriter(currentWord.char, { 
+            showOutline: true, 
+            showCharacter: false, 
+            strokeColor: '#ddd' 
+        });
         
         let allKeys = Object.keys(STROKE_PATHS);
         let options = generateRandomArray(allKeys, correctStroke, 4);
@@ -207,48 +220,48 @@
     function playMode4() {
         document.getElementById('question-title').innerText = `请描红：${currentWord.char}`;
         initWriter(currentWord.char, {
-            showCharacter: false,
-            showOutline: true,
-            outlineColor: '#EEEEEE',
-            drawingColor: '#e74c3c'
+            showCharacter: false, showOutline: true,
+            outlineColor: '#EEEEEE', drawingColor: '#e74c3c'
         });
-        currentWriter.quiz({ onComplete: () => { setTimeout(() => { alert("真棒！"); refreshGame(); }, 300); }});
+        currentWriter.quiz({ onComplete: () => { 
+            setTimeout(() => { alert("太棒了！"); refreshGame(); }, 300); 
+        }});
     }
 
     function playMode5() {
         document.getElementById('question-title').innerText = `默写测试：${currentWord.py}`;
         initWriter(currentWord.char, {
-            showCharacter: false,
-            showOutline: false,
-            showHintAfterMisses: 1,
-            drawingColor: '#333'
+            showCharacter: false, showOutline: false,
+            showHintAfterMisses: 1, drawingColor: '#333'
         });
-        currentWriter.quiz({ onComplete: () => { setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); }});
+        currentWriter.quiz({ onComplete: () => { 
+            setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); 
+        }});
     }
 
+    // --- 4. 渲染工具 ---
     function initWriter(char, config) {
-        let size = document.getElementById('hanzi-target').clientWidth - 20;
+        const target = document.getElementById('hanzi-target');
+        let size = target.clientWidth - 20;
         const base = { width: size, height: size, padding: 5, strokeColor: '#333' };
         currentWriter = HanziWriter.create('hanzi-target', char, Object.assign(base, config));
     }
 
     function renderOptions(key, correct) {
-        let area = document.getElementById('options-area');
-        let vals = wordList.map(i => i[key]);
-        let options = generateRandomArray(vals, correct, 4);
+        const area = document.getElementById('options-area');
+        const sourcePool = wordList.map(i => i[key]);
+        const options = generateRandomArray(sourcePool, correct, 4);
         
         options.forEach(opt => {
-            let btn = document.createElement('button');
+            const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = opt;
             btn.onclick = () => {
                 if(opt === correct) { 
-                    btn.style.background = '#4CAF50'; 
-                    btn.style.color='white'; 
+                    btn.style.background = '#4CAF50'; btn.style.color='white';
                     setTimeout(refreshGame, 500); 
                 } else { 
-                    btn.style.background = '#f44336'; 
-                    btn.style.color='white'; 
+                    btn.style.background = '#f44336'; btn.style.color='white'; 
                 }
             };
             area.appendChild(btn);
@@ -256,11 +269,11 @@
     }
 
     function renderStrokeOptions(options, correct) {
-        let area = document.getElementById('options-area');
+        const area = document.getElementById('options-area');
         options.forEach(name => {
-            let btn = document.createElement('button');
+            const btn = document.createElement('button');
             btn.className = 'option-btn';
-            let path = STROKE_PATHS[name] || STROKE_PATHS['横'];
+            const path = STROKE_PATHS[name] || STROKE_PATHS['横'];
             btn.innerHTML = `
                 <svg viewBox="0 0 50 50" width="40" height="40" style="fill:none; stroke:currentColor; stroke-width:3; stroke-linecap:round;">
                     <path d="${path}" />
@@ -269,12 +282,10 @@
             `;
             btn.onclick = () => {
                 if(name === correct) { 
-                    btn.style.background = '#4CAF50'; 
-                    btn.style.color='white'; 
-                    setTimeout(refreshGame, 500); // 确保跳转下一题
+                    btn.style.background = '#4CAF50'; btn.style.color='white';
+                    setTimeout(refreshGame, 500); 
                 } else { 
-                    btn.style.background = '#f44336'; 
-                    btn.style.color='white'; 
+                    btn.style.background = '#f44336'; btn.style.color='white'; 
                 }
             };
             area.appendChild(btn);

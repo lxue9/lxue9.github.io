@@ -31,9 +31,11 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.12);
             text-align: center;
             box-sizing: border-box;
+            position: relative;
         }
         h1 { font-size: 1.4rem; margin-bottom: 20px; color: var(--primary-color); }
         
+        /* 菜单按钮 */
         .menu-btn {
             display: block;
             width: 100%;
@@ -51,9 +53,11 @@
         }
         .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; opacity: 0.9; }
 
+        /* 游戏区域 */
         #game-area { display: none; }
         #question-title { font-size: 1.1rem; margin-bottom: 15px; min-height: 40px; font-weight: 600; }
         
+        /* 核心汉字展示容器 */
         #hanzi-target {
             width: 240px;
             height: 240px;
@@ -68,9 +72,10 @@
             background-size: 100% 100%;
             touch-action: none;
             font-size: 120px;
-            line-height: 1;
+            overflow: hidden; /* 防止SVG溢出 */
         }
         
+        /* 选项布局 */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -126,7 +131,7 @@
 </div>
 
 <script>
-    // --- 1. 配置与数据 ---
+    // --- 1. 数据配置 ---
     const STROKE_PATHS = {
         '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
         '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
@@ -145,8 +150,10 @@
     let currentWriter = null;
     let currentWord = null;
     let currentMode = 0;
+    let nextStepTimer = null; // 用于管理所有的 setTimeout
 
-    // --- 2. 路由控制 ---
+    // --- 2. 核心控制逻辑 ---
+
     function startGame(mode) {
         currentMode = mode;
         document.getElementById('main-menu').style.display = 'none';
@@ -155,26 +162,46 @@
     }
 
     function returnToMenu() {
-        cleanup(); // 必须先清理
+        // 关键修复：立即清理所有状态，防止异步逻辑干扰
+        cleanup();
         document.getElementById('main-menu').style.display = 'block';
         document.getElementById('game-area').style.display = 'none';
+        currentMode = 0;
     }
 
     function cleanup() {
-        // 彻底销毁渲染实例
+        // 1. 取消所有待执行的跳转计时器
+        if (nextStepTimer) {
+            clearTimeout(nextStepTimer);
+            nextStepTimer = null;
+        }
+
+        // 2. 彻底销毁 HanziWriter 实例
         if (currentWriter) {
-            try { currentWriter.destroy(); } catch(e) {}
+            try {
+                currentWriter.destroy();
+            } catch (e) {
+                console.warn("Writer destroy failed", e);
+            }
             currentWriter = null;
         }
+
+        // 3. 强力清空 DOM 内容
         const target = document.getElementById('hanzi-target');
-        target.innerHTML = '';
+        while (target.firstChild) {
+            target.removeChild(target.firstChild);
+        }
         target.innerText = '';
-        // 恢复文字默认大小（防止笔画模式的小字体残留）
-        target.style.fontSize = '120px'; 
-        document.getElementById('options-area').innerHTML = '';
+        target.style.fontSize = '120px'; // 恢复模式1,2的字号
+
+        // 4. 清空选项区域
+        const optionsArea = document.getElementById('options-area');
+        optionsArea.innerHTML = '';
     }
 
     function refreshGame() {
+        if (currentMode === 0) return; // 如果已经返回主菜单，停止执行
+        
         cleanup();
         currentWord = wordList[Math.floor(Math.random() * wordList.length)];
         
@@ -187,7 +214,8 @@
         }
     }
 
-    // --- 3. 游戏模式 ---
+    // --- 3. 模式具体实现 ---
+
     function playMode1() {
         document.getElementById('question-title').innerText = "这个字的拼音是？";
         document.getElementById('hanzi-target').innerText = currentWord.char;
@@ -205,7 +233,7 @@
         let correctStroke = currentWord.strokeNames[idx];
         document.getElementById('question-title').innerText = `"${currentWord.char}" 的第 ${idx+1} 笔形状是？`;
         
-        // 模式3：显示轮廓引导
+        // 笔画识别模式：显示灰色轮廓
         initWriter(currentWord.char, { 
             showOutline: true, 
             showCharacter: false, 
@@ -224,7 +252,7 @@
             outlineColor: '#EEEEEE', drawingColor: '#e74c3c'
         });
         currentWriter.quiz({ onComplete: () => { 
-            setTimeout(() => { alert("太棒了！"); refreshGame(); }, 300); 
+            nextStepTimer = setTimeout(() => { alert("真棒！"); refreshGame(); }, 300); 
         }});
     }
 
@@ -235,11 +263,12 @@
             showHintAfterMisses: 1, drawingColor: '#333'
         });
         currentWriter.quiz({ onComplete: () => { 
-            setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); 
+            nextStepTimer = setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); 
         }});
     }
 
-    // --- 4. 渲染工具 ---
+    // --- 4. 渲染组件 ---
+
     function initWriter(char, config) {
         const target = document.getElementById('hanzi-target');
         let size = target.clientWidth - 20;
@@ -249,8 +278,8 @@
 
     function renderOptions(key, correct) {
         const area = document.getElementById('options-area');
-        const sourcePool = wordList.map(i => i[key]);
-        const options = generateRandomArray(sourcePool, correct, 4);
+        const vals = wordList.map(i => i[key]);
+        const options = generateRandomArray(vals, correct, 4);
         
         options.forEach(opt => {
             const btn = document.createElement('button');
@@ -259,7 +288,7 @@
             btn.onclick = () => {
                 if(opt === correct) { 
                     btn.style.background = '#4CAF50'; btn.style.color='white';
-                    setTimeout(refreshGame, 500); 
+                    nextStepTimer = setTimeout(refreshGame, 500); 
                 } else { 
                     btn.style.background = '#f44336'; btn.style.color='white'; 
                 }
@@ -283,7 +312,8 @@
             btn.onclick = () => {
                 if(name === correct) { 
                     btn.style.background = '#4CAF50'; btn.style.color='white';
-                    setTimeout(refreshGame, 500); 
+                    // 这里是之前出bug的地方，现在有了 nextStepTimer 保护
+                    nextStepTimer = setTimeout(refreshGame, 500); 
                 } else { 
                     btn.style.background = '#f44336'; btn.style.color='white'; 
                 }

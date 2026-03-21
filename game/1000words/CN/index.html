@@ -35,7 +35,6 @@
         }
         h1 { font-size: 1.4rem; margin-bottom: 20px; color: var(--primary-color); }
         
-        /* 菜单按钮 */
         .menu-btn {
             display: block;
             width: 100%;
@@ -53,11 +52,9 @@
         }
         .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; opacity: 0.9; }
 
-        /* 游戏区域 */
         #game-area { display: none; }
         #question-title { font-size: 1.1rem; margin-bottom: 15px; min-height: 40px; font-weight: 600; }
         
-        /* 核心汉字展示容器 */
         #hanzi-target {
             width: 240px;
             height: 240px;
@@ -72,10 +69,9 @@
             background-size: 100% 100%;
             touch-action: none;
             font-size: 120px;
-            overflow: hidden; /* 防止SVG溢出 */
+            overflow: hidden;
         }
         
-        /* 选项布局 */
         .option-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -95,7 +91,6 @@
             justify-content: center;
             transition: all 0.2s;
         }
-        .option-btn:active { background-color: #e9ecef; }
         
         .back-btn {
             background-color: #607d8b;
@@ -131,7 +126,6 @@
 </div>
 
 <script>
-    // --- 1. 数据配置 ---
     const STROKE_PATHS = {
         '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
         '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
@@ -150,9 +144,7 @@
     let currentWriter = null;
     let currentWord = null;
     let currentMode = 0;
-    let nextStepTimer = null; // 用于管理所有的 setTimeout
-
-    // --- 2. 核心控制逻辑 ---
+    let nextStepTimer = null;
 
     function startGame(mode) {
         currentMode = mode;
@@ -162,7 +154,6 @@
     }
 
     function returnToMenu() {
-        // 关键修复：立即清理所有状态，防止异步逻辑干扰
         cleanup();
         document.getElementById('main-menu').style.display = 'block';
         document.getElementById('game-area').style.display = 'none';
@@ -170,38 +161,23 @@
     }
 
     function cleanup() {
-        // 1. 取消所有待执行的跳转计时器
-        if (nextStepTimer) {
-            clearTimeout(nextStepTimer);
-            nextStepTimer = null;
-        }
-
-        // 2. 彻底销毁 HanziWriter 实例
+        if (nextStepTimer) clearTimeout(nextStepTimer);
+        
         if (currentWriter) {
-            try {
-                currentWriter.destroy();
-            } catch (e) {
-                console.warn("Writer destroy failed", e);
-            }
+            try { currentWriter.destroy(); } catch (e) {}
             currentWriter = null;
         }
 
-        // 3. 强力清空 DOM 内容
         const target = document.getElementById('hanzi-target');
-        while (target.firstChild) {
-            target.removeChild(target.firstChild);
-        }
+        while (target.firstChild) target.removeChild(target.firstChild);
         target.innerText = '';
-        target.style.fontSize = '120px'; // 恢复模式1,2的字号
+        target.style.fontSize = '120px';
 
-        // 4. 清空选项区域
-        const optionsArea = document.getElementById('options-area');
-        optionsArea.innerHTML = '';
+        document.getElementById('options-area').innerHTML = '';
     }
 
     function refreshGame() {
-        if (currentMode === 0) return; // 如果已经返回主菜单，停止执行
-        
+        if (currentMode === 0) return;
         cleanup();
         currentWord = wordList[Math.floor(Math.random() * wordList.length)];
         
@@ -214,8 +190,6 @@
         }
     }
 
-    // --- 3. 模式具体实现 ---
-
     function playMode1() {
         document.getElementById('question-title').innerText = "这个字的拼音是？";
         document.getElementById('hanzi-target').innerText = currentWord.char;
@@ -223,8 +197,9 @@
     }
 
     function playMode2() {
-        document.getElementById('question-title').innerText = `拼音 [ ${currentWord.py} ] 对应哪个字？`;
-        document.getElementById('hanzi-target').innerText = "？";
+        // 修改点：去掉问号，微调文字描述
+        document.getElementById('question-title').innerText = `请选择拼音 [ ${currentWord.py} ] 对应的汉字：`;
+        document.getElementById('hanzi-target').innerText = ""; 
         renderOptions('char', currentWord.char);
     }
 
@@ -233,11 +208,11 @@
         let correctStroke = currentWord.strokeNames[idx];
         document.getElementById('question-title').innerText = `"${currentWord.char}" 的第 ${idx+1} 笔形状是？`;
         
-        // 笔画识别模式：显示灰色轮廓
         initWriter(currentWord.char, { 
             showOutline: true, 
             showCharacter: false, 
-            strokeColor: '#ddd' 
+            strokeColor: '#333',
+            outlineColor: '#ddd'
         });
         
         let allKeys = Object.keys(STROKE_PATHS);
@@ -267,19 +242,16 @@
         }});
     }
 
-    // --- 4. 渲染组件 ---
-
     function initWriter(char, config) {
         const target = document.getElementById('hanzi-target');
         let size = target.clientWidth - 20;
-        const base = { width: size, height: size, padding: 5, strokeColor: '#333' };
+        const base = { width: size, height: size, padding: 10 };
         currentWriter = HanziWriter.create('hanzi-target', char, Object.assign(base, config));
     }
 
     function renderOptions(key, correct) {
         const area = document.getElementById('options-area');
-        const vals = wordList.map(i => i[key]);
-        const options = generateRandomArray(vals, correct, 4);
+        const options = generateRandomArray(wordList.map(i => i[key]), correct, 4);
         
         options.forEach(opt => {
             const btn = document.createElement('button');
@@ -312,10 +284,13 @@
             btn.onclick = () => {
                 if(name === correct) { 
                     btn.style.background = '#4CAF50'; btn.style.color='white';
-                    // 这里是之前出bug的地方，现在有了 nextStepTimer 保护
                     nextStepTimer = setTimeout(refreshGame, 500); 
                 } else { 
-                    btn.style.background = '#f44336'; btn.style.color='white'; 
+                    btn.style.background = '#f44336'; 
+                    btn.style.color = 'white';
+                    if (currentWriter) {
+                        currentWriter.animateCharacter();
+                    }
                 }
             };
             area.appendChild(btn);

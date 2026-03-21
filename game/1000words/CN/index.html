@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>汉字达人 - 学习小游戏</title>
+    <title>汉字达人 - 小学一年级同步训练</title>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <style>
         :root {
             --primary-color: #4CAF50;
             --bg-color: #f5f7fa;
             --text-color: #333;
+            --accent-highlight: #337ab7; /* 第3题考核笔画颜色 */
             --accent-red: #e74c3c;
+            --correct-green: #4CAF50;
         }
         body {
             font-family: 'Segoe UI', system-ui, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
             margin: 0;
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,49 +28,49 @@
             max-width: 500px;
             background: white;
             padding: 20px;
-            border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
             box-sizing: border-box;
-            position: relative;
         }
-        h1 { font-size: 1.4rem; margin-bottom: 20px; color: var(--primary-color); }
+        h1 { font-size: 1.5rem; color: var(--primary-color); margin-top: 0; }
         
+        /* 菜单样式 */
         .menu-btn {
             display: block;
             width: 100%;
-            padding: 16px;
+            padding: 18px;
             margin: 12px 0;
             background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 12px;
+            border-radius: 15px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
             box-shadow: 0 4px 0 #388E3C;
+            transition: all 0.1s;
         }
-        .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; opacity: 0.9; }
+        .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; }
 
+        /* 游戏区域 */
         #game-area { display: none; }
-        #question-title { font-size: 1.1rem; margin-bottom: 15px; min-height: 40px; font-weight: 600; }
+        #question-title { font-size: 1.1rem; margin-bottom: 15px; min-height: 50px; font-weight: 600; color: #555; }
         
         #hanzi-target {
             width: 240px;
             height: 240px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 20px;
             border: 2px solid #ddd;
-            border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: white;
+            background: white;
+            /* 米字格背景 */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23EEEEEE' stroke-width='1'/%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23EEEEEE' stroke-width='1'/%3E%3C/svg%3E");
             background-size: 100% 100%;
-            touch-action: none;
-            font-size: 120px;
-            overflow: hidden;
+            font-size: 140px;
+            position: relative;
         }
         
         .option-grid {
@@ -79,27 +80,25 @@
             margin-bottom: 20px;
         }
         .option-btn {
-            padding: 12px;
+            padding: 15px;
             background-color: #f8f9fa;
             border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
         
         .back-btn {
-            background-color: #607d8b;
+            background-color: #90a4ae;
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 10px 25px;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 10px;
             font-weight: bold;
         }
     </style>
@@ -107,12 +106,12 @@
 <body>
 
 <div id="app-container">
-    <h1>🏮 汉字达人训练营</h1>
+    <h1>🎒 一年级汉字达人</h1>
     
     <div id="main-menu">
-        <button class="menu-btn" onclick="startGame(1)">1. 看汉字 选拼音</button>
-        <button class="menu-btn" onclick="startGame(2)">2. 听拼音 选汉字</button>
-        <button class="menu-btn" onclick="startGame(3)">3. 辨笔画 识形状</button>
+        <button class="menu-btn" onclick="startGame(1)">1. 看汉字 · 选拼音</button>
+        <button class="menu-btn" onclick="startGame(2)">2. 听拼音 · 选汉字</button>
+        <button class="menu-btn" onclick="startGame(3)">3. 辨笔画 · 识形状</button>
         <button class="menu-btn" onclick="startGame(4)">4. 描红模式 (字帖)</button>
         <button class="menu-btn" onclick="startGame(5)">5. 默写模式 (盲写)</button>
     </div>
@@ -121,30 +120,78 @@
         <div id="question-title"></div>
         <div id="hanzi-target"></div>
         <div id="options-area" class="option-grid"></div>
-        <button class="back-btn" onclick="returnToMenu()">返回主菜单</button>
+        <button class="back-btn" onclick="returnToMenu()">返回菜单</button>
     </div>
 </div>
 
 <script>
+    // 笔画路径字典 (适配模式3图形显示)
     const STROKE_PATHS = {
         '点': 'M 25,15 Q 35,25 30,35', '横': 'M 10,25 L 40,25', '竖': 'M 25,10 L 25,40',
         '撇': 'M 40,15 Q 30,25 10,40', '捺': 'M 10,15 Q 25,25 45,40', '提': 'M 10,40 L 40,20',
-        '横折': 'M 10,20 L 35,20 L 35,45', '横钩': 'M 10,20 L 40,20 L 30,35', '竖钩': 'M 25,10 L 25,40 L 15,30',
-        '竖弯钩': 'M 20,10 L 20,35 Q 20,45 40,45 L 40,35'
+        '撇折': 'M 30,15 L 15,35 L 40,35', '撇点': 'M 30,10 L 15,25 Q 35,35 45,40',
+        '横折': 'M 10,20 L 35,20 L 35,45', '横撇': 'M 10,20 L 40,20 L 15,40',
+        '横斜钩': 'M 10,20 L 35,20 Q 40,40 25,45 L 20,40', '竖钩': 'M 25,10 L 25,40 L 15,30', 
+        '竖弯钩': 'M 20,10 L 20,35 Q 20,45 40,45 L 40,35', '竖折': 'M 15,10 L 15,35 L 40,35',
+        '卧钩': 'M 10,30 Q 25,45 40,30 L 45,20', '横折钩': 'M 10,20 L 35,20 L 35,45 L 25,35',
+        '横折提': 'M 10,20 L 35,20 L 15,40 L 25,45', '斜钩': 'M 20,10 Q 35,25 35,45 L 45,40',
+        '竖折撇': 'M 15,10 L 15,25 L 35,20 L 10,45', '竖弯': 'M 20,10 L 20,30 Q 20,40 35,40'
     };
 
+    // 100个基础生字库
     const wordList = [
-        { char: '鬼', py: 'guǐ', strokeNames: ['撇', '竖', '横折', '横', '横', '撇', '竖弯钩', '撇', '点'] },
-        { char: '永', py: 'yǒng', strokeNames: ['点', '横折钩', '横撇', '撇', '捺'] },
-        { char: '我', py: 'wǒ', strokeNames: ['撇', '横', '竖钩', '提', '斜钩', '撇', '点'] },
-        { char: '爱', py: 'ài', strokeNames: ['撇', '点', '点', '撇', '点', '横撇', '横', '撇', '横撇', '捺'] },
-        { char: '中', py: 'zhōng', strokeNames: ['竖', '横折', '横', '竖'] }
+        { char: '一', py: 'yī', strokeNames: ['横'] }, { char: '二', py: 'èr', strokeNames: ['横', '横'] },
+        { char: '三', py: 'sān', strokeNames: ['横', '横', '横'] }, { char: '上', py: 'shàng', strokeNames: ['竖', '横', '横'] },
+        { char: '下', py: 'xià', strokeNames: ['横', '竖', '点'] }, { char: '口', py: 'kǒu', strokeNames: ['竖', '横折', '横'] },
+        { char: '目', py: 'mù', strokeNames: ['竖', '横折', '横', '横', '横'] }, { char: '耳', py: 'ěr', strokeNames: ['横', '竖', '竖', '横', '横', '横'] },
+        { char: '手', py: 'shǒu', strokeNames: ['撇', '横', '横', '竖钩'] }, { char: '日', py: 'rì', strokeNames: ['竖', '横折', '横', '横'] },
+        { char: '田', py: 'tián', strokeNames: ['竖', '横折', '横', '竖', '横'] }, { char: '禾', py: 'hé', strokeNames: ['撇', '横', '竖', '撇', '捺'] },
+        { char: '火', py: 'huǒ', strokeNames: ['点', '撇', '撇', '捺'] }, { char: '虫', py: 'chóng', strokeNames: ['竖', '横折', '横', '竖', '提', '点'] },
+        { char: '云', py: 'yún', strokeNames: ['横', '横', '撇折', '点'] }, { char: '山', py: 'shān', strokeNames: ['竖', '竖折', '竖'] },
+        { char: '八', py: 'bā', strokeNames: ['撇', '捺'] }, { char: '十', py: 'shí', strokeNames: ['横', '竖'] },
+        { char: '人', py: 'rén', strokeNames: ['撇', '捺'] }, { char: '地', py: 'dì', strokeNames: ['横', '竖', '提', '横折钩', '竖', '竖弯钩'] },
+        { char: '天', py: 'tiān', strokeNames: ['横', '横', '撇', '捺'] }, { char: '大', py: 'dà', strokeNames: ['横', '撇', '捺'] },
+        { char: '中', py: 'zhōng', strokeNames: ['竖', '横折', '横', '竖'] }, { char: '月', py: 'yuè', strokeNames: ['撇', '横折钩', '横', '横'] },
+        { char: '水', py: 'shuǐ', strokeNames: ['竖钩', '横撇', '撇', '捺'] }, { char: '白', py: 'bái', strokeNames: ['撇', '竖', '横折', '横', '横'] },
+        { char: '子', py: 'zǐ', strokeNames: ['横撇', '竖钩', '横'] }, { char: '头', py: 'tóu', strokeNames: ['点', '点', '横', '撇', '点'] },
+        { char: '女', py: 'nǚ', strokeNames: ['撇点', '撇', '横'] }, { char: '开', py: 'kāi', strokeNames: ['横', '横', '撇', '竖'] },
+        { char: '小', py: 'xiǎo', strokeNames: ['竖钩', '撇', '点'] }, { char: '少', py: 'shǎo', strokeNames: ['竖', '撇', '点', '撇'] },
+        { char: '牛', py: 'niú', strokeNames: ['撇', '横', '横', '竖'] }, { char: '羊', py: 'yáng', strokeNames: ['点', '撇', '横', '横', '横', '竖'] },
+        { char: '木', py: 'mù', strokeNames: ['横', '竖', '撇', '捺'] }, { char: '心', py: 'xīn', strokeNames: ['点', '卧钩', '点', '点'] },
+        { char: '鸟', py: 'niǎo', strokeNames: ['撇', '竖折折钩', '点', '横'] }, { char: '早', py: 'zǎo', strokeNames: ['竖', '横折', '横', '横', '横', '竖'] },
+        { char: '牙', py: 'yá', strokeNames: ['横', '竖折撇', '竖钩', '撇'] }, { char: '尺', py: 'chǐ', strokeNames: ['横折', '横', '撇', '捺'] },
+        { char: '本', py: 'běn', strokeNames: ['横', '竖', '撇', '捺', '横'] }, { char: '书', py: 'shū', strokeNames: ['横折', '横折钩', '竖', '点'] },
+        { char: '自', py: 'zì', strokeNames: ['撇', '竖', '横折', '横', '横', '横'] }, { char: '己', py: 'jǐ', strokeNames: ['横折', '横', '竖弯钩'] },
+        { char: '东', py: 'dōng', strokeNames: ['横', '撇折', '竖钩', '撇', '点'] }, { char: '西', py: 'xī', strokeNames: ['横', '竖', '横折', '撇', '竖弯', '横'] },
+        { char: '回', py: 'huí', strokeNames: ['竖', '横折', '竖', '横折', '横', '横'] }, { char: '片', py: 'piàn', strokeNames: ['撇', '竖', '横', '横折'] },
+        { char: '皮', py: 'pí', strokeNames: ['横撇', '竖', '横撇', '竖', '捺'] }, { char: '生', py: 'shēng', strokeNames: ['撇', '横', '横', '竖', '横'] },
+        { char: '里', py: 'lǐ', strokeNames: ['竖', '横折', '横', '横', '竖', '横', '横'] }, { char: '果', py: 'guǒ', strokeNames: ['竖', '横折', '横', '横', '横', '竖', '撇', '捺'] },
+        { char: '几', py: 'jǐ', strokeNames: ['撇', '横折弯钩'] }, { char: '用', py: 'yòng', strokeNames: ['撇', '横折钩', '横', '横', '竖'] },
+        { char: '鱼', py: 'yú', strokeNames: ['撇', '横撇', '竖', '横折', '横', '竖', '横'] }, { char: '今', py: 'jīn', strokeNames: ['撇', '捺', '点', '横撇'] },
+        { char: '正', py: 'zhèng', strokeNames: ['横', '竖', '横', '竖', '横'] }, { char: '雨', py: 'yǔ', strokeNames: ['横', '竖', '横折钩', '竖', '点', '点', '点', '点'] },
+        { char: '两', py: 'liǎng', strokeNames: ['横', '竖', '横折钩', '撇', '点', '撇', '点'] }, { char: '瓜', py: 'guā', strokeNames: ['撇', '撇', '竖提', '点', '捺'] },
+        { char: '衣', py: 'yī', strokeNames: ['点', '横', '撇', '竖提', '撇', '捺'] }, { char: '来', py: 'lái', strokeNames: ['横', '点', '撇', '横', '竖', '撇', '捺'] },
+        { char: '年', py: 'nián', strokeNames: ['撇', '横', '横', '竖', '横', '竖'] }, { char: '左', py: 'zuǒ', strokeNames: ['横', '撇', '横', '竖', '横'] },
+        { char: '右', py: 'yòu', strokeNames: ['横', '撇', '竖', '横折', '横'] }, { char: '万', py: 'wàn', strokeNames: ['横', '横折钩', '撇'] },
+        { char: '百', py: 'bǎi', strokeNames: ['横', '撇', '竖', '横折', '横', '横'] }, { char: '丁', py: 'dīng', strokeNames: ['横', '竖钩'] },
+        { char: '齐', py: 'qí', strokeNames: ['点', '横', '撇', '竖'] }, { char: '冬', py: 'dōng', strokeNames: ['撇', '横撇', '捺', '点', '点'] },
+        { char: '春', py: 'chūn', strokeNames: ['横', '横', '横', '撇', '捺', '竖', '横折', '横', '横'] }, { char: '风', py: 'fēng', strokeNames: ['撇', '横斜钩', '撇', '点'] },
+        { char: '雪', py: 'xuě', strokeNames: ['横', '竖', '横折钩', '竖', '点', '点', '点', '点', '横', '竖折', '横'] }, { char: '花', py: 'huā', strokeNames: ['横', '竖', '竖', '撇', '竖', '撇', '竖弯钩'] },
+        { char: '飞', py: 'fēi', strokeNames: ['横斜钩', '撇', '点'] }, { char: '入', py: 'rù', strokeNames: ['撇', '捺'] },
+        { char: '姓', py: 'xìng', strokeNames: ['撇点', '撇', '横', '撇', '横', '横', '竖', '横'] }, { char: '什', py: 'shén', strokeNames: ['撇', '竖', '横', '竖'] },
+        { char: '么', py: 'me', strokeNames: ['撇', '撇折', '点'] }, { char: '双', py: 'shuāng', strokeNames: ['横撇', '点', '横撇', '捺'] },
+        { char: '国', py: 'guó', strokeNames: ['竖', '横折', '横', '横', '竖', '横', '点', '横'] }, { char: '王', py: 'wáng', strokeNames: ['横', '横', '竖', '横'] },
+        { char: '方', py: 'fāng', strokeNames: ['点', '横', '横折钩', '撇'] }, { char: '红', py: 'hóng', strokeNames: ['撇折', '撇折', '提', '横', '竖', '横'] },
+        { char: '时', py: 'shí', strokeNames: ['竖', '横折', '横', '横', '横', '竖钩', '点'] }, { char: '动', py: 'dòng', strokeNames: ['横', '横', '竖折', '撇', '横折钩', '撇'] },
+        { char: '说', py: 'shuō', strokeNames: ['点', '横折提', '点', '撇', '竖', '横折', '撇', '竖弯钩'] }, { char: '也', py: 'yě', strokeNames: ['横折钩', '竖', '竖弯钩'] },
+        { char: '快', py: 'kuài', strokeNames: ['点', '点', '竖', '横', '横折', '横', '撇', '捺'] }, { char: '乐', py: 'lè', strokeNames: ['撇', '竖折', '竖钩', '撇', '点'] },
+        { char: '门', py: 'mén', strokeNames: ['点', '竖', '横折钩'] }, { char: '光', py: 'guāng', strokeNames: ['竖', '点', '撇', '横', '撇', '竖弯钩'] },
+        { char: '床', py: 'chuáng', strokeNames: ['点', '横', '撇', '横', '竖', '撇', '捺'] }, { char: '笑', py: 'xiào', strokeNames: ['撇', '横', '点', '撇', '横', '点', '撇', '横', '撇', '捺'] },
+        { char: '办', py: 'bàn', strokeNames: ['横折钩', '撇', '点', '撇'] }, { char: '法', py: 'fǎ', strokeNames: ['点', '点', '提', '横', '竖', '横', '竖折', '点'] },
+        { char: '找', py: 'zhǎo', strokeNames: ['横', '竖钩', '提', '横', '斜钩', '撇', '点'] }, { char: '许', py: 'xǔ', strokeNames: ['点', '横折提', '点', '撇', '横', '竖'] }
     ];
 
-    let currentWriter = null;
-    let currentWord = null;
-    let currentMode = 0;
-    let nextStepTimer = null;
+    let currentWriter = null, currentWord = null, currentMode = 0, nextStepTimer = null, currentStrokeIdx = -1;
 
     function startGame(mode) {
         currentMode = mode;
@@ -157,30 +204,21 @@
         cleanup();
         document.getElementById('main-menu').style.display = 'block';
         document.getElementById('game-area').style.display = 'none';
-        currentMode = 0;
     }
 
     function cleanup() {
         if (nextStepTimer) clearTimeout(nextStepTimer);
-        
-        if (currentWriter) {
-            try { currentWriter.destroy(); } catch (e) {}
-            currentWriter = null;
-        }
-
+        if (currentWriter) { try { currentWriter.destroy(); } catch (e) {} currentWriter = null; }
         const target = document.getElementById('hanzi-target');
         while (target.firstChild) target.removeChild(target.firstChild);
-        target.innerText = '';
-        target.style.fontSize = '120px';
-
+        target.innerText = ''; target.style.color = '#333';
         document.getElementById('options-area').innerHTML = '';
+        currentStrokeIdx = -1;
     }
 
     function refreshGame() {
-        if (currentMode === 0) return;
         cleanup();
         currentWord = wordList[Math.floor(Math.random() * wordList.length)];
-        
         switch(currentMode) {
             case 1: playMode1(); break;
             case 2: playMode2(); break;
@@ -190,85 +228,90 @@
         }
     }
 
+    // 模式1：看汉字 选拼音
     function playMode1() {
-        document.getElementById('question-title').innerText = "这个字的拼音是？";
+        document.getElementById('question-title').innerText = "这个汉字的拼音是哪个？";
         document.getElementById('hanzi-target').innerText = currentWord.char;
         renderOptions('py', currentWord.py);
     }
 
+    // 模式2：听拼音 选汉字 (已优化)
     function playMode2() {
-        // 修改点：去掉问号，微调文字描述
-        document.getElementById('question-title').innerText = `请选择拼音 [ ${currentWord.py} ] 对应的汉字：`;
-        document.getElementById('hanzi-target').innerText = ""; 
-        renderOptions('char', currentWord.char);
-    }
-
-    function playMode3() {
-        let idx = Math.floor(Math.random() * currentWord.strokeNames.length);
-        let correctStroke = currentWord.strokeNames[idx];
-        document.getElementById('question-title').innerText = `"${currentWord.char}" 的第 ${idx+1} 笔形状是？`;
-        
-        initWriter(currentWord.char, { 
-            showOutline: true, 
-            showCharacter: false, 
-            strokeColor: '#333',
-            outlineColor: '#ddd'
-        });
-        
-        let allKeys = Object.keys(STROKE_PATHS);
-        let options = generateRandomArray(allKeys, correctStroke, 4);
-        renderStrokeOptions(options, correctStroke);
-    }
-
-    function playMode4() {
-        document.getElementById('question-title').innerText = `请描红：${currentWord.char}`;
-        initWriter(currentWord.char, {
-            showCharacter: false, showOutline: true,
-            outlineColor: '#EEEEEE', drawingColor: '#e74c3c'
-        });
-        currentWriter.quiz({ onComplete: () => { 
-            nextStepTimer = setTimeout(() => { alert("真棒！"); refreshGame(); }, 300); 
-        }});
-    }
-
-    function playMode5() {
-        document.getElementById('question-title').innerText = `默写测试：${currentWord.py}`;
-        initWriter(currentWord.char, {
-            showCharacter: false, showOutline: false,
-            showHintAfterMisses: 1, drawingColor: '#333'
-        });
-        currentWriter.quiz({ onComplete: () => { 
-            nextStepTimer = setTimeout(() => { alert("记忆力惊人！"); refreshGame(); }, 300); 
-        }});
-    }
-
-    function initWriter(char, config) {
+        document.getElementById('question-title').innerText = `请从下方选项中找出拼音 [ ${currentWord.py} ] 对应的汉字`;
         const target = document.getElementById('hanzi-target');
-        let size = target.clientWidth - 20;
-        const base = { width: size, height: size, padding: 10 };
-        currentWriter = HanziWriter.create('hanzi-target', char, Object.assign(base, config));
-    }
-
-    function renderOptions(key, correct) {
         const area = document.getElementById('options-area');
-        const options = generateRandomArray(wordList.map(i => i[key]), correct, 4);
+        const options = generateRandomArray(wordList.map(i => i.char), currentWord.char, 4);
         
         options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerText = opt;
             btn.onclick = () => {
-                if(opt === correct) { 
-                    btn.style.background = '#4CAF50'; btn.style.color='white';
-                    nextStepTimer = setTimeout(refreshGame, 500); 
-                } else { 
-                    btn.style.background = '#f44336'; btn.style.color='white'; 
+                area.querySelectorAll('button').forEach(b => b.style.pointerEvents = 'none');
+                target.innerText = currentWord.char; // 揭晓答案
+                const isCorrect = (opt === currentWord.char);
+                btn.style.background = isCorrect ? 'var(--correct-green)' : 'var(--accent-red)';
+                btn.style.color = 'white';
+                target.style.color = isCorrect ? 'var(--correct-green)' : 'var(--accent-red)';
+                nextStepTimer = setTimeout(refreshGame, 1500);
+            };
+            area.appendChild(btn);
+        });
+    }
+
+    // 模式3：辨笔画 (已优化显色)
+    function playMode3() {
+        currentStrokeIdx = Math.floor(Math.random() * currentWord.strokeNames.length);
+        const correctStrokeName = currentWord.strokeNames[currentStrokeIdx];
+        document.getElementById('question-title').innerText = `"${currentWord.char}" 字的第 ${currentStrokeIdx+1} 笔是什么形状？`;
+        
+        initWriter(currentWord.char, { 
+            showOutline: true, showCharacter: true, 
+            strokeColor: '#e0e0e0', // 其他笔画淡灰色
+            outlineColor: '#f0f0f0' 
+        });
+        // 将考核的那一笔设为特定蓝色
+        currentWriter.updateColor('strokeColor', '#337ab7', { strokeNum: currentStrokeIdx });
+        
+        const allNames = Object.keys(STROKE_PATHS);
+        renderStrokeOptions(generateRandomArray(allNames, correctStrokeName, 4), correctStrokeName);
+    }
+
+    // 模式4：描红
+    function playMode4() {
+        document.getElementById('question-title').innerText = `请按照提示顺序描红：${currentWord.char}`;
+        initWriter(currentWord.char, { showCharacter: false, showOutline: true, outlineColor: '#eee', drawingColor: '#e74c3c' });
+        currentWriter.quiz({ onComplete: () => { nextStepTimer = setTimeout(refreshGame, 800); }});
+    }
+
+    // 模式5：默写
+    function playMode5() {
+        document.getElementById('question-title').innerText = `准备好了吗？请在格子里默写：${currentWord.py}`;
+        initWriter(currentWord.char, { showCharacter: false, showOutline: false, showHintAfterMisses: 1, drawingColor: '#333' });
+        currentWriter.quiz({ onComplete: () => { nextStepTimer = setTimeout(refreshGame, 800); }});
+    }
+
+    // 渲染普通选项
+    function renderOptions(key, correct) {
+        const area = document.getElementById('options-area');
+        const options = generateRandomArray(wordList.map(i => i[key]), correct, 4);
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => {
+                if(opt === correct) {
+                    btn.style.background = 'var(--correct-green)'; btn.style.color='white';
+                    nextStepTimer = setTimeout(refreshGame, 600);
+                } else {
+                    btn.style.background = 'var(--accent-red)'; btn.style.color='white';
                 }
             };
             area.appendChild(btn);
         });
     }
 
+    // 渲染笔画图形选项
     function renderStrokeOptions(options, correct) {
         const area = document.getElementById('options-area');
         options.forEach(name => {
@@ -276,24 +319,31 @@
             btn.className = 'option-btn';
             const path = STROKE_PATHS[name] || STROKE_PATHS['横'];
             btn.innerHTML = `
-                <svg viewBox="0 0 50 50" width="40" height="40" style="fill:none; stroke:currentColor; stroke-width:3; stroke-linecap:round;">
+                <svg viewBox="0 0 50 50" width="40" height="40" style="fill:none; stroke:currentColor; stroke-width:4; stroke-linecap:round;">
                     <path d="${path}" />
                 </svg>
-                <span style="font-size:0.8rem; margin-top:4px;">${name}</span>
+                <span style="font-size:0.8rem; margin-top:5px; color:#666;">${name}</span>
             `;
             btn.onclick = () => {
-                if(name === correct) { 
-                    btn.style.background = '#4CAF50'; btn.style.color='white';
-                    nextStepTimer = setTimeout(refreshGame, 500); 
-                } else { 
-                    btn.style.background = '#f44336'; 
-                    btn.style.color = 'white';
-                    if (currentWriter) {
-                        currentWriter.animateCharacter();
-                    }
+                if(name === correct) {
+                    btn.style.background = 'var(--correct-green)'; btn.style.color='white';
+                    nextStepTimer = setTimeout(refreshGame, 600);
+                } else {
+                    btn.style.background = 'var(--accent-red)'; btn.style.color = 'white';
+                    if (currentWriter) currentWriter.animateStroke(currentStrokeIdx);
                 }
             };
             area.appendChild(btn);
+        });
+    }
+
+    function initWriter(char, config) {
+        const target = document.getElementById('hanzi-target');
+        let size = Math.min(target.clientWidth, 240) - 20;
+        currentWriter = HanziWriter.create('hanzi-target', char, {
+            width: size, height: size, padding: 10,
+            strokeAnimationSpeed: 1, delayBetweenStrokes: 200,
+            ...config
         });
     }
 

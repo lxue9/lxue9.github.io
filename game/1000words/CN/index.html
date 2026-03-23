@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>汉字达人 Pro - 全量字库图形版</title>
+    <title>汉字达人 Pro - 教学增强版</title>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <style>
         :root {
@@ -13,29 +13,34 @@
             --accent-red: #e74c3c;
             --correct-green: #4CAF50;
         }
-        body { font-family: system-ui, sans-serif; background: var(--bg-color); margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg-color); margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
         #app-container { width: 100%; max-width: 500px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
         
-        /* 目录选择器 */
+        /* 选择器区域 */
         #data-selector { background: #e8f5e9; padding: 15px; border-radius: 12px; margin-bottom: 20px; }
         .select-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        select { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; }
+        select { flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem; outline: none; }
         
-        .load-btn { width: 100%; padding: 12px; background: #2e7d32; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        #status-msg { font-size: 0.85rem; margin-top: 8px; color: #666; }
+        .load-btn { width: 100%; padding: 12px; background: #2e7d32; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        .load-btn:active { background: #1b5e20; }
+        #status-msg { font-size: 0.85rem; margin-top: 8px; color: #666; height: 1.2rem; }
 
         /* 菜单按钮 */
-        .menu-btn { display: block; width: 100%; padding: 16px; margin: 10px 0; background: var(--primary-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #388E3C; }
+        .menu-btn { display: block; width: 100%; padding: 16px; margin: 10px 0; background: var(--primary-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #388E3C; transition: all 0.1s; }
+        .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; }
         .menu-btn:disabled { background: #ccc; box-shadow: 0 4px 0 #aaa; cursor: not-allowed; }
 
-        /* 游戏区 */
+        /* 游戏区域 */
         #game-area { display: none; }
-        #question-title { font-size: 1.1rem; margin-bottom: 10px; font-weight: 600; color: #555; }
-        #hanzi-target { width: 220px; height: 220px; margin: 0 auto 15px; border: 1px solid #eee; background: white; position: relative; }
+        #question-title { font-size: 1.1rem; margin-bottom: 15px; font-weight: 600; color: #333; min-height: 2.5rem; }
+        #hanzi-target { width: 220px; height: 220px; margin: 0 auto 15px; border: 1px solid #eee; background: white; display: flex; align-items: center; justify-content: center; position: relative; }
         
-        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .option-btn { padding: 10px; background: #f8f9fa; border: 2px solid #eee; border-radius: 10px; cursor: pointer; display: flex; justify-content: center; align-items: center; min-height: 80px; }
-        .back-btn { background: #90a4ae; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; font-weight: bold; }
+        /* 选项布局 */
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .option-btn { padding: 12px; background: #f8f9fa; border: 2px solid #eee; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90px; transition: border-color 0.2s; }
+        .option-btn:hover { border-color: #ddd; }
+        
+        .back-btn { background: #90a4ae; color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -52,7 +57,7 @@
                 </select>
                 <select id="sub-category"></select>
             </div>
-            <button class="load-btn" onclick="fetchWordList()">开始加载字库</button>
+            <button class="load-btn" onclick="fetchWordList()">开始加载字库数据</button>
             <div id="status-msg">请选择分类并点击加载</div>
         </div>
 
@@ -64,7 +69,7 @@
     </div>
 
     <div id="game-area">
-        <div id="question-title"></div>
+        <div id="question-title">加载中...</div>
         <div id="hanzi-target"></div>
         <div id="options-area" class="option-grid"></div>
         <button class="back-btn" onclick="returnToMenu()">返回菜单</button>
@@ -72,19 +77,33 @@
 </div>
 
 <script>
-    // --- 静态配置 ---
+    // --- 1. 数据配置 (精准匹配您的统计结果) ---
     const CONFIG = {
-        student: { folder: 'hanzi_by_grade', data: [{ name: "一年级上册", count: 101 }, { name: "一年级下册", count: 274 }, 
-{ name: "二年级上册", count: 424 },{ name: "二年级下册", count: 430 },
-{ name: "三年级上册", count: 325 },{ name: "三年级下册", count: 319 }, 
-{ name: "四年级上册", count: 211 },{ name: "四年级下册", count: 199 },
-{ name: "五年级上册", count: 138 },{ name: "五年级下册", count: 122 },
-{ name: "六年级上册", count: 120 },{ name: "六年级下册", count: 80}] },
-        adult: { folder: 'hanzi_types', data: [{ name: "常用字", count: 2491 }, { name: "次常用字", count: 997 }, { name: "通用字", count: 383 }, { name: "生僻字", count: 16952 }] }
+        student: { 
+            folder: 'hanzi_by_grade', 
+            data: [
+                { name: "一年级上册", count: 101 }, { name: "一年级下册", count: 274 }, 
+                { name: "二年级上册", count: 424 }, { name: "二年级下册", count: 430 },
+                { name: "三年级上册", count: 325 }, { name: "三年级下册", count: 319 }, 
+                { name: "四年级上册", count: 211 }, { name: "四年级下册", count: 199 },
+                { name: "五年级上册", count: 138 }, { name: "五年级下册", count: 122 },
+                { name: "六年级上册", count: 120 }, { name: "六年级下册", count: 80 }
+            ] 
+        },
+        adult: { 
+            folder: 'hanzi_types', 
+            data: [
+                { name: "常用字", count: 2491 }, 
+                { name: "次常用字", count: 997 }, 
+                { name: "通用字", count: 383 }, 
+                { name: "生僻字", count: 16952 }
+            ] 
+        }
     };
 
-    let activeWordList = [], shuffledQueue = [], currentWord = null, currentMode = 0, currentWriter = null, currentStrokeIdx = -1;
+    let activeWordList = [], shuffledQueue = [], currentWord = null, currentMode = 0, currentWriter = null;
 
+    // --- 2. 界面初始化 ---
     function updateSubCategory() {
         const group = document.getElementById('user-group').value;
         const subSelect = document.getElementById('sub-category');
@@ -97,22 +116,38 @@
         });
     }
 
+    // --- 3. 异步载入大库数据 ---
     async function fetchWordList() {
         const group = document.getElementById('user-group').value;
         const sub = document.getElementById('sub-category').value;
         const status = document.getElementById('status-msg');
-        status.innerText = "⏳ 正在载入...";
+        const folder = CONFIG[group].folder;
+        
+        status.innerText = "⏳ 正在载入库文件...";
         try {
-            const response = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
-            activeWordList = await response.json();
+            const response = await fetch(`./${folder}/${sub}.json`);
+            if (!response.ok) throw new Error("文件未找到");
+            const rawData = await response.json();
+            
+            // 字段清洗映射
+            activeWordList = rawData.map(item => ({
+                char: item.char,
+                py: item.py || item.pinyin || "无",
+                yisi: item.yisi || ""
+            }));
+            
             shuffledQueue = [...activeWordList].sort(() => Math.random() - 0.5);
             document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
-            status.innerText = `✅ [${sub}] 加载成功`;
+            status.innerText = `✅ [${sub}] 已就绪`;
+            status.style.color = "#2e7d32";
         } catch (e) {
-            status.innerText = "❌ 文件加载失败";
+            console.error(e);
+            status.innerText = "❌ 载入失败，请确认文件路径正确";
+            status.style.color = "#e74c3c";
         }
     }
 
+    // --- 4. 游戏流程控制 ---
     function startGame(mode) {
         currentMode = mode;
         document.getElementById('main-menu').style.display = 'none';
@@ -122,20 +157,32 @@
 
     async function refreshGame() {
         if (currentWriter) currentWriter.destroy();
-        document.getElementById('hanzi-target').innerHTML = '';
-        document.getElementById('options-area').innerHTML = '';
+        const target = document.getElementById('hanzi-target');
+        const area = document.getElementById('options-area');
+        target.innerHTML = '';
+        area.innerHTML = '';
         
-        if (shuffledQueue.length === 0) shuffledQueue = [...activeWordList].sort(() => Math.random() - 0.5);
+        if (shuffledQueue.length === 0) {
+            shuffledQueue = [...activeWordList].sort(() => Math.random() - 0.5);
+        }
         currentWord = shuffledQueue.pop();
 
-        // 核心：静默加载当前字的笔顺 JSON 数据
-        try {
-            const res = await fetch(`./data/strokes/${currentWord.char}.json`);
-            currentWord.strokeData = await res.json();
+        // 策略分流：3, 4, 5 题需要读取单字笔顺
+        if (currentMode >= 3) {
+            target.innerHTML = '<span style="font-size:14px;color:#999">正在调取笔顺数据...</span>';
+            try {
+                const res = await fetch(`./data/strokes/${currentWord.char}.json`);
+                if (!res.ok) throw new Error("缺失笔顺");
+                currentWord.strokeData = await res.json();
+                target.innerHTML = '';
+                runModeLogic();
+            } catch (e) {
+                console.warn(`字库缺失: ${currentWord.char}`);
+                refreshGame(); // 自动寻找下一个
+                return;
+            }
+        } else {
             runModeLogic();
-        } catch (e) {
-            console.error("缺少笔画文件:", currentWord.char);
-            refreshGame(); // 跳过这个字
         }
     }
 
@@ -143,46 +190,46 @@
         const target = document.getElementById('hanzi-target');
         const title = document.getElementById('question-title');
 
-        if (currentMode === 1) {
+        if (currentMode === 1) { // 选拼音
             title.innerText = "这个字的拼音是？";
             target.innerText = currentWord.char;
             target.style.fontSize = "120px";
-            target.style.lineHeight = "220px";
             renderTextOptions('py', currentWord.py);
-        } else if (currentMode === 2) {
+        } 
+        else if (currentMode === 2) { // 选汉字
             title.innerText = `点击拼音 [ ${currentWord.py} ] 对应的字`;
             target.innerText = "？";
             target.style.fontSize = "120px";
             renderTextOptions('char', currentWord.char);
-        } else if (currentMode === 3) {
+        } 
+        else if (currentMode === 3) { // 辨笔画
             playVisualStrokeMode();
-        } else {
+        } 
+        else { // 描红/默写
             playWritingMode();
         }
     }
 
-    // --- 模式3：图形辨笔画 ---
+    // --- 5. 模式3：图形辨形状 ---
     function playVisualStrokeMode() {
         const area = document.getElementById('options-area');
         const strokes = currentWord.strokeData.strokes;
-        currentStrokeIdx = Math.floor(Math.random() * strokes.length);
-        const correctPath = strokes[currentStrokeIdx];
+        const currentIdx = Math.floor(Math.random() * strokes.length);
+        const correctPath = strokes[currentIdx];
 
-        document.getElementById('question-title').innerText = `请选出 "${currentWord.char}" 的第 ${currentStrokeIdx + 1} 笔：`;
+        document.getElementById('question-title').innerText = `请选出 "${currentWord.char}" 的第 ${currentIdx + 1} 笔：`;
 
         initWriter(currentWord.char, { strokeColor: '#ddd', showCharacter: false });
         setTimeout(() => {
-            currentWriter.updateColor('strokeColor', 'var(--accent-highlight)', { strokeNum: currentStrokeIdx });
-            currentWriter.animateStroke(currentStrokeIdx);
+            currentWriter.updateColor('strokeColor', '#337ab7', { strokeNum: currentIdx });
+            currentWriter.animateStroke(currentIdx);
         }, 200);
 
-        // 准备选项：1个正确，3个干扰
+        // 生成 4 个选项
         let options = [{ path: correctPath, isCorrect: true }];
         while (options.length < 4) {
-            // 从当前字的其他笔画或随机字里抓笔画
-            let randCharObj = activeWordList[Math.floor(Math.random() * activeWordList.length)];
-            // 简单的随机干扰路径（如果是生产环境，建议预存一组常用笔画路径）
-            let randPath = strokes[Math.floor(Math.random() * strokes.length)]; 
+            // 优先从当前字的其他笔画抓取，不足则随机抓大库中的字
+            let randPath = strokes[Math.floor(Math.random() * strokes.length)];
             if (!options.find(o => o.path === randPath)) {
                 options.push({ path: randPath, isCorrect: false });
             }
@@ -191,58 +238,35 @@
         options.sort(() => Math.random() - 0.5).forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
-            // 使用 SVG 渲染笔画，注意坐标缩放和翻转
             btn.innerHTML = `
-                <svg viewBox="0 0 1024 1024" width="60" height="60">
+                <svg viewBox="0 0 1024 1024" width="65" height="65">
                     <g transform="scale(1, -1) translate(0, -900)">
                         <path d="${opt.path}" fill="#333" />
                     </g>
                 </svg>`;
             btn.onclick = () => {
                 if (opt.isCorrect) {
-                    btn.style.borderColor = 'var(--correct-green)';
+                    btn.style.borderColor = '#4CAF50';
                     btn.style.background = '#e8f5e9';
                     setTimeout(refreshGame, 800);
                 } else {
-                    btn.style.borderColor = 'var(--accent-red)';
-                    currentWriter.animateStroke(currentStrokeIdx);
+                    btn.style.borderColor = '#e74c3c';
+                    currentWriter.animateStroke(currentIdx);
                 }
             };
             area.appendChild(btn);
         });
     }
 
+    // --- 6. 模式4、5：书写模式 ---
     function playWritingMode() {
         const isQuiz = currentMode === 5;
-        document.getElementById('question-title').innerText = isQuiz ? `默写拼音：${currentWord.py}` : `描红：${currentWord.char}`;
+        document.getElementById('question-title').innerText = isQuiz ? `请默写拼音为 [ ${currentWord.py} ] 的字` : `描红练习：${currentWord.char}`;
         initWriter(currentWord.char, { showOutline: !isQuiz, showCharacter: false });
         currentWriter.quiz({ onComplete: () => setTimeout(refreshGame, 800) });
     }
 
-    function renderTextOptions(key, correctValue) {
-        const area = document.getElementById('options-area');
-        let options = [correctValue];
-        while(options.length < 4) {
-            let r = activeWordList[Math.floor(Math.random() * activeWordList.length)][key];
-            if(!options.includes(r)) options.push(r);
-        }
-        options.sort(() => Math.random() - 0.5).forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = opt;
-            btn.style.fontSize = "1.2rem";
-            btn.onclick = () => {
-                if(opt === correctValue) {
-                    btn.style.background = 'var(--correct-green)'; btn.style.color='white';
-                    setTimeout(refreshGame, 800);
-                } else {
-                    btn.style.background = 'var(--accent-red)'; btn.style.color='white';
-                }
-            };
-            area.appendChild(btn);
-        });
-    }
-
+    // --- 7. 辅助功能 ---
     function initWriter(char, config) {
         currentWriter = HanziWriter.create('hanzi-target', char, {
             width: 200, height: 200, padding: 10,
@@ -252,13 +276,39 @@
         });
     }
 
+    function renderTextOptions(key, correctValue) {
+        const area = document.getElementById('options-area');
+        let opts = [correctValue];
+        while(opts.length < 4) {
+            let r = activeWordList[Math.floor(Math.random() * activeWordList.length)][key];
+            if(!opts.includes(r)) opts.push(r);
+        }
+        opts.sort(() => Math.random() - 0.5).forEach(val => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = val;
+            btn.style.fontSize = "1.5rem";
+            btn.onclick = () => {
+                if(val === correctValue) {
+                    btn.style.background = '#4CAF50'; btn.style.color='white';
+                    setTimeout(refreshGame, 800);
+                } else {
+                    btn.style.background = '#e74c3c'; btn.style.color='white';
+                }
+            };
+            area.appendChild(btn);
+        });
+    }
+
     function returnToMenu() {
         document.getElementById('main-menu').style.display = 'block';
         document.getElementById('game-area').style.display = 'none';
         if (currentWriter) currentWriter.destroy();
     }
 
+    // 页面启动初始化
     window.onload = updateSubCategory;
 </script>
+
 </body>
 </html>

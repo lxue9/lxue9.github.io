@@ -171,7 +171,7 @@
         if (currentMode >= 3) {
             target.innerHTML = '<span style="font-size:14px;color:#999">正在调取笔顺数据...</span>';
             try {
-                const res = await fetch(`./data/strokes/${currentWord.char}.json`);
+                const res = await fetch(`./Data/strokes/${currentWord.char}.json`);
                 if (!res.ok) throw new Error("缺失笔顺");
                 currentWord.strokeData = await res.json();
                 target.innerHTML = '';

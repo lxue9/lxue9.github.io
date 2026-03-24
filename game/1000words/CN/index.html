@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>汉字达人 Pro - 教学增强版</title>
+    <title>汉字达人 Pro - 进度保存版</title>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <style>
         :root {
@@ -24,19 +24,20 @@
         .load-btn:active { background: #1b5e20; }
         #status-msg { font-size: 0.85rem; margin-top: 8px; color: #666; height: 1.2rem; }
 
-        .menu-btn { display: block; width: 100%; padding: 16px; margin: 10px 0; background: var(--primary-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #388E3C; transition: all 0.1s; }
+        .menu-btn { display: block; width: 100%; padding: 16px; margin: 10px 0; background: var(--primary-color); color: white; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0 #388E3C; transition: all 0.1s; position: relative; }
         .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #388E3C; }
         .menu-btn:disabled { background: #ccc; box-shadow: 0 4px 0 #aaa; cursor: not-allowed; }
 
         #game-area { display: none; }
+        #game-info { display: flex; justify-content: space-between; font-size: 0.9rem; color: #666; margin-bottom: 10px; padding: 0 5px; }
         #question-title { font-size: 1.1rem; margin-bottom: 15px; font-weight: 600; color: #333; min-height: 2.5rem; }
         #hanzi-target { width: 220px; height: 220px; margin: 0 auto 15px; border: 1px solid #eee; background: white; display: flex; align-items: center; justify-content: center; position: relative; }
         
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
         .option-btn { padding: 12px; background: #f8f9fa; border: 2px solid #eee; border-radius: 12px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 90px; transition: border-color 0.2s; }
-        .option-btn:hover { border-color: #ddd; }
         
         .back-btn { background: #90a4ae; color: white; border: none; padding: 14px; border-radius: 12px; width: 100%; font-weight: bold; cursor: pointer; }
+        .reset-link { display: block; margin-top: 15px; font-size: 0.8rem; color: #999; text-decoration: underline; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -53,8 +54,8 @@
                 </select>
                 <select id="sub-category"></select>
             </div>
-            <button class="load-btn" onclick="fetchWordList()">开始加载字库数据</button>
-            <div id="status-msg">请选择分类并点击加载</div>
+            <button class="load-btn" onclick="fetchWordList()">加载字库数据</button>
+            <div id="status-msg">请加载数据后开始</div>
         </div>
 
         <button class="menu-btn game-btn" disabled onclick="startGame(1)">1. 看汉字 · 选拼音</button>
@@ -62,9 +63,15 @@
         <button class="menu-btn game-btn" disabled onclick="startGame(3)">3. 辨笔画 · 识形状</button>
         <button class="menu-btn game-btn" disabled onclick="startGame(4)">4. 描红模式 (练习)</button>
         <button class="menu-btn game-btn" disabled onclick="startGame(5)">5. 默写模式 (盲写)</button>
+        
+        <span class="reset-link" onclick="clearAllProgress()">重置所有答题记录</span>
     </div>
 
     <div id="game-area">
+        <div id="game-info">
+            <span id="category-display">库名</span>
+            <span id="progress-counter">进度: 0 / 0</span>
+        </div>
         <div id="question-title">加载中...</div>
         <div id="hanzi-target"></div>
         <div id="options-area" class="option-grid"></div>
@@ -73,32 +80,44 @@
 </div>
 
 <script>
-    // --- 1. 数据配置 ---
     const CONFIG = {
-        student: { 
-            folder: 'hanzi_by_grade', 
-            data: [
-                { name: "一年级上册", count: 101 }, { name: "一年级下册", count: 274 }, 
-                { name: "二年级上册", count: 424 }, { name: "二年级下册", count: 430 },
-                { name: "三年级上册", count: 325 }, { name: "三年级下册", count: 319 }, 
-                { name: "四年级上册", count: 211 }, { name: "四年级下册", count: 199 },
-                { name: "五年级上册", count: 138 }, { name: "五年级下册", count: 122 },
-                { name: "六年级上册", count: 120 }, { name: "六年级下册", count: 80 }
-            ] 
-        },
-        adult: { 
-            folder: 'hanzi_types', 
-            data: [
-                { name: "常用字", count: 2491 }, { name: "次常用字", count: 997 }, 
-                { name: "通用字", count: 383 }, { name: "生僻字", count: 16952 }
-            ] 
-        }
+        student: { folder: 'hanzi_by_grade', data: [{ name: "一年级上册", count: 101 }, { name: "一年级下册", count: 274 }, { name: "二年级上册", count: 424 }, { name: "二年级下册", count: 430 }, { name: "三年级上册", count: 325 }, { name: "三年级下册", count: 319 }, { name: "四年级上册", count: 211 }, { name: "四年级下册", count: 199 }, { name: "五年级上册", count: 138 }, { name: "五年级下册", count: 122 }, { name: "六年级上册", count: 120 }, { name: "六年级下册", count: 80 }] },
+        adult: { folder: 'hanzi_types', data: [{ name: "常用字", count: 2491 }, { name: "次常用字", count: 997 }, { name: "通用字", count: 383 }, { name: "生僻字", count: 16952 }] }
     };
 
     let activeWordList = [], shuffledQueue = [], currentWord = null, currentMode = 0, currentWriter = null;
-    let nextGameTimer = null; // 全局计时器句柄
+    let currentCategory = ""; 
+    let nextGameTimer = null;
 
-    // --- 2. 界面初始化 ---
+    // --- 核心逻辑：进度管理 ---
+    // 进度结构：{ "1_一年级上册": ["人", "大"], "2_一年级上册": ["口"] }
+    let userProgress = JSON.parse(localStorage.getItem('hanzi_pro_v1') || '{}');
+
+    function saveCurrentWordProgress() {
+        if (!currentWord) return;
+        const key = `${currentMode}_${currentCategory}`;
+        if (!userProgress[key]) userProgress[key] = [];
+        if (!userProgress[key].includes(currentWord.char)) {
+            userProgress[key].push(currentWord.char);
+            localStorage.setItem('hanzi_pro_v1', JSON.stringify(userProgress));
+        }
+    }
+
+    function getProgressCount() {
+        const key = `${currentMode}_${currentCategory}`;
+        return userProgress[key] ? userProgress[key].length : 0;
+    }
+
+    function clearAllProgress() {
+        if (confirm("确定要清空所有练习记录吗？")) {
+            localStorage.removeItem('hanzi_pro_v1');
+            userProgress = {};
+            alert("已清空");
+            location.reload();
+        }
+    }
+
+    // --- 界面控制 ---
     function updateSubCategory() {
         const group = document.getElementById('user-group').value;
         const subSelect = document.getElementById('sub-category');
@@ -111,75 +130,92 @@
         });
     }
 
-    // --- 3. 异步载入并清洗数据 (修复多音字) ---
     async function fetchWordList() {
         const group = document.getElementById('user-group').value;
         const sub = document.getElementById('sub-category').value;
         const status = document.getElementById('status-msg');
-        const folder = CONFIG[group].folder;
+        currentCategory = sub;
         
-        status.innerText = "⏳ 正在载入库文件...";
+        status.innerText = "⏳ 正在载入...";
         try {
-            const response = await fetch(`./${folder}/${sub}.json`);
-            if (!response.ok) throw new Error("文件未找到");
+            const response = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
+            if (!response.ok) throw new Error();
             const rawData = await response.json();
             
             activeWordList = rawData.map(item => {
                 let rawPy = item.py || item.pinyin || "无";
-                // 仅保留第一个拼音
-                let firstPy = rawPy.toString().split(/[\s,;/]+/)[0];
-                return {
-                    char: item.char,
-                    py: firstPy,
-                    yisi: item.yisi || ""
-                };
+                return { char: item.char, py: rawPy.toString().split(/[\s,;/]+/)[0] };
             });
             
-            shuffledQueue = [...activeWordList].sort(() => Math.random() - 0.5);
             document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
             status.innerText = `✅ [${sub}] 已就绪`;
             status.style.color = "#2e7d32";
         } catch (e) {
-            console.error(e);
-            status.innerText = "❌ 载入失败，请确认文件路径正确";
+            status.innerText = "❌ 载入失败";
             status.style.color = "#e74c3c";
         }
     }
 
-    // --- 4. 游戏流程控制 ---
     function startGame(mode) {
         currentMode = mode;
+        const key = `${currentMode}_${currentCategory}`;
+        const doneList = userProgress[key] || [];
+        
+        // 核心过滤：只抽没做过的字
+        shuffledQueue = activeWordList
+            .filter(item => !doneList.includes(item.char))
+            .sort(() => Math.random() - 0.5);
+
+        if (shuffledQueue.length === 0 && activeWordList.length > 0) {
+            if (confirm(`本关【${currentCategory}】已全部完成！是否重新开始？`)) {
+                userProgress[key] = [];
+                localStorage.setItem('hanzi_pro_v1', JSON.stringify(userProgress));
+                startGame(mode);
+            }
+            return;
+        }
+
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'block';
+        document.getElementById('category-display').innerText = currentCategory;
         refreshGame();
+    }
+
+    function updateCounterUI() {
+        const total = activeWordList.length;
+        const done = getProgressCount();
+        document.getElementById('progress-counter').innerText = `进度: ${done} / ${total}`;
     }
 
     async function refreshGame() {
         if (currentMode === 0) return;
+        updateCounterUI(); // 每次刷新题目更新计数器
+
         if (currentWriter) { currentWriter.destroy(); currentWriter = null; }
-        
         const target = document.getElementById('hanzi-target');
         const area = document.getElementById('options-area');
-        target.innerHTML = '';
-        area.innerHTML = '';
+        target.innerHTML = ''; area.innerHTML = '';
         
+        // 如果当前队列空了，但总库还没完（通常发生在一次运行中途），由于我们开始时已经filter过，
+        // 这里的逻辑主要是为了防止pop报错。
         if (shuffledQueue.length === 0) {
-            shuffledQueue = [...activeWordList].sort(() => Math.random() - 0.5);
+            alert("本轮练习结束！");
+            returnToMenu();
+            return;
         }
+        
         currentWord = shuffledQueue.pop();
 
         if (currentMode >= 3) {
             target.innerHTML = '<span style="font-size:14px;color:#999">载入笔顺...</span>';
             try {
-                const res = await fetch(`./data/strokes/${currentWord.char}.json`);
-                if (!res.ok) throw new Error("缺失笔顺");
+                const res = await fetch(`./Data/strokes/${currentWord.char}.json`);
                 currentWord.strokeData = await res.json();
                 if (currentMode === 0) return;
                 target.innerHTML = '';
                 runModeLogic();
             } catch (e) {
-                console.warn(`跳过缺失字: ${currentWord.char}`);
-                if (currentMode !== 0) refreshGame();
+                refreshGame(); // 缺失笔顺跳过，不计入进度
                 return;
             }
         } else {
@@ -190,36 +226,25 @@
     function runModeLogic() {
         const target = document.getElementById('hanzi-target');
         const title = document.getElementById('question-title');
-
         if (currentMode === 1) { 
-            title.innerText = "这个字的拼音是？";
-            target.innerText = currentWord.char;
-            target.style.fontSize = "120px";
+            title.innerText = "这个字的拼音是？"; target.innerText = currentWord.char; target.style.fontSize = "120px";
             renderTextOptions('py', currentWord.py);
-        } 
-        else if (currentMode === 2) { 
-            title.innerText = `点击 [ ${currentWord.py} ] 对应的字`;
-            target.innerText = "？";
-            target.style.fontSize = "120px";
+        } else if (currentMode === 2) { 
+            title.innerText = `点击 [ ${currentWord.py} ] 对应的字`; target.innerText = "？"; target.style.fontSize = "120px";
             renderTextOptions('char', currentWord.char);
-        } 
-        else if (currentMode === 3) { 
+        } else if (currentMode === 3) { 
             playVisualStrokeMode();
-        } 
-        else { 
+        } else { 
             playWritingMode();
         }
     }
 
-    // --- 5. 模式3：图形辨形状 (修复死循环) ---
     function playVisualStrokeMode() {
         const area = document.getElementById('options-area');
         const strokes = currentWord.strokeData.strokes;
         const currentIdx = Math.floor(Math.random() * strokes.length);
         const correctPath = strokes[currentIdx];
-
         document.getElementById('question-title').innerText = `请选出 "${currentWord.char}" 的第 ${currentIdx + 1} 笔：`;
-
         initWriter(currentWord.char, { strokeColor: '#ddd', showCharacter: false });
         
         nextGameTimer = setTimeout(() => {
@@ -229,20 +254,14 @@
             }
         }, 200);
 
-        // 构造选项，防止简单字导致的死循环
         let options = [{ path: correctPath, isCorrect: true }];
         let availableStrokes = strokes.filter(s => s !== correctPath);
-        
         while (options.length < 4 && availableStrokes.length > 0) {
             let randIdx = Math.floor(Math.random() * availableStrokes.length);
             options.push({ path: availableStrokes[randIdx], isCorrect: false });
             availableStrokes.splice(randIdx, 1);
         }
-
-        const fallbackPaths = [
-            "M 150 500 Q 500 480 850 500", "M 500 150 Q 480 500 500 850",
-            "M 800 150 Q 500 400 200 850", "M 200 200 Q 500 500 800 800"
-        ];
+        const fallbackPaths = ["M 150 500 Q 500 480 850 500", "M 500 150 Q 480 500 500 850", "M 800 150 Q 500 400 200 850", "M 200 200 Q 500 500 800 800"];
         while (options.length < 4) {
             let fb = fallbackPaths[Math.floor(Math.random() * fallbackPaths.length)];
             if (!options.find(o => o.path === fb)) options.push({ path: fb, isCorrect: false });
@@ -255,6 +274,7 @@
             btn.onclick = () => {
                 if (opt.isCorrect) {
                     btn.style.borderColor = '#4CAF50'; btn.style.background = '#e8f5e9';
+                    saveCurrentWordProgress(); // 答对，计入进度
                     nextGameTimer = setTimeout(refreshGame, 800);
                 } else {
                     btn.style.borderColor = '#e74c3c';
@@ -265,19 +285,19 @@
         });
     }
 
-    // --- 6. 模式4、5：书写模式 ---
     function playWritingMode() {
         const isQuiz = currentMode === 5;
         document.getElementById('question-title').innerText = isQuiz ? `请默写拼音为 [ ${currentWord.py} ] 的字` : `描红练习：${currentWord.char}`;
         initWriter(currentWord.char, { showOutline: !isQuiz, showCharacter: false });
-        currentWriter.quiz({ onComplete: () => { nextGameTimer = setTimeout(refreshGame, 800); } });
+        currentWriter.quiz({ onComplete: () => { 
+            saveCurrentWordProgress(); // 默写/描红完成，计入进度
+            nextGameTimer = setTimeout(refreshGame, 800); 
+        }});
     }
 
-    // --- 7. 辅助与退出 ---
     function initWriter(char, config) {
         currentWriter = HanziWriter.create('hanzi-target', char, {
-            width: 200, height: 200, padding: 10,
-            showHintAfterMisses: 1,
+            width: 200, height: 200, padding: 10, showHintAfterMisses: 1,
             charDataLoader: (char, onComplete) => onComplete(currentWord.strokeData),
             ...config
         });
@@ -292,12 +312,11 @@
         }
         opts.sort(() => Math.random() - 0.5).forEach(val => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = val;
-            btn.style.fontSize = "1.5rem";
+            btn.className = 'option-btn'; btn.innerText = val; btn.style.fontSize = "1.5rem";
             btn.onclick = () => {
                 if(val === correctValue) {
                     btn.style.background = '#4CAF50'; btn.style.color='white';
+                    saveCurrentWordProgress(); // 答对，计入进度
                     nextGameTimer = setTimeout(refreshGame, 800);
                 } else {
                     btn.style.background = '#e74c3c'; btn.style.color='white';

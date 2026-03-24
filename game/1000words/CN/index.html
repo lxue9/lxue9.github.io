@@ -6,90 +6,114 @@
     <title>汉字达人 Pro - 古风教学版</title>
     <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
     <style>
-        :root {
-            --bg-paper: #F9F4E9; 
-            --ink-black: #2C3E50; 
-            --jade-green: #1A4D3A; 
-            --vermilion-red: #C0392B; 
-            --border-wood: #8E6E46;
-            --texture-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
-        }
-
-        body {
-            font-family: "PingFang SC", "Microsoft YaHei", serif;
-            background-color: var(--bg-paper);
-            background-image: var(--texture-paper);
-            margin: 0; padding: 10px;
-            display: flex; flex-direction: column; align-items: center;
-            color: var(--ink-black);
-        }
-
-        #app-container {
-            width: 100%; max-width: 500px;
-            background-color: rgba(249, 244, 233, 0.9);
-            padding: 20px; border-radius: 16px;
-            border: 4px solid var(--border-wood);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center; box-sizing: border-box;
-        }
-
-        /* 顶部进度条 */
-        #game-info {
-            display: flex; justify-content: space-between;
-            font-size: 0.85rem; color: var(--border-wood);
-            margin-bottom: 10px; border-bottom: 1px solid rgba(142,110,70,0.2);
-            padding-bottom: 5px;
-        }
-
-        #data-selector {
-            background: rgba(26, 77, 58, 0.05);
-            padding: 15px; border-radius: 10px; margin-bottom: 20px;
-        }
-
-        .select-group { display: flex; gap: 8px; margin-bottom: 10px; }
-        select {
-            flex: 1; padding: 10px; border-radius: 6px; border: 1px solid var(--border-wood);
-            background: white; font-size: 1rem;
-        }
-
-        .load-btn {
-            width: 100%; padding: 12px; background: var(--jade-green);
-            color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;
-        }
-
-        .menu-btn {
-            display: block; width: 100%; padding: 16px; margin: 12px 0;
-            background: var(--jade-green); color: white; border: none;
-            border-radius: 8px; font-size: 1.1rem; font-weight: bold;
-            box-shadow: 0 4px 0 #0d2b21; transition: all 0.1s;
-        }
-        .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #0d2b21; }
-        .menu-btn:disabled { background: #ccc; box-shadow: 0 4px 0 #999; }
-
-        #game-area { display: none; }
-        #question-title { font-size: 1.1rem; margin-bottom: 15px; font-weight: bold; min-height: 3rem; }
+    /* 中国山水古风风格 UI优化 - 完整适配版 */
+    :root {
+        /* 古风调色板 */
+        --bg-paper: #F9F4E9; /* 宣纸色备用背景 */
+        --ink-black: #2C3E50; /* 黛蓝水墨黑 */
+        --jade-green: #1A4D3A; /* 深玉绿 - 按钮主色 */
+        --vermilion-red: #C0392B; /* 朱砂红 - 错误/返回色 */
+        --correct-green: #4CAF50; /* 成功绿 - 选中/成功色 */
+        --soft-gold: #FBC02D; /* 黄/金 - 提示色 */
         
-        #hanzi-target {
-            width: 200px; height: 200px; margin: 0 auto 20px;
-            background: white; border: 1px solid #ddd; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-        }
+        --border-wood: #8E6E46; /* 木质边框色 */
+        --text-main: var(--ink-black);
+    }
 
-        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .option-btn {
-            padding: 15px; background: white; border: 2px solid #eee;
-            border-radius: 10px; cursor: pointer; min-height: 80px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; transition: border-color 0.2s;
-        }
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background-color: var(--bg-paper); /* 备用色 */
+        background-image: url('./image/cn_word_bg.png'); /* 修改：指向图像路径路径 */
+        background-size: cover; /* 重要！填满不拉伸填满不拉伸填满不拉伸填满不拉伸 */
+        background-position: center; /* 居中居中居中图像图像 */
+        background-attachment: fixed; /* 重要！沉浸感，不不不滚动滚动滚动滚动滚动滚动 */
+        margin: 0;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--text-main);
+        overflow: hidden; /* 防止滑动抖动 */
+    }
 
-        .back-btn {
-            background: var(--vermilion-red); color: white; border: none;
-            padding: 12px; border-radius: 8px; width: 100%; font-weight: bold;
-        }
+    #app-container {
+        width: 100%;
+        max-width: 500px;
+        background-color: rgba(249, 244, 233, 0.9); /* 修改：半透明半透明宣纸层层层 */
+        padding: 20px;
+        border-radius: 16px;
+        /* 古风边框感 */
+        border: 4px solid var(--border-wood);
+        box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+    }
+    
+    /* 其他优化 UI */
+    h1 { color: var(--ink-black); margin-top: 5px; }
 
-        .reset-link { font-size: 0.75rem; color: #999; margin-top: 20px; cursor: pointer; text-decoration: underline; }
-    </style>
+    #data-selector {
+        background-color: #E8F5E9; /* 浅绿玉质感 */
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(142, 110, 70, 0.2);
+    }
+    
+    .select-group { display: flex; gap: 10px; margin-bottom: 10px; }
+    
+    select {
+        flex: 1;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        color: var(--ink-black);
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M0 3 L5 8 L10 3 Z' fill='%232C3E50'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+    }
+    
+    .load-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--jade-green);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .load-btn:active { background-color: var(--ink-black); }
+    
+    .menu-btn {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        margin: 12px 0;
+        background-color: var(--jade-green);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 0 rgba(26, 77, 58, 0.5);
+    }
+    .menu-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 rgba(26, 77, 58, 0.5); background-color: var(--vermilion-red); }
+    .menu-btn:disabled { background-color: #ccc; box-shadow: 0 4px 0 #aaa; cursor: not-allowed; }
+
+    #question-title { font-size: 1.1rem; margin-bottom: 15px; color: var(--ink-black); min-height: 2.5rem; }
+    #hanzi-target { width: 220px; height: 220px; margin: 0 auto 15px; border: 1px solid #eee; background-color: white; display: flex; align-items: center; justify-content: center; position: relative; border-radius: 8px; }
+    
+    .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .option-btn { padding: 12px; background-color: #f8f9fa; border: 2px solid rgba(142, 110, 70, 0.2); border-radius: 10px; cursor: pointer; min-height: 90px; }
+    
+    .back-btn { background-color: var(--vermilion-red); color: white; padding: 14px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; }
+</style>
 </head>
 <body>
 
@@ -208,7 +232,7 @@
         if (currentMode >= 3) {
             target.innerHTML = "载入中...";
             try {
-                const r = await fetch(`./data/strokes/${currentWord.char}.json`);
+                const r = await fetch(`./Data/strokes/${currentWord.char}.json`);
                 currentWord.strokes = await r.json();
                 target.innerHTML = "";
                 runLogic();

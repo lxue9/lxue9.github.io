@@ -14,15 +14,21 @@
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
         
         body {
-            font-family: "PingFang SC", "KaiTi", serif; background-color: var(--bg-paper);
-            background-image: url('image/cn_word_bg.webp'); background-size: cover; background-attachment: fixed;
+            font-family: "PingFang SC", "Microsoft YaHei", serif; 
+            background-color: var(--bg-paper);
+            background-image: url('image/cn_word_bg.webp'); 
+            background-size: cover; background-attachment: fixed;
             display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--ink-black);
         }
         
+        /* 文本框设置为半透明，可见背景 */
         #app-container {
-            width: 100%; max-width: 500px; height: 100dvh; background-color: rgba(249, 244, 233, 0.85); 
-            backdrop-filter: blur(4px); padding: 15px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.25); 
-            text-align: center; box-sizing: border-box; position: relative; overflow-y: auto; display: flex; flex-direction: column;
+            width: 100%; max-width: 500px; height: 100dvh; 
+            background-color: rgba(249, 244, 233, 0.4); /* 降低透明度 */
+            backdrop-filter: blur(6px); padding: 15px 20px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1); 
+            text-align: center; box-sizing: border-box; position: relative; 
+            overflow-y: auto; display: flex; flex-direction: column;
         }
 
         @media (min-width: 500px) { #app-container { height: 90vh; max-height: 850px; border-radius: 16px; border: 4px solid var(--border-wood); } }
@@ -33,10 +39,8 @@
 
         #data-selector { background: rgba(26, 77, 58, 0.05); padding: 12px; border-radius: 10px; margin-bottom: 15px; flex-shrink: 0;}
         .select-group { display: flex; gap: 8px; margin-bottom: 10px; }
-        select { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--border-wood); background: white; outline: none; }
+        select { flex: 1; padding: 8px; border-radius: 6px; border: 1px solid var(--border-wood); background: rgba(255,255,255,0.8); outline: none; }
         .load-btn { width: 100%; padding: 10px; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        #progress-container { width: 100%; height: 6px; background: rgba(26, 77, 58, 0.1); border-radius: 3px; margin-top: 10px; overflow: hidden; display: none; }
-        #progress-bar { height: 100%; width: 0%; background: var(--jade-green); transition: width 0.3s; }
         
         .menu-btn { display: block; width: 100%; padding: 14px; margin: 8px 0; background: var(--jade-green); color: white; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: bold; box-shadow: 0 4px 0 #0d2b21; cursor: pointer; flex-shrink: 0;}
         .menu-btn:disabled { background: #ccc; box-shadow: 0 4px 0 #999; cursor: not-allowed; }
@@ -44,8 +48,9 @@
         .stage-area { display: none; flex-direction: column; flex-grow: 1; }
         #question-title { font-size: 1.15rem; margin-top: 0; min-height: 2.2rem; font-weight: bold; color: var(--ink-black); flex-shrink: 0;}
         
+        /* 文字框背景恢复为米字格，居中显示 */
         #hanzi-target {
-            width: 170px; height: 170px; margin: 0 auto 10px; background-color: white; border: 3px solid var(--border-wood); border-radius: 8px;
+            width: 170px; height: 170px; margin: 0 auto 10px; background-color: rgba(255,255,255,0.5); border: 3px solid var(--border-wood); border-radius: 8px;
             display: flex; align-items: center; justify-content: center; position: relative; font-size: 100px; font-weight: bold;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E");
             background-size: 100% 100%; background-repeat: no-repeat; background-position: center; flex-shrink: 0;
@@ -54,7 +59,7 @@
         #word-meaning { font-size: 0.95rem; color: var(--jade-green); margin: 0 auto 10px; min-height: 3rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; line-height: 1.4; padding: 0 10px; flex-shrink: 0;}
         
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: auto; flex-shrink: 0;}
-        .option-btn { padding: 6px; background: white; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; min-height: 65px; display: flex; align-items: center; justify-content: center; }
+        .option-btn { padding: 6px; background: rgba(255,255,255,0.7); border: 2px solid #ddd; border-radius: 10px; cursor: pointer; min-height: 65px; display: flex; align-items: center; justify-content: center; }
         .option-svg { width: 55px; height: 55px; pointer-events: none; }
         
         .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 15px; flex-shrink: 0;}
@@ -62,7 +67,7 @@
         #click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 10; cursor: pointer; }
 
         #demo-input-box { display: none; margin-bottom: 10px; flex-shrink: 0;}
-        #demo-input { padding: 8px; font-size: 1.2rem; width: 100px; text-align: center; border: 2px solid var(--border-wood); border-radius: 8px; outline: none; }
+        #demo-input { padding: 8px; font-size: 1.2rem; width: 100px; text-align: center; border: 2px solid var(--border-wood); border-radius: 8px; outline: none; background: rgba(255,255,255,0.8); }
         .demo-search-btn { padding: 9px 15px; background: var(--info-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-left: 5px; }
     </style>
 </head>
@@ -83,7 +88,6 @@
                 <select id="sub-category"></select>
             </div>
             <button class="load-btn" onclick="fetchWordList()">加载所选字库</button>
-            <div id="progress-container"><div id="progress-bar"></div></div>
             <div id="status-msg" style="font-size: 0.8rem; margin-top:5px; color: var(--border-wood);">准备就绪</div>
         </div>
         <button class="menu-btn game-btn" disabled onclick="startGame(1)">1. 看汉字 · 选拼音</button>
@@ -113,11 +117,12 @@
         adult: { folder: 'hanzi_types', data: [{ name: "常用字" }, { name: "次常用字" }, { name: "通用字" }, { name: "生僻字" }] }
     };
     
-    // 预设笔画池（涵盖基本笔形，确保秒加载）
+    // 预设笔画池：使用加粗楷体风格路径，统一视觉
     const BASE_STROKES = [
-        "M0 512 L1024 512", "M512 0 L512 1024", "M800 200 L200 800", "M200 200 L800 800",
-        "M100 200 Q500 200 900 200", "M512 0 L512 800 Q512 1024 300 900", "M200 200 L800 200 L512 1024",
-        "M100 500 L900 500 L500 900", "M300 200 C300 600 700 600 700 1000"
+        "M181 536c49-11 98-21 146-32 173-39 346-77 520-116 19-4 38-8 57-12 11-2 21 6 21 18s-10 23-21 26l-723 162c-12 3-23-6-23-18s10-23 23-28z", // 横
+        "M495 120c15 0 28 12 28 28v680c0 15-13 28-28 28s-28-13-28-28V148c0-16 13-28 28-28z", // 竖
+        "M820 210c12 11 11 29-1 41l-500 500c-11 11-29 11-40-1s-11-29 1-40l500-500c11-12 29-12 40 0z", // 撇
+        "M200 230c11-12 29-12 40 0l500 500c12 11 12 29 1 41s-29 11-41-1l-500-500c-12-11-11-29 0-40z" // 捺
     ];
 
     let activeList = [], queue = [], currentWord = null, currentMode = 0, writer = null;
@@ -138,16 +143,15 @@
     async function fetchWordList() {
         const group = document.getElementById('user-group').value;
         const sub = document.getElementById('sub-category').value;
-        const statusMsg = document.getElementById('status-msg'), pBar = document.getElementById('progress-bar'), pContainer = document.getElementById('progress-container');
-        statusMsg.innerText = "数据加载中..."; pContainer.style.display = 'block'; pBar.style.width = '30%';
+        const statusMsg = document.getElementById('status-msg');
+        statusMsg.innerText = "数据加载中...";
         try {
             const res = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
             const data = await res.json();
             activeList = data.map(i => ({ char: i.char, py: (i.py || i.pinyin || "").toString().trim(), yisi: i.yisi_short ||  "" }));
-            pBar.style.width = '100%'; setTimeout(() => pContainer.style.display = 'none', 500);
             document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
             statusMsg.innerText = `✅ [${sub}] 载入成功 (${activeList.length}字)`;
-        } catch (e) { statusMsg.innerText = "❌ 读取失败"; pContainer.style.display = 'none'; }
+        } catch (e) { statusMsg.innerText = "❌ 读取失败"; }
     }
 
     function startGame(mode) {
@@ -178,17 +182,15 @@
         if (!char || !/^[\u4e00-\u9fa5]$/.test(char)) { alert("请输入一个有效的汉字"); return; }
         document.getElementById('hanzi-target').innerHTML = '';
         document.getElementById('hanzi-target').innerText = '';
-        const meaningEl = document.getElementById('word-meaning');
-        meaningEl.style.opacity = 0;
-        const found = activeList.find(i => i.char === char);
+        document.getElementById('word-meaning').style.opacity = 0; // 彻底隐藏释义
         try {
             const strokeData = await loadStrokeData(char);
-            writer = HanziWriter.create('hanzi-target', char, { width: 160, height: 160, padding: 5, charDataLoader: (c, cb) => cb(strokeData) });
-            writer.animateCharacter({ onComplete: () => { 
-                meaningEl.innerText = found && found.yisi ? found.yisi : "（自定义字暂无内置释义）"; 
-                meaningEl.style.opacity = 1; 
-            } });
-        } catch (e) { alert("找不到该字的笔画数据或加载失败"); }
+            writer = HanziWriter.create('hanzi-target', char, { 
+                width: 160, height: 160, padding: 5, 
+                charDataLoader: (c, cb) => cb(strokeData) 
+            });
+            writer.animateCharacter(); // 去掉 onComplete 的释义逻辑
+        } catch (e) { alert("未找到笔画数据"); }
     }
 
     async function refreshGame() {
@@ -210,7 +212,6 @@
         } catch (e) { refreshGame(); } 
     }
 
-    // 修复后的辨笔画逻辑
     function renderNthStrokeGame(data) {
         const target = document.getElementById('hanzi-target'), title = document.getElementById('question-title'), area = document.getElementById('options-area'), me = document.getElementById('word-meaning');
         if(currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
@@ -223,14 +224,12 @@
         const correctPath = data.strokes[n];
         let opts = [correctPath];
         
-        // 1. 先尝试从当前字的其它笔画中抽取
         let otherStrokes = data.strokes.filter(s => s !== correctPath);
         while(opts.length < 4 && otherStrokes.length > 0) {
             let idx = Math.floor(Math.random() * otherStrokes.length);
             opts.push(otherStrokes.splice(idx, 1)[0]);
         }
         
-        // 2. 如果当前字笔画实在太少（如“一”、“二”），直接从 BASE_STROKES 快速填充
         const tempBase = [...BASE_STROKES].sort(() => Math.random() - 0.5);
         while(opts.length < 4) {
             let fill = tempBase.pop();
@@ -240,6 +239,7 @@
         opts.sort(() => Math.random() - 0.5).forEach(path => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
+            // 统一笔画渲染格式：缩放与颜色保持一致
             btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
             btn.onclick = (e) => {
                 e.stopPropagation();

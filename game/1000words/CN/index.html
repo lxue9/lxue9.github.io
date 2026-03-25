@@ -11,7 +11,7 @@
             --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
         body {
-            font-family: "PingFang SC", "Microsoft YaHei", serif; background-color: var(--bg-paper);
+            font-family: "PingFang SC", "KaiTi", serif; background-color: var(--bg-paper);
             background-image: url('image/cn_word_bg.webp'); background-size: cover; background-attachment: fixed;
             margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; color: var(--ink-black);
         }
@@ -42,10 +42,11 @@
         .stage-area { display: none; }
         #question-title { font-size: 1.15rem; margin-top: 5px; min-height: 2.8rem; font-weight: bold; color: var(--ink-black); }
         
+        /* 替换为新的米字格SVG背景 */
         #hanzi-target {
             width: 180px; height: 180px; margin: 0 auto 10px; background-color: white; border: 3px solid var(--border-wood); border-radius: 8px;
             display: flex; align-items: center; justify-content: center; position: relative; font-size: 100px; font-weight: bold;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cg stroke='%23C0392B' stroke-width='0.5' stroke-dasharray='2 2' opacity='0.2'%3E%3Cline x1='50' y1='0' x2='50' y2='100'/%3E%3Cline x1='0' y1='50' x2='100' y2='50'/%3E%3C/g%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E");
         }
         
         #word-meaning { font-size: 0.95rem; color: var(--jade-green); margin: 0 auto 15px; min-height: 3.5rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; line-height: 1.4; padding: 0 10px; }
@@ -58,6 +59,11 @@
         
         /* 全屏点击跳过层 */
         #click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 10; cursor: pointer; }
+
+        /* 演示模式输入框样式 */
+        #demo-input-box { display: none; margin-bottom: 15px; }
+        #demo-input { padding: 8px; font-size: 1.2rem; width: 100px; text-align: center; border: 2px solid var(--border-wood); border-radius: 8px; outline: none; }
+        .demo-search-btn { padding: 9px 15px; background: var(--info-blue); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1rem; margin-left: 5px; }
     </style>
 </head>
 <body onclick="handleGlobalClick()">
@@ -89,6 +95,10 @@
     </div>
 
     <div id="game-area" class="stage-area">
+        <div id="demo-input-box">
+            <input type="text" id="demo-input" maxlength="1" placeholder="输入汉字">
+            <button class="demo-search-btn" onclick="runSingleDemo()">演示</button>
+        </div>
         <div id="question-title"></div>
         <div id="hanzi-target"></div>
         <div id="word-meaning"></div>
@@ -102,7 +112,8 @@
         student: { folder: 'hanzi_by_grade', data: [{ name: "一年级上册" }, { name: "一年级下册" }, { name: "二年级上册" }, { name: "二年级下册" }, { name: "三年级上册" }, { name: "三年级下册" }, { name: "四年级上册" }, { name: "四年级下册" }, { name: "五年级上册" }, { name: "五年级下册" }, { name: "六年级上册" }, { name: "六年级下册" }] },
         adult: { folder: 'hanzi_types', data: [{ name: "常用字" }, { name: "次常用字" }, { name: "通用字" }, { name: "生僻字" }] }
     };
-    const BASE_STROKES = ["M0 512 L1024 512", "M512 0 L512 1024", "M800 200 L200 800", "M200 200 L800 800", "M100 500 Q500 100 900 500"];
+    // 增加更多基础笔画作为题库补充素材
+    const BASE_STROKES = ["M0 512 L1024 512", "M512 0 L512 1024", "M800 200 L200 800", "M200 200 L800 800", "M100 500 Q500 100 900 500", "M200 800 Q500 200 800 800", "M800 800 Q500 200 200 800"];
 
     let activeList = [], queue = [], currentWord = null, currentMode = 0, writer = null;
     let nextTimeout = null, canClickSkip = false;
@@ -139,10 +150,11 @@
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'block';
         document.getElementById('top-progress-bar').style.visibility = 'visible';
+        document.getElementById('demo-input-box').style.display = 'none';
         refreshGame();
     }
 
-     function startDemoMode() {
+    function startDemoMode() {
         currentMode = 6;
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'block';
@@ -150,24 +162,40 @@
         document.getElementById('question-title').innerText = "书写动画示范";
         document.getElementById('word-meaning').style.opacity = 0;
         document.getElementById('options-area').innerHTML = '';
-        clearWriter();
+        document.getElementById('top-progress-bar').style.visibility = 'hidden';
+        
+        document.getElementById('hanzi-target').innerHTML = '';
+        document.getElementById('hanzi-target').innerText = '';
+        writer = null;
     }
 
-
     async function runSingleDemo() {
-        const char = document.getElementById('demo-input').value;
-        if (!char || !/^[\u4e00-\u9fa5]$/.test(char)) return;
-        clearWriter();
+        const char = document.getElementById('demo-input').value.trim();
+        if (!char || !/^[\u4e00-\u9fa5]$/.test(char)) {
+            alert("请输入一个有效的汉字");
+            return;
+        }
+        
+        // 清理画板
+        document.getElementById('hanzi-target').innerHTML = '';
+        document.getElementById('hanzi-target').innerText = '';
+        writer = null;
+        
         const meaningEl = document.getElementById('word-meaning');
         meaningEl.style.opacity = 0;
+        
+        // 如果当前加载的字典里有这个字，顺便拿一下释义
         const found = activeList.find(i => i.char === char);
+        
         try {
             const strokeData = await loadStrokeData(char);
             writer = HanziWriter.create('hanzi-target', char, { width: 170, height: 170, padding: 5, charDataLoader: (c, cb) => cb(strokeData) });
-            writer.animateCharacter({ onComplete: () => { meaningEl.innerText = getShortMeaning(found ? found.yisi : ""); meaningEl.style.opacity = 1; } });
-        } catch (e) { alert("笔画数据加载失败"); }
+            writer.animateCharacter({ onComplete: () => { 
+                meaningEl.innerText = found && found.yisi ? found.yisi : "（自定义字暂无内置释义）"; 
+                meaningEl.style.opacity = 1; 
+            } });
+        } catch (e) { alert("找不到该字的笔画数据或加载失败"); }
     }
-
 
     async function refreshGame() {
         // 1. 立即重置状态和清空UI，防止残影
@@ -180,7 +208,8 @@
         const meaning = document.getElementById('word-meaning');
         const area = document.getElementById('options-area');
 
-        title.innerText = "加载新题目...";
+        // 移除题目加载文字
+        title.innerText = "";
         target.innerHTML = ''; target.innerText = ''; 
         meaning.style.opacity = 0; meaning.innerText = '';
         area.innerHTML = '';
@@ -199,7 +228,7 @@
             } else {
                 renderTextGame();
             }
-        } catch (e) { refreshGame(); }
+        } catch (e) { refreshGame(); } // 若取字失败则跳过该字
     }
 
     function renderNthStrokeGame(data) {
@@ -216,9 +245,14 @@
         let opts = [correctPath];
         let otherStrokes = [...data.strokes].filter(s => s !== correctPath).sort(() => Math.random() - 0.5);
         
+        // 笔画不足4笔的情况，使用其他字的笔画填充保证满4个选项且不重复
         while(opts.length < 4) {
-            if(otherStrokes.length > 0) opts.push(otherStrokes.pop());
-            else opts.push(BASE_STROKES[Math.floor(Math.random()*BASE_STROKES.length)]);
+            if(otherStrokes.length > 0) {
+                opts.push(otherStrokes.pop());
+            } else {
+                let randomBase = BASE_STROKES[Math.floor(Math.random() * BASE_STROKES.length)];
+                if (!opts.includes(randomBase)) opts.push(randomBase);
+            }
         }
 
         opts.sort(() => Math.random() - 0.5).forEach(path => {
@@ -244,10 +278,10 @@
 
     function showSuccessAndNext() {
         const me = document.getElementById('word-meaning');
-        if(currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
+        if(currentWord && currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
         
         // 无释义直接切换，有释义等待或点击
-        if (!currentWord.yisi || currentWord.yisi.trim() === "") {
+        if (!currentWord || !currentWord.yisi || currentWord.yisi.trim() === "") {
             refreshGame();
         } else {
             canClickSkip = true;
@@ -299,6 +333,7 @@
         document.getElementById('game-area').style.display = 'none'; 
         document.getElementById('main-menu').style.display = 'block'; 
         document.getElementById('top-progress-bar').style.visibility = 'hidden';
+        document.getElementById('demo-input-box').style.display = 'none'; // 退出演示模式时隐藏搜索框
     }
     
     document.addEventListener('DOMContentLoaded', () => { updateSubCategory(); });

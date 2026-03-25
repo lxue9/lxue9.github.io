@@ -11,6 +11,7 @@
             --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
         
+        /* 强制全屏，禁止滚动 */
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; width: 100%; }
         
         body {
@@ -21,58 +22,62 @@
         }
         
         #app-container {
-            width: 100%; max-width: 450px; height: 100dvh; 
+            width: 100%; max-width: 420px; height: 100dvh; 
+            /* 透明度 0.4，配合毛玻璃效果 */
             background-color: rgba(249, 244, 233, 0.4); 
-            backdrop-filter: blur(5px); padding: 10px; 
+            backdrop-filter: blur(6px); 
+            -webkit-backdrop-filter: blur(6px);
+            padding: 8px; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
             text-align: center; box-sizing: border-box; 
-            display: flex; flex-direction: column; overflow: hidden;
+            display: flex; flex-direction: column;
         }
 
-        h1 { margin: 2px 0; font-size: 1.4rem; color: var(--jade-green); flex-shrink: 0; }
+        h1 { margin: 2px 0; font-size: 1.3rem; color: var(--jade-green); flex-shrink: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
         
-        .top-bar { display: flex; justify-content: center; margin-bottom: 5px; height: 24px; flex-shrink: 0; }
-        #progress-tag { font-size: 0.8rem; background: rgba(142, 110, 70, 0.1); padding: 2px 12px; border-radius: 15px; color: var(--border-wood); }
+        .top-bar { display: flex; justify-content: center; margin-bottom: 4px; height: 20px; flex-shrink: 0; }
+        #progress-tag { font-size: 0.75rem; background: rgba(255, 255, 255, 0.6); padding: 1px 10px; border-radius: 10px; color: var(--border-wood); font-weight: bold; }
 
-        #data-selector { background: white; padding: 8px; border-radius: 10px; margin-bottom: 8px; border: 1px solid #ddd; flex-shrink: 0; }
-        .select-group { display: flex; gap: 5px; margin-bottom: 5px; }
-        select { flex: 1; padding: 6px; border-radius: 5px; border: 1px solid var(--border-wood); font-size: 0.9rem; outline: none; }
-        .load-btn { width: 100%; padding: 8px; background: var(--jade-green); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        #data-selector { background: rgba(255, 255, 255, 0.7); padding: 6px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(142, 110, 70, 0.3); flex-shrink: 0; }
+        .select-group { display: flex; gap: 4px; margin-bottom: 4px; }
+        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; outline: none; font-family: inherit; background: white; }
+        .load-btn { width: 100%; padding: 7px; background: var(--jade-green); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
         
-        .menu-btn { width: 100%; padding: 12px; margin: 5px 0; background: var(--jade-green); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; flex-shrink: 0; }
-        .menu-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .menu-btn { width: 100%; padding: 10px; margin: 4px 0; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; flex-shrink: 0; border-bottom: 3px solid #0d2b21; }
+        .menu-btn:disabled { background: #ccc; cursor: not-allowed; border-bottom: none; }
 
-        .stage-area { display: none; flex-direction: column; height: 100%; flex-grow: 1; justify-content: space-between; }
-        #question-title { font-size: 1.1rem; margin: 5px 0; font-weight: bold; height: 1.5em; overflow: hidden; }
+        .stage-area { display: none; flex-direction: column; height: 100%; flex-grow: 1; }
+        #question-title { font-size: 1.05rem; margin: 4px 0; font-weight: bold; height: 1.4em; color: var(--ink-black); }
         
-        /* 放大米字格至 240px，适应手机宽度 */
+        /* 240px 米字格 */
         #hanzi-target {
             width: 240px; height: 240px; margin: 0 auto; 
-            background-color: white; border: 3px solid var(--border-wood); border-radius: 10px;
+            background-color: white; border: 3px solid var(--border-wood); border-radius: 8px;
             display: flex; align-items: center; justify-content: center; position: relative;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cline x1='0' y1='0' x2='240' y2='240' stroke='%23EEE'/%3E%3Cline x1='240' y1='0' x2='0' y2='240' stroke='%23EEE'/%3E%3Cline x1='120' y1='0' x2='120' y2='240' stroke='%23EEE' stroke-dasharray='5,5'/%3E%3Cline x1='0' y1='120' x2='240' y2='120' stroke='%23EEE' stroke-dasharray='5,5'/%3E%3C/svg%3E");
-            flex-shrink: 0; font-size: 180px; 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cline x1='0' y1='0' x2='240' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='240' y1='0' x2='0' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='120' y1='0' x2='120' y2='240' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3Cline x1='0' y1='120' x2='240' y2='120' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3C/svg%3E");
+            flex-shrink: 0; 
         }
         
-        #word-meaning { font-size: 0.9rem; color: var(--jade-green); height: 2.8em; display: flex; align-items: center; justify-content: center; padding: 0 5px; margin: 5px 0; flex-shrink: 0; }
+        #word-meaning { font-size: 0.9rem; color: var(--jade-green); height: 2.4em; display: flex; align-items: center; justify-content: center; padding: 0 5px; margin: 4px 0; flex-shrink: 0; font-weight: bold; }
         
-        /* 压缩选项区高度，防止溢出屏幕 */
-        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; flex-shrink: 0; }
-        .option-btn { padding: 5px; background: white; border: 1.5px solid #ddd; border-radius: 8px; cursor: pointer; height: 60px; display: flex; align-items: center; justify-content: center; }
-        .option-svg { width: 50px; height: 50px; }
+        /* 压缩按钮高度，确保不超出手机屏幕 */
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex-shrink: 0; }
+        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 1.5px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; transition: transform 0.1s; }
+        .option-btn:active { transform: scale(0.95); }
+        .option-svg { width: 45px; height: 45px; }
         
-        .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; flex-shrink: 0; }
+        .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; margin-top: auto; margin-bottom: 5px; flex-shrink: 0; font-weight: bold; }
         
         #click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 2000; }
         #demo-input-box { margin-bottom: 5px; display: none; }
-        #demo-input { padding: 8px; width: 80px; text-align: center; border: 1px solid var(--border-wood); border-radius: 5px; }
+        #demo-input { padding: 6px; width: 60px; text-align: center; border: 1px solid var(--border-wood); border-radius: 4px; font-family: inherit; }
     </style>
 </head>
 <body onclick="handleGlobalClick()">
 
 <div id="app-container">
     <div id="click-overlay"></div>
-    <h1>🎒 汉字小达人</h1>
+    <h1>🎒 汉字达人 Pro</h1>
     <div class="top-bar" id="top-progress-bar" style="visibility: hidden;"><div id="progress-tag">已练 0 / 0</div></div>
 
     <div id="main-menu">
@@ -82,7 +87,7 @@
                 <select id="sub-category"></select>
             </div>
             <button class="load-btn" onclick="fetchWordList()">同步字库</button>
-            <div id="status-msg" style="font-size: 0.75rem; margin-top:4px;">准备就绪</div>
+            <div id="status-msg" style="font-size: 0.7rem; margin-top:3px; color: #666;">准备就绪</div>
         </div>
         <button class="menu-btn game-btn" disabled onclick="startGame(1)">1. 看汉字 · 选拼音</button>
         <button class="menu-btn game-btn" disabled onclick="startGame(2)">2. 听拼音 · 选汉字</button>
@@ -95,13 +100,13 @@
     <div id="game-area" class="stage-area">
         <div id="demo-input-box">
             <input type="text" id="demo-input" maxlength="1" placeholder="填字">
-            <button class="load-btn" style="width:auto; padding:8px 15px;" onclick="runSingleDemo()">演示</button>
+            <button class="load-btn" style="width:auto; padding:6px 12px;" onclick="runSingleDemo()">演示</button>
         </div>
         <div id="question-title"></div>
         <div id="hanzi-target"></div>
         <div id="word-meaning"></div>
         <div id="options-area" class="option-grid"></div>
-        <button class="back-btn" onclick="exitGame()">返回</button>
+        <button class="back-btn" onclick="exitGame()">返回菜单</button>
     </div>
 </div>
 
@@ -149,7 +154,6 @@
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'flex';
         document.getElementById('top-progress-bar').style.visibility = 'visible';
-        document.getElementById('demo-input-box').style.display = 'none';
         refreshGame();
     }
 
@@ -172,7 +176,7 @@
             const data = await loadStrokeData(char);
             writer = HanziWriter.create('hanzi-target', char, { width: 220, height: 220, padding: 10, charDataLoader: (c, cb) => cb(data) });
             writer.animateCharacter();
-        } catch (e) { alert("无数据"); }
+        } catch (e) { alert("暂无该字数据"); }
     }
 
     async function refreshGame() {
@@ -180,7 +184,7 @@
         canClickSkip = false;
         document.getElementById('click-overlay').style.display = 'none';
         const target = document.getElementById('hanzi-target'), area = document.getElementById('options-area'), me = document.getElementById('word-meaning');
-        target.innerHTML = ''; target.innerText = ''; me.style.opacity = 0; area.innerHTML = ''; writer = null;
+        target.innerHTML = ''; target.innerText = ''; me.innerText = ''; me.style.opacity = 0; area.innerHTML = ''; writer = null;
         
         document.getElementById('progress-tag').innerText = `已练 ${activeList.length - queue.length} / ${activeList.length}`;
         if (queue.length === 0) { alert("练习结束！"); exitGame(); return; }
@@ -212,15 +216,17 @@
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
-            btn.onclick = (e) => {
+            btn.onclick = async (e) => {
                 e.stopPropagation();
                 document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                
+                // 核心修复：确保笔划动画展示后再跳转
                 if (path === correctPath) {
                     btn.style.borderColor = 'var(--jade-green)'; btn.style.background = '#eafff5';
-                    writer.animateStroke(n, { strokeColor: 'var(--jade-green)', strokeWidth: 30 });
+                    await writer.animateStroke(n, { strokeColor: 'var(--jade-green)', strokeWidth: 35 });
                 } else {
                     btn.style.borderColor = 'var(--vermilion-red)'; btn.style.background = '#fff0f0';
-                    writer.animateStroke(n, { strokeColor: 'var(--info-blue)', strokeWidth: 30 });
+                    await writer.animateStroke(n, { strokeColor: 'var(--info-blue)', strokeWidth: 35 });
                 }
                 showSuccessAndNext();
             };
@@ -230,23 +236,25 @@
 
     function showSuccessAndNext() {
         const me = document.getElementById('word-meaning');
-        if(currentWord && currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
+        me.innerText = currentWord.yisi || "回答正确！";
+        me.style.opacity = 1;
         canClickSkip = true;
         document.getElementById('click-overlay').style.display = 'block';
-        nextTimeout = setTimeout(refreshGame, 2000); 
+        nextTimeout = setTimeout(refreshGame, 2500); 
     }
 
     function handleGlobalClick() { if (canClickSkip) refreshGame(); }
 
     function renderTextGame() {
         const target = document.getElementById('hanzi-target'), title = document.getElementById('question-title');
+        target.style.fontSize = "160px";
         if (currentMode === 1) { title.innerText = "这个汉字怎么读？"; target.innerText = currentWord.char; renderTextOptions('py', currentWord.py); }
-        else { title.innerText = `找读音为 [ ${currentWord.py} ] 的字`; renderTextOptions('char', currentWord.char); }
+        else { title.innerText = `找出读音为 [ ${currentWord.py} ] 的字`; renderTextOptions('char', currentWord.char); }
     }
 
     function renderStrokeGame(data) {
         const isQuiz = (currentMode === 5);
-        document.getElementById('question-title').innerText = isQuiz ? `默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
+        document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
         writer = HanziWriter.create('hanzi-target', currentWord.char, { width: 220, height: 220, padding: 10, showOutline: !isQuiz, showCharacter: false, charDataLoader: (c, cb) => cb(data) });
         writer.quiz({ onComplete: () => showSuccessAndNext() });
     }
@@ -255,7 +263,7 @@
         let opts = [correct];
         while(opts.length < 4) { let r = activeList[Math.floor(Math.random()*activeList.length)][key]; if(!opts.includes(r) && r) opts.push(r); }
         opts.sort(() => Math.random() - 0.5).forEach(v => {
-            const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = v; btn.style.fontSize = "1.5rem"; btn.style.fontWeight="bold";
+            const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = v; btn.style.fontSize = "1.5rem"; btn.style.fontWeight="bold"; btn.style.fontFamily = "inherit";
             btn.onclick = (e) => {
                 e.stopPropagation();
                 if (v === correct) {

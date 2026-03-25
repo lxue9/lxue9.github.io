@@ -215,7 +215,7 @@
             activeList = data.map(i => ({ 
                 char: i.char, 
                 py: (i.py || i.pinyin || "").toString().trim(), 
-                yisi: i.yisi || i.meaning || ""
+                yisi: i.yisi_short || i.meaning || ""
             }));
             document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
             statusMsg.innerText = `✅ [${sub}] 载入成功 (${activeList.length}字)`;

@@ -23,7 +23,7 @@
         
         #app-container {
             width: 100%; max-width: 500px; height: 100dvh; 
-            background-color: rgba(249, 244, 233, 0.4); 
+            background-color: rgba(249, 244, 233, 0.3); 
             backdrop-filter: blur(6px); padding: 15px 20px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.1); 
             text-align: center; box-sizing: border-box; position: relative; 
@@ -47,12 +47,17 @@
         .stage-area { display: none; flex-direction: column; flex-grow: 1; }
         #question-title { font-size: 1.15rem; margin-top: 0; min-height: 2.2rem; font-weight: bold; color: var(--ink-black); flex-shrink: 0;}
         
-        #hanzi-target {
-            width: 170px; height: 170px; margin: 0 auto 10px; background-color: rgba(255,255,255,0.5); border: 3px solid var(--border-wood); border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; position: relative; font-size: 100px; font-weight: bold;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E");
-            background-size: 100% 100%; background-repeat: no-repeat; background-position: center; flex-shrink: 0;
-        }
+       #hanzi-target {
+    width: 180px; height: 180px; 
+    margin: 0 auto 10px; 
+    background-color: rgba(255,255,255,0.5); /* 半透明背景 */
+    border: 3px solid var(--border-wood); 
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    /* 保持米字格背景 */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cline x1='0' y1='0' x2='100' y2='100' stroke='%23DDD' /%3E%3Cline x1='100' y1='0' x2='0' y2='100' stroke='%23DDD' /%3E%3Cline x1='50' y1='0' x2='50' y2='100' stroke='%23DDD' /%3E%3Cline x1='0' y1='50' x2='100' y2='50' stroke='%23DDD' /%3E%3C/svg%3E");
+    background-size: 100% 100%;
+}
         
         #word-meaning { font-size: 0.95rem; color: var(--jade-green); margin: 0 auto 10px; min-height: 3rem; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; line-height: 1.4; padding: 0 10px; flex-shrink: 0;}
         
@@ -205,56 +210,71 @@
     }
 
     // 优化后的第3题逻辑
-    function renderNthStrokeGame(data) {
-        const target = document.getElementById('hanzi-target'), title = document.getElementById('question-title'), area = document.getElementById('options-area'), me = document.getElementById('word-meaning');
-        if(currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
-        
-        const total = data.strokes.length;
-        const n = Math.floor(Math.random() * total); 
-        title.innerText = `[ ${currentWord.char} ] 的第 ${n+1} 笔是？`;
+   // 请替换 index (5).html 中对应的 renderNthStrokeGame 函数
+function renderNthStrokeGame(data) {
+    const target = document.getElementById('hanzi-target'), 
+          title = document.getElementById('question-title'), 
+          area = document.getElementById('options-area'), 
+          me = document.getElementById('word-meaning');
 
-        // 核心改动：初始填充为浅灰色底字
-        writer = HanziWriter.create('hanzi-target', currentWord.char, {
-            width: 160, height: 160, padding: 10,
-            showCharacter: true,
-            strokeColor: '#DDD', // 初始浅灰色
-            charDataLoader: (c, cb) => cb(data)
-        });
+    // 1. 初始化显示
+    if(currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
+    const total = data.strokes.length;
+    const n = Math.floor(Math.random() * total); 
+    title.innerText = `[ ${currentWord.char} ] 的第 ${n+1} 笔是？`;
+    
+    // 2. 核心修复：初始填充浅灰色底字，不使用 target.innerText
+    target.innerHTML = ''; // 清空之前的文字
+    writer = HanziWriter.create('hanzi-target', currentWord.char, {
+        width: 170,
+        height: 170,
+        padding: 10,
+        showCharacter: true,
+        strokeColor: '#DDD', // 初始浅灰色
+        charDataLoader: (c, cb) => cb(data)
+    });
 
-        const correctPath = data.strokes[n];
-        let opts = [correctPath];
-        let otherStrokes = data.strokes.filter(s => s !== correctPath);
-        while(opts.length < 4 && otherStrokes.length > 0) {
-            let idx = Math.floor(Math.random() * otherStrokes.length);
-            opts.push(otherStrokes.splice(idx, 1)[0]);
-        }
-        const tempBase = [...BASE_STROKES].sort(() => Math.random() - 0.5);
-        while(opts.length < 4) {
-            let fill = tempBase.pop();
-            if(!opts.includes(fill)) opts.push(fill);
-        }
-
-        opts.sort(() => Math.random() - 0.5).forEach(path => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
-            btn.onclick = (e) => {
-                e.stopPropagation();
-                document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-                if (path === correctPath) {
-                    btn.style.borderColor = 'var(--jade-green)'; btn.style.background = '#eafff5';
-                    // 答对时展示绿色高亮
-                    writer.animateStroke(n, { strokeColor: 'var(--jade-green)', strokeWidth: 22 });
-                } else {
-                    btn.style.borderColor = 'var(--vermilion-red)'; btn.style.background = '#fff0f0';
-                    // 核心改动：选错时用蓝色高亮正确笔画
-                    writer.animateStroke(n, { strokeColor: '#3498DB', strokeWidth: 26 });
-                }
-                showSuccessAndNext();
-            };
-            area.appendChild(btn);
-        });
+    const correctPath = data.strokes[n];
+    let opts = [correctPath];
+    
+    // 3. 笔画池逻辑：如果当前字笔画不足，从预设池随机补充
+    let otherStrokes = [...data.strokes].filter(s => s !== correctPath);
+    while(opts.length < 4 && otherStrokes.length > 0) {
+        let idx = Math.floor(Math.random() * otherStrokes.length);
+        opts.push(otherStrokes.splice(idx, 1)[0]);
     }
+    const tempBase = [...BASE_STROKES].sort(() => Math.random() - 0.5);
+    while(opts.length < 4) {
+        let fill = tempBase.pop();
+        if(!opts.includes(fill)) opts.push(fill);
+    }
+
+    // 4. 生成选项
+    opts.sort(() => Math.random() - 0.5).forEach(path => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
+        
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            
+            if (path === correctPath) {
+                // 答对：绿色高亮展示正确笔画
+                btn.style.borderColor = 'var(--jade-green)'; 
+                btn.style.background = '#eafff5';
+                writer.animateStroke(n, { strokeColor: 'var(--jade-green)', strokeWidth: 26 });
+            } else {
+                // 答错：蓝色高亮展示正确笔画
+                btn.style.borderColor = 'var(--vermilion-red)'; 
+                btn.style.background = '#fff0f0';
+                writer.animateStroke(n, { strokeColor: '#3498DB', strokeWidth: 26 });
+            }
+            showSuccessAndNext();
+        };
+        area.appendChild(btn);
+    });
+}
 
     function showSuccessAndNext() {
         const me = document.getElementById('word-meaning');

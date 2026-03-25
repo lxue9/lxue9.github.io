@@ -39,7 +39,7 @@
         .menu-btn:disabled { background: #ccc; box-shadow: 0 4px 0 #999; cursor: not-allowed; }
 
         .stage-area { display: none; }
-        #question-title { font-size: 1.15rem; margin-top: 5px; min-height: 2.8rem; font-weight: bold; }
+        #question-title { font-size: 1.1rem; margin-top: 5px; min-height: 2.8rem; font-weight: bold; padding: 0 5px; line-height: 1.3; }
         
         #hanzi-target {
             width: 180px; height: 180px; margin: 0 auto 10px; background-color: white; border: 3px solid var(--border-wood); border-radius: 8px;
@@ -53,10 +53,9 @@
         .option-btn { padding: 8px; background: white; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; min-height: 80px; display: flex; align-items: center; justify-content: center; }
         .option-svg { width: 60px; height: 60px; pointer-events: none; }
         
-        /* 演示模式输入框样式 */
         #demo-controls { display: none; margin-bottom: 15px; }
         .demo-flex { display: flex; gap: 10px; justify-content: center; }
-        #demo-input { width: 80px; padding: 10px; border: 2px solid var(--border-wood); border-radius: 6px; text-align: center; font-size: 1.2rem; }
+        #demo-input { width: 80px; padding: 10px; border: 2px solid var(--border-wood); border-radius: 6px; text-align: center; font-size: 1.2rem; outline: none; }
         .demo-run-btn { padding: 10px 20px; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
         .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 14px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; margin-top: 10px; }
@@ -117,10 +116,18 @@
     let nextTimeout = null, canClickSkip = false;
 
     async function loadStrokeData(char) {
-        // 按照用户要求，演示模式主要依赖自有/本地路径
-        const urls = [`./Data/strokes/${char}.json`, `https://lxue9.github.io/game/1000words/CN/Data/strokes/${char}.json`, `https://unpkg.com/hanzi-writer-data@2.0.1/${char}.json` ];
-        for (let url of urls) { try { const res = await fetch(url); if (res.ok) return await res.json(); } catch (e) {} }
-        throw new Error();
+        // 严格限制：仅查找自有目录下的资源
+        const urls = [
+            `./Data/strokes/${char}.json`, 
+            `https://lxue9.github.io/game/1000words/CN/Data/strokes/${char}.json`
+        ];
+        for (let url of urls) { 
+            try { 
+                const res = await fetch(url); 
+                if (res.ok) return await res.json(); 
+            } catch (e) {} 
+        }
+        throw new Error("No Stroke Data Found");
     }
 
     function updateSubCategory() {
@@ -137,20 +144,19 @@
         try {
             const res = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
             const data = await res.json();
-            activeList = data.map(i => ({ char: i.char, py: (i.py || i.pinyin || "").toString().trim(), yisi: i.yisi_short  || "" }));
+            activeList = data.map(i => ({ char: i.char, py: (i.py || i.pinyin || "").toString().trim(), yisi: i.yisi_short "" }));
             pBar.style.width = '100%'; setTimeout(() => pContainer.style.display = 'none', 500);
             document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
             statusMsg.innerText = `✅ [${sub}] 载入成功 (${activeList.length}字)`;
         } catch (e) { statusMsg.innerText = "❌ 读取失败"; pContainer.style.display = 'none'; }
     }
 
-    // --- 第 6 关功能 ---
     function startDemoMode() {
         currentMode = 6;
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'block';
         document.getElementById('demo-controls').style.display = 'block';
-        document.getElementById('question-title').innerText = "书写动画示范（仅限当前字库）";
+        document.getElementById('question-title').innerText = "书写示范：请输入要查询的字";
         document.getElementById('top-progress-bar').style.visibility = 'hidden';
         clearUI();
     }
@@ -159,15 +165,36 @@
         const char = document.getElementById('demo-input').value.trim();
         if (!char) return;
 
-        // 核心限制：仅在自有数据库内检索
-        const wordInfo = activeList.find(i => i.char === char);
+        clearUI();
+        const title = document.getElementById('question-title');
+        title.innerText = `正在全库检索 "${char}"...`;
+        
+        // 1. 先在当前列表搜
+        let wordInfo = activeList.find(i => i.char === char);
+
+        // 2. 遍历 hanzi_types (CONFIG.adult) 各个分类
         if (!wordInfo) {
-            alert(`字库中未找到 "${char}"，请尝试其他字或切换字库。`);
+            for (const cat of CONFIG.adult.data) {
+                try {
+                    const res = await fetch(`./hanzi_types/${cat.name}.json`);
+                    if (res.ok) {
+                        const list = await res.json();
+                        const found = list.find(i => i.char === char);
+                        if (found) {
+                            wordInfo = { char: found.char, yisi: found.yisi_short || found.yisi || "", py: found.py || found.pinyin };
+                            break; 
+                        }
+                    }
+                } catch (e) { continue; }
+            }
+        }
+
+        if (!wordInfo) {
+            title.innerText = `❌ 未在自有库中找到 "${char}"`;
             return;
         }
 
-        clearUI();
-        document.getElementById('question-title').innerText = `正在演示：${char}`;
+        title.innerText = `正在演示：${char} [ ${wordInfo.py || ''} ]`;
         
         try {
             const data = await loadStrokeData(char);
@@ -179,22 +206,21 @@
             writer.animateCharacter({
                 onComplete: () => {
                     const me = document.getElementById('word-meaning');
-                    me.innerText = wordInfo.yisi || "暂无释义";
+                    me.innerText = wordInfo.yisi || "无释义";
                     me.style.opacity = 1;
                 }
             });
         } catch (e) {
-            alert("笔划数据加载失败，请检查网络或本地文件。");
+            title.innerText = `❌ 找到该字，但笔划数据缺失`;
         }
     }
 
     function clearUI() {
-        const target = document.getElementById('hanzi-target');
-        const meaning = document.getElementById('word-meaning');
-        const area = document.getElementById('options-area');
-        target.innerHTML = ''; target.innerText = '';
-        meaning.style.opacity = 0; meaning.innerText = '';
-        area.innerHTML = '';
+        document.getElementById('hanzi-target').innerHTML = '';
+        document.getElementById('hanzi-target').innerText = '';
+        const me = document.getElementById('word-meaning');
+        me.style.opacity = 0; me.innerText = '';
+        document.getElementById('options-area').innerHTML = '';
         writer = null;
     }
 
@@ -210,7 +236,6 @@
     async function refreshGame() {
         clearTimeout(nextTimeout); canClickSkip = false;
         document.getElementById('click-overlay').style.display = 'none';
-        
         clearUI();
         document.getElementById('question-title').innerText = "加载新题目...";
         document.getElementById('progress-tag').innerText = `已练 ${activeList.length - queue.length} / ${activeList.length}`;
@@ -232,8 +257,7 @@
     function renderNthStrokeGame(data) {
         const target = document.getElementById('hanzi-target'), title = document.getElementById('question-title'), area = document.getElementById('options-area'), me = document.getElementById('word-meaning');
         if(currentWord.yisi) { me.innerText = currentWord.yisi; me.style.opacity = 1; }
-        const total = data.strokes.length;
-        const n = Math.floor(Math.random() * total); 
+        const n = Math.floor(Math.random() * data.strokes.length); 
         title.innerText = `[ ${currentWord.char} ] 的第 ${n+1} 笔是？`;
         target.innerText = currentWord.char;
 

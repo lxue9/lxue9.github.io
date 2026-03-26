@@ -11,7 +11,6 @@
             --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
         
-        /* 强制全屏 */
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; width: 100%; }
         
         body {
@@ -23,7 +22,7 @@
         
         #app-container {
             width: 100%; max-width: 420px; height: 100dvh; 
-            background-color: rgba(249, 244, 233, 0.3); 
+            background-color: rgba(249, 244, 233, 0.4); 
             backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
             padding: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
             text-align: center; box-sizing: border-box; display: flex; flex-direction: column;
@@ -36,7 +35,7 @@
 
         #data-selector { background: rgba(255, 255, 255, 0.7); padding: 6px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(142, 110, 70, 0.3); }
         .select-group { display: flex; gap: 4px; margin-bottom: 4px; }
-        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; outline: none; background: white; }
+        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; background: white; }
         .load-btn { width: 100%; padding: 7px; background: var(--jade-green); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
         
         .menu-btn { width: 100%; padding: 10px; margin: 4px 0; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; border-bottom: 3px solid #0d2b21; }
@@ -51,7 +50,7 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cline x1='0' y1='0' x2='240' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='240' y1='0' x2='0' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='120' y1='0' x2='120' y2='240' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3Cline x1='0' y1='120' x2='240' y2='120' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3C/svg%3E");
         }
         
-        /* 释义区：左对齐，留足5行空间 */
+        /* 释义区：留出5行左右高度 */
         #word-meaning { 
             font-size: 0.9rem; color: var(--jade-green); height: 6.5em; width: 100%;
             display: block; text-align: left; padding: 5px 10px; margin: 5px 0 auto; 
@@ -59,7 +58,7 @@
         }
         
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; flex-shrink: 0; }
-        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; transition: transform 0.1s; }
+        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s; }
         .option-btn:active { transform: scale(0.95); }
         .option-svg { width: 45px; height: 45px; }
         
@@ -171,7 +170,6 @@
         document.getElementById('hanzi-target').innerHTML = '';
         try {
             const data = await loadStrokeData(char);
-            // 已移除 radicalColor
             writer = HanziWriter.create('hanzi-target', char, { 
                 width: 220, height: 220, padding: 10, 
                 charDataLoader: (c, cb) => cb(data) 
@@ -203,10 +201,10 @@
         const n = Math.floor(Math.random() * data.strokes.length); 
         document.getElementById('question-title').innerText = `${currentWord.char} 的第 ${n+1} 笔是？`;
         
-        // 初始化米字格，已移除 radicalColor
         writer = HanziWriter.create('hanzi-target', currentWord.char, {
             width: 240, height: 240, padding: 10, showCharacter: true, 
             strokeColor: '#DDD', 
+            markStrokeCorrectAfterMisses: true, // 核心修改：设置为 true
             charDataLoader: (c, cb) => cb(data)
         });
 
@@ -225,14 +223,13 @@
                 e.stopPropagation();
                 document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
                 
-                // 按钮UI视觉反馈
                 if (path === correctPath) {
                     btn.style.borderColor = '#1A4D3A'; btn.style.background = '#eafff5';
                 } else {
                     btn.style.borderColor = '#C0392B'; btn.style.background = '#fff0f0';
                 }
 
-                // 正确笔顺演示逻辑：将目标笔画动画化为蓝色 (#3498DB)
+                // 点击后，正确的笔顺标记为蓝色动画
                 await new Promise(resolve => {
                     writer.animateStroke(n, { 
                         strokeColor: '#3498DB', 
@@ -267,9 +264,9 @@
     function renderStrokeGame(data) {
         const isQuiz = (currentMode === 5);
         document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
-        // 已移除 radicalColor
         writer = HanziWriter.create('hanzi-target', currentWord.char, { 
             width: 220, height: 220, padding: 10, showOutline: !isQuiz, showCharacter: false, 
+            markStrokeCorrectAfterMisses: true, // 核心修改
             charDataLoader: (c, cb) => cb(data) 
         });
         writer.quiz({ onComplete: () => showSuccessAndNext() });

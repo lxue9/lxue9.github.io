@@ -2,414 +2,302 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta property="og:image" content="https://www.stevesplayground.online/game/1000words/logo/small_steve.png" />
     <meta property="og:title" content="Welcome to Steve's playground！" />
     <meta property="og:description" content="A game site developed by Steve and his mom." />
-    <meta property="og:url" content="https://www.stevesplayground.online/game/1000words/EN/Lucky Wheel/" />
-    <meta property="og:type" content="website" />
-
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://www.stevesplayground.online/game/1000words/CN/" />
     
-    <title>WORD QUEST</title>
-    <script src="../../vocabulary.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
+    <title>汉字小达人</title>
+    <script src="https://unpkg.com/hanzi-writer@3.5.0/dist/hanzi-writer.min.js"></script>
     <style>
         :root {
-            --bg-dark: #0a0a12;
-            --vegas-gold: #ffcc00;
-            --neon-red: #ff003c;
-            --neon-green: #2ecc71;
-            --bulb-off: #443300;
+            --bg-paper: #F9F4E9; --ink-black: #2C3E50; --jade-green: #1A4D3A; 
+            --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
-
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Nunito', sans-serif;
-            background: radial-gradient(circle at center, #1e1e30 0%, var(--bg-dark) 100%);
-            height: 100dvh; overflow: hidden; display: flex; flex-direction: column;
-        }
-
-        /* --- 顶部灯牌 --- */
-        header {
-            text-align: center; padding: 10px 0; color: white;
-            text-shadow: 0 0 10px var(--neon-red);
-            font-family: 'Monoton', cursive; font-size: clamp(18px, 5vw, 24px);
-            flex-shrink: 0;
-        }
-
-        .vegas-sign {
-            align-self: center; background: #111; padding: 15px 35px; border-radius: 15px;
-            border: 2px solid #333; position: relative; margin-bottom: 5px;
-            display: flex; flex-direction: column; align-items: center; 
-            box-shadow: 0 8px 30px rgba(0,0,0,0.8); flex-shrink: 0;
-        }
-        .bulbs-row { position: absolute; display: flex; justify-content: space-around; width: 94%; left: 3%; }
-        .bulbs-top { top: 6px; } .bulbs-bottom { bottom: 6px; }
-        .bulb { width: 4px; height: 4px; background: var(--bulb-off); border-radius: 50%; }
-        .bulb:nth-child(odd) { animation: flash-1 0.6s infinite alternate; }
-        .bulb:nth-child(even) { animation: flash-2 0.6s infinite alternate-reverse; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; width: 100%; }
         
-        @keyframes flash-1 { from { background: var(--bulb-off); } to { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } }
-        @keyframes flash-2 { from { background: #fff; box-shadow: 0 0 8px var(--vegas-gold); } to { background: var(--bulb-off); } }
+        /* 移动端兼容背景 */
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background-color: var(--bg-paper);
+            background-image: url('image/cn_word_bg.webp');
+            background-repeat: no-repeat; background-position: center center; background-size: cover;
+        }
+
+        body { font-family: "KaiTi", "STKaiti", "楷体", serif; display: flex; align-items: center; justify-content: center; color: var(--ink-black); }
         
-        .vegas-label { color: var(--vegas-gold); font-size: 11px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
-        .vegas-number { display: flex; align-items: baseline; color: #fff; font-family: 'Orbitron', sans-serif; font-size: 40px; text-shadow: 0 0 15px var(--neon-green); line-height: 1; }
-        .vegas-unit { font-size: 16px; margin-left: 8px; color: #fff; opacity: 0.5; font-family: 'Fredoka One'; }
-
-        /* --- 容器逻辑 --- */
-        #menu-screen, #game-screen { flex: 1; position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; }
-        #game-screen { display: none; background: var(--bg-dark); overflow: hidden; }
-
-        /* --- 轮盘 --- */
-        #level-preview { 
-            position: absolute; top: 5%; width: 260px; background: white; 
-            border-radius: 20px; padding: 15px; text-align: center; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8); opacity: 0; transform: scale(0.5); 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1500; pointer-events: none;
-        }
-        #level-preview.show { opacity: 1; transform: scale(1); pointer-events: auto; }
-
-        .wheel-section { 
-            margin-top: 100px; position: relative; width: min(80vw, 340px); aspect-ratio: 1/1;
-            background: #000; padding: 5px; border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-        }
-        #wheel { width: 100%; height: 100%; transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1); border-radius: 50%; }
-        .spin-btn { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 62px; height: 62px; background: #000; border-radius: 50%; 
-            border: 2px solid var(--neon-red); z-index: 100; color: #fff;
-            display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One';
-            box-shadow: 0 0 15px var(--neon-red); font-size: 16px;
+        #app-container {
+            width: 100%; max-width: 420px; height: 100dvh; 
+            background-color: rgba(249, 244, 233, 0.3); 
+            backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+            padding: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            text-align: center; box-sizing: border-box; display: flex; flex-direction: column; position: relative;
         }
 
-        /* --- 核心：Tinder 卡片 --- */
-        #card-container { 
-            flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; 
-            perspective: 1500px; padding: 15px; margin-bottom: 90px; position: relative;
-        }
-        .card-wrapper { 
-            width: min(85vw, 360px); aspect-ratio: 1/1; position: relative; 
-            transform-style: preserve-3d; will-change: transform;
-            transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1);
-        }
-        .card-face { 
-            position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 30px; 
-            backface-visibility: hidden; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; padding: 25px;
-            border: 6px solid #333; box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-        }
-        .card-back { transform: rotateY(180deg); border-color: var(--vegas-gold); }
+        h1 { margin: 2px 0; font-size: 1.3rem; color: var(--jade-green); flex-shrink: 0; }
+        .top-bar { display: flex; justify-content: center; margin-bottom: 4px; height: 20px; flex-shrink: 0; }
+        #progress-tag { font-size: 0.75rem; background: rgba(255, 255, 255, 0.6); padding: 1px 10px; border-radius: 10px; color: var(--border-wood); font-weight: bold; }
 
-        /* --- 底部 UI --- */
-        #footer-ui { 
-            position: fixed; bottom: 0; left: 0; right: 0; height: 100px;
-            display: flex; justify-content: center; gap: 40px; align-items: center; z-index: 2000;
-            padding-bottom: max(15px, env(safe-area-inset-bottom));
-            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            pointer-events: none;
-        }
-        .collection-btn { 
-            pointer-events: auto; width: 72px; height: 72px; background: rgba(255,255,255,0.08); 
-            border-radius: 18px; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); transition: 0.2s; position: relative;
-        }
-        .btn-unknown { box-shadow: 0 0 12px var(--neon-red); }
-        .btn-known { box-shadow: 0 0 12px var(--vegas-gold); }
-        .btn-label { font-size: 10px; color: #fff; font-weight: bold; margin-top: 2px; }
-        .badge { position: absolute; top: -6px; right: -6px; background: #fff; color: #000; min-width: 22px; height: 22px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; }
+        #data-selector { background: rgba(255, 255, 255, 0.7); padding: 6px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(142, 110, 70, 0.3); }
+        .select-group { display: flex; gap: 4px; margin-bottom: 4px; }
+        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; background: white; outline: none; }
+        .load-btn { width: 100%; padding: 7px; background: var(--jade-green); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        
+        .menu-btn { width: 100%; padding: 10px; margin: 4px 0; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; border-bottom: 3px solid #0d2b21; }
+        .menu-btn:disabled { background: #ccc; border-bottom: none; }
 
-        .exit-btn { position: absolute; top: 15px; left: 15px; z-index: 2500; padding: 6px 12px; border-radius: 10px; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #444; font-size: 12px; }
+        .stage-area { display: none; flex-direction: column; height: 100%; flex-grow: 1; align-items: center; }
+        #question-title { font-size: 1.05rem; margin: 4px 0; font-weight: bold; height: 1.4em; }
+        
+        #hanzi-target {
+            width: 240px; height: 240px; margin: 0 auto; background-color: white; 
+            border: 3px solid var(--border-wood); border-radius: 8px; position: relative; flex-shrink: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cline x1='0' y1='0' x2='240' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='240' y1='0' x2='0' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='120' y1='0' x2='120' y2='240' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3Cline x1='0' y1='120' x2='240' y2='120' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3C/svg%3E");
+        }
+        
+        #word-meaning { font-size: 0.9rem; color: var(--jade-green); height: 6.5em; width: 100%; display: block; text-align: left; padding: 5px 10px; margin: 5px 0 auto; flex-shrink: 0; font-weight: bold; overflow-y: auto; line-height: 1.3; }
+        
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; flex-shrink: 0; }
+        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s; }
+        .option-btn:active { transform: scale(0.95); }
+        .option-svg { width: 45px; height: 45px; }
+        
+        .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; margin-top: 5px; flex-shrink: 0; font-weight: bold; }
+        #click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 2000; }
+        #demo-input-box { margin-bottom: 5px; display: none; }
+        #demo-input { padding: 6px; width: 60px; text-align: center; border: 1px solid var(--border-wood); border-radius: 4px; }
     </style>
 </head>
-<body>
+<body onclick="handleGlobalClick()">
 
-    <header>WORD QUEST</header>
+<div id="app-container">
+    <div id="click-overlay"></div>
+    <h1>🎒 汉字小达人</h1>
+    <div class="top-bar" id="top-progress-bar" style="visibility: hidden;"><div id="progress-tag">已练 0 / 0</div></div>
 
-    <div class="vegas-sign">
-        <div class="bulbs-row bulbs-top" id="bulbs-t"></div>
-        <div class="vegas-label">ALL MASTERED</div>
-        <div class="vegas-number">
-            <span id="total-known-count">000</span>
-            <span class="vegas-unit">WORDS</span>
+    <div id="main-menu">
+        <div id="data-selector">
+            <div class="select-group">
+                <select id="user-group" onchange="updateSubCategory()"><option value="student">小学生同步</option><option value="adult">分类库</option></select>
+                <select id="sub-category"></select>
+            </div>
+            <button class="load-btn" onclick="fetchWordList()">同步字库</button>
+            <div id="status-msg" style="font-size: 0.75rem; margin-top:3px; color: #666; font-weight: bold;">准备就绪</div>
         </div>
-        <div class="bulbs-row bulbs-bottom" id="bulbs-b"></div>
+        <button class="menu-btn game-btn" disabled onclick="startGame(1)">1. 看汉字 · 选拼音</button>
+        <button class="menu-btn game-btn" disabled onclick="startGame(2)">2. 听拼音 · 选汉字</button>
+        <button class="menu-btn game-btn" disabled onclick="startGame(3)">3. 辨笔画 · 考顺位</button>
+        <button class="menu-btn game-btn" disabled onclick="startGame(4)">4. 描红练习</button>
+        <button class="menu-btn game-btn" disabled onclick="startGame(5)">5. 默写挑战</button>
+        <button class="menu-btn" onclick="startDemoMode()">6. 书写动画示范</button>
     </div>
 
-    <div id="menu-screen">
-        <div id="level-preview" onclick="enterSelectedLevel()">
-            <div style="font-size: 40px;" id="pre-emoji">🧒</div>
-            <div id="pre-name" style="font-weight:900; color:#333; margin:2px 0;">JACKPOT!</div>
-            <div id="pre-progress" style="font-family:'Orbitron'; color:var(--neon-green);">0/0</div>
-            <div style="color:var(--neon-red); font-size:10px; margin-top:5px; font-weight:bold;">TAP TO PLAY</div>
+    <div id="game-area" class="stage-area">
+        <div id="demo-input-box">
+            <input type="text" id="demo-input" maxlength="1" placeholder="填字">
+            <button class="load-btn" style="width:auto; padding:6px 12px;" onclick="runSingleDemo()">演示</button>
         </div>
-        <div class="wheel-section">
-            <div class="wheel-container">
-                <canvas id="wheel"></canvas>
-            </div>
-            <div class="spin-btn" onclick="spinWheel()">SPIN</div>
-        </div>
+        <div id="question-title"></div>
+        <div id="hanzi-target"></div>
+        <div id="word-meaning"></div>
+        <div id="options-area" class="option-grid"></div>
+        <button class="back-btn" onclick="exitGame()">返回菜单</button>
     </div>
+</div>
 
-    <div id="game-screen">
-        <button class="exit-btn" onclick="exitGame()">🏠 EXIT</button>
-        <div id="card-container"></div>
-        <div id="footer-ui">
-            <div class="collection-btn btn-unknown" onclick="startReview('unknown')">
-                <span style="font-size:24px;">🎒</span>
-                <div class="btn-label">温故</div>
-                <div class="badge" id="count-unknown">0</div>
-            </div>
-            <div class="collection-btn btn-known" onclick="startReview('known')">
-                <span style="font-size:24px;">⭐</span>
-                <div class="btn-label">知新</div>
-                <div class="badge" id="count-known">0</div>
-            </div>
-        </div>
-    </div>
+<script>
+    const CONFIG = {
+        student: { folder: 'hanzi_by_grade', data: [{ name: "一年级上册" }, { name: "一年级下册" }, { name: "二年级上册" }, { name: "二年级下册" }, { name: "三年级上册" }, { name: "三年级下册" }, { name: "四年级上册" }, { name: "四年级下册" }, { name: "五年级上册" }, { name: "五年级下册" }, { name: "六年级上册" }, { name: "六年级下册" }] },
+        adult: { folder: 'hanzi_types', data: [{ name: "常用字" }, { name: "次常用字" }, { name: "通用字" }, { name: "生僻字" }] }
+    };
+    
+    const BASE_STROKES = [
+        "M181 536c49-11 98-21 146-32 173-39 346-77 520-116 19-4 38-8 57-12 11-2 21 6 21 18s-10 23-21 26l-723 162c-12 3-23-6-23-18s10-23 23-28z",
+        "M495 120c15 0 28 12 28 28v680c0 15-13 28-28 28s-28-13-28-28V148c0-16 13-28 28-28z",
+        "M820 210c12 11 11 29-1 41l-500 500c-11 11-29 11-40-1s-11-29 1-40l500-500c11-12 29-12 40 0z"
+    ];
 
-    <script>
-        let levelKeys = Object.keys(DB);
-        let currentRotation = 0, isSpinning = false, selectedLevelId = null;
-        let levelData = [], currentIndex = 0, listUnknown = [], listKnown = [], currentLevelId = null;
-        let reviewModeType = null;
+    let activeList = [], queue = [], currentWord = null, currentMode = 0, writer = null;
+    let nextTimeout = null, canClickSkip = false;
 
-        // --- 语音引擎 ---
-        let americanVoice = null;
-        function loadVoices() {
-            const voices = window.speechSynthesis.getVoices();
-            americanVoice = voices.find(v => v.lang === 'en-US' && (v.name.includes('Google') || v.name.includes('Samantha'))) || 
-                            voices.find(v => v.lang.startsWith('en-US')) || voices[0];
-        }
-        window.speechSynthesis.onvoiceschanged = loadVoices;
-        loadVoices();
+    async function loadStrokeData(char) {
+        const urls = [`./Data/strokes/${char}.json`, `https://lxue9.github.io/game/1000words/CN/Data/strokes/${char}.json`, `https://unpkg.com/hanzi-writer-data@2.0.1/${char}.json` ];
+        for (let url of urls) { try { const res = await fetch(url, { cache: "force-cache" }); if (res.ok) return await res.json(); } catch (e) {} }
+        throw new Error();
+    }
 
-        function speak(text) {
-            window.speechSynthesis.cancel();
-            const msg = new SpeechSynthesisUtterance(text);
-            if (americanVoice) msg.voice = americanVoice;
-            msg.lang = 'en-US';
-            msg.rate = 0.95;
-            msg.pitch = 1.0;
-            window.speechSynthesis.speak(msg);
-        }
+    function updateSubCategory() {
+        const group = document.getElementById('user-group').value;
+        const sub = document.getElementById('sub-category');
+        sub.innerHTML = ''; CONFIG[group].data.forEach(d => sub.add(new Option(d.name, d.name)));
+    }
 
-        // --- 基础初始化 ---
-        function createBulbs() {
-            const t = document.getElementById('bulbs-t'), b = document.getElementById('bulbs-b');
-            for(let i=0; i<8; i++) { t.innerHTML += '<div class="bulb"></div>'; b.innerHTML += '<div class="bulb"></div>'; }
-        }
-        createBulbs();
-
-        function updateGlobalTotal() {
-            let total = 0;
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
-                if (key.startsWith('progress_')) {
-                    try {
-                        const data = JSON.parse(localStorage.getItem(key));
-                        if (data && data.known) total += data.known.length;
-                    } catch(e) {}
-                }
-            }
-            document.getElementById('total-known-count').innerText = total.toString().padStart(3, '0');
-        }
-
-        function drawWheel() {
-            const canvas = document.getElementById('wheel');
-            const ctx = canvas.getContext('2d');
-            const size = 800; canvas.width = size; canvas.height = size;
-            const arc = (2 * Math.PI) / levelKeys.length;
-            ctx.translate(size/2, size/2);
-            levelKeys.forEach((key, i) => {
-                const angle = i * arc - Math.PI/2;
-                ctx.beginPath(); ctx.fillStyle = i % 2 === 0 ? "#1a1a1a" : "#262626";
-                ctx.moveTo(0, 0); ctx.arc(0, 0, size/2, angle, angle + arc); ctx.fill();
-                ctx.save(); ctx.rotate(angle + arc/2);
-                ctx.font = "80px Apple Color Emoji"; ctx.textAlign = "center";
-                ctx.fillText(DB[key].levelEmoji, size/2 * 0.7, 25); ctx.restore();
-            });
-        }
-
-        function spinWheel() {
-            if (isSpinning) return;
-            isSpinning = true;
-            document.getElementById('level-preview').classList.remove('show');
-            currentRotation += 1800 + Math.floor(Math.random() * 360);
-            document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
-            setTimeout(() => {
-                isSpinning = false;
-                const deg = (360 - (currentRotation % 360)) % 360;
-                selectedLevelId = levelKeys[Math.floor(deg / (360/levelKeys.length)) % levelKeys.length];
-                showPreview(selectedLevelId);
-            }, 4000);
-        }
-
-        function showPreview(id) {
-            const level = DB[id];
-            const prog = JSON.parse(localStorage.getItem(`progress_${id}`)) || {known: []};
-            document.getElementById('pre-emoji').innerText = level.levelEmoji;
-            document.getElementById('pre-name').innerText = level.levelName.split(': ')[1];
-            document.getElementById('pre-progress').innerText = `${prog.known.length}/${Object.keys(level.words).length}`;
-            document.getElementById('level-preview').classList.add('show');
-        }
-
-        function startGame(id) {
-            currentLevelId = id; reviewModeType = null;
-            const saved = JSON.parse(localStorage.getItem(`progress_${id}`)) || {index:0, unknown:[], known:[]};
-            const wordsObj = DB[id].words;
-            levelData = Object.keys(wordsObj).map(key => ({ en: key, emoji: wordsObj[key][0], cn: wordsObj[key][1], py: wordsObj[key][4] }));
-            currentIndex = saved.index; listUnknown = saved.unknown; listKnown = saved.known;
-            document.getElementById('menu-screen').style.display = 'none';
-            document.getElementById('game-screen').style.display = 'flex';
-            renderNextCard(); updateCounters();
-        }
-
-        // --- 核心优化点：退出时强制保存进度 ---
-        function exitGame() {
-            if (currentLevelId && reviewModeType === null) {
-                // 保存当前索引和学习列表
-                localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ 
-                    index: currentIndex, 
-                    unknown: listUnknown, 
-                    known: listKnown 
-                }));
-            }
-            document.getElementById('game-screen').style.display = 'none';
-            document.getElementById('menu-screen').style.display = 'flex';
-            updateGlobalTotal(); // 更新主灯牌总数
-            if (currentLevelId) showPreview(currentLevelId); // 更新预览面板数字
-        }
-
-        function startReview(type) {
-            const list = (type === 'unknown') ? listUnknown : listKnown;
-            if (list.length === 0) return;
-            reviewModeType = type; levelData = [...list]; currentIndex = 0;
-            renderNextCard();
-        }
-
-        function renderNextCard() {
-            const container = document.getElementById('card-container');
-            container.innerHTML = '';
-            if (currentIndex >= levelData.length) { 
-                container.innerHTML = `<div style="color:white; font-size:24px; font-family:Orbitron;">STAGE CLEAR! 🏆</div>`;
-                return; 
-            }
-            const word = levelData[currentIndex];
-            const wrapper = document.createElement('div');
-            wrapper.className = 'card-wrapper';
-            wrapper.innerHTML = `
-                <div class="card-face card-front"><div style="font-size:45px; font-family:'Fredoka One'; color:#333;">${word.en}</div></div>
-                <div class="card-face card-back"><div style="font-size:75px;">${word.emoji}</div><div style="font-size:32px; font-weight:900; color:#333; margin:10px 0;">${word.cn}</div><div style="color:#888;">${word.py}</div></div>`;
-            container.appendChild(wrapper);
+    async function fetchWordList() {
+        const group = document.getElementById('user-group').value;
+        const sub = document.getElementById('sub-category').value;
+        try {
+            const res = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
+            const data = await res.json();
+            activeList = data.map(i => ({ char: i.char, py: (i.py || i.pinyin || "").toString().trim(), yisi: i.yisi_short || "" }));
             
-            setTimeout(() => speak(word.en), 200);
-
-            wrapper.onclick = function() { 
-                if (this.dataset.dragging !== 'true') {
-                    this.classList.toggle('is-flipped');
-                    if (!this.classList.contains('is-flipped')) speak(word.en);
-                }
-            };
-            initSwipe(wrapper, word);
-        }
-
-        function initSwipe(el, word) {
-            let startX = 0, currentX = 0, startTime = 0;
-            let hapticTriggered = false;
-            const front = el.querySelector('.card-front');
+            document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
             
-            const onStart = (e) => {
-                startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-                startTime = Date.now();
-                el.style.transition = 'none';
-                el.dataset.dragging = 'false';
-                hapticTriggered = false;
-            };
+            // 修改后的提示文字
+            const statusMsg = document.getElementById('status-msg');
+            statusMsg.innerText = `✅ 已载入 ${sub} ${activeList.length} 字`;
+            statusMsg.style.color = "var(--jade-green)";
+            
+        } catch (e) { 
+            document.getElementById('status-msg').innerText = "❌ 加载失败"; 
+            document.getElementById('status-msg').style.color = "var(--vermilion-red)";
+        }
+    }
 
-            const onMove = (e) => {
-                if (startTime === 0) return;
-                let x = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
-                currentX = x - startX;
+    function startGame(mode) {
+        currentMode = mode; queue = [...activeList].sort(() => Math.random() - 0.5);
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById('game-area').style.display = 'flex';
+        document.getElementById('top-progress-bar').style.visibility = 'visible';
+        document.getElementById('demo-input-box').style.display = 'none';
+        refreshGame();
+    }
 
-                if (Math.abs(currentX) > 5) {
-                    el.dataset.dragging = 'true';
-                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
-                    let tilt = currentX * 0.1;
-                    tilt = Math.max(Math.min(tilt, 15), -15); 
-                    el.style.transform = `translateX(${currentX}px) rotateY(${rotY}deg) rotateZ(${tilt}deg)`;
-                    
-                    if (Math.abs(currentX) > 90 && !hapticTriggered) {
-                        if (window.navigator.vibrate) window.navigator.vibrate(10);
-                        hapticTriggered = true;
-                    } else if (Math.abs(currentX) < 70) {
-                        hapticTriggered = false;
-                    }
+    function startDemoMode() {
+        currentMode = 6;
+        document.getElementById('main-menu').style.display = 'none';
+        document.getElementById('game-area').style.display = 'flex';
+        document.getElementById('demo-input-box').style.display = 'block';
+        document.getElementById('hanzi-target').innerHTML = '';
+        document.getElementById('options-area').innerHTML = '';
+        document.getElementById('word-meaning').innerText = '';
+        document.getElementById('question-title').innerText = '书写动画示范';
+    }
 
-                    if (currentX > 80) front.style.borderColor = 'var(--neon-green)';
-                    else if (currentX < -80) front.style.borderColor = 'var(--neon-red)';
-                    else front.style.borderColor = '#333';
-                }
-            };
+    async function runSingleDemo() {
+        const char = document.getElementById('demo-input').value.trim();
+        if (!char) return;
+        document.getElementById('hanzi-target').innerHTML = '';
+        try {
+            const data = await loadStrokeData(char);
+            writer = HanziWriter.create('hanzi-target', char, { width: 220, height: 220, padding: 10, charDataLoader: (c, cb) => cb(data) });
+            writer.animateCharacter();
+        } catch (e) { alert("暂无数据"); }
+    }
 
-            const onEnd = () => {
-                if (startTime === 0) return;
-                const threshold = 90;
-                
-                if (Math.abs(currentX) > threshold) {
-                    const direction = currentX > 0 ? 1 : -1;
-                    const type = currentX > 0 ? 'known' : 'unknown';
-                    if (window.navigator.vibrate) window.navigator.vibrate(20);
+    async function refreshGame() {
+        clearTimeout(nextTimeout);
+        canClickSkip = false;
+        document.getElementById('click-overlay').style.display = 'none';
+        const target = document.getElementById('hanzi-target'), area = document.getElementById('options-area'), me = document.getElementById('word-meaning');
+        target.innerHTML = ''; target.innerText = ''; me.innerText = ''; me.style.opacity = 0; area.innerHTML = ''; writer = null;
+        
+        document.getElementById('progress-tag').innerText = `已练 ${activeList.length - queue.length} / ${activeList.length}`;
+        if (queue.length === 0) { alert("练习结束！"); exitGame(); return; }
+        currentWord = queue.pop();
+        try {
+            if (currentMode >= 3) {
+                const data = await loadStrokeData(currentWord.char);
+                if (currentMode === 3) renderNthStrokeGame(data);
+                else renderStrokeGame(data);
+            } else { renderTextGame(); }
+        } catch (e) { refreshGame(); } 
+    }
 
-                    el.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
-                    let finalTilt = direction * 15;
-                    el.style.transform = `translateX(${direction * 1200}px) rotateY(${rotY}deg) rotateZ(${finalTilt}deg)`;
-                    
-                    setTimeout(() => swipeAction(type, word), 150);
+    function renderNthStrokeGame(data) {
+        const n = Math.floor(Math.random() * data.strokes.length); 
+        document.getElementById('question-title').innerText = `${currentWord.char} 的第 ${n+1} 笔是？`;
+        writer = HanziWriter.create('hanzi-target', currentWord.char, {
+            width: 240, height: 240, padding: 10, showCharacter: true, strokeColor: '#DDD', 
+            markStrokeCorrectAfterMisses: true, charDataLoader: (c, cb) => cb(data)
+        });
+        const correctPath = data.strokes[n];
+        let opts = [correctPath];
+        let others = data.strokes.filter(s => s !== correctPath);
+        while(opts.length < 4 && others.length > 0) opts.push(others.splice(Math.floor(Math.random()*others.length), 1)[0]);
+        while(opts.length < 4) opts.push(BASE_STROKES[Math.floor(Math.random()*BASE_STROKES.length)]);
+
+        opts.sort(() => Math.random() - 0.5).forEach(path => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
+            btn.onclick = async (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+                writer.updateColor('strokeAnimationColor', '#3498DB'); 
+                writer.updateColor('highlightColor', '#3498DB'); 
+                if (path === correctPath) {
+                    btn.style.borderColor = '#1A4D3A'; btn.style.background = '#eafff5';
+                    await new Promise(r => writer.animateStroke(n, { onComplete: r }));
                 } else {
-                    el.style.transition = 'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-                    let rotY = el.classList.contains('is-flipped') ? 180 : 0;
-                    el.style.transform = `rotateY(${rotY}deg)`;
-                    front.style.borderColor = '#333';
+                    btn.style.borderColor = '#C0392B'; btn.style.background = '#fff0f0';
+                    writer.highlightStroke(n);
+                    await new Promise(r => setTimeout(r, 400));
                 }
-                startTime = 0;
+                showSuccessAndNext();
             };
+            document.getElementById('options-area').appendChild(btn);
+        });
+    }
 
-            el.addEventListener('mousedown', onStart);
-            el.addEventListener('touchstart', onStart, {passive: false});
-            window.addEventListener('mousemove', onMove);
-            window.addEventListener('touchmove', onMove, {passive: false});
-            window.addEventListener('mouseup', onEnd);
-            window.addEventListener('touchend', onEnd);
-        }
+    function renderStrokeGame(data) {
+        const isQuiz = (currentMode === 5);
+        document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
+        
+        writer = HanziWriter.create('hanzi-target', currentWord.char, { 
+            width: 220, height: 220, padding: 10, 
+            showOutline: !isQuiz, 
+            showCharacter: false,
+            strokeColor: '#2C3E50', 
+            highlightColor: '#3498DB', 
+            strokeHighlightSpeed: 2,
+            charDataLoader: (c, cb) => cb(data) 
+        });
 
-        function swipeAction(type, word) {
-            if (type === 'known') {
-                if(!listKnown.some(w => w.en === word.en)) listKnown.push(word);
-                listUnknown = listUnknown.filter(w => w.en !== word.en);
-            } else {
-                if(!listUnknown.some(w => w.en === word.en)) listUnknown.push(word);
-            }
-            if (reviewModeType === null) currentIndex++;
-            else currentIndex++;
+        writer.quiz({ 
+            showHintAfterMisses: 1, 
+            onComplete: () => showSuccessAndNext() 
+        });
+    }
 
-            localStorage.setItem(`progress_${currentLevelId}`, JSON.stringify({ index: (reviewModeType? 0:currentIndex), unknown: listUnknown, known: listKnown }));
-            updateCounters(); updateGlobalTotal(); renderNextCard();
-        }
+    function showSuccessAndNext() {
+        const me = document.getElementById('word-meaning');
+        me.innerText = currentWord.yisi || "回答正确！";
+        me.style.opacity = 1;
+        canClickSkip = true;
+        document.getElementById('click-overlay').style.display = 'block';
+        nextTimeout = setTimeout(refreshGame, 3000); 
+    }
 
-        function updateCounters() {
-            document.getElementById('count-unknown').innerText = listUnknown.length;
-            document.getElementById('count-known').innerText = listKnown.length;
-        }
+    function handleGlobalClick() { if (canClickSkip) refreshGame(); }
 
-        function enterSelectedLevel() { if (selectedLevelId) startGame(selectedLevelId); }
-        window.onload = () => { drawWheel(); updateGlobalTotal(); };
-    </script>
+    function renderTextGame() {
+        const target = document.getElementById('hanzi-target'), title = document.getElementById('question-title');
+        target.style.fontSize = "160px";
+        if (currentMode === 1) { title.innerText = "这个汉字怎么读？"; target.innerText = currentWord.char; renderTextOptions('py', currentWord.py); }
+        else { title.innerText = `找出读音为 [ ${currentWord.py} ] 的字`; renderTextOptions('char', currentWord.char); }
+    }
+
+    function renderTextOptions(key, correct) {
+        let opts = [correct];
+        while(opts.length < 4) { let r = activeList[Math.floor(Math.random()*activeList.length)][key]; if(!opts.includes(r) && r) opts.push(r); }
+        opts.sort(() => Math.random() - 0.5).forEach(v => {
+            const btn = document.createElement('button'); btn.className = 'option-btn'; btn.innerText = v; btn.style.fontSize = "1.5rem"; btn.style.fontWeight="bold";
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                if (v === correct) {
+                    btn.style.background = 'var(--jade-green)'; btn.style.color = 'white';
+                    if (currentMode === 2) document.getElementById('hanzi-target').innerText = currentWord.char;
+                    showSuccessAndNext();
+                } else { btn.style.background = 'var(--vermilion-red)'; btn.style.color = 'white'; }
+            };
+            document.getElementById('options-area').appendChild(btn);
+        });
+    }
+
+    function exitGame() { clearTimeout(nextTimeout); document.getElementById('game-area').style.display = 'none'; document.getElementById('main-menu').style.display = 'block'; document.getElementById('top-progress-bar').style.visibility = 'hidden'; }
+    document.addEventListener('DOMContentLoaded', updateSubCategory);
+</script>
 </body>
 </html>

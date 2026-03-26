@@ -11,6 +11,7 @@
             --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
         
+        /* 强制全屏，禁止滚动 */
         html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; width: 100%; }
         
         body {
@@ -35,7 +36,7 @@
 
         #data-selector { background: rgba(255, 255, 255, 0.7); padding: 6px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(142, 110, 70, 0.3); }
         .select-group { display: flex; gap: 4px; margin-bottom: 4px; }
-        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; background: white; }
+        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; outline: none; background: white; }
         .load-btn { width: 100%; padding: 7px; background: var(--jade-green); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
         
         .menu-btn { width: 100%; padding: 10px; margin: 4px 0; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; border-bottom: 3px solid #0d2b21; }
@@ -150,6 +151,10 @@
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'flex';
         document.getElementById('top-progress-bar').style.visibility = 'visible';
+        
+        // 核心修改点：隐藏输入框
+        document.getElementById('demo-input-box').style.display = 'none';
+        
         refreshGame();
     }
 
@@ -157,11 +162,15 @@
         currentMode = 6;
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('game-area').style.display = 'flex';
+        
+        // 核心修改点：仅在第6题显示输入框
         document.getElementById('demo-input-box').style.display = 'block';
+        
         document.getElementById('hanzi-target').innerHTML = '';
         document.getElementById('options-area').innerHTML = '';
         document.getElementById('word-meaning').innerText = '';
-        document.getElementById('question-title').innerText = '书写动画演示';
+        document.getElementById('question-title').innerText = '书写动画示范';
+        document.getElementById('top-progress-bar').style.visibility = 'hidden';
     }
 
     async function runSingleDemo() {
@@ -204,7 +213,7 @@
         writer = HanziWriter.create('hanzi-target', currentWord.char, {
             width: 240, height: 240, padding: 10, showCharacter: true, 
             strokeColor: '#DDD', 
-            markStrokeCorrectAfterMisses: true, // 核心修改：设置为 true
+            markStrokeCorrectAfterMisses: true,
             charDataLoader: (c, cb) => cb(data)
         });
 
@@ -225,17 +234,24 @@
                 
                 if (path === correctPath) {
                     btn.style.borderColor = '#1A4D3A'; btn.style.background = '#eafff5';
+                    // 答对时：播放正常的书写动画，标蓝
+                    await new Promise(resolve => {
+                        writer.animateStroke(n, { 
+                            strokeColor: '#3498DB', 
+                            onComplete: resolve 
+                        });
+                    });
                 } else {
                     btn.style.borderColor = '#C0392B'; btn.style.background = '#fff0f0';
-                }
-
-                // 点击后，正确的笔顺标记为蓝色动画
-                await new Promise(resolve => {
-                    writer.animateStroke(n, { 
-                        strokeColor: '#3498DB', 
-                        onComplete: resolve 
+                    // 答错时：为了"直接变成蓝色且去掉动画"，将动画时间(duration)设为肉眼不可见的10毫秒
+                    await new Promise(resolve => {
+                        writer.animateStroke(n, { 
+                            strokeColor: '#3498DB', 
+                            duration: 10, 
+                            onComplete: resolve 
+                        });
                     });
-                });
+                }
 
                 showSuccessAndNext();
             };
@@ -266,7 +282,7 @@
         document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
         writer = HanziWriter.create('hanzi-target', currentWord.char, { 
             width: 220, height: 220, padding: 10, showOutline: !isQuiz, showCharacter: false, 
-            markStrokeCorrectAfterMisses: true, // 核心修改
+            markStrokeCorrectAfterMisses: true,
             charDataLoader: (c, cb) => cb(data) 
         });
         writer.quiz({ onComplete: () => showSuccessAndNext() });

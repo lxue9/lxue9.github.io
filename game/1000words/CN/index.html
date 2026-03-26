@@ -11,45 +11,49 @@
             --vermilion-red: #C0392B; --border-wood: #8E6E46; --info-blue: #3498DB;
         }
         
-        /* 强制全屏，禁止滚动 */
-        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; position: fixed; width: 100%; }
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; width: 100%; }
         
-        body {
-            font-family: "KaiTi", "STKaiti", "楷体", serif; 
-            /* 优化：加入渐变色作为 fallback，如果图片找不到，依然有质感 */
-            background: linear-gradient(135deg, #F9F4E9 0%, #E2D7C1 100%);
-            /* 如果图片路径正确，会自动覆盖上面的渐变色 */
+        /* 修复手机端背景问题的核心：伪元素固定背景 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-color: var(--bg-paper);
             background-image: url('image/cn_word_bg.webp');
             background-repeat: no-repeat;
             background-position: center center;
-            background-attachment: fixed;
             background-size: cover;
+        }
+
+        body {
+            font-family: "KaiTi", "STKaiti", "楷体", serif; 
             display: flex; align-items: center; justify-content: center; color: var(--ink-black);
         }
         
         #app-container {
             width: 100%; max-width: 420px; height: 100dvh; 
             background-color: rgba(249, 244, 233, 0.4); 
-            backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
             padding: 8px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
             text-align: center; box-sizing: border-box; display: flex; flex-direction: column;
+            position: relative;
         }
 
-        h1 { margin: 2px 0; font-size: 1.3rem; color: var(--jade-green); flex-shrink: 0; text-shadow: 1px 1px 2px rgba(255,255,255,0.8); }
-        
+        h1 { margin: 2px 0; font-size: 1.3rem; color: var(--jade-green); flex-shrink: 0; }
         .top-bar { display: flex; justify-content: center; margin-bottom: 4px; height: 20px; flex-shrink: 0; }
         #progress-tag { font-size: 0.75rem; background: rgba(255, 255, 255, 0.6); padding: 1px 10px; border-radius: 10px; color: var(--border-wood); font-weight: bold; }
 
         #data-selector { background: rgba(255, 255, 255, 0.7); padding: 6px; border-radius: 8px; margin-bottom: 6px; border: 1px solid rgba(142, 110, 70, 0.3); }
         .select-group { display: flex; gap: 4px; margin-bottom: 4px; }
-        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; outline: none; background: white; }
+        select { flex: 1; padding: 5px; border-radius: 4px; border: 1px solid var(--border-wood); font-size: 0.85rem; background: white; outline: none; }
         .load-btn { width: 100%; padding: 7px; background: var(--jade-green); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
         
         .menu-btn { width: 100%; padding: 10px; margin: 4px 0; background: var(--jade-green); color: white; border: none; border-radius: 6px; font-size: 1rem; font-weight: bold; cursor: pointer; border-bottom: 3px solid #0d2b21; }
         .menu-btn:disabled { background: #ccc; border-bottom: none; }
 
         .stage-area { display: none; flex-direction: column; height: 100%; flex-grow: 1; align-items: center; }
-        #question-title { font-size: 1.05rem; margin: 4px 0; font-weight: bold; height: 1.4em; color: var(--ink-black); }
+        #question-title { font-size: 1.05rem; margin: 4px 0; font-weight: bold; height: 1.4em; }
         
         #hanzi-target {
             width: 240px; height: 240px; margin: 0 auto; background-color: white; 
@@ -57,22 +61,17 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cline x1='0' y1='0' x2='240' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='240' y1='0' x2='0' y2='240' stroke='%23F5F5F5' stroke-width='2'/%3E%3Cline x1='120' y1='0' x2='120' y2='240' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3Cline x1='0' y1='120' x2='240' y2='120' stroke='%23F5F5F5' stroke-dasharray='4,4'/%3E%3C/svg%3E");
         }
         
-        #word-meaning { 
-            font-size: 0.9rem; color: var(--jade-green); height: 6.5em; width: 100%;
-            display: block; text-align: left; padding: 5px 10px; margin: 5px 0 auto; 
-            flex-shrink: 0; font-weight: bold; overflow-y: auto; line-height: 1.3;
-        }
+        #word-meaning { font-size: 0.9rem; color: var(--jade-green); height: 6.5em; width: 100%; display: block; text-align: left; padding: 5px 10px; margin: 5px 0 auto; flex-shrink: 0; font-weight: bold; overflow-y: auto; line-height: 1.3; }
         
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; flex-shrink: 0; }
-        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; transition: transform 0.1s; }
+        .option-btn { padding: 4px; background: rgba(255, 255, 255, 0.9); border: 2px solid #ddd; border-radius: 8px; cursor: pointer; height: 55px; display: flex; align-items: center; justify-content: center; transition: transform 0.1s; }
         .option-btn:active { transform: scale(0.95); }
         .option-svg { width: 45px; height: 45px; }
         
         .back-btn { background: var(--vermilion-red); color: white; border: none; padding: 10px; border-radius: 6px; width: 100%; margin-top: 5px; flex-shrink: 0; font-weight: bold; }
-        
         #click-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 2000; }
         #demo-input-box { margin-bottom: 5px; display: none; }
-        #demo-input { padding: 6px; width: 60px; text-align: center; border: 1px solid var(--border-wood); border-radius: 4px; font-family: inherit;}
+        #demo-input { padding: 6px; width: 60px; text-align: center; border: 1px solid var(--border-wood); border-radius: 4px; }
     </style>
 </head>
 <body onclick="handleGlobalClick()">
@@ -140,17 +139,30 @@
     }
 
     async function fetchWordList() {
-        const group = document.getElementById('user-group').value;
-        const sub = document.getElementById('sub-category').value;
-        try {
-            const res = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
-            const data = await res.json();
-            activeList = data.map(i => ({ char: i.char, py: (i.py || i.pinyin || "").toString().trim(), yisi: i.yisi_short || "" }));
-            document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
-            document.getElementById('status-msg').innerText = "✅ 载入完成";
-        } catch (e) { document.getElementById('status-msg').innerText = "❌ 加载失败"; }
+    const group = document.getElementById('user-group').value;
+    const sub = document.getElementById('sub-category').value; // 获取当前选择的子类名称
+    try {
+        const res = await fetch(`./${CONFIG[group].folder}/${sub}.json`);
+        const data = await res.json();
+        activeList = data.map(i => ({ 
+            char: i.char, 
+            py: (i.py || i.pinyin || "").toString().trim(), 
+            yisi: i.yisi_short || "" 
+        }));
+        
+        // 激活按钮
+        document.querySelectorAll('.game-btn').forEach(b => b.disabled = false);
+        
+        // --- 优化后的显示逻辑 ---
+        const statusMsg = document.getElementById('status-msg');
+        statusMsg.innerText = `✅ 已载入 ${sub} ${activeList.length} 字`;
+        statusMsg.style.color = "var(--jade-green)"; // 成功时显示为墨绿色
+        
+    } catch (e) { 
+        document.getElementById('status-msg').innerText = "❌ 加载失败，请检查网络或文件路径"; 
+        document.getElementById('status-msg').style.color = "var(--vermilion-red)";
     }
-
+}
     function startGame(mode) {
         currentMode = mode; queue = [...activeList].sort(() => Math.random() - 0.5);
         document.getElementById('main-menu').style.display = 'none';
@@ -169,7 +181,6 @@
         document.getElementById('options-area').innerHTML = '';
         document.getElementById('word-meaning').innerText = '';
         document.getElementById('question-title').innerText = '书写动画示范';
-        document.getElementById('top-progress-bar').style.visibility = 'hidden';
     }
 
     async function runSingleDemo() {
@@ -178,12 +189,9 @@
         document.getElementById('hanzi-target').innerHTML = '';
         try {
             const data = await loadStrokeData(char);
-            writer = HanziWriter.create('hanzi-target', char, { 
-                width: 220, height: 220, padding: 10, 
-                charDataLoader: (c, cb) => cb(data) 
-            });
+            writer = HanziWriter.create('hanzi-target', char, { width: 220, height: 220, padding: 10, charDataLoader: (c, cb) => cb(data) });
             writer.animateCharacter();
-        } catch (e) { alert("暂无该字数据"); }
+        } catch (e) { alert("暂无数据"); }
     }
 
     async function refreshGame() {
@@ -208,14 +216,10 @@
     function renderNthStrokeGame(data) {
         const n = Math.floor(Math.random() * data.strokes.length); 
         document.getElementById('question-title').innerText = `${currentWord.char} 的第 ${n+1} 笔是？`;
-        
         writer = HanziWriter.create('hanzi-target', currentWord.char, {
-            width: 240, height: 240, padding: 10, showCharacter: true, 
-            strokeColor: '#DDD', 
-            markStrokeCorrectAfterMisses: true,
-            charDataLoader: (c, cb) => cb(data)
+            width: 240, height: 240, padding: 10, showCharacter: true, strokeColor: '#DDD', 
+            markStrokeCorrectAfterMisses: true, charDataLoader: (c, cb) => cb(data)
         });
-
         const correctPath = data.strokes[n];
         let opts = [correctPath];
         let others = data.strokes.filter(s => s !== correctPath);
@@ -226,35 +230,43 @@
             const btn = document.createElement('button');
             btn.className = 'option-btn';
             btn.innerHTML = `<svg class="option-svg" viewBox="0 0 1024 1024"><g transform="scale(1, -1) translate(0, -900)"><path d="${path}" fill="#2C3E50"/></g></svg>`;
-            
             btn.onclick = async (e) => {
                 e.stopPropagation();
                 document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
-                
-                // 【核心修复：正确使用 API 改变画笔颜色】
-                // HanziWriter 需要通过 updateColor 来专门设置动画和高亮的颜色
                 writer.updateColor('strokeAnimationColor', '#3498DB'); 
                 writer.updateColor('highlightColor', '#3498DB'); 
-
                 if (path === correctPath) {
                     btn.style.borderColor = '#1A4D3A'; btn.style.background = '#eafff5';
-                    // 答对时：保留动画过程，颜色已通过 updateColor 设置为蓝色
-                    await new Promise(resolve => {
-                        writer.animateStroke(n, { onComplete: resolve });
-                    });
+                    await new Promise(r => writer.animateStroke(n, { onComplete: r }));
                 } else {
                     btn.style.borderColor = '#C0392B'; btn.style.background = '#fff0f0';
-                    // 答错时：【去掉动画，瞬间变为蓝色】
-                    // highlightStroke API 就是专门用来无动画瞬间上色的
                     writer.highlightStroke(n);
-                    
-                    // 稍微停顿一下（比如0.3秒），避免瞬间出释义显得太突兀，提升手感
-                    await new Promise(resolve => setTimeout(resolve, 300));
+                    await new Promise(r => setTimeout(r, 400));
                 }
-
                 showSuccessAndNext();
             };
             document.getElementById('options-area').appendChild(btn);
+        });
+    }
+
+    function renderStrokeGame(data) {
+        const isQuiz = (currentMode === 5);
+        document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
+        
+        // 【优化第4、5题的核心配置】
+        writer = HanziWriter.create('hanzi-target', currentWord.char, { 
+            width: 220, height: 220, padding: 10, 
+            showOutline: !isQuiz, 
+            showCharacter: false,
+            strokeColor: '#2C3E50',      // 正确书写时显黑色
+            highlightColor: '#3498DB',   // 写错提示时显蓝色
+            strokeHighlightSpeed: 2,
+            charDataLoader: (c, cb) => cb(data) 
+        });
+
+        writer.quiz({ 
+            showHintAfterMisses: 1,      // 写错1次就播放蓝色动画提醒
+            onComplete: () => showSuccessAndNext() 
         });
     }
 
@@ -274,17 +286,6 @@
         target.style.fontSize = "160px";
         if (currentMode === 1) { title.innerText = "这个汉字怎么读？"; target.innerText = currentWord.char; renderTextOptions('py', currentWord.py); }
         else { title.innerText = `找出读音为 [ ${currentWord.py} ] 的字`; renderTextOptions('char', currentWord.char); }
-    }
-
-    function renderStrokeGame(data) {
-        const isQuiz = (currentMode === 5);
-        document.getElementById('question-title').innerText = isQuiz ? `请默写 [ ${currentWord.py} ]` : `请描红 [ ${currentWord.char} ]`;
-        writer = HanziWriter.create('hanzi-target', currentWord.char, { 
-            width: 220, height: 220, padding: 10, showOutline: !isQuiz, showCharacter: false, 
-            markStrokeCorrectAfterMisses: true,
-            charDataLoader: (c, cb) => cb(data) 
-        });
-        writer.quiz({ onComplete: () => showSuccessAndNext() });
     }
 
     function renderTextOptions(key, correct) {
